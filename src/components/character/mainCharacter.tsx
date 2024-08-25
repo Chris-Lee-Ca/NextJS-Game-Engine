@@ -1,28 +1,71 @@
 "use client";
-import { GameObject } from "@/lib/types";
-import { useAppSelector } from "@/redux/hooks";
-import { Box, styled } from "@mui/material";
-import React from "react";
-import { useState } from "react";
 
-interface MainCharacterProps {}
+import { Box, styled } from "@mui/material";
+import Sprite from "@/lib/Sprite";
+import React, { useEffect, useState } from "react";
+import spriteSheet from "@/assets/spritesheet.png";
+import { Animations } from "@/types/general";
+import { SPRITE_SHEET } from "@/lib/conts";
+import { useAppSelector } from "@/redux/hooks";
+import { animationSelector } from "@/lib/helper";
 
 const CharacterBox = styled(Box)({
-    position: "absolute",
+    // position: "absolute",
 });
 
+interface CharacterSpriteSheet {
+    width: number;
+    height: number;
+    frameWidth: number;
+    frameHeight: number;
+    frames: number;
+    animationSpeed: number;
+}
+
+interface MainCharacterProps {}
 const MainCharacter: React.FC<MainCharacterProps> = () => {
-    //todo: don't directly use app selector to retrieve value. Instead, use the update method to get value and update it
-    const playerPosition = useAppSelector(
-        (state) => state.player.playerPosition
+    const playerKeyboardEvent = useAppSelector(
+        (state) => state.player.playerKeyboardEvent
     );
-    // const update = (): void => {
-    //     this.position.x += 1;
-    // }
+
+    const animations: Animations = {
+        idleDown: [[0, 0]],
+        walkDown: [
+            [0, 0],
+            [0, 1],
+            [0, 2],
+            [0, 3],
+        ],
+        walkRight: [
+            [1, 0],
+            [1, 1],
+            [1, 2],
+            [1, 3],
+        ],
+        walkUp: [
+            [2, 0],
+            [2, 1],
+            [2, 2],
+            [2, 3],
+        ],
+        walkLeft: [
+            [3, 0],
+            [3, 1],
+            [3, 2],
+            [3, 3],
+        ],
+    };
+
     return (
-        <CharacterBox style={{ left: playerPosition.x, top: playerPosition.y }}>
-            Main Character
-        </CharacterBox>
+        <Sprite
+            imageSrc={spriteSheet.src}
+            imageOffset={{
+                x: SPRITE_SHEET.CHARACTER_SECTION_X_OFFSET,
+                y: SPRITE_SHEET.CHARACTER_SECTION_Y_OFFSET,
+            }}
+            animations={animations}
+            currentAnimation={animationSelector(playerKeyboardEvent)} //animationSelector(playerKeyboardEvent)
+        />
     );
 };
 

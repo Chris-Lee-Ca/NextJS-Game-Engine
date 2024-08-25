@@ -1,3 +1,5 @@
+type KeyboardEventType = "keydown" | "keyup";
+
 type Direction = {
     x: number;
     y: number
@@ -9,4 +11,8 @@ type GameObject = {
     update(deltaTime: number): void; // Pass deltaTime for smoother updates
 }
 
-export type {Direction, GameObject};
+type Animations = {
+    [key: string]: [number, number][];
+}
+
+export type {KeyboardEventType, Direction, GameObject, Animations};

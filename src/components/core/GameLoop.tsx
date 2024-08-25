@@ -1,6 +1,8 @@
 "use client";
 
-import { GameObject } from "@/lib/types";
+import { useAppDispatch } from "@/redux/hooks";
+import { keyBoardEventHandler } from "@/redux/utils/keyboardEvent";
+import { GameObject } from "@/types/general";
 import React, { useState, useEffect, useRef, ReactNode } from "react";
 
 type GameLoopProps = { children?: ReactNode };
@@ -9,6 +11,15 @@ const GameLoop = ({ children }: GameLoopProps) => {
     const [gameObjects, setGameObjects] = useState<GameObject[]>([]);
     const animationFrame = useRef<number | null>(null);
     const previousTime = useRef<number>(performance.now());
+
+    const dispatch = useAppDispatch();
+    const handleKeyDown = (event: KeyboardEvent) => {
+        dispatch(keyBoardEventHandler("keydown", event.key));
+    };
+
+    const handleKeyUp = (event: KeyboardEvent) => {
+        dispatch(keyBoardEventHandler("keyup", event.key));
+    };
 
     const addGameObject = (gameObject: GameObject) => {
         setGameObjects([...gameObjects, gameObject]);
@@ -19,6 +30,9 @@ const GameLoop = ({ children }: GameLoopProps) => {
     };
 
     useEffect(() => {
+        window.addEventListener("keydown", handleKeyDown);
+        window.addEventListener("keyup", handleKeyUp);
+
         const gameLoop = () => {
             const now = performance.now();
             const deltaTime = (now - previousTime.current) / 1000; // Delta time in seconds
@@ -31,7 +45,11 @@ const GameLoop = ({ children }: GameLoopProps) => {
 
         gameLoop();
 
-        return () => cancelAnimationFrame(animationFrame.current!);
+        return () => {
+            cancelAnimationFrame(animationFrame.current!);
+            window.removeEventListener("keydown", handleKeyDown);
+            window.removeEventListener("keyup", handleKeyUp);
+        };
     }, [gameObjects]);
 
     return <div>{children}</div>;

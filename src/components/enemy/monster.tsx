@@ -1,4 +1,4 @@
-import { GameObject } from "@/lib/types";
+import { GameObject } from "@/types/general";
 import React from "react";
 import { Box, styled } from "@mui/material";
 import { useState } from "react";

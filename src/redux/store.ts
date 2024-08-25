@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { playerReducer } from './features/playerSlice'
+import { mainCharacterReducer } from './features/mainCharacterSlice'
 
 export const makeGameStore = () => {
   return configureStore({
     reducer: {
-        player: playerReducer
+        player: playerReducer,
+        mainCharacter: mainCharacterReducer
     }
   })
 }

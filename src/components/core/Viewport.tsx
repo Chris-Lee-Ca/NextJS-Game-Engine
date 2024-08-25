@@ -1,40 +1,25 @@
 "use client";
 
-import { GameObject } from "@/lib/types";
 import React, { useState, useEffect, useRef, ReactNode } from "react";
+import { Box, styled } from "@mui/material";
 
 type ViewportProps = { children?: ReactNode };
 
+const ViewportBox = styled(Box)({
+    backgroundColor: "green",
+    height: "100vh",
+    maxHeight: "100%",
+    width: "100%",
+    position: "fixed",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    overflow: "hidden",
+});
+
 const Viewport = ({ children }: ViewportProps) => {
-    const [gameObjects, setGameObjects] = useState<GameObject[]>([]);
-    const animationFrame = useRef<number | null>(null);
-    const previousTime = useRef<number>(performance.now());
-
-    const addGameObject = (gameObject: GameObject) => {
-        setGameObjects([...gameObjects, gameObject]);
-    };
-
-    const removeGameObject = (gameObject: GameObject) => {
-        setGameObjects(gameObjects.filter((obj) => obj !== gameObject));
-    };
-
-    useEffect(() => {
-        const Viewport = () => {
-            const now = performance.now();
-            const deltaTime = (now - previousTime.current) / 1000; // Delta time in seconds
-            previousTime.current = now;
-
-            gameObjects.forEach((gameObject) => gameObject.update(deltaTime));
-
-            animationFrame.current = requestAnimationFrame(Viewport);
-        };
-
-        Viewport();
-
-        return () => cancelAnimationFrame(animationFrame.current!);
-    }, [gameObjects]);
-
-    return <div>{children}</div>;
+    return <ViewportBox>{children}</ViewportBox>;
 };
 
 export default Viewport;
