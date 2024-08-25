@@ -12,19 +12,19 @@ const initialState: MainCharacterStateInterface = {
 };
 
 export const mainCharacterSlice = createSlice({
-  name: "mainCharacter",
-  initialState,
-  reducers: {
-    setMainCharacterPosition: (state, action: PayloadAction<Direction>) => {
-        const oldMainCharacterPosition = state.mainCharacterPosition;
-        const newDirection = action.payload;
-        const newMainCharacterPosition = {
-            x: oldMainCharacterPosition.x + newDirection.x,
-            y: oldMainCharacterPosition.y + newDirection.y,
-        };
-      state.mainCharacterPosition = newMainCharacterPosition;
+    name: "mainCharacter",
+    initialState,
+    reducers: {
+        setMainCharacterPosition: (state, action: PayloadAction<Direction>) => {
+            const oldMainCharacterPosition = state.mainCharacterPosition;
+            const newDirection = action.payload;
+            const newMainCharacterPosition = {
+                x: oldMainCharacterPosition.x + newDirection.x,
+                y: oldMainCharacterPosition.y + newDirection.y,
+            };
+            state.mainCharacterPosition = newMainCharacterPosition;
+        },
     },
-  },
 });
 
 export const { setMainCharacterPosition } = mainCharacterSlice.actions;

@@ -1,14 +1,14 @@
 export const animationSelector = (key: string): string => {
-    switch(key){
+    switch (key) {
         case "ArrowUp":
-            return "walkUp"
+            return "walkUp";
         case "ArrowDown":
-            return "walkDown"
+            return "walkDown";
         case "ArrowLeft":
-            return "walkLeft"
+            return "walkLeft";
         case "ArrowRight":
-            return "walkRight"
+            return "walkRight";
         default:
-            return "idleDown"
+            return "idleDown";
     }
-}
+};
