@@ -10,7 +10,7 @@ import { useAppSelector } from "@/redux/hooks";
 import { animationSelector } from "@/lib/helper";
 
 const CharacterBox = styled(Box)({
-    // position: "absolute",
+    zIndex: 99,
 });
 
 interface CharacterSpriteSheet {
@@ -57,15 +57,17 @@ const MainCharacter: React.FC<MainCharacterProps> = () => {
     };
 
     return (
-        <Sprite
-            imageSrc={spriteSheet.src}
-            imageOffset={{
-                x: SPRITE_SHEET.CHARACTER_SECTION_X_OFFSET,
-                y: SPRITE_SHEET.CHARACTER_SECTION_Y_OFFSET,
-            }}
-            animations={animations}
-            currentAnimation={animationSelector(playerKeyboardEvent)} //animationSelector(playerKeyboardEvent)
-        />
+        <CharacterBox>
+            <Sprite
+                imageSrc={spriteSheet.src}
+                imageOffset={{
+                    x: SPRITE_SHEET.CHARACTER_SECTION_X_OFFSET,
+                    y: SPRITE_SHEET.CHARACTER_SECTION_Y_OFFSET,
+                }}
+                animations={animations}
+                currentAnimation={animationSelector(playerKeyboardEvent)} //animationSelector(playerKeyboardEvent)
+            />
+        </CharacterBox>
     );
 };
 

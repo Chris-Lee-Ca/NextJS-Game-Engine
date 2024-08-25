@@ -24,21 +24,19 @@ const GameCanvas = ({ children }: GameCanvasProps) => {
     const mainCharacterPosition = useAppSelector(
         (state) => state.mainCharacter.mainCharacterPosition
     );
-    console.log(`translate(
-        ${mainCharacterPosition.x * 10}px, ${mainCharacterPosition.y * 10}px)
-    `);
+
     return (
         <Canvas
             style={{
                 transform: `translate(
-                    ${mainCharacterPosition.x * 5}px, 
-                    ${mainCharacterPosition.y * 5}px
+                    ${-mainCharacterPosition.x * 5}px, 
+                    ${-mainCharacterPosition.y * 5}px
                     )`,
             }}
         >
             {children}
         </Canvas>
-    ); // No JSX needed for this component
+    );
 };
 
 export default GameCanvas;

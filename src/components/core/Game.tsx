@@ -13,10 +13,8 @@ const Game = () => {
         <GameStoreProvider>
             <GameLoop>
                 <Viewport>
-                    <GameCanvas>
-                        <MainCharacter />
-                        {/* <Monster /> */}
-                    </GameCanvas>
+                    <MainCharacter />
+                    <GameCanvas>{/* <Monster /> */}</GameCanvas>
                 </Viewport>
             </GameLoop>
         </GameStoreProvider>
