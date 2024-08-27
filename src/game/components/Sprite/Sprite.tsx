@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { spritePositionToImagePosition } from "./helper";
+import { spritePositionToImagePosition } from "../../lib/helper";
 import { Offset, SpriteSheetInfo } from "@/game/types/general";
 
 type SpriteProps = {

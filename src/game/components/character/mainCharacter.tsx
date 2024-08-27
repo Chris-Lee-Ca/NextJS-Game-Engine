@@ -1,7 +1,7 @@
 "use client";
 
 import { Box, styled } from "@mui/material";
-import AnimatedSprite from "@/game/lib/AnimatedSprite";
+import AnimatedSprite from "@/game/components/Sprite/AnimatedSprite";
 import React from "react";
 import { Animations } from "@/game/types/general";
 import { HERO_SPRITE_SHEET } from "@/game/lib/conts";

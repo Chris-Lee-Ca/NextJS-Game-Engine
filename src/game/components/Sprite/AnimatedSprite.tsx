@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { Animations, Offset, SpriteSheetInfo } from "@/game/types/general";
-import { spritePositionToImagePosition } from "./helper";
+import { spritePositionToImagePosition } from "../../lib/helper";
 
 type AnimatedSpriteProps = {
     spriteSheetInfo: SpriteSheetInfo;

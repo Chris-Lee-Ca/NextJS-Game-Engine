@@ -1,6 +1,6 @@
 "use client";
 
-import Sprite from "@/game/lib/Sprite";
+import Sprite from "@/game/components/Sprite/Sprite";
 import { CUSTOM_STYLE, GRID, MAIN_CHARACTER_MOVING_SPEED, MAIN_SPRITE_SHEET } from "@/game/lib/conts";
 import { demoLevel } from "@/game/lib/level";
 import { useAppSelector } from "@/game/redux/hooks";
