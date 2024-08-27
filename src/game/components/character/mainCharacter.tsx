@@ -1,12 +1,12 @@
 "use client";
 
 import { Box, styled } from "@mui/material";
-import AnimatedSprite from "@/lib/AnimatedSprite";
+import AnimatedSprite from "@/game/lib/AnimatedSprite";
 import React from "react";
-import { Animations } from "@/types/general";
-import { HERO_SPRITE_SHEET } from "@/lib/conts";
-import { useAppSelector } from "@/redux/hooks";
-import { animationSelector } from "@/lib/helper";
+import { Animations } from "@/game/types/general";
+import { HERO_SPRITE_SHEET } from "@/game/lib/conts";
+import { useAppSelector } from "@/game/redux/hooks";
+import { animationSelector } from "@/game/lib/helper";
 
 const CharacterBox = styled(Box)({
     zIndex: 99,

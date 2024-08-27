@@ -1,4 +1,4 @@
-import { SpriteSheetInfo } from "@/types/general";
+import { SpriteSheetInfo } from "@/game/types/general";
 
 export const animationSelector = (key: string): string => {
     switch (key) {

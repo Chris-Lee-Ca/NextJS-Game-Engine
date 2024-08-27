@@ -1,4 +1,4 @@
-import { Direction, KeyboardEventType } from "@/types/general";
+import { Direction, KeyboardEventType } from "@/game/types/general";
 import { setMainCharacterPosition } from "../features/mainCharacterSlice";
 import { clearPlayerKeyboardEvent, setPlayerKeyboardEvent } from "../features/playerSlice";
 import { AppDispatch } from "../store";

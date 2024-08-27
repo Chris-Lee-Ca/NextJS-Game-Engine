@@ -1,10 +1,10 @@
 "use client";
 
-import Sprite from "@/lib/Sprite";
-import { CUSTOM_STYLE, GRID, MAIN_CHARACTER_MOVING_SPEED, MAIN_SPRITE_SHEET } from "@/lib/conts";
-import { demoLevel } from "@/lib/level";
-import { useAppSelector } from "@/redux/hooks";
-import { Level } from "@/types/general";
+import Sprite from "@/game/lib/Sprite";
+import { CUSTOM_STYLE, GRID, MAIN_CHARACTER_MOVING_SPEED, MAIN_SPRITE_SHEET } from "@/game/lib/conts";
+import { demoLevel } from "@/game/lib/level";
+import { useAppSelector } from "@/game/redux/hooks";
+import { Level } from "@/game/types/general";
 import { Box } from "@mui/material";
 import { styled } from "@mui/system";
 import React, { CSSProperties, ReactNode } from "react";

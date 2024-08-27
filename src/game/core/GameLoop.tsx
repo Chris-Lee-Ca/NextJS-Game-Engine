@@ -1,8 +1,8 @@
 "use client";
 
-import { useAppDispatch } from "@/redux/hooks";
-import { keyBoardEventHandler } from "@/redux/utils/keyboardEvent";
-import { GameObject } from "@/types/general";
+import { useAppDispatch } from "@/game/redux/hooks";
+import { keyBoardEventHandler } from "@/game/redux/utils/keyboardEvent";
+import { GameObject } from "@/game/types/general";
 import React, { useState, useEffect, useRef, ReactNode } from "react";
 
 type GameLoopProps = { children?: ReactNode };

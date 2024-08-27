@@ -1,4 +1,4 @@
-import { GameObject } from "@/types/general";
+import { GameObject } from "@/game/types/general";
 import React from "react";
 import { Box, styled } from "@mui/material";
 import { useState } from "react";
@@ -39,9 +39,7 @@ class Monster extends React.Component implements GameObject {
     }
 
     render() {
-        return (
-            <MonsterBox style={{ left: this.position.x }}>Monster</MonsterBox>
-        );
+        return <MonsterBox style={{ left: this.position.x }}>Monster</MonsterBox>;
     }
 }
 

@@ -1,4 +1,3 @@
-import { StaticImageData } from "next/image";
 import { ReactNode } from "react";
 
 type KeyboardEventType = "keydown" | "keyup";

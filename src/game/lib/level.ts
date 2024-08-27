@@ -1,4 +1,4 @@
-import { Level } from "@/types/general";
+import { Level } from "@/game/types/general";
 import { MAIN_SPRITE_SHEET } from "./conts";
 
 export const demoLevel: Level = {

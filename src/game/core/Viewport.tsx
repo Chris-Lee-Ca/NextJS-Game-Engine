@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef, ReactNode } from "react";
 import { Box, styled } from "@mui/material";
-import { CUSTOM_STYLE } from "@/lib/conts";
+import { CUSTOM_STYLE } from "@/game/lib/conts";
 
 type ViewportProps = { children?: ReactNode };
 

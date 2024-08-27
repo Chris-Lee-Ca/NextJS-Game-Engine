@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { Animations, Offset, SpriteSheetInfo } from "@/types/general";
+import { Animations, Offset, SpriteSheetInfo } from "@/game/types/general";
 import { spritePositionToImagePosition } from "./helper";
 
 type AnimatedSpriteProps = {

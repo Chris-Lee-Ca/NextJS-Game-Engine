@@ -1,6 +1,6 @@
-import spriteSheet from "@/assets/spritesheet.png";
-import heroSpriteSheet from "@/assets/hero.png";
-import { SpriteSheetInfo } from "@/types/general";
+import spriteSheet from "@/game/assets/spritesheet.png";
+import heroSpriteSheet from "@/game/assets/hero.png";
+import { SpriteSheetInfo } from "@/game/types/general";
 
 export const GRID = {
     SIZE: 16,
