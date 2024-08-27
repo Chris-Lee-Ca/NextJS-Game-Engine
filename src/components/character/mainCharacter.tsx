@@ -1,16 +1,16 @@
 "use client";
 
 import { Box, styled } from "@mui/material";
-import Sprite from "@/lib/Sprite";
+import AnimatedSprite from "@/lib/AnimatedSprite";
 import React, { useEffect, useState } from "react";
-import spriteSheet from "@/assets/spritesheet.png";
 import { Animations } from "@/types/general";
-import { SPRITE_SHEET } from "@/lib/conts";
+import { SPRITE_SHEET, SPRITE_SHEET_SRC } from "@/lib/conts";
 import { useAppSelector } from "@/redux/hooks";
 import { animationSelector } from "@/lib/helper";
 
 const CharacterBox = styled(Box)({
     zIndex: 99,
+    position: "absolute",
 });
 
 interface CharacterSpriteSheet {
@@ -24,9 +24,7 @@ interface CharacterSpriteSheet {
 
 interface MainCharacterProps {}
 const MainCharacter: React.FC<MainCharacterProps> = () => {
-    const playerKeyboardEvent = useAppSelector(
-        (state) => state.player.playerKeyboardEvent
-    );
+    const playerKeyboardEvent = useAppSelector((state) => state.player.playerKeyboardEvent);
 
     const animations: Animations = {
         idleDown: [[0, 0]],
@@ -58,8 +56,8 @@ const MainCharacter: React.FC<MainCharacterProps> = () => {
 
     return (
         <CharacterBox>
-            <Sprite
-                imageSrc={spriteSheet.src}
+            <AnimatedSprite
+                imageSrc={SPRITE_SHEET_SRC}
                 imageOffset={{
                     x: SPRITE_SHEET.CHARACTER_SECTION_X_OFFSET,
                     y: SPRITE_SHEET.CHARACTER_SECTION_Y_OFFSET,

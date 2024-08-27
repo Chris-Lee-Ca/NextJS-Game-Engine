@@ -1,6 +1,14 @@
+import { StaticImageData } from "next/image";
+import { ReactNode } from "react";
+
 type KeyboardEventType = "keydown" | "keyup";
 
 type Direction = {
+    x: number;
+    y: number;
+};
+
+type Offset = {
     x: number;
     y: number;
 };
@@ -14,30 +22,31 @@ type GameObject = {
 type Animations = {
     [key: string]: [number, number][];
 };
-type Theme = {};
+type Theme = {
+    imageSrc: string;
+    imageOffset: Offset;
+    cliffImageSrc: string;
+    cliffImageOffset: Offset;
+};
 
-type Tile = {};
-type Pickup = {};
-type Enemy = {};
-
-type Objectformation = {
+type Placement = {
+    id: number;
     x: number;
     y: number;
-    type: Tile | Pickup | Enemy;
+    z: number;
+    hasBeenCollected: boolean;
+    renderComponent: () => ReactNode;
 };
+
+interface Tile extends Placement {}
+interface Pickup extends Placement {}
+interface Enemy extends Placement {}
 
 type Level = {
     theme: Theme;
     tilesWidth: number;
     tilesHeight: number;
-    placements: Objectformation[];
+    placements: Placement[];
 };
 
-export type {
-    KeyboardEventType,
-    Direction,
-    GameObject,
-    Animations,
-    Objectformation,
-    Level,
-};
+export type { KeyboardEventType, Direction, Offset, GameObject, Animations, Level };

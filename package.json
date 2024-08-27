@@ -28,6 +28,7 @@
         "typescript": "^5"
     },
     "prettier": {
+        "printWidth": 120,
         "tabWidth": 4
     }
 }

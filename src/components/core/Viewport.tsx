@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef, ReactNode } from "react";
 import { Box, styled } from "@mui/material";
+import { CUSTOM_STYLE } from "@/lib/conts";
 
 type ViewportProps = { children?: ReactNode };
 
@@ -18,6 +19,7 @@ const ViewportBox = styled(Box)({
     justifyContent: "center",
     alignItems: "center",
     overflow: "hidden",
+    backgroundColor: CUSTOM_STYLE.COLOR.MAIN_BLUE,
 });
 
 const Viewport = ({ children }: ViewportProps) => {
