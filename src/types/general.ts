@@ -23,9 +23,9 @@ type Animations = {
     [key: string]: [number, number][];
 };
 type Theme = {
-    imageSrc: string;
+    backgroundSpriteSheetInfo: SpriteSheetInfo;
     imageOffset: Offset;
-    cliffImageSrc: string;
+    cliffSpriteSheetInfo: SpriteSheetInfo;
     cliffImageOffset: Offset;
 };
 
@@ -49,4 +49,14 @@ type Level = {
     placements: Placement[];
 };
 
-export type { KeyboardEventType, Direction, Offset, GameObject, Animations, Level };
+type SpriteSheetInfo = {
+    SRC: string;
+    WIDTH: number;
+    HEIGHT: number;
+    BORDER: number;
+    SPACING: number;
+    SCALE_FACTOR: number;
+    [key: string]: any;
+};
+
+export type { KeyboardEventType, Direction, Offset, GameObject, Animations, Level, SpriteSheetInfo };

@@ -1,23 +1,23 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { SCALE_FACTOR, SPRITE_SHEET } from "./conts";
 import { spritePositionToImagePosition } from "./helper";
-import { Offset } from "@/types/general";
+import { Offset, SpriteSheetInfo } from "@/types/general";
 
 type SpriteProps = {
-    imageSrc: string;
+    spriteSheetInfo: SpriteSheetInfo;
     imageOffset?: Offset;
+    scaleFactor: number;
 };
 
 const Sprite = (props: SpriteProps) => {
-    const { imageSrc } = props;
+    const { spriteSheetInfo, scaleFactor } = props;
     const imageOffset = props.imageOffset ?? { x: 0, y: 0 };
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     const imageRef = useRef<HTMLImageElement | null>(typeof window !== "undefined" ? new Image() : null);
 
-    const frame = spritePositionToImagePosition(0, 0, imageOffset);
+    const frame = spritePositionToImagePosition(0, 0, spriteSheetInfo, imageOffset);
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -27,25 +27,25 @@ const Sprite = (props: SpriteProps) => {
 
         const image = imageRef.current;
         if (image) {
-            image.src = imageSrc;
+            image.src = spriteSheetInfo.SRC;
             image.crossOrigin = "anonymous";
         }
 
         context.clearRect(0, 0, canvas.width, canvas.height);
 
         image!.onload = () => {
-            canvas.width = SPRITE_SHEET.WIDTH * SCALE_FACTOR;
-            canvas.height = SPRITE_SHEET.HEIGHT * SCALE_FACTOR;
+            canvas.width = spriteSheetInfo.WIDTH * scaleFactor;
+            canvas.height = spriteSheetInfo.HEIGHT * scaleFactor;
             context.drawImage(
                 image!,
                 frame.x,
                 frame.y,
-                SPRITE_SHEET.WIDTH,
-                SPRITE_SHEET.HEIGHT,
+                spriteSheetInfo.WIDTH,
+                spriteSheetInfo.HEIGHT,
                 0,
                 0,
-                SPRITE_SHEET.WIDTH * SCALE_FACTOR, // Scaled width
-                SPRITE_SHEET.HEIGHT * SCALE_FACTOR // Scaled height
+                spriteSheetInfo.WIDTH * scaleFactor, // Scaled width
+                spriteSheetInfo.HEIGHT * scaleFactor // Scaled height
             );
         };
     }, []);

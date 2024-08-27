@@ -1,7 +1,7 @@
 "use client";
 
 import Sprite from "@/lib/Sprite";
-import { CUSTOM_STYLE, GRID, MAIN_CHARACTER_MOVING_SPEED, SCALE_FACTOR, SPRITE_SHEET } from "@/lib/conts";
+import { CUSTOM_STYLE, GRID, MAIN_CHARACTER_MOVING_SPEED, MAIN_SPRITE_SHEET } from "@/lib/conts";
 import { demoLevel } from "@/lib/level";
 import { useAppSelector } from "@/redux/hooks";
 import { Level } from "@/types/general";
@@ -75,8 +75,8 @@ const GameCanvas = ({ children, level }: GameCanvasProps) => {
                     ${-mainCharacterPosition.x * MAIN_CHARACTER_MOVING_SPEED}px, 
                     ${-mainCharacterPosition.y * MAIN_CHARACTER_MOVING_SPEED}px
                     )`,
-                width: `${GRID.SIZE * levelInformation.tilesWidth * SCALE_FACTOR}px`,
-                height: `${GRID.SIZE * levelInformation.tilesHeight * SCALE_FACTOR}px`,
+                width: `${GRID.SIZE * levelInformation.tilesWidth * MAIN_SPRITE_SHEET.SCALE_FACTOR}px`,
+                height: `${GRID.SIZE * levelInformation.tilesHeight * MAIN_SPRITE_SHEET.SCALE_FACTOR}px`,
             }}
         >
             {children}
@@ -87,8 +87,8 @@ const GameCanvas = ({ children, level }: GameCanvasProps) => {
                             key={`${rowIndex}-${colIndex}`}
                             style={{
                                 position: "absolute",
-                                top: `${GRID.SIZE * colIndex * SCALE_FACTOR}px`,
-                                left: `${GRID.SIZE * rowIndex * SCALE_FACTOR}px`,
+                                top: `${GRID.SIZE * colIndex * MAIN_SPRITE_SHEET.SCALE_FACTOR}px`,
+                                left: `${GRID.SIZE * rowIndex * MAIN_SPRITE_SHEET.SCALE_FACTOR}px`,
                                 display: "flex",
                                 flexDirection: "column",
                                 zIndex: 0,
@@ -102,14 +102,16 @@ const GameCanvas = ({ children, level }: GameCanvasProps) => {
                         >
                             {/* Normal Background Tile */}
                             <Sprite
-                                imageSrc={levelInformation.theme.imageSrc}
+                                spriteSheetInfo={levelInformation.theme.backgroundSpriteSheetInfo}
                                 imageOffset={levelInformation.theme.imageOffset}
+                                scaleFactor={MAIN_SPRITE_SHEET.SCALE_FACTOR}
                             />
                             {/* Cliff */}
                             {isAddCliff(colIndex, levelInformation) && (
                                 <Sprite
-                                    imageSrc={levelInformation.theme.cliffImageSrc}
+                                    spriteSheetInfo={levelInformation.theme.cliffSpriteSheetInfo}
                                     imageOffset={levelInformation.theme.cliffImageOffset}
+                                    scaleFactor={MAIN_SPRITE_SHEET.SCALE_FACTOR}
                                 />
                             )}
                         </div>

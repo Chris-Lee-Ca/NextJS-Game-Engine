@@ -1,4 +1,4 @@
-import { SPRITE_SHEET } from "./conts";
+import { SpriteSheetInfo } from "@/types/general";
 
 export const animationSelector = (key: string): string => {
     switch (key) {
@@ -15,9 +15,14 @@ export const animationSelector = (key: string): string => {
     }
 };
 
-export const spritePositionToImagePosition = (row: number, col: number, imageOffset: { x: number; y: number }) => {
+export const spritePositionToImagePosition = (
+    row: number,
+    col: number,
+    spriteSheetInfo: SpriteSheetInfo,
+    imageOffset: { x: number; y: number }
+) => {
     return {
-        x: imageOffset.x + SPRITE_SHEET.BORDER + col * SPRITE_SHEET.WIDTH,
-        y: imageOffset.y + SPRITE_SHEET.BORDER + row * (SPRITE_SHEET.SPACING + SPRITE_SHEET.HEIGHT),
+        x: imageOffset.x + spriteSheetInfo.BORDER + col * spriteSheetInfo.WIDTH,
+        y: imageOffset.y + spriteSheetInfo.BORDER + row * (spriteSheetInfo.SPACING + spriteSheetInfo.HEIGHT),
     };
 };

@@ -1,17 +1,17 @@
 import { Level } from "@/types/general";
-import { SPRITE_SHEET, SPRITE_SHEET_SRC } from "./conts";
+import { MAIN_SPRITE_SHEET } from "./conts";
 
 export const demoLevel: Level = {
     theme: {
-        imageSrc: SPRITE_SHEET_SRC,
+        backgroundSpriteSheetInfo: MAIN_SPRITE_SHEET,
         imageOffset: {
-            x: SPRITE_SHEET.GREEN_ISLAND_SECTION_X_OFFSET,
-            y: SPRITE_SHEET.GREEN_ISLAND_SECTION_Y_OFFSET,
+            x: MAIN_SPRITE_SHEET.GREEN_ISLAND_SECTION_X_OFFSET,
+            y: MAIN_SPRITE_SHEET.GREEN_ISLAND_SECTION_Y_OFFSET,
         },
-        cliffImageSrc: SPRITE_SHEET_SRC,
+        cliffSpriteSheetInfo: MAIN_SPRITE_SHEET,
         cliffImageOffset: {
-            x: SPRITE_SHEET.GREEN_ISLAND_CLIFF_SECTION_X_OFFSET,
-            y: SPRITE_SHEET.GREEN_ISLAND_CLIFF_SECTION_Y_OFFSET,
+            x: MAIN_SPRITE_SHEET.GREEN_ISLAND_CLIFF_SECTION_X_OFFSET,
+            y: MAIN_SPRITE_SHEET.GREEN_ISLAND_CLIFF_SECTION_Y_OFFSET,
         },
     },
     tilesWidth: 10,

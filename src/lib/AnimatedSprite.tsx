@@ -1,27 +1,27 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { SCALE_FACTOR, SPRITE_SHEET } from "./conts";
-import { Animations, Offset } from "@/types/general";
+import { Animations, Offset, SpriteSheetInfo } from "@/types/general";
 import { spritePositionToImagePosition } from "./helper";
 
 type AnimatedSpriteProps = {
-    imageSrc: string;
+    spriteSheetInfo: SpriteSheetInfo;
     imageOffset?: Offset;
+    scaleFactor: number;
     animations: Animations;
     currentAnimation: string;
     frameDelay?: number;
 };
 
 const AnimatedSprite = (props: AnimatedSpriteProps) => {
-    const { imageSrc, animations, currentAnimation, frameDelay = 15 } = props;
+    const { spriteSheetInfo, scaleFactor, animations, currentAnimation, frameDelay = 15 } = props;
     const imageOffset = props.imageOffset ?? { x: 0, y: 0 };
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     const imageRef = useRef<HTMLImageElement | null>(typeof window !== "undefined" ? new Image() : null);
 
     const animation = animations[currentAnimation].map((item) =>
-        spritePositionToImagePosition(item[0], item[1], imageOffset)
+        spritePositionToImagePosition(item[0], item[1], spriteSheetInfo, imageOffset)
     );
 
     useEffect(() => {
@@ -32,7 +32,7 @@ const AnimatedSprite = (props: AnimatedSpriteProps) => {
 
         const image = imageRef.current;
         if (image) {
-            image.src = imageSrc;
+            image.src = spriteSheetInfo.SRC;
             image.crossOrigin = "anonymous";
         }
 
@@ -51,12 +51,12 @@ const AnimatedSprite = (props: AnimatedSpriteProps) => {
                     image!,
                     frame.x,
                     frame.y,
-                    SPRITE_SHEET.WIDTH,
-                    SPRITE_SHEET.HEIGHT,
+                    spriteSheetInfo.WIDTH,
+                    spriteSheetInfo.HEIGHT,
                     0,
                     0,
-                    SPRITE_SHEET.WIDTH * SCALE_FACTOR, // Scaled width
-                    SPRITE_SHEET.HEIGHT * SCALE_FACTOR // Scaled height
+                    spriteSheetInfo.WIDTH * scaleFactor, // Scaled width
+                    spriteSheetInfo.HEIGHT * scaleFactor // Scaled height
                 );
                 frameIndex += 1;
             }
@@ -66,8 +66,8 @@ const AnimatedSprite = (props: AnimatedSpriteProps) => {
         };
 
         image!.onload = () => {
-            canvas.width = SPRITE_SHEET.WIDTH * SCALE_FACTOR;
-            canvas.height = SPRITE_SHEET.HEIGHT * SCALE_FACTOR;
+            canvas.width = spriteSheetInfo.WIDTH * scaleFactor;
+            canvas.height = spriteSheetInfo.HEIGHT * scaleFactor;
             animate();
         };
 

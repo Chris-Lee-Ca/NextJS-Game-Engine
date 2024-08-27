@@ -2,9 +2,9 @@
 
 import { Box, styled } from "@mui/material";
 import AnimatedSprite from "@/lib/AnimatedSprite";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Animations } from "@/types/general";
-import { SPRITE_SHEET, SPRITE_SHEET_SRC } from "@/lib/conts";
+import { HERO_SPRITE_SHEET } from "@/lib/conts";
 import { useAppSelector } from "@/redux/hooks";
 import { animationSelector } from "@/lib/helper";
 
@@ -57,11 +57,12 @@ const MainCharacter: React.FC<MainCharacterProps> = () => {
     return (
         <CharacterBox>
             <AnimatedSprite
-                imageSrc={SPRITE_SHEET_SRC}
+                spriteSheetInfo={HERO_SPRITE_SHEET}
                 imageOffset={{
-                    x: SPRITE_SHEET.CHARACTER_SECTION_X_OFFSET,
-                    y: SPRITE_SHEET.CHARACTER_SECTION_Y_OFFSET,
+                    x: HERO_SPRITE_SHEET.MAIN_CHARACTER_SECTION_X_OFFSET,
+                    y: HERO_SPRITE_SHEET.MAIN_CHARACTER_SECTION_Y_OFFSET,
                 }}
+                scaleFactor={HERO_SPRITE_SHEET.SCALE_FACTOR}
                 animations={animations}
                 currentAnimation={animationSelector(playerKeyboardEvent)} //animationSelector(playerKeyboardEvent)
             />
