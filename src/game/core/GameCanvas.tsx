@@ -12,9 +12,6 @@ import React, { CSSProperties, ReactNode } from "react";
 type GameCanvasProps = { children?: ReactNode; level?: string };
 
 const Canvas = styled(Box)({
-    backgroundColor: "orange",
-    height: "100vh",
-    display: "flex",
     // flexDirection: "column",
     // justifyContent: "center",
     // alignItems: "center",
@@ -30,20 +27,26 @@ const GameCanvas = ({ children, level }: GameCanvasProps) => {
     // A function for adding border for edge tile
     const handleEdgeTileStyle = (row: number, col: number, levelInformation: Level): CSSProperties => {
         let borderStyle: CSSProperties = {};
-        const border = CUSTOM_STYLE.BORDER.MAP_BORDER;
-        if (row === 0) borderStyle["borderLeft"] = border;
-        if (col === 0) borderStyle["borderTop"] = border;
-        if (row === levelInformation.tilesWidth - 1) borderStyle["borderRight"] = border;
+        const mapBorder = CUSTOM_STYLE.BORDER.MAP_BORDER;
+        const gridBorder = CUSTOM_STYLE.BORDER.GRID_BORDER;
+        borderStyle["border"] = gridBorder;
+        if (row === 0) borderStyle["borderLeft"] = mapBorder;
+        if (col === 0) borderStyle["borderTop"] = mapBorder;
+        if (row === levelInformation.tilesWidth - 1) borderStyle["borderRight"] = mapBorder;
+
         return borderStyle;
     };
 
     // A function for adding border for cliff tile
     const handleCliffStyle = (row: number, levelInformation: Level): CSSProperties => {
         let borderStyle: CSSProperties = {};
-        const border = CUSTOM_STYLE.BORDER.MAP_BORDER;
-        borderStyle["borderBottom"] = border;
-        if (row === 0) borderStyle["borderLeft"] = border;
-        if (row === levelInformation.tilesWidth - 1) borderStyle["borderRight"] = border;
+        const mapBorder = CUSTOM_STYLE.BORDER.MAP_BORDER;
+        const gridBorder = CUSTOM_STYLE.BORDER.GRID_BORDER;
+        borderStyle["border"] = gridBorder;
+        borderStyle["borderBottom"] = mapBorder;
+        if (row === 0) borderStyle["borderLeft"] = mapBorder;
+        if (row === levelInformation.tilesWidth - 1) borderStyle["borderRight"] = mapBorder;
+
         return borderStyle;
     };
 

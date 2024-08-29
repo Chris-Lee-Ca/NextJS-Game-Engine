@@ -14,7 +14,7 @@ export const demoLevel: Level = {
             y: MAIN_SPRITE_SHEET.GREEN_ISLAND_CLIFF_SECTION_Y_OFFSET,
         },
     },
-    tilesWidth: 10,
-    tilesHeight: 10,
+    tilesWidth: 5,
+    tilesHeight: 5,
     placements: [],
 };

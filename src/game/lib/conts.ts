@@ -26,7 +26,7 @@ export const HERO_SPRITE_SHEET: SpriteSheetInfo = {
     SPACING: 0,
     MAIN_CHARACTER_SECTION_X_OFFSET: 0,
     MAIN_CHARACTER_SECTION_Y_OFFSET: 0,
-    SCALE_FACTOR: 2.5,
+    SCALE_FACTOR: 3,
 };
 
 export const MAIN_CHARACTER_MOVING_SPEED = 7;
@@ -37,5 +37,6 @@ export const CUSTOM_STYLE = {
     },
     BORDER: {
         MAP_BORDER: `3px solid black`,
+        GRID_BORDER: `1px solid grey`,
     },
 };
