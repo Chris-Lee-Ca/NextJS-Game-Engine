@@ -2,13 +2,13 @@ import { SpriteSheetInfo } from "@/game/types/general";
 
 export const animationSelector = (key: string): string => {
     switch (key) {
-        case "ArrowUp":
+        case "up":
             return "walkUp";
-        case "ArrowDown":
+        case "down":
             return "walkDown";
-        case "ArrowLeft":
+        case "left":
             return "walkLeft";
-        case "ArrowRight":
+        case "right":
             return "walkRight";
         default:
             return "idleDown";

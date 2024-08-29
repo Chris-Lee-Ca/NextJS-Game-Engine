@@ -16,12 +16,8 @@ export const playerSlice = createSlice({
         setPlayerKeyboardEvent: (state, action: PayloadAction<string>) => {
             state.playerKeyboardEvent = action.payload;
         },
-        clearPlayerKeyboardEvent: (state, _action: PayloadAction<string>) => {
-            state.playerKeyboardEvent = "";
-        },
     },
 });
 
-export const { setPlayerKeyboardEvent, clearPlayerKeyboardEvent } =
-    playerSlice.actions;
+export const { setPlayerKeyboardEvent } = playerSlice.actions;
 export const playerReducer = playerSlice.reducer;
