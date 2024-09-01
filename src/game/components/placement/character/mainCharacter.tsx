@@ -6,21 +6,12 @@ import React from "react";
 import { Animations } from "@/game/types/general";
 import { HERO_SPRITE_SHEET } from "@/game/lib/conts";
 import { useAppSelector } from "@/game/redux/hooks";
-import { animationSelector } from "@/game/lib/helper";
+import { animationSelector, getSpriteSheetScaleFactor } from "@/game/lib/helper";
 
 const CharacterBox = styled(Box)({
     zIndex: 99,
     position: "absolute",
 });
-
-interface CharacterSpriteSheet {
-    width: number;
-    height: number;
-    frameWidth: number;
-    frameHeight: number;
-    frames: number;
-    animationSpeed: number;
-}
 
 interface MainCharacterProps {}
 const MainCharacter: React.FC<MainCharacterProps> = () => {
@@ -62,49 +53,12 @@ const MainCharacter: React.FC<MainCharacterProps> = () => {
                     x: HERO_SPRITE_SHEET.MAIN_CHARACTER_SECTION_X_OFFSET,
                     y: HERO_SPRITE_SHEET.MAIN_CHARACTER_SECTION_Y_OFFSET,
                 }}
-                scaleFactor={HERO_SPRITE_SHEET.SCALE_FACTOR}
+                scaleFactor={getSpriteSheetScaleFactor(HERO_SPRITE_SHEET)}
                 animations={animations}
                 currentAnimation={animationSelector(playerKeyboardEvent)} //animationSelector(playerKeyboardEvent)
             />
         </CharacterBox>
     );
 };
-
-// class MainCharacter extends React.Component implements GameObject {
-//     playerPosition = useAppSelector((state) => state.player.playerPosition);
-
-//     id: number;
-//     position: { x: number; y: number };
-
-//     constructor(props: MainCharacterProps) {
-//         super(props);
-//         this.id = 1;
-//         this.position = { x: 0, y: 0 };
-//         this.state = {
-//             position: { x: 0, y: 0 },
-//         };
-//     }
-
-//     // componentDidUpdate(prevProps: MainCharacterProps) {
-//     //     const { newPosition } = this.props;
-//     //     const { currentPosition } = this.state;
-
-//     //     if (newPosition !== prevProps.newPosition) {
-//     //         this.setState({ position: newPosition });
-//     //     }
-//     // }
-
-//     update(deltaTime: number): void {
-//         this.position.x += 1;
-//     }
-
-//     render() {
-//         return (
-//             <div style={{ left: this.position.x, top: this.position.y }}>
-//                 Main Character
-//             </div>
-//         );
-//     }
-// }
 
 export default MainCharacter;

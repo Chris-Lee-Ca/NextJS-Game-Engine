@@ -1,5 +1,3 @@
-import { ReactNode } from "react";
-
 type KeyboardEventType = "keydown" | "keyup";
 
 type Direction = {
@@ -29,12 +27,11 @@ type Theme = {
 };
 
 type Placement = {
-    id: number;
     x: number;
     y: number;
-    z: number;
-    hasBeenCollected: boolean;
-    renderComponent: () => ReactNode;
+    hasBeenCollected?: boolean;
+    type: "Character" | "Tile" | "PickUp" | "Enemy";
+    itemName: string;
 };
 
 interface Tile extends Placement {}
@@ -49,13 +46,14 @@ type Level = {
 };
 
 type SpriteSheetInfo = {
+    ID: string;
     SRC: string;
     WIDTH: number;
     HEIGHT: number;
     BORDER: number;
     SPACING: number;
-    SCALE_FACTOR: number;
+    ADJUST_SCALE_FACTOR: number;
     [key: string]: any;
 };
 
-export type { KeyboardEventType, Direction, Offset, GameObject, Animations, Level, SpriteSheetInfo };
+export type { KeyboardEventType, Direction, Offset, GameObject, Animations, Placement, Level, SpriteSheetInfo };

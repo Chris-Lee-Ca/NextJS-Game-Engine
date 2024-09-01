@@ -16,5 +16,8 @@ export const demoLevel: Level = {
     },
     tilesWidth: 5,
     tilesHeight: 5,
-    placements: [],
+    placements: [
+        { x: 0, y: 0, type: "Character", itemName: "main character" },
+        { x: 1, y: 1, type: "Tile", itemName: "shrub" },
+    ],
 };

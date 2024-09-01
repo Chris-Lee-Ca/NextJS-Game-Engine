@@ -22,6 +22,7 @@ export const mainCharacterSlice = createSlice({
                 x: oldMainCharacterPosition.x + newDirection.x,
                 y: oldMainCharacterPosition.y + newDirection.y,
             };
+            console.log(newMainCharacterPosition);
             state.mainCharacterPosition = newMainCharacterPosition;
         },
     },

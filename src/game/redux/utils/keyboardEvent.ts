@@ -16,6 +16,12 @@ class KeyBoardEventHandler {
         ArrowRight: "right",
         KeyD: "right",
     };
+    private commandMapping: { [key: string]: Direction } = {
+        up: { x: 0, y: -1 },
+        down: { x: 0, y: 1 },
+        left: { x: -1, y: 0 },
+        right: { x: 1, y: 0 },
+    };
     public heldDirections: string[] = [];
 
     private constructor() {}
@@ -80,22 +86,8 @@ class KeyBoardEventHandler {
     }
 
     private keyBoardEventHandler(direction: string) {
-        switch (direction) {
-            case "up":
-                this.updateMainCharacterPosition({ x: 0, y: -1 });
-                break;
-            case "down":
-                this.updateMainCharacterPosition({ x: 0, y: 1 });
-                break;
-            case "left":
-                this.updateMainCharacterPosition({ x: -1, y: 0 });
-                break;
-            case "right":
-                this.updateMainCharacterPosition({ x: 1, y: 0 });
-                break;
-            default:
-                break;
-        }
+        if (!(direction in this.commandMapping)) return;
+        this.updateMainCharacterPosition(this.commandMapping[direction]);
     }
 }
 

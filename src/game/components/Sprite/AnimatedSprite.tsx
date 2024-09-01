@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { Animations, Offset, SpriteSheetInfo } from "@/game/types/general";
-import { spritePositionToImagePosition } from "../../lib/helper";
+import { getGridActualSize, spritePositionToImagePosition } from "../../lib/helper";
 
 type AnimatedSpriteProps = {
     spriteSheetInfo: SpriteSheetInfo;
@@ -66,8 +66,8 @@ const AnimatedSprite = (props: AnimatedSpriteProps) => {
         };
 
         image!.onload = () => {
-            canvas.width = spriteSheetInfo.WIDTH * scaleFactor;
-            canvas.height = spriteSheetInfo.HEIGHT * scaleFactor;
+            canvas.width = getGridActualSize();
+            canvas.height = getGridActualSize();
             animate();
         };
 

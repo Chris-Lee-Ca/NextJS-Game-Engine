@@ -7,9 +7,9 @@ import { CUSTOM_STYLE } from "@/game/lib/conts";
 type ViewportProps = { children?: ReactNode };
 
 const ViewportBox = styled(Box)({
-    height: "100vh",
+    height: "50vh",
     maxHeight: "100%",
-    width: "100%",
+    width: "50%",
     top: 0,
     bottom: 0,
     left: 0,
@@ -20,6 +20,7 @@ const ViewportBox = styled(Box)({
     alignItems: "center",
     overflow: "hidden",
     backgroundColor: CUSTOM_STYLE.COLOR.MAIN_BLUE,
+    border: "2px solid red",
 });
 
 const Viewport = ({ children }: ViewportProps) => {

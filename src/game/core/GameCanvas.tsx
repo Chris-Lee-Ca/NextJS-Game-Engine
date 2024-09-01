@@ -1,13 +1,15 @@
 "use client";
 
 import Sprite from "@/game/components/Sprite/Sprite";
-import { CUSTOM_STYLE, GRID, MAIN_CHARACTER_MOVING_SPEED, MAIN_SPRITE_SHEET } from "@/game/lib/conts";
+import { CUSTOM_STYLE, MAIN_CHARACTER_MOVING_SPEED, MAIN_SPRITE_SHEET } from "@/game/lib/conts";
 import { demoLevel } from "@/game/lib/level";
 import { useAppSelector } from "@/game/redux/hooks";
 import { Level } from "@/game/types/general";
 import { Box } from "@mui/material";
 import { styled } from "@mui/system";
 import React, { CSSProperties, ReactNode } from "react";
+import PlacementFactory from "../components/placement/PlacementFactory";
+import { getActualPixel, getSpriteSheetScaleFactor } from "../lib/helper";
 
 type GameCanvasProps = { children?: ReactNode; level?: string };
 
@@ -18,7 +20,6 @@ const Canvas = styled(Box)({
     // position: "fixed",
 });
 
-// TODO Add Level Here
 const GameCanvas = ({ children, level }: GameCanvasProps) => {
     const mainCharacterPosition = useAppSelector((state) => state.mainCharacter.mainCharacterPosition);
 
@@ -78,8 +79,8 @@ const GameCanvas = ({ children, level }: GameCanvasProps) => {
                     ${-mainCharacterPosition.x * MAIN_CHARACTER_MOVING_SPEED}px, 
                     ${-mainCharacterPosition.y * MAIN_CHARACTER_MOVING_SPEED}px
                     )`,
-                width: `${GRID.SIZE * levelInformation.tilesWidth * MAIN_SPRITE_SHEET.SCALE_FACTOR}px`,
-                height: `${GRID.SIZE * levelInformation.tilesHeight * MAIN_SPRITE_SHEET.SCALE_FACTOR}px`,
+                width: getActualPixel(levelInformation.tilesWidth),
+                height: getActualPixel(levelInformation.tilesHeight),
             }}
         >
             {children}
@@ -90,8 +91,8 @@ const GameCanvas = ({ children, level }: GameCanvasProps) => {
                             key={`${rowIndex}-${colIndex}`}
                             style={{
                                 position: "absolute",
-                                top: `${GRID.SIZE * colIndex * MAIN_SPRITE_SHEET.SCALE_FACTOR}px`,
-                                left: `${GRID.SIZE * rowIndex * MAIN_SPRITE_SHEET.SCALE_FACTOR}px`,
+                                top: getActualPixel(colIndex),
+                                left: getActualPixel(rowIndex),
                                 display: "flex",
                                 flexDirection: "column",
                                 zIndex: 0,
@@ -107,14 +108,14 @@ const GameCanvas = ({ children, level }: GameCanvasProps) => {
                             <Sprite
                                 spriteSheetInfo={levelInformation.theme.backgroundSpriteSheetInfo}
                                 imageOffset={levelInformation.theme.imageOffset}
-                                scaleFactor={MAIN_SPRITE_SHEET.SCALE_FACTOR}
+                                scaleFactor={getSpriteSheetScaleFactor(MAIN_SPRITE_SHEET)}
                             />
                             {/* Cliff */}
                             {isAddCliff(colIndex, levelInformation) && (
                                 <Sprite
                                     spriteSheetInfo={levelInformation.theme.cliffSpriteSheetInfo}
                                     imageOffset={levelInformation.theme.cliffImageOffset}
-                                    scaleFactor={MAIN_SPRITE_SHEET.SCALE_FACTOR}
+                                    scaleFactor={getSpriteSheetScaleFactor(MAIN_SPRITE_SHEET)}
                                 />
                             )}
                         </div>
@@ -123,17 +124,19 @@ const GameCanvas = ({ children, level }: GameCanvasProps) => {
             ))}
             {levelInformation.placements
                 .filter((placement) => !placement.hasBeenCollected)
-                .map((placement) => {
+                .map((placement, index) => {
                     return (
                         <div
-                            key={placement.id}
+                            key={index}
                             style={{
                                 position: "absolute",
-                                transform: `translate(${placement.x}px, ${placement.y}px)`,
-                                zIndex: placement.z,
+                                transform: `translate(
+                                    ${getActualPixel(placement.x)}, 
+                                    ${getActualPixel(placement.y)}
+                                    )`,
                             }}
                         >
-                            {placement.renderComponent()}
+                            <PlacementFactory placement={placement} />
                         </div>
                     );
                 })}
