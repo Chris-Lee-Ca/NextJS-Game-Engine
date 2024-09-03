@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { getGridActualSize, spritePositionToImagePosition } from "../../lib/helper";
 import { Offset, SpriteSheetInfo } from "@/game/types/general";
+import SpriteHelper from "@/game/lib/helper/SpriteHelper";
+import GridHelper from "@/game/lib/helper/GridHelper";
 
 type SpriteProps = {
     spriteSheetInfo: SpriteSheetInfo;
@@ -17,7 +18,7 @@ const Sprite = (props: SpriteProps) => {
 
     const imageRef = useRef<HTMLImageElement | null>(typeof window !== "undefined" ? new Image() : null);
 
-    const frame = spritePositionToImagePosition(0, 0, spriteSheetInfo, imageOffset);
+    const frame = SpriteHelper.spritePositionToImagePosition(0, 0, spriteSheetInfo, imageOffset);
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -34,8 +35,9 @@ const Sprite = (props: SpriteProps) => {
         context.clearRect(0, 0, canvas.width, canvas.height);
 
         image!.onload = () => {
-            canvas.width = getGridActualSize();
-            canvas.height = getGridActualSize();
+            canvas.width = GridHelper.getGridActualSize();
+            canvas.height = GridHelper.getGridActualSize();
+
             context.drawImage(
                 image!,
                 frame.x,

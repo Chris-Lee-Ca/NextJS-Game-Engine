@@ -1,7 +1,7 @@
 "use client";
 
 import Sprite from "@/game/components/Sprite/Sprite";
-import { CUSTOM_STYLE, MAIN_CHARACTER_MOVING_SPEED, MAIN_SPRITE_SHEET } from "@/game/lib/conts";
+import { CUSTOM_STYLE, MAIN_SPRITE_SHEET } from "@/game/lib/conts";
 import { demoLevel } from "@/game/lib/level";
 import { useAppSelector } from "@/game/redux/hooks";
 import { Level } from "@/game/types/general";
@@ -9,7 +9,9 @@ import { Box } from "@mui/material";
 import { styled } from "@mui/system";
 import React, { CSSProperties, ReactNode } from "react";
 import PlacementFactory from "../components/placement/PlacementFactory";
-import { getActualPixel, getSpriteSheetScaleFactor } from "../lib/helper";
+import GridHelper from "../lib/helper/GridHelper";
+import SpriteHelper from "../lib/helper/SpriteHelper";
+import CharacterMovementHelper from "../lib/helper/CharacterMovementHelper";
 
 type GameCanvasProps = { children?: ReactNode; level?: string };
 
@@ -72,15 +74,15 @@ const GameCanvas = ({ children, level }: GameCanvasProps) => {
         return false;
     };
 
+    const canvasDefaultOffset = CharacterMovementHelper.getCanvasDefaultOffset(levelInformation);
+
     return (
         <Canvas
             style={{
                 transform: `translate(
-                    ${-mainCharacterPosition.x * MAIN_CHARACTER_MOVING_SPEED}px, 
-                    ${-mainCharacterPosition.y * MAIN_CHARACTER_MOVING_SPEED}px
-                    )`,
-                width: getActualPixel(levelInformation.tilesWidth),
-                height: getActualPixel(levelInformation.tilesHeight),
+                        ${-canvasDefaultOffset.x - mainCharacterPosition.x}px,
+                        ${-canvasDefaultOffset.y - mainCharacterPosition.y}px
+                        )`,
             }}
         >
             {children}
@@ -91,8 +93,8 @@ const GameCanvas = ({ children, level }: GameCanvasProps) => {
                             key={`${rowIndex}-${colIndex}`}
                             style={{
                                 position: "absolute",
-                                top: getActualPixel(colIndex),
-                                left: getActualPixel(rowIndex),
+                                top: GridHelper.getActualPixel(colIndex),
+                                left: GridHelper.getActualPixel(rowIndex),
                                 display: "flex",
                                 flexDirection: "column",
                                 zIndex: 0,
@@ -108,14 +110,14 @@ const GameCanvas = ({ children, level }: GameCanvasProps) => {
                             <Sprite
                                 spriteSheetInfo={levelInformation.theme.backgroundSpriteSheetInfo}
                                 imageOffset={levelInformation.theme.imageOffset}
-                                scaleFactor={getSpriteSheetScaleFactor(MAIN_SPRITE_SHEET)}
+                                scaleFactor={SpriteHelper.getSpriteSheetScaleFactor(MAIN_SPRITE_SHEET)}
                             />
                             {/* Cliff */}
                             {isAddCliff(colIndex, levelInformation) && (
                                 <Sprite
                                     spriteSheetInfo={levelInformation.theme.cliffSpriteSheetInfo}
                                     imageOffset={levelInformation.theme.cliffImageOffset}
-                                    scaleFactor={getSpriteSheetScaleFactor(MAIN_SPRITE_SHEET)}
+                                    scaleFactor={SpriteHelper.getSpriteSheetScaleFactor(MAIN_SPRITE_SHEET)}
                                 />
                             )}
                         </div>
@@ -131,8 +133,8 @@ const GameCanvas = ({ children, level }: GameCanvasProps) => {
                             style={{
                                 position: "absolute",
                                 transform: `translate(
-                                    ${getActualPixel(placement.x)}, 
-                                    ${getActualPixel(placement.y)}
+                                    ${GridHelper.getActualPixel(placement.position.x)}, 
+                                    ${GridHelper.getActualPixel(placement.position.y)}
                                     )`,
                             }}
                         >

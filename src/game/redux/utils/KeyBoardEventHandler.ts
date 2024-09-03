@@ -33,11 +33,6 @@ class KeyBoardEventHandler {
         return this.instance;
     }
 
-    private getDirection() {
-        if (this.heldDirections.length === 0) return "";
-        return this.heldDirections[0];
-    }
-
     public init(dispatch: AppDispatch) {
         this.dispatch = dispatch;
         window.addEventListener("keyup", this.handleKeyUp.bind(this));
@@ -88,6 +83,11 @@ class KeyBoardEventHandler {
     private keyBoardEventHandler(direction: string) {
         if (!(direction in this.commandMapping)) return;
         this.updateMainCharacterPosition(this.commandMapping[direction]);
+    }
+
+    private getDirection() {
+        if (this.heldDirections.length === 0) return "";
+        return this.heldDirections[0];
     }
 }
 

@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-import { Direction } from "@/game/types/general";
+import { Direction, Position } from "@/game/types/general";
+import CharacterMovementHelper from "@/game/lib/helper/CharacterMovementHelper";
 
 export interface MainCharacterStateInterface {
-    mainCharacterPosition: Direction;
+    mainCharacterPosition: Position;
 }
 
 const initialState: MainCharacterStateInterface = {
@@ -17,10 +18,11 @@ export const mainCharacterSlice = createSlice({
     reducers: {
         setMainCharacterPosition: (state, action: PayloadAction<Direction>) => {
             const oldMainCharacterPosition = state.mainCharacterPosition;
-            const newDirection = action.payload;
+            const movementDirection = action.payload;
+            const characterMovment = CharacterMovementHelper.getCharacterMovementInPixels(movementDirection);
             const newMainCharacterPosition = {
-                x: oldMainCharacterPosition.x + newDirection.x,
-                y: oldMainCharacterPosition.y + newDirection.y,
+                x: oldMainCharacterPosition.x + characterMovment.x,
+                y: oldMainCharacterPosition.y + characterMovment.y,
             };
             console.log(newMainCharacterPosition);
             state.mainCharacterPosition = newMainCharacterPosition;

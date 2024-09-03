@@ -6,7 +6,8 @@ import React from "react";
 import { Animations } from "@/game/types/general";
 import { HERO_SPRITE_SHEET } from "@/game/lib/conts";
 import { useAppSelector } from "@/game/redux/hooks";
-import { animationSelector, getSpriteSheetScaleFactor } from "@/game/lib/helper";
+import AnimationHelper from "@/game/lib/helper/AnimationHelper";
+import SpriteHelper from "@/game/lib/helper/SpriteHelper";
 
 const CharacterBox = styled(Box)({
     zIndex: 99,
@@ -53,9 +54,9 @@ const MainCharacter: React.FC<MainCharacterProps> = () => {
                     x: HERO_SPRITE_SHEET.MAIN_CHARACTER_SECTION_X_OFFSET,
                     y: HERO_SPRITE_SHEET.MAIN_CHARACTER_SECTION_Y_OFFSET,
                 }}
-                scaleFactor={getSpriteSheetScaleFactor(HERO_SPRITE_SHEET)}
+                scaleFactor={SpriteHelper.getSpriteSheetScaleFactor(HERO_SPRITE_SHEET)}
                 animations={animations}
-                currentAnimation={animationSelector(playerKeyboardEvent)} //animationSelector(playerKeyboardEvent)
+                currentAnimation={AnimationHelper.animationSelector(playerKeyboardEvent)}
             />
         </CharacterBox>
     );

@@ -3,7 +3,7 @@
 import React from "react";
 import Sprite from "../Sprite/Sprite";
 import { MAIN_SPRITE_SHEET } from "@/game/lib/conts";
-import { getSpriteSheetScaleFactor } from "@/game/lib/helper";
+import SpriteHelper from "@/game/lib/helper/SpriteHelper";
 
 interface ShrubProps {}
 const Shrub: React.FC<ShrubProps> = () => {
@@ -14,7 +14,7 @@ const Shrub: React.FC<ShrubProps> = () => {
                 x: MAIN_SPRITE_SHEET.SHRUB_SECTION_X_OFFSET,
                 y: MAIN_SPRITE_SHEET.SHRUB_SECTION_Y_OFFSET,
             }}
-            scaleFactor={getSpriteSheetScaleFactor(MAIN_SPRITE_SHEET)}
+            scaleFactor={SpriteHelper.getSpriteSheetScaleFactor(MAIN_SPRITE_SHEET)}
         />
     );
 };

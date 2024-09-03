@@ -5,6 +5,11 @@ type Direction = {
     y: number;
 };
 
+type Position = {
+    x: number;
+    y: number;
+};
+
 type Offset = {
     x: number;
     y: number;
@@ -12,7 +17,7 @@ type Offset = {
 
 type GameObject = {
     id: number;
-    position: { x: number; y: number };
+    position: Position;
     update(deltaTime: number): void; // Pass deltaTime for smoother updates
 };
 
@@ -27,8 +32,7 @@ type Theme = {
 };
 
 type Placement = {
-    x: number;
-    y: number;
+    position: Position;
     hasBeenCollected?: boolean;
     type: "Character" | "Tile" | "PickUp" | "Enemy";
     itemName: string;
@@ -56,4 +60,14 @@ type SpriteSheetInfo = {
     [key: string]: any;
 };
 
-export type { KeyboardEventType, Direction, Offset, GameObject, Animations, Placement, Level, SpriteSheetInfo };
+export type {
+    KeyboardEventType,
+    Direction,
+    Position,
+    Offset,
+    GameObject,
+    Animations,
+    Placement,
+    Level,
+    SpriteSheetInfo,
+};
