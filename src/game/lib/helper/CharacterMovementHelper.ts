@@ -9,7 +9,7 @@ class CharacterMovementHelper {
      * @returns {Position} - The actual pixel movement for the main character.
      */
     static getCharacterMovementInPixels(movementDirection: Direction): Position {
-        const gridSize = GridHelper.getGridActualSize();
+        const gridSize = GridHelper.getGridSizeInPixel();
         const movementScaleFactor = MAIN_CHARACTER_MOVING_SPEED / gridSize;
         return { x: movementDirection.x * movementScaleFactor, y: movementDirection.y * movementScaleFactor };
     }
@@ -21,7 +21,7 @@ class CharacterMovementHelper {
      */
     static getCanvasDefaultOffset(levelInformation: Level): Position {
         const mainCharacter = this.findMainCharacter(levelInformation);
-        const gridSize = GridHelper.getGridActualSize();
+        const gridSize = GridHelper.getGridSizeInPixel();
 
         const initialOffsets = this.calculateInitialOffsets(gridSize);
         const adjustedOffsets = this.adjustOffsetsForCharacterPosition(

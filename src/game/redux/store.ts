@@ -1,14 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { playerReducer } from "./features/playerSlice";
-import { mainCharacterReducer } from "./features/mainCharacterSlice";
 import { gameReducer } from "./features/gameSlice";
+import { keyboardEventReducer } from "./features/modules/keyboardEventModule";
+import { mainCharacterReducer } from "./features/modules/MainCharacterControlModule";
 
 export const makeGameStore = () => {
     return configureStore({
         reducer: {
             game: gameReducer,
-            mainCharacter: mainCharacterReducer,
             player: playerReducer,
+            keyboardControl: keyboardEventReducer,
+            mainCharacter: mainCharacterReducer,
         },
     });
 };

@@ -34,7 +34,7 @@ export const HERO_SPRITE_SHEET: SpriteSheetInfo = {
     ADJUST_SCALE_FACTOR: 1.3,
 };
 
-export const MAIN_CHARACTER_MOVING_SPEED = 300;
+export const MAIN_CHARACTER_MOVING_SPEED = 150;
 
 export const CUSTOM_STYLE = {
     COLOR: {

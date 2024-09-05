@@ -13,10 +13,10 @@ class GridHelper {
 
     //TODO, replace scale_factor to a variable
     /**
-     * Calculates the actual size of the grid after applying the scale factor.
-     * @returns {number} - The actual size of the grid.
+     * Calculates the actual pixel size of the grid after applying the scale factor.
+     * @returns {number} - The pixel size of the grid.
      */
-    static getGridActualSize(): number {
+    static getGridSizeInPixel(): number {
         return GRID.SIZE * GRID.SCALE_FACTOR;
     }
 }

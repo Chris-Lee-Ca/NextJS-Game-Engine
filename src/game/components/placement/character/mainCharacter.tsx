@@ -16,7 +16,7 @@ const CharacterBox = styled(Box)({
 
 interface MainCharacterProps {}
 const MainCharacter: React.FC<MainCharacterProps> = () => {
-    const playerKeyboardEvent = useAppSelector((state) => state.player.playerKeyboardEvent);
+    const facing = useAppSelector((state) => state.mainCharacter.facing);
 
     const animations: Animations = {
         idleDown: [[0, 0]],
@@ -56,7 +56,7 @@ const MainCharacter: React.FC<MainCharacterProps> = () => {
                 }}
                 scaleFactor={SpriteHelper.getSpriteSheetScaleFactor(HERO_SPRITE_SHEET)}
                 animations={animations}
-                currentAnimation={AnimationHelper.animationSelector(playerKeyboardEvent)}
+                currentAnimation={AnimationHelper.animationSelector(facing)}
             />
         </CharacterBox>
     );

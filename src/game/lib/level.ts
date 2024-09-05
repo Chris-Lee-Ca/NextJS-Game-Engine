@@ -14,10 +14,10 @@ export const demoLevel: Level = {
             y: MAIN_SPRITE_SHEET.GREEN_ISLAND_CLIFF_SECTION_Y_OFFSET,
         },
     },
-    tilesWidth: 5,
-    tilesHeight: 5,
+    tilesWidth: 10,
+    tilesHeight: 6,
     placements: [
-        { x: 0, y: 0, type: "Character", itemName: "main character" },
-        { x: 1, y: 1, type: "Tile", itemName: "shrub" },
+        { id: "Character-main-character-3-2", position: { x: 3, y: 2 }, type: "Character", itemName: "main character" },
+        { id: "Tile-shrub-1-1", position: { x: 1, y: 1 }, type: "Tile", itemName: "shrub" },
     ],
 };

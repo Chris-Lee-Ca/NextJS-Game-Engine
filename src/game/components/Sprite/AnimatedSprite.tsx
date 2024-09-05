@@ -67,8 +67,8 @@ const AnimatedSprite = (props: AnimatedSpriteProps) => {
         };
 
         image!.onload = () => {
-            canvas.width = GridHelper.getGridActualSize();
-            canvas.height = GridHelper.getGridActualSize();
+            canvas.width = GridHelper.getGridSizeInPixel();
+            canvas.height = GridHelper.getGridSizeInPixel();
             animate();
         };
 

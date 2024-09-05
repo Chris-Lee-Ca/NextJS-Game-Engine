@@ -35,8 +35,8 @@ const Sprite = (props: SpriteProps) => {
         context.clearRect(0, 0, canvas.width, canvas.height);
 
         image!.onload = () => {
-            canvas.width = GridHelper.getGridActualSize();
-            canvas.height = GridHelper.getGridActualSize();
+            canvas.width = GridHelper.getGridSizeInPixel();
+            canvas.height = GridHelper.getGridSizeInPixel();
 
             context.drawImage(
                 image!,

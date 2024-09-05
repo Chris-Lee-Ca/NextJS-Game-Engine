@@ -23,7 +23,7 @@ const Canvas = styled(Box)({
 });
 
 const GameCanvas = ({ children, level }: GameCanvasProps) => {
-    const mainCharacterPosition = useAppSelector((state) => state.mainCharacter.mainCharacterPosition);
+    const mainCharacterPixelPosition = useAppSelector((state) => state.mainCharacter.mainCharacterPixelPosition);
 
     const levelInformation = demoLevel;
 
@@ -80,8 +80,8 @@ const GameCanvas = ({ children, level }: GameCanvasProps) => {
         <Canvas
             style={{
                 transform: `translate(
-                        ${-canvasDefaultOffset.x - mainCharacterPosition.x}px,
-                        ${-canvasDefaultOffset.y - mainCharacterPosition.y}px
+                        ${-canvasDefaultOffset.x - mainCharacterPixelPosition.x}px,
+                        ${-canvasDefaultOffset.y - mainCharacterPixelPosition.y}px
                         )`,
             }}
         >

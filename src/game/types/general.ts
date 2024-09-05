@@ -32,6 +32,7 @@ type Theme = {
 };
 
 type Placement = {
+    id: string;
     position: Position;
     hasBeenCollected?: boolean;
     type: "Character" | "Tile" | "PickUp" | "Enemy";
