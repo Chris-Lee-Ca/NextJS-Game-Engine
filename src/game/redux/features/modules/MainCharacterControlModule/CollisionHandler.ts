@@ -1,5 +1,5 @@
 import { LevelInfo, Position } from "@/game/types/general";
-import { RootState } from "../store";
+import { RootState } from "../../../store";
 import { UseSelector } from "react-redux";
 
 type Rectangle = {
@@ -11,20 +11,20 @@ type Rectangle = {
 
 class CollisionHandler {
     private static instance: CollisionHandler;
-    private levelInformation: LevelInfo;
+    private levelInfo: LevelInfo;
     private appSelector: UseSelector<RootState> | undefined;
 
-    private constructor(levelInformation: LevelInfo) {
-        this.levelInformation = levelInformation;
+    private constructor(levelInfo: LevelInfo) {
+        this.levelInfo = levelInfo;
     }
 
     public init(appSelector: UseSelector<RootState>) {
         this.appSelector = appSelector;
     }
 
-    public static getInstance(levelInformation: LevelInfo) {
+    public static getInstance(levelInfo: LevelInfo) {
         if (!this.instance) {
-            this.instance = new CollisionHandler(levelInformation);
+            this.instance = new CollisionHandler(levelInfo);
         }
         return this.instance;
     }

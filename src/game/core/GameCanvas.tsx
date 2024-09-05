@@ -24,30 +24,30 @@ const Canvas = styled(Box)({
 
 const GameCanvas = ({ children, level }: GameCanvasProps) => {
     const mainCharacterPixelPosition = useAppSelector((state) => state.mainCharacter.mainCharacterPixelPosition);
-    const levelInformation = useAppSelector(selectCurrentLevelInfo);
+    const levelInfo = useAppSelector(selectCurrentLevelInfo);
 
     // A function for adding border for edge tile
-    const handleEdgeTileStyle = (row: number, col: number, levelInformation: LevelInfo): CSSProperties => {
+    const handleEdgeTileStyle = (row: number, col: number, levelInfo: LevelInfo): CSSProperties => {
         let borderStyle: CSSProperties = {};
         const mapBorder = CUSTOM_STYLE.BORDER.MAP_BORDER;
         const gridBorder = CUSTOM_STYLE.BORDER.GRID_BORDER;
         borderStyle["border"] = gridBorder;
         if (row === 0) borderStyle["borderLeft"] = mapBorder;
         if (col === 0) borderStyle["borderTop"] = mapBorder;
-        if (row === levelInformation.tilesWidth - 1) borderStyle["borderRight"] = mapBorder;
+        if (row === levelInfo.tilesWidth - 1) borderStyle["borderRight"] = mapBorder;
 
         return borderStyle;
     };
 
     // A function for adding border for cliff tile
-    const handleCliffStyle = (row: number, levelInformation: LevelInfo): CSSProperties => {
+    const handleCliffStyle = (row: number, levelInfo: LevelInfo): CSSProperties => {
         let borderStyle: CSSProperties = {};
         const mapBorder = CUSTOM_STYLE.BORDER.MAP_BORDER;
         const gridBorder = CUSTOM_STYLE.BORDER.GRID_BORDER;
         borderStyle["border"] = gridBorder;
         borderStyle["borderBottom"] = mapBorder;
         if (row === 0) borderStyle["borderLeft"] = mapBorder;
-        if (row === levelInformation.tilesWidth - 1) borderStyle["borderRight"] = mapBorder;
+        if (row === levelInfo.tilesWidth - 1) borderStyle["borderRight"] = mapBorder;
 
         return borderStyle;
     };
@@ -55,25 +55,25 @@ const GameCanvas = ({ children, level }: GameCanvasProps) => {
     const handleBackgroudTileStyle = (
         row: number,
         col: number,
-        levelInformation: LevelInfo,
+        levelInfo: LevelInfo,
         isCliff: boolean
     ): CSSProperties => {
-        let style: CSSProperties = { ...handleEdgeTileStyle(row, col, levelInformation) };
+        let style: CSSProperties = { ...handleEdgeTileStyle(row, col, levelInfo) };
         if (isCliff) {
             style = {
-                ...handleCliffStyle(row, levelInformation),
+                ...handleCliffStyle(row, levelInfo),
                 ...style,
             };
         }
         return style;
     };
 
-    const isAddCliff = (col: number, levelInformation: LevelInfo) => {
-        if (col === levelInformation.tilesHeight - 1) return true;
+    const isAddCliff = (col: number, levelInfo: LevelInfo) => {
+        if (col === levelInfo.tilesHeight - 1) return true;
         return false;
     };
 
-    const canvasDefaultOffset = CharacterMovementHelper.getCanvasDefaultOffset(levelInformation);
+    const canvasDefaultOffset = CharacterMovementHelper.getCanvasDefaultOffset(levelInfo);
 
     return (
         <Canvas
@@ -85,9 +85,9 @@ const GameCanvas = ({ children, level }: GameCanvasProps) => {
             }}
         >
             {children}
-            {Array.from({ length: levelInformation.tilesWidth }).map((_, rowIndex) => (
+            {Array.from({ length: levelInfo.tilesWidth }).map((_, rowIndex) => (
                 <div key={rowIndex} style={{ display: "flex" }}>
-                    {Array.from({ length: levelInformation.tilesHeight }).map((_, colIndex) => (
+                    {Array.from({ length: levelInfo.tilesHeight }).map((_, colIndex) => (
                         <div
                             key={`${rowIndex}-${colIndex}`}
                             style={{
@@ -100,22 +100,22 @@ const GameCanvas = ({ children, level }: GameCanvasProps) => {
                                 ...handleBackgroudTileStyle(
                                     rowIndex,
                                     colIndex,
-                                    levelInformation,
-                                    isAddCliff(colIndex, levelInformation) ? true : false
+                                    levelInfo,
+                                    isAddCliff(colIndex, levelInfo) ? true : false
                                 ),
                             }}
                         >
                             {/* Normal Background Tile */}
                             <Sprite
-                                spriteSheetInfo={levelInformation.theme.backgroundSpriteSheetInfo}
-                                imageOffset={levelInformation.theme.imageOffset}
+                                spriteSheetInfo={levelInfo.theme.backgroundSpriteSheetInfo}
+                                imageOffset={levelInfo.theme.imageOffset}
                                 scaleFactor={SpriteHelper.getSpriteSheetScaleFactor(MAIN_SPRITE_SHEET)}
                             />
                             {/* Cliff */}
-                            {isAddCliff(colIndex, levelInformation) && (
+                            {isAddCliff(colIndex, levelInfo) && (
                                 <Sprite
-                                    spriteSheetInfo={levelInformation.theme.cliffSpriteSheetInfo}
-                                    imageOffset={levelInformation.theme.cliffImageOffset}
+                                    spriteSheetInfo={levelInfo.theme.cliffSpriteSheetInfo}
+                                    imageOffset={levelInfo.theme.cliffImageOffset}
                                     scaleFactor={SpriteHelper.getSpriteSheetScaleFactor(MAIN_SPRITE_SHEET)}
                                 />
                             )}
@@ -123,7 +123,7 @@ const GameCanvas = ({ children, level }: GameCanvasProps) => {
                     ))}
                 </div>
             ))}
-            {levelInformation.placements
+            {levelInfo.placements
                 .filter((placement) => !placement.hasBeenCollected)
                 .map((placement, index) => {
                     return (

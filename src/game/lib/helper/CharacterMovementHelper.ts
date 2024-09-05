@@ -16,11 +16,11 @@ class CharacterMovementHelper {
 
     /**
      * Gets the default position offset of the canvas for placing the main character in its starting position.
-     * @param {LevelInfo} levelInformation - The level information containing the main character's position.
+     * @param {LevelInfo} levelInfo - The level information containing the main character's position.
      * @returns {Position} - The default position of the canvas.
      */
-    static getCanvasDefaultOffset(levelInformation: LevelInfo): Position {
-        const mainCharacter = this.findMainCharacter(levelInformation);
+    static getCanvasDefaultOffset(levelInfo: LevelInfo): Position {
+        const mainCharacter = this.findMainCharacter(levelInfo);
         const gridSize = GridHelper.getGridSizeInPixel();
 
         const initialOffsets = this.calculateInitialOffsets(gridSize);
@@ -38,12 +38,12 @@ class CharacterMovementHelper {
 
     /**
      * Finds the main character in the level information placements.
-     * @param {LevelInfo} levelInformation - The information about the level, including placements.
+     * @param {LevelInfo} levelInfo - The information about the level, including placements.
      * @returns {Placement} - The placement data for the main character.
      * @throws {Error} - If the main character is not defined in the level.
      */
-    private static findMainCharacter(levelInformation: LevelInfo): Placement {
-        const mainCharacter = levelInformation.placements.find(
+    private static findMainCharacter(levelInfo: LevelInfo): Placement {
+        const mainCharacter = levelInfo.placements.find(
             (placement) => placement.type === "Character" && placement.itemName === "main character"
         );
         if (typeof mainCharacter === "undefined") {
