@@ -1,9 +1,14 @@
-import { Level, Placement, Position } from "@/game/types/general";
+import { LevelInfo, Placement, Position } from "@/game/types/general";
 
 abstract class GameObject {
     position: Position;
 
-    static retrieveObjectPlacmentInfo(levelInformation: Level, type: string, itemName: string, id?: string): Placement {
+    static retrieveObjectPlacmentInfo(
+        levelInformation: LevelInfo,
+        type: string,
+        itemName: string,
+        id?: string
+    ): Placement {
         const placements = levelInformation.placements.filter(
             (placement) =>
                 placement.type === type &&

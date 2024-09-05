@@ -1,23 +1,32 @@
+import { demoLevel } from "@/game/lib/level";
+import { LevelInfo } from "@/game/types/general";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../store";
 
 export interface GameStateInterface {
-    level: string;
+    currentLevel: string;
+    allLevelInfo: { [key: string]: LevelInfo };
 }
 
 const initialState: GameStateInterface = {
-    level: "1",
+    currentLevel: "demo",
+    allLevelInfo: { demo: demoLevel },
 };
 
 export const gameSlice = createSlice({
     name: "game",
     initialState,
     reducers: {
-        setGameLevel: (state, action: PayloadAction<string>) => {
-            state.level = action.payload;
+        setCurrentLevel: (state, action: PayloadAction<string>) => {
+            state.currentLevel = action.payload;
         },
     },
 });
+export const selectCurrentLevelInfo = (state: RootState): LevelInfo => {
+    const currentLevel = state.game.currentLevel;
+    return state.game.allLevelInfo[currentLevel];
+};
 
-export const { setGameLevel } = gameSlice.actions;
+export const { setCurrentLevel } = gameSlice.actions;
 export const gameReducer = gameSlice.reducer;

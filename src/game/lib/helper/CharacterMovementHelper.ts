@@ -1,4 +1,4 @@
-import { Direction, Level, Placement, Position } from "@/game/types/general";
+import { Direction, LevelInfo, Placement, Position } from "@/game/types/general";
 import GridHelper from "./GridHelper";
 import { MAIN_CHARACTER_MOVING_SPEED } from "../conts";
 
@@ -16,10 +16,10 @@ class CharacterMovementHelper {
 
     /**
      * Gets the default position offset of the canvas for placing the main character in its starting position.
-     * @param {Level} levelInformation - The level information containing the main character's position.
+     * @param {LevelInfo} levelInformation - The level information containing the main character's position.
      * @returns {Position} - The default position of the canvas.
      */
-    static getCanvasDefaultOffset(levelInformation: Level): Position {
+    static getCanvasDefaultOffset(levelInformation: LevelInfo): Position {
         const mainCharacter = this.findMainCharacter(levelInformation);
         const gridSize = GridHelper.getGridSizeInPixel();
 
@@ -38,11 +38,11 @@ class CharacterMovementHelper {
 
     /**
      * Finds the main character in the level information placements.
-     * @param {Level} levelInformation - The information about the level, including placements.
+     * @param {LevelInfo} levelInformation - The information about the level, including placements.
      * @returns {Placement} - The placement data for the main character.
      * @throws {Error} - If the main character is not defined in the level.
      */
-    private static findMainCharacter(levelInformation: Level): Placement {
+    private static findMainCharacter(levelInformation: LevelInfo): Placement {
         const mainCharacter = levelInformation.placements.find(
             (placement) => placement.type === "Character" && placement.itemName === "main character"
         );

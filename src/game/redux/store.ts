@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { playerReducer } from "./features/playerSlice";
 import { gameReducer } from "./features/gameSlice";
+import { levelReducer } from "./features/modules/levelModule";
 import { keyboardEventReducer } from "./features/modules/keyboardEventModule";
 import { mainCharacterReducer } from "./features/modules/MainCharacterControlModule";
 
@@ -8,7 +8,7 @@ export const makeGameStore = () => {
     return configureStore({
         reducer: {
             game: gameReducer,
-            player: playerReducer,
+            level: levelReducer,
             keyboardControl: keyboardEventReducer,
             mainCharacter: mainCharacterReducer,
         },

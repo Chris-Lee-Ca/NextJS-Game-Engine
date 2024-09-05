@@ -43,7 +43,7 @@ interface Tile extends Placement {}
 interface Pickup extends Placement {}
 interface Enemy extends Placement {}
 
-type Level = {
+type LevelInfo = {
     theme: Theme;
     tilesWidth: number;
     tilesHeight: number;
@@ -69,6 +69,6 @@ export type {
     GameObject,
     Animations,
     Placement,
-    Level,
+    LevelInfo,
     SpriteSheetInfo,
 };

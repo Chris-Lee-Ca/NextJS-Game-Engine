@@ -1,7 +1,7 @@
-import { Level } from "@/game/types/general";
+import { LevelInfo } from "@/game/types/general";
 import { MAIN_SPRITE_SHEET } from "./conts";
 
-export const demoLevel: Level = {
+export const demoLevel: LevelInfo = {
     theme: {
         backgroundSpriteSheetInfo: MAIN_SPRITE_SHEET,
         imageOffset: {

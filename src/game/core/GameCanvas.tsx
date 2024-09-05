@@ -2,9 +2,8 @@
 
 import Sprite from "@/game/components/Sprite/Sprite";
 import { CUSTOM_STYLE, MAIN_SPRITE_SHEET } from "@/game/lib/conts";
-import { demoLevel } from "@/game/lib/level";
 import { useAppSelector } from "@/game/redux/hooks";
-import { Level } from "@/game/types/general";
+import { LevelInfo } from "@/game/types/general";
 import { Box } from "@mui/material";
 import { styled } from "@mui/system";
 import React, { CSSProperties, ReactNode } from "react";
@@ -12,6 +11,7 @@ import PlacementFactory from "../components/placement/PlacementFactory";
 import GridHelper from "../lib/helper/GridHelper";
 import SpriteHelper from "../lib/helper/SpriteHelper";
 import CharacterMovementHelper from "../lib/helper/CharacterMovementHelper";
+import { selectCurrentLevelInfo } from "../redux/features/gameSlice";
 
 type GameCanvasProps = { children?: ReactNode; level?: string };
 
@@ -24,11 +24,10 @@ const Canvas = styled(Box)({
 
 const GameCanvas = ({ children, level }: GameCanvasProps) => {
     const mainCharacterPixelPosition = useAppSelector((state) => state.mainCharacter.mainCharacterPixelPosition);
-
-    const levelInformation = demoLevel;
+    const levelInformation = useAppSelector(selectCurrentLevelInfo);
 
     // A function for adding border for edge tile
-    const handleEdgeTileStyle = (row: number, col: number, levelInformation: Level): CSSProperties => {
+    const handleEdgeTileStyle = (row: number, col: number, levelInformation: LevelInfo): CSSProperties => {
         let borderStyle: CSSProperties = {};
         const mapBorder = CUSTOM_STYLE.BORDER.MAP_BORDER;
         const gridBorder = CUSTOM_STYLE.BORDER.GRID_BORDER;
@@ -41,7 +40,7 @@ const GameCanvas = ({ children, level }: GameCanvasProps) => {
     };
 
     // A function for adding border for cliff tile
-    const handleCliffStyle = (row: number, levelInformation: Level): CSSProperties => {
+    const handleCliffStyle = (row: number, levelInformation: LevelInfo): CSSProperties => {
         let borderStyle: CSSProperties = {};
         const mapBorder = CUSTOM_STYLE.BORDER.MAP_BORDER;
         const gridBorder = CUSTOM_STYLE.BORDER.GRID_BORDER;
@@ -56,7 +55,7 @@ const GameCanvas = ({ children, level }: GameCanvasProps) => {
     const handleBackgroudTileStyle = (
         row: number,
         col: number,
-        levelInformation: Level,
+        levelInformation: LevelInfo,
         isCliff: boolean
     ): CSSProperties => {
         let style: CSSProperties = { ...handleEdgeTileStyle(row, col, levelInformation) };
@@ -69,7 +68,7 @@ const GameCanvas = ({ children, level }: GameCanvasProps) => {
         return style;
     };
 
-    const isAddCliff = (col: number, levelInformation: Level) => {
+    const isAddCliff = (col: number, levelInformation: LevelInfo) => {
         if (col === levelInformation.tilesHeight - 1) return true;
         return false;
     };
