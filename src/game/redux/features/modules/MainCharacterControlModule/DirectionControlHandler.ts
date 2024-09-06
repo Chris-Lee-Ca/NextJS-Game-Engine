@@ -32,7 +32,7 @@ export class DirectionControlHandler extends ModuleHandler {
 
     public deinit(): void {}
 
-    public update() {
+    public update(deltaTime: number) {
         if (typeof this.store === "undefined" || typeof this.dispatch === "undefined") {
             throw new Error('Please call "init" method for DirectionControlHandler');
         }
@@ -45,7 +45,8 @@ export class DirectionControlHandler extends ModuleHandler {
 
         const characterNewPixelPosition = this.getCharacterNewPixelPosition(
             characterCurrentPixelPosition,
-            movementDirection
+            movementDirection,
+            deltaTime
         );
         this.dispatch(setMainCharacterPixelPosition(characterNewPixelPosition));
         this.dispatch(setFacing(this.getFacing(this.activeDirectionKey)));
@@ -68,10 +69,11 @@ export class DirectionControlHandler extends ModuleHandler {
 
     private getCharacterNewPixelPosition(
         characterCurrentPixelPosition: Position,
-        movementDirection: Direction
+        movementDirection: Direction,
+        deltaTime: number
     ): Position {
         const gridSize = GridHelper.getGridSizeInPixel();
-        const characterMovementPerLoop = MAIN_CHARACTER_MOVING_SPEED / gridSize;
+        const characterMovementPerLoop = (MAIN_CHARACTER_MOVING_SPEED * deltaTime) / gridSize;
         return {
             x: characterCurrentPixelPosition.x + movementDirection.x * characterMovementPerLoop,
             y: characterCurrentPixelPosition.y + movementDirection.y * characterMovementPerLoop,

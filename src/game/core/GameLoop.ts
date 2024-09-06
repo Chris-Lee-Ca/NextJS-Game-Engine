@@ -44,18 +44,18 @@ class GameLoop {
         if (deltaTime >= frameDuration) {
             this.lastFrameTime = currentTime;
 
-            // Perform your game logic here
+            // Perform Game Logic Here
             this.update(deltaTime);
         }
     }
 
     private update(deltaTime: number) {
-        // const state: RootState = this.store!.getState();
-        this.mainCharacterDirectionControlHandler.update();
-        // const activeDirectionKey = state.keyboardControls.activeDirectionKey;
-
-        // console.log(state.mainCharacter.mainCharacterPosition);
-        // Add more actions or game logic here as needed
+        const state = this.store!.getState();
+        const objectPool = state.level.objectPool;
+        for (const [objectKey, object] of Object.entries(objectPool)) {
+            object.update(deltaTime);
+        }
+        this.mainCharacterDirectionControlHandler.update(deltaTime);
     }
 
     stop() {
