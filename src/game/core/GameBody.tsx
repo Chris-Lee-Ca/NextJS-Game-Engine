@@ -6,12 +6,14 @@ import MainCharacter from "../components/placement/character/mainCharacter";
 import Viewport from "./Viewport";
 import { useAppDispatch, useAppSelector, useAppStore } from "../redux/hooks";
 import GameLoop from "./GameLoop";
+import { useCSSVariable } from "../hooks/useCSSVariable";
 
 const GameBody = () => {
     const appStore = useAppStore();
     const dispatch = useAppDispatch();
     const gameState = useAppSelector((state) => state.game);
     const gameLoop = GameLoop.getInstance();
+    const scaleFactor = useCSSVariable("--scale-factor");
 
     useEffect(() => {
         // dispatch(setLevel(gameState.allLevelInfo[gameState.currentLevel]));
@@ -21,7 +23,7 @@ const GameBody = () => {
         return () => {
             gameLoop.stop();
         };
-    }, [gameState.currentLevel]);
+    }, [gameState.currentLevel, scaleFactor]);
 
     return (
         <Viewport>
