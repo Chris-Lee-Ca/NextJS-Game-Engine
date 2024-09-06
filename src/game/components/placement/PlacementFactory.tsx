@@ -1,7 +1,11 @@
+"use client";
+
+import { ReactNode } from "react";
 import { Placement } from "@/game/types/general";
 import CharacterFactory from "./character/CharacterFactory";
-import TileFactory from "../tile/TileFactory";
-import { ReactNode } from "react";
+import TileFactory from "./tile/TileFactory";
+import EnemyFactory from "./enemy/EnemyFactory";
+import PickUpFactory from "./pickUp/PickUpFactory";
 
 type PlacementFactoryProps = { placement: Placement };
 
@@ -11,9 +15,9 @@ const PlacementFactory = (props: PlacementFactoryProps): ReactNode => {
         case "Character":
             return <CharacterFactory itemName={placement.itemName} />;
         case "Enemy":
-            return;
+            return <EnemyFactory itemName={placement.itemName} />;
         case "PickUp":
-            return;
+            return <PickUpFactory itemName={placement.itemName} />;
         case "Tile":
             return <TileFactory itemName={placement.itemName} />;
         default:

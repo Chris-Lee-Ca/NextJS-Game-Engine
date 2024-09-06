@@ -2,9 +2,12 @@ import spriteSheet from "@/game/assets/spritesheet.png";
 import heroSpriteSheet from "@/game/assets/hero.png";
 import { SpriteSheetInfo } from "@/game/types/general";
 
+export const GAME_SETTING = {
+    TARGET_FPS: 1,
+};
 export const GRID = {
     SIZE: 16,
-    SCALE_FACTOR: 4,
+    DEFAULT_SCALE_FACTOR: 4,
 };
 
 export const MAIN_SPRITE_SHEET: SpriteSheetInfo = {

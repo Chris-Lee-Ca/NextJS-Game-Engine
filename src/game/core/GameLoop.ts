@@ -1,6 +1,9 @@
-import { AppStore, RootState } from "../redux/store";
+"use client";
+
+import { AppStore } from "../redux/store";
 import { KeyboardEventHandler } from "../redux/features/modules/keyboardEventModule";
 import { DirectionControlHandler } from "../redux/features/modules/MainCharacterControlModule";
+import { GAME_SETTING } from "../lib/conts";
 
 class GameLoop {
     static instance: GameLoop;
@@ -8,7 +11,7 @@ class GameLoop {
     lastFrameTime: number;
     keyboardEventHandler: KeyboardEventHandler;
     mainCharacterDirectionControlHandler: DirectionControlHandler;
-    targetFPS: number = 60;
+    targetFPS: number = GAME_SETTING.TARGET_FPS;
 
     private constructor() {
         this.lastFrameTime = 0;
@@ -52,10 +55,11 @@ class GameLoop {
     private update(deltaTime: number) {
         const state = this.store!.getState();
         const objectPool = state.level.objectPool;
+
+        this.mainCharacterDirectionControlHandler.update(deltaTime);
         for (const [objectKey, object] of Object.entries(objectPool)) {
             object.update(deltaTime);
         }
-        this.mainCharacterDirectionControlHandler.update(deltaTime);
     }
 
     stop() {

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Sprite from "../Sprite/Sprite";
+import Sprite from "../../Sprite/Sprite";
 import { MAIN_SPRITE_SHEET } from "@/game/lib/conts";
 import SpriteHelper from "@/game/lib/helper/SpriteHelper";
 

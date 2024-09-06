@@ -1,5 +1,6 @@
 import { Position, SpriteSheetInfo } from "@/game/types/general";
 import { GRID } from "../conts";
+import GridHelper from "./GridHelper";
 
 class SpriteHelper {
     /**
@@ -34,7 +35,7 @@ class SpriteHelper {
                 `Error: this engine does not yet support sprite sheet ${spriteSheetInfo.ID} unless their items width and height are equal`
             );
         }
-        return GRID.SIZE * (GRID.SCALE_FACTOR / spriteSheetInfo.WIDTH) * spriteSheetInfo.ADJUST_SCALE_FACTOR;
+        return (GridHelper.getGridSizeInPixel() / spriteSheetInfo.WIDTH) * spriteSheetInfo.ADJUST_SCALE_FACTOR;
     }
 }
 
