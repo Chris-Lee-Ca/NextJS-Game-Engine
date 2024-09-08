@@ -14,10 +14,8 @@ const CharacterBox = styled(Box)({
     position: "absolute",
 });
 
-interface MainCharacterComponentProps {
-    x: number;
-    y: number;
-}
+interface MainCharacterComponentProps {}
+
 const MainCharacterComponent: React.FC<MainCharacterComponentProps> = () => {
     const mainCharacterPixelPosition = useAppSelector((state) => state.mainCharacter.mainCharacterPixelPosition);
     const facing = useAppSelector((state) => state.mainCharacter.facing);

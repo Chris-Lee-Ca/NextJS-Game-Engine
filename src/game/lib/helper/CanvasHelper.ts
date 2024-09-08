@@ -1,20 +1,7 @@
-import { Direction, LevelInfo, Placement, Position } from "@/game/types/general";
+import { LevelInfo, Placement, Position } from "@/game/types/general";
 import GridHelper from "./GridHelper";
-import { MAIN_CHARACTER_MOVING_SPEED } from "../conts";
 
-//TODO remove this helper class, it should be intergated in direction control handler
-class CharacterMovementHelper {
-    /**
-     * Calculates the actual pixel movement for the main character based on the given direction.
-     * @param {Direction} movementDirection - The direction in which the main character is moving.
-     * @returns {Position} - The actual pixel movement for the main character.
-     */
-    static getCharacterMovementInPixels(movementDirection: Direction): Position {
-        const gridSize = GridHelper.getGridSizeInPixel();
-        const movementScaleFactor = MAIN_CHARACTER_MOVING_SPEED / gridSize;
-        return { x: movementDirection.x * movementScaleFactor, y: movementDirection.y * movementScaleFactor };
-    }
-
+class CanvasHelper {
     /**
      * Gets the default position offset of the canvas for placing the main character in its starting position.
      * @param {LevelInfo} levelInfo - The level information containing the main character's position.
@@ -82,4 +69,4 @@ class CharacterMovementHelper {
     }
 }
 
-export default CharacterMovementHelper;
+export default CanvasHelper;

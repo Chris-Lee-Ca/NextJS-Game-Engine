@@ -9,7 +9,7 @@ import { styled } from "@mui/system";
 import React, { CSSProperties } from "react";
 import GridHelper from "../lib/helper/GridHelper";
 import SpriteHelper from "../lib/helper/SpriteHelper";
-import CharacterMovementHelper from "../lib/helper/CharacterMovementHelper";
+import CanvasHelper from "../lib/helper/CanvasHelper";
 import { selectCurrentLevelInfo } from "../redux/features/gameSlice";
 import objectPool from "./ObjectPool";
 
@@ -73,7 +73,7 @@ const GameCanvas = (props: GameCanvasProps) => {
         return false;
     };
 
-    const canvasDefaultOffset = CharacterMovementHelper.getCanvasDefaultOffset(levelInfo);
+    const canvasDefaultOffset = CanvasHelper.getCanvasDefaultOffset(levelInfo);
 
     return (
         <Canvas
