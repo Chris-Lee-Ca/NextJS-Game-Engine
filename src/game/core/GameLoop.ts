@@ -2,20 +2,24 @@
 
 import { AppStore } from "../redux/store";
 import { KeyboardEventHandler } from "../redux/features/modules/keyboardEventModule";
+import { LevelHandler } from "../redux/features/modules/levelModule/LevelHandler";
 import { DirectionControlHandler } from "../redux/features/modules/MainCharacterControlModule";
 import { GAME_SETTING } from "../lib/conts";
+import objectPool from "./ObjectPool";
 
 class GameLoop {
     static instance: GameLoop;
     store: AppStore | undefined;
     lastFrameTime: number;
     keyboardEventHandler: KeyboardEventHandler;
+    levelHandler: LevelHandler;
     mainCharacterDirectionControlHandler: DirectionControlHandler;
     targetFPS: number = GAME_SETTING.TARGET_FPS;
 
     private constructor() {
         this.lastFrameTime = 0;
         this.keyboardEventHandler = KeyboardEventHandler.getInstance();
+        this.levelHandler = LevelHandler.getInstance();
         this.mainCharacterDirectionControlHandler = DirectionControlHandler.getInstance();
     }
 
@@ -27,8 +31,10 @@ class GameLoop {
     }
 
     public init(store: AppStore) {
+        console.log("init gameloop");
         this.store = store;
         this.keyboardEventHandler.init({ dispatch: store.dispatch });
+        this.levelHandler.init({ store: store, dispatch: store.dispatch });
         this.mainCharacterDirectionControlHandler.init({ store: store, dispatch: store.dispatch });
     }
 
@@ -54,16 +60,19 @@ class GameLoop {
 
     private update(deltaTime: number) {
         const state = this.store!.getState();
-        const objectPool = state.level.objectPool;
+        const objectIdPool = state.level.objectIdPool;
 
         this.mainCharacterDirectionControlHandler.update(deltaTime);
-        for (const [objectKey, object] of Object.entries(objectPool)) {
-            object.update(deltaTime);
-        }
+        objectIdPool.forEach((objectId) => {
+            const object = objectPool.get(objectId);
+            object?.update(deltaTime);
+        });
     }
 
     stop() {
         this.keyboardEventHandler.deinit();
+        this.levelHandler.deinit();
+        this.mainCharacterDirectionControlHandler.deinit();
     }
 }
 export default GameLoop;

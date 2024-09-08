@@ -1,17 +1,17 @@
 "use client";
 
-import Sprite from "@/game/components/Sprite/Sprite";
+import Sprite from "@/game/core/components/Sprite/Sprite";
 import { CUSTOM_STYLE, MAIN_SPRITE_SHEET } from "@/game/lib/conts";
 import { useAppSelector } from "@/game/redux/hooks";
 import { LevelInfo } from "@/game/types/general";
 import { Box } from "@mui/material";
 import { styled } from "@mui/system";
 import React, { CSSProperties, ReactNode } from "react";
-import PlacementFactory from "../components/placement/PlacementFactory";
 import GridHelper from "../lib/helper/GridHelper";
 import SpriteHelper from "../lib/helper/SpriteHelper";
 import CharacterMovementHelper from "../lib/helper/CharacterMovementHelper";
 import { selectCurrentLevelInfo } from "../redux/features/gameSlice";
+import objectPool from "./ObjectPool";
 
 type GameCanvasProps = { children?: ReactNode; level?: string };
 
@@ -126,18 +126,19 @@ const GameCanvas = ({ children, level }: GameCanvasProps) => {
             {levelInfo.placements
                 .filter((placement) => !placement.hasBeenCollected)
                 .map((placement, index) => {
+                    const object = objectPool.get(placement.id);
                     return (
                         <div
                             key={index}
                             style={{
                                 position: "absolute",
                                 transform: `translate(
-                                    ${GridHelper.getActualPixel(placement.position.x)}, 
+                                    ${GridHelper.getActualPixel(placement.position.x)},
                                     ${GridHelper.getActualPixel(placement.position.y)}
                                     )`,
                             }}
                         >
-                            <PlacementFactory placement={placement} />
+                            {object?.render()}
                         </div>
                     );
                 })}

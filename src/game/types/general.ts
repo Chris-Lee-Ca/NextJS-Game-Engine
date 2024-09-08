@@ -15,12 +15,6 @@ type Offset = {
     y: number;
 };
 
-type GameObject = {
-    id: number;
-    position: Position;
-    update(deltaTime: number): void; // Pass deltaTime for smoother updates
-};
-
 type Animations = {
     [key: string]: [number, number][];
 };
@@ -61,14 +55,4 @@ type SpriteSheetInfo = {
     [key: string]: any;
 };
 
-export type {
-    KeyboardEventType,
-    Direction,
-    Position,
-    Offset,
-    GameObject,
-    Animations,
-    Placement,
-    LevelInfo,
-    SpriteSheetInfo,
-};
+export type { KeyboardEventType, Direction, Position, Offset, Animations, Placement, LevelInfo, SpriteSheetInfo };

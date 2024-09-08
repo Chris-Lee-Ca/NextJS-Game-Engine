@@ -3,7 +3,7 @@ import heroSpriteSheet from "@/game/assets/hero.png";
 import { SpriteSheetInfo } from "@/game/types/general";
 
 export const GAME_SETTING = {
-    TARGET_FPS: 1,
+    TARGET_FPS: 30,
 };
 export const GRID = {
     SIZE: 16,

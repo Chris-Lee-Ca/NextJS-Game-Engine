@@ -2,7 +2,6 @@
 
 import React, { useEffect } from "react";
 import GameCanvas from "./GameCanvas";
-import MainCharacter from "../components/placement/character/mainCharacter";
 import Viewport from "./Viewport";
 import { useAppDispatch, useAppSelector, useAppStore } from "../redux/hooks";
 import GameLoop from "./GameLoop";
@@ -27,7 +26,6 @@ const GameBody = () => {
 
     return (
         <Viewport>
-            <MainCharacter />
             <GameCanvas />
         </Viewport>
     );

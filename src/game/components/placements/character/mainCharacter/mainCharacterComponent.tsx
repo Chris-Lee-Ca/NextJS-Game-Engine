@@ -1,7 +1,7 @@
 "use client";
 
 import { Box, styled } from "@mui/material";
-import AnimatedSprite from "@/game/components/Sprite/AnimatedSprite";
+import AnimatedSprite from "@/game/core/components/Sprite/AnimatedSprite";
 import React from "react";
 import { Animations } from "@/game/types/general";
 import { HERO_SPRITE_SHEET } from "@/game/lib/conts";
@@ -14,8 +14,12 @@ const CharacterBox = styled(Box)({
     position: "absolute",
 });
 
-interface MainCharacterProps {}
-const MainCharacter: React.FC<MainCharacterProps> = () => {
+interface MainCharacterComponentProps {
+    x: number;
+    y: number;
+}
+const MainCharacterComponent: React.FC<MainCharacterComponentProps> = () => {
+    const mainCharacterPixelPosition = useAppSelector((state) => state.mainCharacter.mainCharacterPixelPosition);
     const facing = useAppSelector((state) => state.mainCharacter.facing);
 
     const animations: Animations = {
@@ -47,7 +51,14 @@ const MainCharacter: React.FC<MainCharacterProps> = () => {
     };
 
     return (
-        <CharacterBox>
+        <CharacterBox
+            style={{
+                transform: `translate(
+                    ${mainCharacterPixelPosition.x}px,
+                    ${mainCharacterPixelPosition.y}px
+                    )`,
+            }}
+        >
             <AnimatedSprite
                 spriteSheetInfo={HERO_SPRITE_SHEET}
                 imageOffset={{
@@ -62,4 +73,4 @@ const MainCharacter: React.FC<MainCharacterProps> = () => {
     );
 };
 
-export default MainCharacter;
+export default MainCharacterComponent;

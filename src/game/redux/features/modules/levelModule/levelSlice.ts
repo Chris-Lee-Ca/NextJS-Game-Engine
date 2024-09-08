@@ -1,21 +1,20 @@
-import { GameObject, LevelInfo } from "@/game/types/general";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface LevelStateInterface {
-    objectPool: { [key: string]: GameObject };
+    objectIdPool: string[];
 }
 
 const initialState: LevelStateInterface = {
-    objectPool: {},
+    objectIdPool: [],
 };
 
 export const levelSlice = createSlice({
     name: "level",
     initialState,
     reducers: {
-        setObjectPool: (state, action: PayloadAction<{ [key: string]: GameObject }>) => {
-            state.objectPool = action.payload;
+        setObjectPool: (state, action: PayloadAction<string[]>) => {
+            state.objectIdPool = action.payload;
         },
     },
 });

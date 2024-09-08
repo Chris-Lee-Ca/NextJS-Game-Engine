@@ -1,22 +1,25 @@
 "use client";
 
 import React from "react";
-import Sprite from "../../Sprite/Sprite";
 import { MAIN_SPRITE_SHEET } from "@/game/lib/conts";
 import SpriteHelper from "@/game/lib/helper/SpriteHelper";
+import Sprite from "@/game/core/components/Sprite/Sprite";
 
-interface ShrubProps {}
-const Shrub: React.FC<ShrubProps> = () => {
+interface ShrubComponentProps {
+    x: number;
+    y: number;
+}
+const ShrubComponent: React.FC<ShrubComponentProps> = (props) => {
     return (
         <Sprite
             spriteSheetInfo={MAIN_SPRITE_SHEET}
             imageOffset={{
-                x: MAIN_SPRITE_SHEET.SHRUB_SECTION_X_OFFSET,
-                y: MAIN_SPRITE_SHEET.SHRUB_SECTION_Y_OFFSET,
+                x: MAIN_SPRITE_SHEET.SHRUB_SECTION_X_OFFSET + props.x,
+                y: MAIN_SPRITE_SHEET.SHRUB_SECTION_Y_OFFSET + props.y,
             }}
             scaleFactor={SpriteHelper.getSpriteSheetScaleFactor(MAIN_SPRITE_SHEET)}
         />
     );
 };
 
-export default Shrub;
+export default ShrubComponent;
