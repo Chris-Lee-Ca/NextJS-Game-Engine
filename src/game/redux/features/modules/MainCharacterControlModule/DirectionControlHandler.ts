@@ -51,6 +51,10 @@ export class DirectionControlHandler extends ModuleHandler {
         );
         if (!GeneralHelper.isObjectDeepEqual(characterCurrentPixelPosition, characterNewPixelPosition)) {
             this.dispatch(setMainCharacterPixelPosition(characterNewPixelPosition));
+        }
+        const currentFacing = state.mainCharacter.facing;
+        const newFacing = this.getFacing(this.activeDirectionKey);
+        if (currentFacing !== newFacing) {
             this.dispatch(setFacing(this.getFacing(this.activeDirectionKey)));
         }
     }
