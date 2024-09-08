@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { Direction, Position } from "@/game/types/general";
-import CharacterMovementHelper from "@/game/lib/helper/CharacterMovementHelper";
 import { Facing } from "./types";
 
 export interface MainCharacterStateInterface {

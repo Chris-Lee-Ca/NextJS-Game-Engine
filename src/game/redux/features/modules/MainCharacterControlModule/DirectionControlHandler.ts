@@ -6,6 +6,7 @@ import { DirectionCommand, Facing } from "./types";
 import GridHelper from "@/game/lib/helper/GridHelper";
 import { MAIN_CHARACTER_MOVING_SPEED } from "@/game/lib/conts";
 import { setFacing, setMainCharacterPixelPosition } from "./mainCharacterSlice";
+import GeneralHelper from "@/game/lib/helper/GeneralHelper";
 
 export class DirectionControlHandler extends ModuleHandler {
     private static instance: DirectionControlHandler;
@@ -48,8 +49,10 @@ export class DirectionControlHandler extends ModuleHandler {
             movementDirection,
             deltaTime
         );
-        this.dispatch(setMainCharacterPixelPosition(characterNewPixelPosition));
-        this.dispatch(setFacing(this.getFacing(this.activeDirectionKey)));
+        if (!GeneralHelper.isObjectDeepEqual(characterCurrentPixelPosition, characterNewPixelPosition)) {
+            this.dispatch(setMainCharacterPixelPosition(characterNewPixelPosition));
+            this.dispatch(setFacing(this.getFacing(this.activeDirectionKey)));
+        }
     }
 
     private getHeldDirectionKeys(state: RootState): DirectionCommand[] {

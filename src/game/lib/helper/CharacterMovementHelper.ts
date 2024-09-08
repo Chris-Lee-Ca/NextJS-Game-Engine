@@ -2,6 +2,7 @@ import { Direction, LevelInfo, Placement, Position } from "@/game/types/general"
 import GridHelper from "./GridHelper";
 import { MAIN_CHARACTER_MOVING_SPEED } from "../conts";
 
+//TODO remove this helper class, it should be intergated in direction control handler
 class CharacterMovementHelper {
     /**
      * Calculates the actual pixel movement for the main character based on the given direction.

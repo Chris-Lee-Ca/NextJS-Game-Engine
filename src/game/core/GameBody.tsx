@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import GameCanvas from "./GameCanvas";
 import Viewport from "./Viewport";
 import { useAppDispatch, useAppSelector, useAppStore } from "../redux/hooks";
@@ -14,9 +14,13 @@ const GameBody = () => {
     const gameLoop = GameLoop.getInstance();
     const scaleFactor = useCSSVariable("--scale-factor");
 
+    const [isInitialized, setIsInitialized] = useState(false); // Track initialization status
+
     useEffect(() => {
         // dispatch(setLevel(gameState.allLevelInfo[gameState.currentLevel]));
         gameLoop.init(appStore);
+        setIsInitialized(true);
+
         gameLoop.start();
 
         return () => {
@@ -24,11 +28,7 @@ const GameBody = () => {
         };
     }, [gameState.currentLevel, scaleFactor]);
 
-    return (
-        <Viewport>
-            <GameCanvas />
-        </Viewport>
-    );
+    return <Viewport>{isInitialized && <GameCanvas />}</Viewport>;
 };
 
 export default GameBody;

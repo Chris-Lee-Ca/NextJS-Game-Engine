@@ -6,14 +6,14 @@ import { useAppSelector } from "@/game/redux/hooks";
 import { LevelInfo } from "@/game/types/general";
 import { Box } from "@mui/material";
 import { styled } from "@mui/system";
-import React, { CSSProperties, ReactNode } from "react";
+import React, { CSSProperties } from "react";
 import GridHelper from "../lib/helper/GridHelper";
 import SpriteHelper from "../lib/helper/SpriteHelper";
 import CharacterMovementHelper from "../lib/helper/CharacterMovementHelper";
 import { selectCurrentLevelInfo } from "../redux/features/gameSlice";
 import objectPool from "./ObjectPool";
 
-type GameCanvasProps = { children?: ReactNode; level?: string };
+type GameCanvasProps = {};
 
 const Canvas = styled(Box)({
     // flexDirection: "column",
@@ -22,7 +22,7 @@ const Canvas = styled(Box)({
     // position: "fixed",
 });
 
-const GameCanvas = ({ children, level }: GameCanvasProps) => {
+const GameCanvas = (props: GameCanvasProps) => {
     const mainCharacterPixelPosition = useAppSelector((state) => state.mainCharacter.mainCharacterPixelPosition);
     const levelInfo = useAppSelector(selectCurrentLevelInfo);
 
@@ -84,7 +84,6 @@ const GameCanvas = ({ children, level }: GameCanvasProps) => {
                         )`,
             }}
         >
-            {children}
             {Array.from({ length: levelInfo.tilesWidth }).map((_, rowIndex) => (
                 <div key={rowIndex} style={{ display: "flex" }}>
                     {Array.from({ length: levelInfo.tilesHeight }).map((_, colIndex) => (

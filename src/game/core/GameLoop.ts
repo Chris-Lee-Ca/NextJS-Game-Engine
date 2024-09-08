@@ -7,6 +7,7 @@ import { DirectionControlHandler } from "../redux/features/modules/MainCharacter
 import { GAME_SETTING } from "../lib/conts";
 import objectPool from "./ObjectPool";
 
+//TODO create a GameLoop interface, and move this implementation outside of "core" folder.
 class GameLoop {
     static instance: GameLoop;
     store: AppStore | undefined;
