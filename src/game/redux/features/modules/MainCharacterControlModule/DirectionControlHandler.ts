@@ -55,7 +55,7 @@ export class DirectionControlHandler extends ModuleHandler {
         const currentFacing = state.mainCharacter.facing;
         const newFacing = this.getFacing(this.activeDirectionKey);
         if (currentFacing !== newFacing) {
-            this.dispatch(setFacing(this.getFacing(this.activeDirectionKey)));
+            this.dispatch(setFacing(newFacing));
         }
     }
 
