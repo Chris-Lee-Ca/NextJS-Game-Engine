@@ -7,6 +7,6 @@
  *
  * @packageDocumentation
  */
-
+export type { DirectionControlHandlerConfig } from "./DirectionControlHandler";
 export { DirectionControlHandler } from "./DirectionControlHandler";
 export { mainCharacterReducer } from "./mainCharacterSlice";

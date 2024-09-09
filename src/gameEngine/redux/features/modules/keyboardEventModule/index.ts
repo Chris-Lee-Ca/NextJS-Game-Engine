@@ -4,5 +4,6 @@
  * @packageDocumentation
  */
 export type { GameCommand } from "./types";
+export type { KeyboardEventHandlerConfig } from "./KeyBoardEventHandler";
 export { KeyboardEventHandler } from "./KeyBoardEventHandler";
 export { keyboardEventReducer } from "./keyboardEventSlice";

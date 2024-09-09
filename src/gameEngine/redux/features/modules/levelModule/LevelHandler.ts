@@ -1,31 +1,36 @@
 import { AppDispatch, AppStore } from "@/gameEngine/redux/store";
-import { Config, ModuleHandler } from "..";
-import { setObjectPool } from "./levelSlice";
+import { ModuleHandler } from "..";
+import { setAllLevelInfo, setCurrentLevel, setObjectPool } from "./levelSlice";
 import objectPool from "@/gameEngine/ObjectPool";
 import GameObject from "@/gameEngine/ObjectPool/GameObject";
-import PlacementFactory from "@/game/components/placements/PlacementFactory";
+import GameObjectFactory from "@/gameEngine/ObjectPool/GameObjectFactory";
+import { AllLevelInfo } from "./types";
+
+export interface LevelHandlerConfig {
+    store: AppStore;
+    dispatch: AppDispatch;
+    gameObjectFactory: GameObjectFactory;
+    currentLevel: string;
+    allLevelInfo: AllLevelInfo;
+}
 
 export class LevelHandler extends ModuleHandler {
-    private static instance: LevelHandler;
-    private store: AppStore | undefined;
-    private dispatch: AppDispatch | undefined;
+    private store: AppStore;
+    private dispatch: AppDispatch;
     private objectPool: Map<string, GameObject>;
+    private gameObjectFactory: GameObjectFactory;
 
-    private constructor() {
+    public constructor({ store, dispatch, gameObjectFactory, currentLevel, allLevelInfo }: LevelHandlerConfig) {
         super();
-        this.objectPool = objectPool;
-    }
-
-    public static getInstance(): LevelHandler {
-        if (!this.instance) {
-            this.instance = new LevelHandler();
-        }
-        return this.instance;
-    }
-
-    public init({ store, dispatch }: Config): void {
         this.store = store;
         this.dispatch = dispatch;
+        this.gameObjectFactory = gameObjectFactory;
+        this.objectPool = objectPool;
+        this.dispatch(setCurrentLevel(currentLevel));
+        this.dispatch(setAllLevelInfo(allLevelInfo));
+    }
+
+    public init(): void {
         this.loadLevel();
     }
 
@@ -38,10 +43,9 @@ export class LevelHandler extends ModuleHandler {
         const currentLevelInfo = levelState.allLevelInfo[levelState.currentLevel];
         const currentLevelPlacements = currentLevelInfo.placements;
         this.dispatch(setObjectPool(currentLevelPlacements.map((placement) => placement.id)));
-        const placementFactory = new PlacementFactory();
         currentLevelPlacements.forEach((placement) => {
-            const placementObject = placementFactory.createObject(placement);
-            this.objectPool.set(placement.id, placementObject);
+            const gameObject = this.gameObjectFactory.createObject(placement);
+            this.objectPool.set(placement.id, gameObject);
         });
     }
 

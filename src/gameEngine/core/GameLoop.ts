@@ -22,7 +22,7 @@ class GameLoop {
         this.modules = modules;
         // init modules
         this.modules.forEach((module) => {
-            module.init({ store: this.store, dispatch: this.store.dispatch });
+            module.init();
         });
     }
 

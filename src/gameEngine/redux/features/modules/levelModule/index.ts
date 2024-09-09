@@ -4,5 +4,6 @@
  * @packageDocumentation
  */
 
+export type { LevelHandlerConfig } from "./LevelHandler";
 export { LevelHandler } from "./LevelHandler";
-export { levelReducer, selectCurrentLevelInfo, setCurrentLevel } from "./levelSlice";
+export { levelReducer, selectCurrentLevelInfo, setCurrentLevel, setAllLevelInfo } from "./levelSlice";

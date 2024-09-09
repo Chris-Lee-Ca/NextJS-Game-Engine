@@ -1,5 +1,3 @@
-import { Config } from "./types";
-
 /**
  * ModuleHandler Abstract Class
  *
@@ -10,22 +8,11 @@ import { Config } from "./types";
  */
 export abstract class ModuleHandler {
     /**
-     * Singleton instance getter. Ensures a single instance of the handler exists.
-     *
-     * @abstract
-     * @returns {KeyboardControlModule} The singleton instance.
-     */
-    public static getInstance(): ModuleHandler {
-        throw new Error("getInstance must be implemented");
-    }
-
-    /**
      * Initializes the module handler.
      *
      * @abstract
-     * @param {Config} config - The required configuration for initializing the module handler.
      */
-    public abstract init(config: Config): void;
+    public abstract init(): void;
 
     /**
      * Deinitializes the module handler, freeing up any used resources.

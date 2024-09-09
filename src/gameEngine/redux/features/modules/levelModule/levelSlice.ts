@@ -1,18 +1,18 @@
-import { demoLevel } from "@/game/lib/level";
-import { RootState } from "@/game/redux/store";
-import { LevelInfo } from "@/gameEngine/types/general";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "@/gameEngine/redux/store";
+import { LevelInfo } from "@/gameEngine/types/general";
+import { AllLevelInfo } from "./types";
 
 export interface LevelStateInterface {
     currentLevel: string;
-    allLevelInfo: { [key: string]: LevelInfo };
+    allLevelInfo: AllLevelInfo;
     objectIdPool: string[]; // An array storing all IDs of object pool object.
 }
 
 const initialState: LevelStateInterface = {
-    currentLevel: "demo",
-    allLevelInfo: { demo: demoLevel }, //TODO remove linkage to the game folder
+    currentLevel: "",
+    allLevelInfo: {},
     objectIdPool: [],
 };
 
@@ -22,6 +22,9 @@ export const levelSlice = createSlice({
     reducers: {
         setCurrentLevel: (state, action: PayloadAction<string>) => {
             state.currentLevel = action.payload;
+        },
+        setAllLevelInfo: (state, action: PayloadAction<AllLevelInfo>) => {
+            state.allLevelInfo = action.payload;
         },
         setObjectPool: (state, action: PayloadAction<string[]>) => {
             state.objectIdPool = action.payload;
@@ -34,5 +37,5 @@ export const selectCurrentLevelInfo = (state: RootState): LevelInfo => {
     return state.level.allLevelInfo[currentLevel];
 };
 
-export const { setCurrentLevel, setObjectPool } = levelSlice.actions;
+export const { setCurrentLevel, setAllLevelInfo, setObjectPool } = levelSlice.actions;
 export const levelReducer = levelSlice.reducer;

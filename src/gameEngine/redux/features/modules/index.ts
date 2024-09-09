@@ -3,5 +3,4 @@
  *
  * @packageDocumentation
  */
-export type { Config } from "./types";
 export { ModuleHandler } from "./ModuleHandler";
