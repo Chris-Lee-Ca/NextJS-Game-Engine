@@ -1,5 +1,3 @@
-"use client";
-
 import { useState, useEffect } from "react";
 import GridHelper from "../helper/GridHelper";
 

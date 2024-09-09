@@ -1,11 +1,11 @@
 import { Direction, Position } from "@/gameEngine/types/general";
 import { ModuleHandler } from "..";
 import { AppDispatch, AppStore, RootState } from "../../../store";
-import GridHelper from "@/gameEngine/helper/GridHelper";
-import GeneralHelper from "@/gameEngine/helper/GeneralHelper";
 import { DIRECTION_COMMAND_MAPPING, DIRECTION_KEYS } from "./constants";
 import { DirectionCommand, Facing } from "./types";
 import { setFacing, setMainCharacterPixelPosition } from "./mainCharacterSlice";
+import { isObjectDeepEqual } from "./helper";
+import GridHelper from "@/gameEngine/helper/GridHelper";
 
 export interface DirectionControlHandlerConfig {
     store: AppStore;
@@ -43,7 +43,7 @@ export class DirectionControlHandler extends ModuleHandler {
             characterMovingSpeed,
             deltaTime
         );
-        if (!GeneralHelper.isObjectDeepEqual(characterCurrentPixelPosition, characterNewPixelPosition)) {
+        if (!isObjectDeepEqual(characterCurrentPixelPosition, characterNewPixelPosition)) {
             this.dispatch(setMainCharacterPixelPosition(characterNewPixelPosition));
         }
         const currentFacing = state.mainCharacter.facing;
