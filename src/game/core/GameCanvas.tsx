@@ -1,17 +1,17 @@
 "use client";
 
-import Sprite from "@/game/core/components/Sprite/Sprite";
+import Sprite from "@/gameEngine/components/Sprite/Sprite";
 import { CUSTOM_STYLE, MAIN_SPRITE_SHEET } from "@/game/lib/conts";
 import { useAppSelector } from "@/game/redux/hooks";
-import { LevelInfo } from "@/game/types/general";
+import { LevelInfo } from "@/gameEngine/types/general";
 import { Box } from "@mui/material";
 import { styled } from "@mui/system";
 import React, { CSSProperties } from "react";
-import GridHelper from "../lib/helper/GridHelper";
-import SpriteHelper from "../lib/helper/SpriteHelper";
-import CanvasHelper from "../lib/helper/CanvasHelper";
-import { selectCurrentLevelInfo } from "../redux/features/gameSlice";
-import objectPool from "./ObjectPool";
+import GridHelper from "@/gameEngine/helper/GridHelper";
+import SpriteHelper from "../../gameEngine/helper/SpriteHelper";
+import CanvasHelper from "../../gameEngine/helper/CanvasHelper";
+import { selectCurrentLevelInfo } from "@/gameEngine/redux/features/modules/levelModule";
+import objectPool from "@/gameEngine/ObjectPool";
 
 type GameCanvasProps = {};
 
@@ -91,8 +91,8 @@ const GameCanvas = (props: GameCanvasProps) => {
                             key={`${rowIndex}-${colIndex}`}
                             style={{
                                 position: "absolute",
-                                top: GridHelper.getActualPixel(colIndex),
-                                left: GridHelper.getActualPixel(rowIndex),
+                                top: GridHelper.getActualPixel(colIndex, MAIN_SPRITE_SHEET),
+                                left: GridHelper.getActualPixel(rowIndex, MAIN_SPRITE_SHEET),
                                 display: "flex",
                                 flexDirection: "column",
                                 zIndex: 0,
@@ -122,25 +122,23 @@ const GameCanvas = (props: GameCanvasProps) => {
                     ))}
                 </div>
             ))}
-            {levelInfo.placements
-                .filter((placement) => !placement.hasBeenCollected)
-                .map((placement, index) => {
-                    const object = objectPool.get(placement.id);
-                    return (
-                        <div
-                            key={index}
-                            style={{
-                                position: "absolute",
-                                transform: `translate(
-                                    ${GridHelper.getActualPixel(placement.position.x)},
-                                    ${GridHelper.getActualPixel(placement.position.y)}
+            {levelInfo.placements.map((placement, index) => {
+                const object = objectPool.get(placement.id);
+                return (
+                    <div
+                        key={index}
+                        style={{
+                            position: "absolute",
+                            transform: `translate(
+                                    ${GridHelper.getActualPixel(placement.position.x, MAIN_SPRITE_SHEET)},
+                                    ${GridHelper.getActualPixel(placement.position.y, MAIN_SPRITE_SHEET)}
                                     )`,
-                            }}
-                        >
-                            {object?.render()}
-                        </div>
-                    );
-                })}
+                        }}
+                    >
+                        {object?.render()}
+                    </div>
+                );
+            })}
         </Canvas>
     );
 };

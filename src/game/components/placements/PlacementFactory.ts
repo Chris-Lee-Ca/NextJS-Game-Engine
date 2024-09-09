@@ -1,10 +1,10 @@
-import GameObjectFactory from "@/game/core/ObjectPool/GameObjectFactory";
+import GameObject from "@/gameEngine/ObjectPool/GameObject";
+import GameObjectFactory from "@/gameEngine/ObjectPool/GameObjectFactory";
 import CharacterFactory from "./character/CharacterFactory";
 import EnemyFactory from "./enemy/EnemyFactory";
 import PickUpFactory from "./pickUp/PickUpFactory";
 import TileFactory from "./tile/TileFactory";
-import { Placement } from "@/game/types/general";
-import GameObject from "@/game/core/ObjectPool/GameObject";
+import { Placement } from "@/gameEngine/types/general";
 
 class PlacementFactory extends GameObjectFactory {
     objectFactoryPool: { [key: string]: GameObjectFactory };

@@ -1,4 +1,4 @@
-import GameObject from "@/game/core/ObjectPool/GameObject";
+import GameObject from "@/gameEngine/ObjectPool/GameObject";
 import { ReactNode } from "react";
 
 class TileObject extends GameObject {

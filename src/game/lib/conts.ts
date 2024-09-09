@@ -1,13 +1,9 @@
 import spriteSheet from "@/game/assets/spritesheet.png";
 import heroSpriteSheet from "@/game/assets/hero.png";
-import { SpriteSheetInfo } from "@/game/types/general";
+import { SpriteSheetInfo } from "@/gameEngine/types/general";
 
 export const GAME_SETTING = {
-    TARGET_FPS: 30,
-};
-export const GRID = {
-    SIZE: 16,
-    DEFAULT_SCALE_FACTOR: 4,
+    TARGET_FPS: 60,
 };
 
 export const MAIN_SPRITE_SHEET: SpriteSheetInfo = {
@@ -36,8 +32,6 @@ export const HERO_SPRITE_SHEET: SpriteSheetInfo = {
     MAIN_CHARACTER_SECTION_Y_OFFSET: 7.5,
     ADJUST_SCALE_FACTOR: 1.3,
 };
-
-export const MAIN_CHARACTER_MOVING_SPEED = 10;
 
 export const CUSTOM_STYLE = {
     COLOR: {

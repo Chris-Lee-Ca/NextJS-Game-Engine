@@ -1,6 +1,6 @@
-import { Placement } from "@/game/types/general";
-import GameObject from "../../../core/ObjectPool/GameObject";
-import GameObjectFactory from "../../../core/ObjectPool/GameObjectFactory";
+import { Placement } from "@/gameEngine/types/general";
+import GameObject from "@/gameEngine/ObjectPool/GameObject";
+import GameObjectFactory from "@/gameEngine/ObjectPool/GameObjectFactory";
 import Shrub from "./shrub";
 
 class TileFactory extends GameObjectFactory {

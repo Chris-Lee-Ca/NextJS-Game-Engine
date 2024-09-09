@@ -1,17 +1,15 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { gameEngineReducer } from "@/gameEngine/redux/store";
 import { gameReducer } from "./features/gameSlice";
-import { levelReducer } from "./features/modules/levelModule";
-import { keyboardEventReducer } from "./features/modules/keyboardEventModule";
-import { mainCharacterReducer } from "./features/modules/MainCharacterControlModule";
+
+const rootReducer = combineReducers({
+    ...gameEngineReducer,
+    game: gameReducer,
+});
 
 export const makeGameStore = () => {
     return configureStore({
-        reducer: {
-            game: gameReducer,
-            level: levelReducer,
-            keyboardControl: keyboardEventReducer,
-            mainCharacter: mainCharacterReducer,
-        },
+        reducer: rootReducer,
     });
 };
 

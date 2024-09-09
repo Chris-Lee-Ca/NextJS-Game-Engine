@@ -1,7 +1,7 @@
 "use client";
 
-import GameStoreProvider from "@/game/core/GameStoreProvider";
 import GameBody from "./GameBody";
+import GameStoreProvider from "./GameStoreProvider";
 
 const Game = () => {
     return (

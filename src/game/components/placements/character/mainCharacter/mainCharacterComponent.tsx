@@ -1,13 +1,13 @@
 "use client";
 
 import { Box, styled } from "@mui/material";
-import AnimatedSprite from "@/game/core/components/Sprite/AnimatedSprite";
+import AnimatedSprite from "@/gameEngine/components/Sprite/AnimatedSprite";
 import React from "react";
-import { Animations } from "@/game/types/general";
+import { Animations } from "@/gameEngine/types/general";
 import { HERO_SPRITE_SHEET } from "@/game/lib/conts";
-import { useAppSelector } from "@/game/redux/hooks";
-import AnimationHelper from "@/game/lib/helper/AnimationHelper";
-import SpriteHelper from "@/game/lib/helper/SpriteHelper";
+import { useAppSelector } from "@/gameEngine/redux/hooks";
+import AnimationHelper from "@/game/helper/AnimationHelper";
+import SpriteHelper from "@/gameEngine/helper/SpriteHelper";
 
 const CharacterBox = styled(Box)({
     zIndex: 99,

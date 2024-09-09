@@ -1,34 +1,43 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import GameCanvas from "./GameCanvas";
-import Viewport from "./Viewport";
-import { useAppDispatch, useAppSelector, useAppStore } from "../redux/hooks";
-import GameLoop from "./GameLoop";
-import { useCSSVariable } from "../hooks/useCSSVariable";
+import Viewport from "@/gameEngine/core/Viewport";
+import { useAppSelector, useAppStore } from "@/game/redux/hooks";
+import { useCSSVariable } from "@/gameEngine/hooks/useCSSVariable";
+import GameLoop from "@/gameEngine/core/GameLoop";
+import { CUSTOM_STYLE, GAME_SETTING } from "../lib/conts";
+import { KeyboardEventHandler } from "@/gameEngine/redux/features/modules/keyboardEventModule";
+import { LevelHandler } from "@/gameEngine/redux/features/modules/levelModule";
+import { DirectionControlHandler } from "@/gameEngine/redux/features/modules/MainCharacterControlModule";
 
 const GameBody = () => {
     const appStore = useAppStore();
-    const dispatch = useAppDispatch();
-    const gameState = useAppSelector((state) => state.game);
-    const gameLoop = GameLoop.getInstance();
+    const levelState = useAppSelector((state) => state.level);
+    const gameLoop = GameLoop.getInstance({
+        targetFPS: GAME_SETTING.TARGET_FPS,
+        reduxStore: appStore,
+        modules: [
+            KeyboardEventHandler.getInstance(),
+            LevelHandler.getInstance(),
+            DirectionControlHandler.getInstance(),
+        ],
+    });
     const scaleFactor = useCSSVariable("--scale-factor");
 
-    const [isInitialized, setIsInitialized] = useState(false); // Track initialization status
-
     useEffect(() => {
-        // dispatch(setLevel(gameState.allLevelInfo[gameState.currentLevel]));
-        gameLoop.init(appStore);
-        setIsInitialized(true);
-
         gameLoop.start();
 
         return () => {
             gameLoop.stop();
         };
-    }, [gameState.currentLevel, scaleFactor]);
+    }, [levelState.currentLevel, scaleFactor]);
 
-    return <Viewport>{isInitialized && <GameCanvas />}</Viewport>;
+    return (
+        <Viewport backgroundColor={CUSTOM_STYLE.COLOR.MAIN_BLUE}>
+            <GameCanvas />
+        </Viewport>
+    );
 };
 
 export default GameBody;

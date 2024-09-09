@@ -2,8 +2,8 @@
 
 import React from "react";
 import { MAIN_SPRITE_SHEET } from "@/game/lib/conts";
-import SpriteHelper from "@/game/lib/helper/SpriteHelper";
-import Sprite from "@/game/core/components/Sprite/Sprite";
+import SpriteHelper from "@/gameEngine/helper/SpriteHelper";
+import Sprite from "@/gameEngine/components/Sprite/Sprite";
 
 interface ShrubComponentProps {
     x: number;

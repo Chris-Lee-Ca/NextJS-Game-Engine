@@ -1,4 +1,4 @@
-import { LevelInfo } from "@/game/types/general";
+import { LevelInfo } from "@/gameEngine/types/general";
 import { MAIN_SPRITE_SHEET } from "./conts";
 
 export const demoLevel: LevelInfo = {
