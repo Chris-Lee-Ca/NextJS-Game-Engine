@@ -1,4 +1,4 @@
-import { ModuleHandler } from "../redux/features/modules";
+import { ModuleHandler } from "../redux/modules";
 import { AppStore } from "../redux/store";
 
 import { objectPool } from "../objectPool";

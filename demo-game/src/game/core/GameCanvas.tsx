@@ -10,7 +10,7 @@ import React, { CSSProperties } from "react";
 import GridHelper from "game-engine/helper/GridHelper";
 import SpriteHelper from "game-engine/helper/SpriteHelper";
 import CanvasHelper from "game-engine/helper/CanvasHelper";
-import { selectCurrentLevelInfo } from "game-engine/redux/features/modules/levelModule";
+import { selectCurrentLevelInfo } from "game-engine/redux/modules/levelModule";
 import { objectPool } from "game-engine/objectPool";
 
 type GameCanvasProps = {};

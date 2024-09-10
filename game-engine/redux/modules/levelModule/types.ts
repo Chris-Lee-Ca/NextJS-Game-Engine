@@ -1,3 +1,3 @@
-import { LevelInfo } from "../../../../types/general";
+import { LevelInfo } from "../../../types/general";
 
 export type AllLevelInfo = { [key: string]: LevelInfo };

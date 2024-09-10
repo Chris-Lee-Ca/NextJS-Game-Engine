@@ -5,7 +5,7 @@
 
 ## Tech Using
 
-Typescript, Next.JS, Material UI
+Typescript, Next.JS, Redux, Material UI
 
 ## Remark
 
@@ -13,7 +13,7 @@ Choosing `Next.js` over `React.js` is more for the sake of learning the latest f
 
 Even when using "use client," `Next.js` still renders client components on the server, which introduces more complexity when building your project.
 
-Therefore, if you're more focused on game development, go for `React.js` (or perhaps using an existing game framework would be a smarter choice—unless you enjoy using `React` like I do !!).
+Therefore, if you're more focused on game development, place transfer the entire project to `React.js` (or perhaps using an existing game framework would be a smarter choice—unless you enjoy using `React` like I do !!).
 
 ## Local Development
 

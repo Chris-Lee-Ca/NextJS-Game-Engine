@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-import { Direction, Position } from "../../../../types/general";
+import { Direction, Position } from "../../../types/general";
 import { Facing } from "./types";
 
 export interface MainCharacterStateInterface {

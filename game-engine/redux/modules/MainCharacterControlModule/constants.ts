@@ -1,4 +1,4 @@
-import { Direction } from "../../../../types/general";
+import { Direction } from "../../../types/general";
 import { DirectionCommand } from "./types";
 
 export const DIRECTION_KEYS: DirectionCommand[] = ["up", "down", "left", "right"];

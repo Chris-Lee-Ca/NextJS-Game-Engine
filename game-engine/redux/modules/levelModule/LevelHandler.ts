@@ -1,7 +1,7 @@
-import { AppDispatch, AppStore } from "../../../store";
+import { AppDispatch, AppStore } from "../../store";
 import { ModuleHandler } from "..";
 import { setAllLevelInfo, setCurrentLevel, setObjectPool } from "./levelSlice";
-import { objectPool, GameObject, GameObjectFactory } from "../../../../objectPool";
+import { objectPool, GameObject, GameObjectFactory } from "../../../objectPool";
 import { AllLevelInfo } from "./types";
 
 export interface LevelHandlerConfig {

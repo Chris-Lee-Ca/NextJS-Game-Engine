@@ -7,9 +7,9 @@ import { useAppDispatch, useAppSelector, useAppStore } from "@/game/redux/hooks"
 import { useCSSVariable } from "game-engine/hooks/useCSSVariable";
 import GameLoop from "game-engine/core/GameLoop";
 import { CUSTOM_STYLE, GAME_SETTING } from "../lib/conts";
-import { KeyboardEventHandler } from "game-engine/redux/features/modules/keyboardEventModule";
-import { LevelHandler } from "game-engine/redux/features/modules/levelModule";
-import { DirectionControlHandler } from "game-engine/redux/features/modules/MainCharacterControlModule";
+import { KeyboardEventHandler } from "game-engine/redux/modules/keyboardEventModule";
+import { LevelHandler } from "game-engine/redux/modules/levelModule";
+import { DirectionControlHandler } from "game-engine/redux/modules/MainCharacterControlModule";
 import PlacementFactory from "../components/placements/PlacementFactory";
 import { allDemoLevelInfo } from "../lib/level";
 

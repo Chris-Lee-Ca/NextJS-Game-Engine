@@ -1,4 +1,4 @@
-import { AppDispatch } from "../../../store";
+import { AppDispatch } from "../../store";
 import { setHeldKeys } from "./keyboardEventSlice";
 import { KEY_MAPPING } from "./constants";
 import { ModuleHandler } from "..";

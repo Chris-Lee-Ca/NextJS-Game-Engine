@@ -1,11 +1,11 @@
-import { Direction, Position } from "../../../../types/general";
+import { Direction, Position } from "../../../types/general";
 import { ModuleHandler } from "..";
-import { AppDispatch, AppStore, RootState } from "../../../store";
+import { AppDispatch, AppStore, RootState } from "../../store";
 import { DIRECTION_COMMAND_MAPPING, DIRECTION_KEYS } from "./constants";
 import { DirectionCommand, Facing } from "./types";
 import { setFacing, setMainCharacterPixelPosition } from "./mainCharacterSlice";
 import { isObjectDeepEqual } from "./helper";
-import GridHelper from "../../../../helper/GridHelper";
+import GridHelper from "../../../helper/GridHelper";
 
 export interface DirectionControlHandlerConfig {
     store: AppStore;

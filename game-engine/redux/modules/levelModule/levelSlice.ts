@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../../../store";
-import { LevelInfo } from "../../../../types/general";
+import { RootState } from "../../store";
+import { LevelInfo } from "../../../types/general";
 import { AllLevelInfo } from "./types";
 
 export interface LevelStateInterface {
