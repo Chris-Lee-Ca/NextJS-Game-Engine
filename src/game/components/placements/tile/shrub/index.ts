@@ -1,4 +1,4 @@
-import { Placement } from "@/gameEngine/types/general";
+import { CustomPlacement } from "@/game/types/general";
 import TileObject from "../TileObject";
 import ShrubComponent from "./ShrubComponent";
 import React from "react";
@@ -6,7 +6,7 @@ import React from "react";
 class Shrub extends TileObject {
     x: number;
     y: number;
-    constructor(placement: Placement) {
+    constructor(placement: CustomPlacement) {
         super(placement);
         this.x = 0;
         this.y = 0;

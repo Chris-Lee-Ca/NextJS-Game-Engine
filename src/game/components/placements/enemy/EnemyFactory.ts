@@ -1,9 +1,9 @@
-import { Placement } from "@/gameEngine/types/general";
+import { CustomPlacement } from "@/game/types/general";
 import GameObject from "@/gameEngine/ObjectPool/GameObject";
 import GameObjectFactory from "@/gameEngine/ObjectPool/GameObjectFactory";
 
 class EnemyFactory extends GameObjectFactory {
-    public createObject(placement: Placement): GameObject {
+    public createObject(placement: CustomPlacement): GameObject {
         switch (placement.itemName) {
             default:
                 const placementItemName = placement.itemName;

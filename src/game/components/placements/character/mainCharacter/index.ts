@@ -1,10 +1,10 @@
-import { Placement } from "@/gameEngine/types/general";
+import { CustomPlacement } from "@/game/types/general";
 import CharacterObject from "../CharacterObject";
 import MainCharacterComponent from "./mainCharacterComponent";
 import React from "react";
 
 class MainCharacter extends CharacterObject {
-    constructor(placement: Placement) {
+    constructor(placement: CustomPlacement) {
         super(placement);
     }
 

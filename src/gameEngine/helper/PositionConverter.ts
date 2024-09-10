@@ -1,5 +1,5 @@
 import { Position } from "@/gameEngine/types/general";
-import GridHelper from "../../../gameEngine/helper/GridHelper";
+import GridHelper from "./GridHelper";
 
 class PositionConverter {
     public static gridToPixel(gridPosition: Position): Position {
