@@ -18,25 +18,12 @@ type Offset = {
 type Animations = {
     [key: string]: [number, number][];
 };
-type Theme = {
-    backgroundSpriteSheetInfo: SpriteSheetInfo;
-    imageOffset: Offset;
-    cliffSpriteSheetInfo: SpriteSheetInfo;
-    cliffImageOffset: Offset;
-};
 
 type Placement = {
     id: string;
     position: Position;
     type: string;
     itemName: string;
-};
-
-type LevelInfo = {
-    theme: Theme;
-    tilesWidth: number;
-    tilesHeight: number;
-    placements: Placement[];
 };
 
 type SpriteSheetInfo = {
@@ -50,4 +37,4 @@ type SpriteSheetInfo = {
     [key: string]: any;
 };
 
-export type { KeyboardEventType, Direction, Position, Offset, Animations, Placement, LevelInfo, SpriteSheetInfo };
+export type { KeyboardEventType, Direction, Position, Offset, Animations, Placement, SpriteSheetInfo };

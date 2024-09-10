@@ -3,13 +3,12 @@
 import Sprite from "game-engine/components/Sprite/Sprite";
 import { CUSTOM_STYLE, MAIN_SPRITE_SHEET } from "@/game/lib/conts";
 import { useAppSelector } from "@/game/redux/hooks";
-import { LevelInfo } from "game-engine/types/general";
+import { CanvasHelper, LevelInfo } from "game-engine/redux/modules/levelModule";
 import { Box } from "@mui/material";
 import { styled } from "@mui/system";
 import React, { CSSProperties } from "react";
 import GridHelper from "game-engine/helper/GridHelper";
 import SpriteHelper from "game-engine/helper/SpriteHelper";
-import CanvasHelper from "game-engine/helper/CanvasHelper";
 import { selectCurrentLevelInfo } from "game-engine/redux/modules/levelModule";
 import { objectPool } from "game-engine/objectPool";
 

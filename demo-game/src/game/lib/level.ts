@@ -1,6 +1,5 @@
-import { LevelInfo } from "game-engine/types/general";
+import { LevelInfo, AllLevelInfo } from "game-engine/redux/modules/levelModule";
 import { MAIN_SPRITE_SHEET } from "./conts";
-import { AllLevelInfo } from "game-engine/redux/modules/levelModule/types";
 
 export const demoLevel_1: LevelInfo = {
     theme: {

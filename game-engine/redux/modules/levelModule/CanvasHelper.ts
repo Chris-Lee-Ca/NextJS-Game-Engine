@@ -1,7 +1,8 @@
-import { LevelInfo, Placement, Position } from "../types/general";
-import GridHelper from "./GridHelper";
+import { Placement, Position } from "../../../types/general";
+import GridHelper from "../../../helper/GridHelper";
+import { LevelInfo } from "./types";
 
-class CanvasHelper {
+export class CanvasHelper {
     /**
      * Gets the default position offset of the canvas for placing the main character in its starting position.
      * @param {LevelInfo} levelInfo - The level information containing the main character's position.
@@ -68,5 +69,3 @@ class CanvasHelper {
         return { x: xAxisOffset, y: yAxisOffset };
     }
 }
-
-export default CanvasHelper;
