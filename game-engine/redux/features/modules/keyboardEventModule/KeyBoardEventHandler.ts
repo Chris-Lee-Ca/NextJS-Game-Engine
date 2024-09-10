@@ -17,13 +17,17 @@ export class KeyboardEventHandler extends ModuleHandler {
     }
 
     public init(): void {
-        window.addEventListener("keyup", this.handleKeyUp.bind(this));
-        window.addEventListener("keydown", this.handleKeyDown.bind(this));
+        if (typeof window !== "undefined") {
+            window.addEventListener("keyup", this.handleKeyUp.bind(this));
+            window.addEventListener("keydown", this.handleKeyDown.bind(this));
+        }
     }
 
     public deinit(): void {
-        window.removeEventListener("keyup", this.handleKeyUp.bind(this));
-        window.removeEventListener("keydown", this.handleKeyDown.bind(this));
+        if (typeof window !== "undefined") {
+            window.removeEventListener("keyup", this.handleKeyUp.bind(this));
+            window.removeEventListener("keydown", this.handleKeyDown.bind(this));
+        }
     }
 
     public update(deltaTime: number): void {}
