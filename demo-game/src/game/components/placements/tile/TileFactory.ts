@@ -1,6 +1,7 @@
-import { GameObject, GameObjectFactory } from "game-engine/objectPool";
+import { GameObjectFactory } from "game-engine/components/GameObjectFactory";
 import Shrub from "./shrub";
 import { CreateCustomObjectParams } from "@/game/types/general";
+import GameObject from "game-engine/components/GameObject";
 
 class TileFactory extends GameObjectFactory {
     public createObject(params: CreateCustomObjectParams): GameObject {

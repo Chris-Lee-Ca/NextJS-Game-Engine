@@ -10,7 +10,7 @@ import React, { CSSProperties } from "react";
 import GridHelper from "game-engine/helper/GridHelper";
 import SpriteHelper from "game-engine/helper/SpriteHelper";
 import { selectCurrentLevelInfo } from "game-engine/redux/modules/levelModule";
-import { objectPool } from "game-engine/objectPool";
+import ObjectPool from "game-engine/core/ObjectPool";
 
 type GameCanvasProps = {};
 
@@ -118,7 +118,7 @@ const GameCanvas = (props: GameCanvasProps) => {
                 </div>
             ))}
             {levelInfo.placements.map((placement, index) => {
-                const object = objectPool.get(placement.id);
+                const object = ObjectPool.get(placement.id);
                 return (
                     <div
                         key={index}

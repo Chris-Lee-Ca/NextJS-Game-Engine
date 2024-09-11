@@ -15,7 +15,6 @@ export const keyboardEventSlice = createSlice({
     reducers: {
         setHeldKeys: (state, action: PayloadAction<string[]>) => {
             state.heldKeys = [...action.payload];
-            // console.log(state.heldKeys);
         },
     },
 });

@@ -1,8 +1,10 @@
 import { AppDispatch, AppStore } from "../../store";
 import { ModuleHandler } from "..";
 import { setAllLevelInfo, setCurrentLevel, setObjectPool } from "./levelSlice";
-import { objectPool, GameObject, GameObjectFactory } from "../../../objectPool";
 import { AllLevelInfo } from "./types";
+import GameObject from "../../../components/GameObject";
+import { GameObjectFactory } from "../../../components/GameObjectFactory";
+import ObjectPool from "../../../core/ObjectPool";
 
 export interface LevelHandlerConfig {
     store: AppStore;
@@ -23,7 +25,7 @@ export class LevelHandler extends ModuleHandler {
         this.store = store;
         this.dispatch = dispatch;
         this.gameObjectFactory = gameObjectFactory;
-        this.objectPool = objectPool;
+        this.objectPool = ObjectPool;
         this.dispatch(setCurrentLevel(currentLevel));
         this.dispatch(setAllLevelInfo(allLevelInfo));
     }

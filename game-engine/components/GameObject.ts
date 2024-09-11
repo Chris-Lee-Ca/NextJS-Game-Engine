@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { Placement, Vector2 } from "../types/general";
 
-export abstract class GameObject {
+abstract class GameObject {
     id: string;
     position: Vector2;
 
@@ -18,3 +18,5 @@ export abstract class GameObject {
         return `GameObject: type -- ${typeof this}, id -- ${this.id}`;
     }
 }
+
+export default GameObject;

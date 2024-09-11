@@ -1,4 +1,4 @@
-import { CreateObjectParams } from "game-engine/objectPool/GameObjectFactory";
+import { CreateObjectParams } from "game-engine/components/GameObjectFactory";
 import { Placement } from "game-engine/types/general";
 import { AppStore } from "../redux/store";
 

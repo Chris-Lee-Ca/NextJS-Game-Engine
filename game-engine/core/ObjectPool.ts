@@ -6,6 +6,8 @@
  * Key: Unique string identifier for each game object.
  * Value: Instance of a GameObject.
  */
-import { GameObject } from "./GameObject";
+import GameObject from "../components/GameObject";
 
-export const objectPool = new Map<string, GameObject>();
+const ObjectPool = new Map<string, GameObject>();
+
+export default ObjectPool;

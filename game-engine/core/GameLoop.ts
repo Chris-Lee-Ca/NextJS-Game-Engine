@@ -1,7 +1,6 @@
 import { ModuleHandler } from "../redux/modules";
 import { AppStore } from "../redux/store";
-
-import { objectPool } from "../objectPool";
+import ObjectPool from "./ObjectPool";
 
 interface GameLoopConfig {
     targetFPS: number;
@@ -60,7 +59,7 @@ class GameLoop {
         });
 
         objectIdPool.forEach((objectId) => {
-            const object = objectPool.get(objectId);
+            const object = ObjectPool.get(objectId);
             object?.update(deltaTime);
         });
     }

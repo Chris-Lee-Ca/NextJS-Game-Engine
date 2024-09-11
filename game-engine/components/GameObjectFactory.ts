@@ -1,6 +1,6 @@
 import { AppStore } from "../redux/store";
 import { Placement } from "../types/general";
-import { GameObject } from "./GameObject";
+import GameObject from "./GameObject";
 
 export type CreateObjectParams = {
     placement: Placement;

@@ -1,5 +1,5 @@
+import GameObject from "game-engine/components/GameObject";
 import { ReactNode } from "react";
-import { GameObject } from "game-engine/objectPool";
 
 class CharacterObject extends GameObject {
     update(deltaTime: number): void {

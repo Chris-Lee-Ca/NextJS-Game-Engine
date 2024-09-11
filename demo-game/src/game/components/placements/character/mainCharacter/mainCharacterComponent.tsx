@@ -5,9 +5,9 @@ import AnimatedSprite from "game-engine/components/Sprite/AnimatedSprite";
 import React from "react";
 import { Animations } from "game-engine/types/general";
 import { HERO_SPRITE_SHEET } from "@/game/lib/conts";
-import { useAppSelector } from "game-engine/redux/hooks";
 import AnimationHelper from "@/game/helper/AnimationHelper";
 import SpriteHelper from "game-engine/helper/SpriteHelper";
+import { useAppSelector } from "@/game/redux/hooks";
 
 const CharacterBox = styled(Box)({
     zIndex: 99,
