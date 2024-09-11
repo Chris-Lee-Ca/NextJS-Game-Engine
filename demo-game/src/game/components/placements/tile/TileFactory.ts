@@ -1,14 +1,14 @@
 import { GameObject, GameObjectFactory } from "game-engine/objectPool";
 import Shrub from "./shrub";
-import { CustomPlacement } from "@/game/types/general";
+import { CreateCustomObjectParams } from "@/game/types/general";
 
 class TileFactory extends GameObjectFactory {
-    createObject(placement: CustomPlacement): GameObject {
-        switch (placement.itemName) {
+    public createObject(params: CreateCustomObjectParams): GameObject {
+        switch (params.placement.itemName) {
             case "shrub":
-                return new Shrub(placement);
+                return new Shrub(params.placement);
             default:
-                const placementItemName = placement.itemName;
+                const placementItemName = params.placement.itemName;
                 throw new Error(`Unknown placement itemName ${placementItemName}`);
         }
     }

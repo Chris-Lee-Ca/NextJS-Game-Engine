@@ -42,7 +42,7 @@ export class LevelHandler extends ModuleHandler {
         const currentLevelPlacements = currentLevelInfo.placements;
         this.dispatch(setObjectPool(currentLevelPlacements.map((placement) => placement.id)));
         currentLevelPlacements.forEach((placement) => {
-            const gameObject = this.gameObjectFactory.createObject(placement);
+            const gameObject = this.gameObjectFactory.createObject({ placement, reduxStore: this.store });
             this.objectPool.set(placement.id, gameObject);
         });
     }

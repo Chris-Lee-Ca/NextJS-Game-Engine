@@ -1,4 +1,4 @@
-import { Placement, Position } from "../../../types/general";
+import { Placement, Vector2 } from "../../../types/general";
 import GridHelper from "../../../helper/GridHelper";
 import { LevelInfo } from "./types";
 
@@ -6,9 +6,9 @@ export class CanvasHelper {
     /**
      * Gets the default position offset of the canvas for placing the main character in its starting position.
      * @param {LevelInfo} levelInfo - The level information containing the main character's position.
-     * @returns {Position} - The default position of the canvas.
+     * @returns {Vector2} - The default position of the canvas.
      */
-    static getCanvasDefaultOffset(levelInfo: LevelInfo): Position {
+    static getCanvasDefaultOffset(levelInfo: LevelInfo): Vector2 {
         const mainCharacter = this.findMainCharacter(levelInfo);
         const gridSize = GridHelper.getGridSizeInPixel();
 
@@ -44,9 +44,9 @@ export class CanvasHelper {
     /**
      * Calculates the initial offsets to center the main character on the grid at position {x: 0, y: 0}.
      * @param {number} gridSize - The actual size of the grid.
-     * @returns {Position} - The initial x and y offsets.
+     * @returns {Vector2} - The initial x and y offsets.
      */
-    private static calculateInitialOffsets(gridSize: number): Position {
+    private static calculateInitialOffsets(gridSize: number): Vector2 {
         const xAxisOffset = gridSize / 2;
         const yAxisOffset = gridSize / 2;
         return { x: xAxisOffset, y: yAxisOffset };
@@ -54,16 +54,16 @@ export class CanvasHelper {
 
     /**
      * Adjusts the offsets based on the main character's starting position.
-     * @param {Position} initialOffsets - The initial x and y offsets.
-     * @param {Position} characterPosition - The position of the main character in the grid.
+     * @param {Vector2} initialOffsets - The initial x and y offsets.
+     * @param {Vector2} characterPosition - The position of the main character in the grid.
      * @param {number} gridSize - The actual size of the grid.
-     * @returns {Position} - The adjusted x and y offsets.
+     * @returns {Vector2} - The adjusted x and y offsets.
      */
     private static adjustOffsetsForCharacterPosition(
-        initialOffsets: Position,
-        characterPosition: Position,
+        initialOffsets: Vector2,
+        characterPosition: Vector2,
         gridSize: number
-    ): Position {
+    ): Vector2 {
         const xAxisOffset = initialOffsets.x + characterPosition.x * gridSize;
         const yAxisOffset = initialOffsets.y + characterPosition.y * gridSize;
         return { x: xAxisOffset, y: yAxisOffset };

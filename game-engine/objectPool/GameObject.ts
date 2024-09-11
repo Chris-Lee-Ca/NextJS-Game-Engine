@@ -1,9 +1,9 @@
 import { ReactNode } from "react";
-import { Placement, Position } from "../types/general";
+import { Placement, Vector2 } from "../types/general";
 
 export abstract class GameObject {
     id: string;
-    position: Position;
+    position: Vector2;
 
     constructor(placement: Placement) {
         this.id = placement.id;

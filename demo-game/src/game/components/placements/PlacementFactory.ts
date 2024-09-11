@@ -3,7 +3,7 @@ import CharacterFactory from "./character/CharacterFactory";
 import EnemyFactory from "./enemy/EnemyFactory";
 import PickUpFactory from "./pickUp/PickUpFactory";
 import TileFactory from "./tile/TileFactory";
-import { CustomPlacement } from "@/game/types/general";
+import { CreateCustomObjectParams } from "@/game/types/general";
 
 class PlacementFactory extends GameObjectFactory {
     objectFactoryPool: { [key: string]: GameObjectFactory };
@@ -18,9 +18,9 @@ class PlacementFactory extends GameObjectFactory {
         };
     }
 
-    createObject(placement: CustomPlacement): GameObject {
-        const objectFactory: GameObjectFactory = this.objectFactoryPool[placement.type];
-        return objectFactory.createObject(placement);
+    createObject(params: CreateCustomObjectParams): GameObject {
+        const objectFactory: GameObjectFactory = this.objectFactoryPool[params.placement.type];
+        return objectFactory.createObject(params);
     }
 }
 

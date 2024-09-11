@@ -5,9 +5,15 @@ type Direction = {
     y: number;
 };
 
-type Position = {
+type Coordinate = {
     x: number;
     y: number;
+};
+type Pixel = number;
+
+type Vector2 = {
+    x: Pixel;
+    y: Pixel;
 };
 
 type Offset = {
@@ -21,7 +27,7 @@ type Animations = {
 
 type Placement = {
     id: string;
-    position: Position;
+    position: Coordinate;
     type: string;
     itemName: string;
 };
@@ -37,4 +43,14 @@ type SpriteSheetInfo = {
     [key: string]: any;
 };
 
-export type { KeyboardEventType, Direction, Position, Offset, Animations, Placement, SpriteSheetInfo };
+export type {
+    KeyboardEventType,
+    Direction,
+    Coordinate,
+    Pixel,
+    Vector2,
+    Offset,
+    Animations,
+    Placement,
+    SpriteSheetInfo,
+};

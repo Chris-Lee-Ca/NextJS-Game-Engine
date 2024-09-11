@@ -1,11 +1,11 @@
 import { GameObject, GameObjectFactory } from "game-engine/objectPool";
-import { CustomPlacement } from "@/game/types/general";
+import { CreateCustomObjectParams } from "@/game/types/general";
 
 class EnemyFactory extends GameObjectFactory {
-    public createObject(placement: CustomPlacement): GameObject {
-        switch (placement.itemName) {
+    public createObject(params: CreateCustomObjectParams): GameObject {
+        switch (params.placement.itemName) {
             default:
-                const placementItemName = placement.itemName;
+                const placementItemName = params.placement.itemName;
                 throw new Error(`Unknown placement itemName ${placementItemName}`);
         }
     }

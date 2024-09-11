@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-import { Direction, Position } from "../../../types/general";
+import { Coordinate, Vector2 } from "../../../types/general";
 import { Facing } from "./types";
 
 export interface MainCharacterStateInterface {
     mainCharacterMovingSpeed: number;
-    mainCharacterGridPosition: Position;
-    mainCharacterPixelPosition: Position;
+    mainCharacterGridPosition: Coordinate;
+    mainCharacterPixelPosition: Vector2;
     facing: Facing;
 }
 
@@ -25,10 +25,10 @@ export const mainCharacterSlice = createSlice({
         setMainCharacterMovingSpeed: (state, action: PayloadAction<number>) => {
             state.mainCharacterMovingSpeed = action.payload;
         },
-        setMainCharacterGridPosition: (state, action: PayloadAction<Direction>) => {
+        setMainCharacterGridPosition: (state, action: PayloadAction<Coordinate>) => {
             state.mainCharacterGridPosition = action.payload;
         },
-        setMainCharacterPixelPosition: (state, action: PayloadAction<Direction>) => {
+        setMainCharacterPixelPosition: (state, action: PayloadAction<Vector2>) => {
             state.mainCharacterPixelPosition = action.payload;
         },
         setFacing: (state, action: PayloadAction<Facing>) => {

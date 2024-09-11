@@ -1,4 +1,4 @@
-import { Position, SpriteSheetInfo } from "../types/general";
+import { Vector2, SpriteSheetInfo, Offset } from "../types/general";
 import GridHelper from "./GridHelper";
 
 class SpriteHelper {
@@ -8,14 +8,14 @@ class SpriteHelper {
      * @param {number} col - The column in the sprite sheet grid.
      * @param {SpriteSheetInfo} spriteSheetInfo - Information about the sprite sheet.
      * @param {Object} imageOffset - The x and y offsets for the image.
-     * @returns {Position} - The x and y position on the image.
+     * @returns {Vector2} - The x and y position on the image.
      */
     static spritePositionToImagePosition(
         row: number,
         col: number,
         spriteSheetInfo: SpriteSheetInfo,
-        imageOffset: { x: number; y: number }
-    ): Position {
+        imageOffset: Offset
+    ): Vector2 {
         return {
             x: imageOffset.x + spriteSheetInfo.BORDER + col * spriteSheetInfo.WIDTH,
             y: imageOffset.y + spriteSheetInfo.BORDER + row * (spriteSheetInfo.SPACING + spriteSheetInfo.HEIGHT),

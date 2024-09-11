@@ -1,4 +1,4 @@
-import { Direction, Position } from "../../../types/general";
+import { Direction, Vector2 } from "../../../types/general";
 import { ModuleHandler } from "..";
 import { AppDispatch, AppStore, RootState } from "../../store";
 import { DIRECTION_COMMAND_MAPPING, DIRECTION_KEYS } from "./constants";
@@ -36,7 +36,6 @@ export class DirectionControlHandler extends ModuleHandler {
         const movementDirection = this.getMovementDirection(this.activeDirectionKey);
         const characterMovingSpeed = state.mainCharacter.mainCharacterMovingSpeed;
         const characterCurrentPixelPosition = state.mainCharacter.mainCharacterPixelPosition;
-
         const characterNewPixelPosition = this.getCharacterNewPixelPosition(
             characterCurrentPixelPosition,
             movementDirection,
@@ -69,11 +68,11 @@ export class DirectionControlHandler extends ModuleHandler {
     }
 
     private getCharacterNewPixelPosition(
-        characterCurrentPixelPosition: Position,
+        characterCurrentPixelPosition: Vector2,
         movementDirection: Direction,
         characterMovingSpeed: number,
         deltaTime: number
-    ): Position {
+    ): Vector2 {
         const gridSize = GridHelper.getGridSizeInPixel();
         const characterMovementPerLoop = (characterMovingSpeed * deltaTime) / gridSize;
         return {

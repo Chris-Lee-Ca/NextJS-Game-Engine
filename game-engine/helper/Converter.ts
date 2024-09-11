@@ -1,15 +1,15 @@
-import { Position } from "../types/general";
+import { Vector2 } from "../types/general";
 import GridHelper from "./GridHelper";
 
-class PositionConverter {
-    public static gridToPixel(gridPosition: Position): Position {
+class Converter {
+    public static coordToVector(gridPosition: Vector2): Vector2 {
         const gridPixelSize = GridHelper.getGridSizeInPixel();
         return {
             x: gridPixelSize / 2 + gridPosition.x * gridPixelSize,
             y: gridPixelSize / 2 + gridPosition.y * gridPixelSize,
         };
     }
-    public static pixelToGrid(pixelPosition: Position): Position {
+    public static vectorToCoord(pixelPosition: Vector2): Vector2 {
         const gridPixelSize = GridHelper.getGridSizeInPixel();
         return {
             x: pixelPosition.x % gridPixelSize,
@@ -18,4 +18,4 @@ class PositionConverter {
     }
 }
 
-export default PositionConverter;
+export default Converter;

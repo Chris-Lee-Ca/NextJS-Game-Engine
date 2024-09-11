@@ -1,7 +1,14 @@
+import { CreateObjectParams } from "game-engine/objectPool/GameObjectFactory";
 import { Placement } from "game-engine/types/general";
+import { AppStore } from "../redux/store";
 
 interface CustomPlacement extends Placement {
     type: "character" | "enemy" | "pickUp" | "tile";
 }
 
-export type { CustomPlacement };
+interface CreateCustomObjectParams extends CreateObjectParams {
+    placement: CustomPlacement;
+    reduxStore: AppStore;
+}
+
+export type { CustomPlacement, CreateCustomObjectParams };

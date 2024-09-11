@@ -14,16 +14,12 @@ import { objectPool } from "game-engine/objectPool";
 
 type GameCanvasProps = {};
 
-const Canvas = styled(Box)({
-    // flexDirection: "column",
-    // justifyContent: "center",
-    // alignItems: "center",
-    // position: "fixed",
-});
+const Canvas = styled(Box)({});
 
 const GameCanvas = (props: GameCanvasProps) => {
     const mainCharacterPixelPosition = useAppSelector((state) => state.mainCharacter.mainCharacterPixelPosition);
     const levelInfo = useAppSelector(selectCurrentLevelInfo);
+    const gridSide = GridHelper.getGridSizeInPixel();
 
     // A function for adding border for edge tile
     const handleEdgeTileStyle = (row: number, col: number, levelInfo: LevelInfo): CSSProperties => {
@@ -90,8 +86,8 @@ const GameCanvas = (props: GameCanvasProps) => {
                             key={`${rowIndex}-${colIndex}`}
                             style={{
                                 position: "absolute",
-                                top: GridHelper.getActualPixel(colIndex, MAIN_SPRITE_SHEET),
-                                left: GridHelper.getActualPixel(rowIndex, MAIN_SPRITE_SHEET),
+                                top: gridSide * colIndex,
+                                left: gridSide * rowIndex,
                                 display: "flex",
                                 flexDirection: "column",
                                 zIndex: 0,
@@ -129,8 +125,8 @@ const GameCanvas = (props: GameCanvasProps) => {
                         style={{
                             position: "absolute",
                             transform: `translate(
-                                    ${GridHelper.getActualPixel(placement.position.x, MAIN_SPRITE_SHEET)},
-                                    ${GridHelper.getActualPixel(placement.position.y, MAIN_SPRITE_SHEET)}
+                                    ${gridSide * placement.position.x}px,
+                                    ${gridSide * placement.position.y}px
                                     )`,
                         }}
                     >
