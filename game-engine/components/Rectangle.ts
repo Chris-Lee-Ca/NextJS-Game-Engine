@@ -12,12 +12,10 @@ class Rectangle {
         this.width = width;
         this.height = height;
     }
-    // public constructor(center: Vector2, width: number, height: number) {
-    //     this.x = center.x - width / 2;
-    //     this.y = center.y - height / 2;
-    //     this.width = width;
-    //     this.height = height;
-    // }
+
+    public clone(): Rectangle {
+        return new Rectangle(this.x, this.y, this.width, this.height);
+    }
 
     public getCenter(): Vector2 {
         return {
@@ -26,14 +24,16 @@ class Rectangle {
         };
     }
 
-    public setCenter(center: Vector2): void {
+    public setCenter(center: Vector2): Rectangle {
         this.x = center.x - this.width / 2;
         this.y = center.y - this.height / 2;
+        return this;
     }
 
-    public setPosition(x: number, y: number): void {
+    public setPosition(x: number, y: number): Rectangle {
         this.x = x;
         this.y = y;
+        return this;
     }
 
     public contains(rect: Rectangle): boolean {

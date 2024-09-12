@@ -17,8 +17,8 @@ export const demoLevel_1: LevelInfo = {
     tilesWidth: 10,
     tilesHeight: 6,
     placements: [
-        { id: "Character-main-character-3-2", coord: { x: 3, y: 2 }, type: "Character", itemName: "main character" },
         { id: "Tile-shrub-1-1", coord: { x: 1, y: 1 }, type: "Tile", itemName: "shrub" },
+        { id: "Character-main-character-3-2", coord: { x: 3, y: 2 }, type: "Character", itemName: "main character" }, // main character must be the last item of the list, such that it draw on the canvas last and over all other item.
     ],
 };
 

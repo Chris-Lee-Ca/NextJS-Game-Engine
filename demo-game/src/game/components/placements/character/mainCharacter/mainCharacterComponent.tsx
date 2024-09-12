@@ -2,25 +2,26 @@
 
 import { Box, styled } from "@mui/material";
 import AnimatedSprite from "game-engine/components/Sprite/AnimatedSprite";
-import React, { useEffect } from "react";
+import React from "react";
 import { Animations, Vector2 } from "game-engine/types/general";
 import { HERO_SPRITE_SHEET } from "@/game/lib/conts";
 import AnimationHelper from "@/game/helper/AnimationHelper";
 import SpriteHelper from "game-engine/helper/SpriteHelper";
-import { useAppSelector } from "@/game/redux/hooks";
 import { Facing } from "game-engine/redux/modules/MainCharacterControlModule";
+import Rectangle from "game-engine/components/Rectangle";
+import Bound from "@/game/components/Bound";
+import { useAppSelector } from "@/game/redux/hooks";
 
-const CharacterBox = styled(Box)({
-    zIndex: 99,
-    position: "absolute",
-});
+const CharacterBox = styled(Box)({});
 
 interface MainCharacterComponentProps {
     facing: Facing;
     position: Vector2;
+    bound: Rectangle;
 }
 
-const MainCharacterComponent: React.FC<MainCharacterComponentProps> = ({ facing, position }) => {
+const MainCharacterComponent: React.FC<MainCharacterComponentProps> = ({ facing, position, bound }) => {
+    const devMode = useAppSelector((state) => state.game.devMode);
     const animations: Animations = {
         idleDown: [[0, 0]],
         walkDown: [
@@ -51,6 +52,7 @@ const MainCharacterComponent: React.FC<MainCharacterComponentProps> = ({ facing,
 
     return (
         <CharacterBox>
+            {devMode && <Bound position={position} rectangle={bound} />}
             <AnimatedSprite
                 spriteSheetInfo={HERO_SPRITE_SHEET}
                 imageOffset={{

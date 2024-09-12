@@ -1,9 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-export interface GameStateInterface {}
+export interface GameStateInterface {
+    devMode: boolean;
+}
 
-const initialState: GameStateInterface = {};
+const initialState: GameStateInterface = {
+    devMode: true,
+};
 
 export const gameSlice = createSlice({
     name: "game",
