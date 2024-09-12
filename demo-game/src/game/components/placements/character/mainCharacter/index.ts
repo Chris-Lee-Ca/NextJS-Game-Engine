@@ -52,13 +52,13 @@ class MainCharacter extends CharacterObject {
             .setPosition(characterNewPosition.x + this.legArea.xOffset, characterNewPosition.y + this.legArea.yOffset);
 
         const collisionList = this.checkCollision(characterNewBound);
-        if (collisionList.length === 0) {
-            this.performMovment(characterNewPosition, characterNewBound);
+        if (collisionList.length !== 0) {
+            for (const object of collisionList) {
+                object.performCollisionLogic(this);
+            }
             return;
         }
-        for (const object of collisionList) {
-            object?.performCollisionLogic(this);
-        }
+        this.performMovment(characterNewPosition, characterNewBound);
     }
 
     render() {

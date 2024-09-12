@@ -1,10 +1,12 @@
 import { AppDispatch, AppStore } from "../../store";
 import { ModuleHandler } from "..";
 import { setAllLevelInfo, setCurrentLevel, setObjectPool } from "./levelSlice";
-import { AllLevelInfo } from "./types";
+import { AllLevelInfo, LevelInfo } from "./types";
 import GameObject from "../../../components/GameObject";
 import { GameObjectFactory } from "../../../components/GameObjectFactory";
 import ObjectPool from "../../../core/ObjectPool";
+import { Coordinate, Placement } from "../../../types/general";
+import InvisibleWall from "../../../components/InvisibleWall";
 
 export interface LevelHandlerConfig {
     store: AppStore;
@@ -41,6 +43,8 @@ export class LevelHandler extends ModuleHandler {
         const state = this.store.getState();
         const levelState = state.level;
         const currentLevelInfo = levelState.allLevelInfo[levelState.currentLevel];
+        this.createMapBoundry(currentLevelInfo);
+
         const currentLevelPlacements = currentLevelInfo.placements;
         this.dispatch(setObjectPool(currentLevelPlacements.map((placement) => placement.id)));
         currentLevelPlacements.forEach((placement) => {
@@ -52,4 +56,26 @@ export class LevelHandler extends ModuleHandler {
     public deinit(): void {}
 
     public update(deltaTime: number): void {}
+
+    private createMapBoundry(currentLevelInfo: LevelInfo): void {
+        for (let x = 0; x < currentLevelInfo.tilesWidth; x++) {
+            this.createInvisibleWall({ x, y: -1 });
+            this.createInvisibleWall({ x, y: currentLevelInfo.tilesHeight });
+        }
+        for (let y = 0; y < currentLevelInfo.tilesHeight; y++) {
+            this.createInvisibleWall({ x: -1, y });
+            this.createInvisibleWall({ x: currentLevelInfo.tilesWidth, y });
+        }
+    }
+
+    private createInvisibleWall(coord: Coordinate): void {
+        const invisibleWallPlacement: Placement = {
+            id: `Other-invisible-wall-${coord.x}-${coord.y}`,
+            coord: coord,
+            type: "Other",
+            itemName: "invisible wall",
+        };
+        const invisibleWallObject = new InvisibleWall({ placement: invisibleWallPlacement });
+        this.objectPool.set(invisibleWallPlacement.id, invisibleWallObject);
+    }
 }
