@@ -1,3 +1,4 @@
+import { updateTime } from "../redux/features/coreSlice";
 import { ModuleHandler } from "../redux/modules";
 import { AppStore } from "../redux/store";
 import ObjectPool from "./ObjectPool";
@@ -51,6 +52,7 @@ class GameLoop {
     }
 
     private update(deltaTime: number) {
+        this.store.dispatch(updateTime());
         const state = this.store!.getState();
         const objectIdPool = state.level.objectIdPool;
         // update modules

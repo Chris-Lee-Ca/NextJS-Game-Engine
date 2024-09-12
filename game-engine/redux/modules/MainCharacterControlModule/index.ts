@@ -8,5 +8,7 @@
  * @packageDocumentation
  */
 export type { DirectionControlHandlerConfig } from "./DirectionControlHandler";
+export type { Facing } from "./types";
 export { DirectionControlHandler } from "./DirectionControlHandler";
 export { mainCharacterReducer } from "./mainCharacterSlice";
+export { getCharacterOffset } from "./helper";

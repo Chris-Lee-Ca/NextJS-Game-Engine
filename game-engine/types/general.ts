@@ -27,7 +27,7 @@ type Animations = {
 
 type Placement = {
     id: string;
-    position: Coordinate;
+    coord: Coordinate;
     type: string;
     itemName: string;
 };

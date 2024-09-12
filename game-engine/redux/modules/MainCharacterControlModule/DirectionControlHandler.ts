@@ -1,11 +1,8 @@
-import { Direction, Vector2 } from "../../../types/general";
 import { ModuleHandler } from "..";
 import { AppDispatch, AppStore, RootState } from "../../store";
-import { DIRECTION_COMMAND_MAPPING, DIRECTION_KEYS } from "./constants";
+import { DIRECTION_KEYS } from "./constants";
 import { DirectionCommand, Facing } from "./types";
-import { setFacing, setMainCharacterPixelPosition } from "./mainCharacterSlice";
-import { isObjectDeepEqual } from "./helper";
-import GridHelper from "../../../helper/GridHelper";
+import { setMovmentDirection } from "./mainCharacterSlice";
 
 export interface DirectionControlHandlerConfig {
     store: AppStore;
@@ -15,8 +12,6 @@ export interface DirectionControlHandlerConfig {
 export class DirectionControlHandler extends ModuleHandler {
     private store: AppStore;
     private dispatch: AppDispatch;
-    private heldDirectionKeys: DirectionCommand[] = [];
-    private activeDirectionKey: DirectionCommand = "";
 
     public constructor({ store, dispatch }: DirectionControlHandlerConfig) {
         super();
@@ -31,24 +26,11 @@ export class DirectionControlHandler extends ModuleHandler {
     public update(deltaTime: number) {
         const state = this.store.getState();
 
-        this.heldDirectionKeys = this.getHeldDirectionKeys(state);
-        this.activeDirectionKey = this.getActiveDirectionKey(this.heldDirectionKeys);
-        const movementDirection = this.getMovementDirection(this.activeDirectionKey);
-        const characterMovingSpeed = state.mainCharacter.mainCharacterMovingSpeed;
-        const characterCurrentPixelPosition = state.mainCharacter.mainCharacterPixelPosition;
-        const characterNewPixelPosition = this.getCharacterNewPixelPosition(
-            characterCurrentPixelPosition,
-            movementDirection,
-            characterMovingSpeed,
-            deltaTime
-        );
-        if (!isObjectDeepEqual(characterCurrentPixelPosition, characterNewPixelPosition)) {
-            this.dispatch(setMainCharacterPixelPosition(characterNewPixelPosition));
-        }
-        const currentFacing = state.mainCharacter.facing;
-        const newFacing = this.getFacing(this.activeDirectionKey);
-        if (currentFacing !== newFacing) {
-            this.dispatch(setFacing(newFacing));
+        const heldDirectionKeys = this.getHeldDirectionKeys(state);
+        const movementDirection = this.getActiveDirectionKey(heldDirectionKeys);
+        const oldMovmentDirection = state.mainCharacter.movmentDirection;
+        if (movementDirection !== oldMovmentDirection) {
+            this.dispatch(setMovmentDirection(movementDirection));
         }
     }
 
@@ -61,42 +43,6 @@ export class DirectionControlHandler extends ModuleHandler {
     private getActiveDirectionKey(heldDirectionKeys: DirectionCommand[]): DirectionCommand {
         if (heldDirectionKeys.length === 0) return "";
         return heldDirectionKeys[0];
-    }
-
-    private getMovementDirection(activeDirectionKey: DirectionCommand): Direction {
-        return DIRECTION_COMMAND_MAPPING[activeDirectionKey];
-    }
-
-    private getCharacterNewPixelPosition(
-        characterCurrentPixelPosition: Vector2,
-        movementDirection: Direction,
-        characterMovingSpeed: number,
-        deltaTime: number
-    ): Vector2 {
-        const gridSize = GridHelper.getGridSizeInPixel();
-        const characterMovementPerLoop = (characterMovingSpeed * deltaTime) / gridSize;
-        return {
-            x: characterCurrentPixelPosition.x + movementDirection.x * characterMovementPerLoop,
-            y: characterCurrentPixelPosition.y + movementDirection.y * characterMovementPerLoop,
-        };
-    }
-
-    private getFacing(activeDirectionKey: DirectionCommand): Facing {
-        switch (activeDirectionKey) {
-            case "up":
-                return "up";
-            case "down":
-                return "down";
-            case "left":
-                return "left";
-            case "right":
-                return "right";
-            case "":
-                return "none";
-            default:
-                const facing: never = activeDirectionKey;
-                throw new Error(`Unknown activeDirectionKey ${activeDirectionKey}`);
-        }
     }
 }
 

@@ -1,13 +1,16 @@
 import { ReactNode } from "react";
-import { Placement, Vector2 } from "../types/general";
+import { Coordinate, Placement, Vector2 } from "../types/general";
+import Converter from "../helper/Converter";
 
 abstract class GameObject {
     id: string;
+    coord: Coordinate;
     position: Vector2;
 
     constructor(placement: Placement) {
         this.id = placement.id;
-        this.position = placement.position;
+        this.coord = placement.coord;
+        this.position = Converter.coordToVector(this.coord);
     }
 
     abstract update(deltaTime: number): void;

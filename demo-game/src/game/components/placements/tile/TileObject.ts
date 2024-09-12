@@ -10,7 +10,7 @@ abstract class TileObject extends GameObject {
     constructor(placement: CustomPlacement) {
         super(placement);
         const gridSize = GridHelper.getGridSizeInPixel();
-        this.bound = new Rectangle(Converter.coordToVector(placement.position), gridSize, gridSize);
+        this.bound = new Rectangle(this.position.x, this.position.y, gridSize, gridSize);
     }
     update(deltaTime: number): void {
         throw new Error("Method not implemented.");

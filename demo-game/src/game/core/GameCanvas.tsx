@@ -17,7 +17,7 @@ type GameCanvasProps = {};
 const Canvas = styled(Box)({});
 
 const GameCanvas = (props: GameCanvasProps) => {
-    const mainCharacterPixelPosition = useAppSelector((state) => state.mainCharacter.mainCharacterPixelPosition);
+    useAppSelector((state) => state.core.time); //Subscribe "core time" to update the canvas every game loop
     const levelInfo = useAppSelector(selectCurrentLevelInfo);
     const gridSide = GridHelper.getGridSizeInPixel();
 
@@ -68,17 +68,20 @@ const GameCanvas = (props: GameCanvasProps) => {
         return false;
     };
 
-    const canvasDefaultOffset = CanvasHelper.getCanvasDefaultOffset(levelInfo);
+    const mainCharacterId = CanvasHelper.findMainCharacterId(levelInfo);
+    const mainCharacter = ObjectPool.get(mainCharacterId);
+    const canvasBaseOffset = CanvasHelper.getCanvasBaseOffset();
 
     return (
         <Canvas
             style={{
                 transform: `translate(
-                        ${-canvasDefaultOffset.x - mainCharacterPixelPosition.x}px,
-                        ${-canvasDefaultOffset.y - mainCharacterPixelPosition.y}px
+                        ${-canvasBaseOffset.x - mainCharacter!.position.x}px,
+                        ${-canvasBaseOffset.y - mainCharacter!.position.y}px
                         )`,
             }}
         >
+            {/* Background */}
             {Array.from({ length: levelInfo.tilesWidth }).map((_, rowIndex) => (
                 <div key={rowIndex} style={{ display: "flex" }}>
                     {Array.from({ length: levelInfo.tilesHeight }).map((_, colIndex) => (
@@ -117,6 +120,7 @@ const GameCanvas = (props: GameCanvasProps) => {
                     ))}
                 </div>
             ))}
+            {/* Game Object */}
             {levelInfo.placements.map((placement, index) => {
                 const object = ObjectPool.get(placement.id);
                 return (
@@ -125,8 +129,8 @@ const GameCanvas = (props: GameCanvasProps) => {
                         style={{
                             position: "absolute",
                             transform: `translate(
-                                    ${gridSide * placement.position.x}px,
-                                    ${gridSide * placement.position.y}px
+                                    ${object?.position.x}px,
+                                    ${object?.position.y}px
                                     )`,
                         }}
                     >
