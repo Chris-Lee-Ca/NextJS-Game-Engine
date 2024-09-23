@@ -8,6 +8,7 @@ type Theme = {
 };
 
 type LevelInfo = {
+    levelTitle: string;
     theme: Theme;
     tilesWidth: number;
     tilesHeight: number;

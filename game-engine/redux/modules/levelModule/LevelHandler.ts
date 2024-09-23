@@ -1,6 +1,6 @@
 import { AppDispatch, AppStore } from "../../store";
 import { ModuleHandler } from "..";
-import { setAllLevelInfo, setCurrentLevel, setObjectPool } from "./levelSlice";
+import { setAllLevelInfo, setCurrentLevel, setObjectIdPool } from "./levelSlice";
 import { AllLevelInfo, LevelInfo } from "./types";
 import GameObject from "../../../components/GameObject";
 import { GameObjectFactory } from "../../../components/GameObjectFactory";
@@ -40,13 +40,17 @@ export class LevelHandler extends ModuleHandler {
         if (typeof this.store === "undefined" || typeof this.dispatch === "undefined") {
             throw new Error('Please call "init" method for LevelHandler');
         }
+        //reset object pool
+        this.objectPool.clear();
+
         const state = this.store.getState();
         const levelState = state.level;
         const currentLevelInfo = levelState.allLevelInfo[levelState.currentLevel];
         this.createMapBoundry(currentLevelInfo);
 
         const currentLevelPlacements = currentLevelInfo.placements;
-        this.dispatch(setObjectPool(currentLevelPlacements.map((placement) => placement.id)));
+        const newObjectIdPool = currentLevelPlacements.map((placement) => placement.id);
+        this.dispatch(setObjectIdPool(newObjectIdPool));
         currentLevelPlacements.forEach((placement) => {
             const gameObject = this.gameObjectFactory.createObject({ placement, reduxStore: this.store });
             this.objectPool.set(placement.id, gameObject);

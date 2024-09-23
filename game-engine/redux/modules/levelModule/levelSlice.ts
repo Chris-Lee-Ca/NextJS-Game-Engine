@@ -25,7 +25,10 @@ export const levelSlice = createSlice({
         setAllLevelInfo: (state, action: PayloadAction<AllLevelInfo>) => {
             state.allLevelInfo = action.payload;
         },
-        setObjectPool: (state, action: PayloadAction<string[]>) => {
+        setLevelInfoByKey: (state, action: PayloadAction<{ key: string; levelInfo: LevelInfo }>) => {
+            state.allLevelInfo[action.payload.key] = action.payload.levelInfo;
+        },
+        setObjectIdPool: (state, action: PayloadAction<string[]>) => {
             state.objectIdPool = action.payload;
         },
     },
@@ -36,5 +39,5 @@ export const selectCurrentLevelInfo = (state: RootState): LevelInfo => {
     return state.level.allLevelInfo[currentLevel];
 };
 
-export const { setCurrentLevel, setAllLevelInfo, setObjectPool } = levelSlice.actions;
+export const { setCurrentLevel, setAllLevelInfo, setLevelInfoByKey, setObjectIdPool } = levelSlice.actions;
 export const levelReducer = levelSlice.reducer;

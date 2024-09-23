@@ -6,7 +6,7 @@ import ObjectPool from "./ObjectPool";
 interface GameLoopConfig {
     targetFPS: number;
     reduxStore: AppStore;
-    modules: ModuleHandler[];
+    modules: { [key: string]: ModuleHandler };
 }
 
 class GameLoop {
@@ -14,7 +14,7 @@ class GameLoop {
     store: AppStore;
     lastFrameTime: number;
     targetFPS: number;
-    modules: ModuleHandler[];
+    modules: { [key: string]: ModuleHandler };
 
     private constructor({ targetFPS, reduxStore, modules }: GameLoopConfig) {
         this.lastFrameTime = 0;
@@ -22,8 +22,8 @@ class GameLoop {
         this.store = reduxStore;
         this.modules = modules;
         // init modules
-        this.modules.forEach((module) => {
-            module.init();
+        Object.entries(this.modules).forEach(([_key, moduleHandler]) => {
+            moduleHandler.init();
         });
     }
 
@@ -56,8 +56,8 @@ class GameLoop {
         const state = this.store!.getState();
         const objectIdPool = state.level.objectIdPool;
         // update modules
-        this.modules.forEach((module) => {
-            module.update(deltaTime);
+        Object.entries(this.modules).forEach(([_key, moduleHandler]) => {
+            moduleHandler.update(deltaTime);
         });
 
         objectIdPool.forEach((objectId) => {
@@ -68,8 +68,8 @@ class GameLoop {
 
     stop() {
         // deinit modules
-        this.modules.forEach((module) => {
-            module.deinit();
+        Object.entries(this.modules).forEach(([_key, moduleHandler]) => {
+            moduleHandler.deinit();
         });
     }
 }

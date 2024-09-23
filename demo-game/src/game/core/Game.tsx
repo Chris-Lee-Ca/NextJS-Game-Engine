@@ -1,12 +1,12 @@
 "use client";
 
-import GameBody from "./GameBody";
+import GameInitializer from "./GameInitializer";
 import GameStoreProvider from "./GameStoreProvider";
 
 const Game = () => {
     return (
         <GameStoreProvider>
-            <GameBody />
+            <GameInitializer />
         </GameStoreProvider>
     );
 };

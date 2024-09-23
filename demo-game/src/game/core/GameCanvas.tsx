@@ -21,28 +21,20 @@ const GameCanvas = (props: GameCanvasProps) => {
     const levelInfo = useAppSelector(selectCurrentLevelInfo);
     const gridSide = GridHelper.getGridSizeInPixel();
 
-    // A function for adding border for edge tile
-    const handleEdgeTileStyle = (row: number, col: number, levelInfo: LevelInfo): CSSProperties => {
+    const handleTileBorderStyle = (row: number, col: number, levelInfo: LevelInfo, isCliff: Boolean): CSSProperties => {
         let borderStyle: CSSProperties = {};
         const mapBorder = CUSTOM_STYLE.BORDER.MAP_BORDER;
         const gridBorder = CUSTOM_STYLE.BORDER.GRID_BORDER;
-        borderStyle["border"] = gridBorder;
+
+        borderStyle["borderTop"] = gridBorder;
+        borderStyle["borderLeft"] = gridBorder;
+        borderStyle["borderRight"] = gridBorder;
+        borderStyle["borderBottom"] = gridBorder;
+
         if (row === 0) borderStyle["borderLeft"] = mapBorder;
         if (col === 0) borderStyle["borderTop"] = mapBorder;
         if (row === levelInfo.tilesWidth - 1) borderStyle["borderRight"] = mapBorder;
-
-        return borderStyle;
-    };
-
-    // A function for adding border for cliff tile
-    const handleCliffStyle = (row: number, levelInfo: LevelInfo): CSSProperties => {
-        let borderStyle: CSSProperties = {};
-        const mapBorder = CUSTOM_STYLE.BORDER.MAP_BORDER;
-        const gridBorder = CUSTOM_STYLE.BORDER.GRID_BORDER;
-        borderStyle["border"] = gridBorder;
-        borderStyle["borderBottom"] = mapBorder;
-        if (row === 0) borderStyle["borderLeft"] = mapBorder;
-        if (row === levelInfo.tilesWidth - 1) borderStyle["borderRight"] = mapBorder;
+        if (isCliff) borderStyle["borderBottom"] = mapBorder;
 
         return borderStyle;
     };
@@ -53,13 +45,8 @@ const GameCanvas = (props: GameCanvasProps) => {
         levelInfo: LevelInfo,
         isCliff: boolean
     ): CSSProperties => {
-        let style: CSSProperties = { ...handleEdgeTileStyle(row, col, levelInfo) };
-        if (isCliff) {
-            style = {
-                ...handleCliffStyle(row, levelInfo),
-                ...style,
-            };
-        }
+        let style: CSSProperties = { ...handleTileBorderStyle(row, col, levelInfo, isCliff) };
+
         return style;
     };
 

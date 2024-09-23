@@ -6,7 +6,7 @@ export interface GameStateInterface {
 }
 
 const initialState: GameStateInterface = {
-    devMode: true,
+    devMode: false,
 };
 
 export const gameSlice = createSlice({

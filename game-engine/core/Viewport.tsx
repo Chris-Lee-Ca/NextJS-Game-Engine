@@ -6,9 +6,9 @@ import { Box, styled } from "@mui/material";
 type ViewportProps = { children?: ReactNode; backgroundColor: string };
 
 const ViewportBox = styled(Box)({
-    height: "50vh",
+    height: "100vh",
     maxHeight: "100%",
-    width: "50%",
+    width: "100%",
     top: 0,
     bottom: 0,
     left: 0,
@@ -18,7 +18,7 @@ const ViewportBox = styled(Box)({
     justifyContent: "center",
     alignItems: "center",
     overflow: "hidden",
-    border: "2px solid red",
+    // border: "2px solid red",
 });
 
 const Viewport = ({ children, backgroundColor }: ViewportProps) => {

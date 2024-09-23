@@ -2,7 +2,6 @@ import { Vector2 } from "../../../types/general";
 import GridHelper from "../../../helper/GridHelper";
 import { LevelInfo } from "./types";
 import GameObject from "../../../components/GameObject";
-import Rectangle from "../../../components/Rectangle";
 
 export class CanvasHelper {
     static getCanvasBaseOffset(): Vector2 {
