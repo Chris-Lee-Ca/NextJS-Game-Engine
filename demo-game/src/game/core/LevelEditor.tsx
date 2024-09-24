@@ -41,15 +41,6 @@ export const LevelEditor = (props: LevelEditorProps) => {
         ],
     });
 
-    useEffect(() => {
-        initLevelEditorHandler();
-    }, []);
-
-    const initLevelEditorHandler = async () => {
-        dispatch(setLevelInfoByKey({ key: editorLevelName, levelInfo: levelInfo }));
-        dispatch(setCurrentLevel(editorLevelName));
-    };
-
     const downLoadLevelInfoHandler = () => {
         const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(levelInfo, null, 4));
         const downloadAnchorNode = document.createElement("a");
@@ -63,6 +54,20 @@ export const LevelEditor = (props: LevelEditorProps) => {
     const loadLevelInfoHandler = () => {
         dispatch(setLevelInfoByKey({ key: editorLevelName, levelInfo: levelInfo }));
     };
+
+    const initLevelEditorHandler = async () => {
+        dispatch(setLevelInfoByKey({ key: editorLevelName, levelInfo: levelInfo }));
+        dispatch(setCurrentLevel(editorLevelName));
+    };
+
+    useEffect(() => {
+        loadLevelInfoHandler();
+    }, [levelInfo]);
+
+    useEffect(() => {
+        initLevelEditorHandler();
+    }, []);
+
     return (
         <LevelEditorWrapper>
             <DefaultTitle>Level Title</DefaultTitle>
@@ -71,7 +76,6 @@ export const LevelEditor = (props: LevelEditorProps) => {
                     value={levelInfo.levelTitle}
                     onChange={(e) => {
                         setLevelInfo({ ...levelInfo, levelTitle: e.target.value });
-                        loadLevelInfoHandler();
                     }}
                 />
             </SectionWrapper>
@@ -86,7 +90,6 @@ export const LevelEditor = (props: LevelEditorProps) => {
                     max="20"
                     onChange={(e) => {
                         setLevelInfo({ ...levelInfo, tilesWidth: Number(e.target.value) });
-                        loadLevelInfoHandler();
                     }}
                     value={levelInfo.tilesWidth}
                 />
@@ -97,7 +100,6 @@ export const LevelEditor = (props: LevelEditorProps) => {
                     max="20"
                     onChange={(e) => {
                         setLevelInfo({ ...levelInfo, tilesHeight: Number(e.target.value) });
-                        loadLevelInfoHandler();
                     }}
                     value={levelInfo.tilesHeight}
                 />

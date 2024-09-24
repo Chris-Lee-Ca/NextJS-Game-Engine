@@ -20,7 +20,7 @@ const GameBody = ({ gameLoop }: { gameLoop: GameLoop }) => {
         return () => {
             gameLoop.stop();
         };
-    }, [levelState.currentLevel, scaleFactor]);
+    }, [levelState.currentLevel, levelState.allLevelInfo[levelState.currentLevel], scaleFactor]);
 
     return (
         <Viewport backgroundColor={CUSTOM_STYLE.COLOR.MAIN_BLUE}>

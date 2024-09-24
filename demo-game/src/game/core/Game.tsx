@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import GameInitializer from "./GameInitializer";
 import GameStoreProvider from "./GameStoreProvider";
 

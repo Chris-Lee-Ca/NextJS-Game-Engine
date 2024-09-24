@@ -8,6 +8,7 @@ interface BoundProps {
     color?: string; // Optional border color
 }
 
+// A component for use in dev mode, showing the component bound area
 const Bound = ({ position, rectangle, color = "red" }: BoundProps) => {
     const { width, height } = rectangle;
 
