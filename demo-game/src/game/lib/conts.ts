@@ -44,4 +44,8 @@ export const CUSTOM_STYLE = {
         MAP_BORDER: `3px solid black`,
         GRID_BORDER: `1px solid grey`,
     },
+    SIZE: {
+        STATUS_BAR_HEIGHT: 50,
+        ACTION_BAR_HEIGHT: 50,
+    },
 };

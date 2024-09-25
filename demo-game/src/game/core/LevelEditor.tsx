@@ -6,10 +6,12 @@ import { LevelInfo, setCurrentLevel, setLevelInfoByKey } from "game-engine/redux
 import { defaultLevelTheme } from "../lib/level";
 import { useAppDispatch } from "../redux/hooks";
 import React from "react";
+import { PlacementSelector } from "../components/levelEditor/PlacementSelector";
 
 const LevelEditorWrapper = styled(Panel)({
     right: 0,
     width: "300px",
+    zIndex: 999,
 });
 
 const SectionWrapper = styled(Box)({
@@ -29,8 +31,8 @@ export const LevelEditor = (props: LevelEditorProps) => {
     const [levelInfo, setLevelInfo] = useState<LevelInfo>({
         levelTitle: "default-game-level-title",
         theme: defaultLevelTheme,
-        tilesWidth: 8,
-        tilesHeight: 8,
+        tilesWidth: 3,
+        tilesHeight: 3,
         placements: [
             {
                 id: "Character-main-character-0-0",
@@ -80,7 +82,9 @@ export const LevelEditor = (props: LevelEditorProps) => {
                 />
             </SectionWrapper>
             <DefaultTitle>Object Category</DefaultTitle>
-            <SectionWrapper></SectionWrapper>
+            <SectionWrapper>
+                <PlacementSelector />
+            </SectionWrapper>
             <DefaultTitle>Map Setting</DefaultTitle>
             <SectionWrapper>
                 <DefaultText>Width</DefaultText>
