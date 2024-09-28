@@ -9,6 +9,7 @@ import { DirectionCommand, Facing } from "game-engine/redux/modules/MainCharacte
 import { getCharacterOffset } from "game-engine/redux/modules/MainCharacterControlModule";
 import { Vector2 } from "game-engine/types/general";
 import GameObject from "game-engine/components/GameObject";
+import Converter from "game-engine/helper/Converter";
 
 class MainCharacter extends CharacterObject {
     store: AppStore;
@@ -91,6 +92,7 @@ class MainCharacter extends CharacterObject {
 
     private performMovment(characterNewPosition: Vector2, characterNewBound: Rectangle) {
         this.position = characterNewPosition;
+        this.coord = Converter.vectorToCoord(this.position);
         this.bound = characterNewBound;
     }
 }
