@@ -92,8 +92,8 @@ class MainCharacter extends CharacterObject {
 
     private performMovment(characterNewPosition: Vector2, characterNewBound: Rectangle) {
         this.position = characterNewPosition;
-        this.coord = Converter.vectorToCoord(this.position);
         this.bound = characterNewBound;
+        this.coord = Converter.vectorToCoord(this.bound.getCenter());
     }
 }
 
