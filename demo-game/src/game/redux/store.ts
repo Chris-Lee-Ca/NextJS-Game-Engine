@@ -1,10 +1,12 @@
 import { gameEngineReducer } from "game-engine/redux/store";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { gameReducer } from "./features/gameSlice";
+import { editModeReducer } from "./features/editModeSlice";
 
 const rootReducer = combineReducers({
     ...gameEngineReducer,
     game: gameReducer,
+    editMode: editModeReducer,
 });
 
 export const makeGameStore = () => {

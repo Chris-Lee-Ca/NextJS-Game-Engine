@@ -58,12 +58,7 @@ const BackgroundTile = (props: BackgroundTileProps) => {
                 display: "flex",
                 flexDirection: "column",
                 zIndex: 0,
-                ...handleBackgroudTileStyle(
-                    rowIndex,
-                    colIndex,
-                    tilesWidth,
-                    isAddCliff(colIndex, tilesHeight) ? true : false
-                ),
+                ...handleBackgroudTileStyle(rowIndex, colIndex, tilesWidth, isAddCliff(colIndex, tilesHeight)),
             }}
         >
             {/* Normal Background Tile */}

@@ -1,4 +1,4 @@
-import { Vector2 } from "../../../types/general";
+import { Placement, Vector2 } from "../../../types/general";
 import GridHelper from "../../../helper/GridHelper";
 import { LevelInfo } from "./types";
 import GameObject from "../../../components/GameObject";
@@ -19,18 +19,18 @@ export class CanvasHelper {
     }
 
     /**
-     * Finds the main character id in the level information placements.
+     * Finds the main character in the level information placements.
      * @param {LevelInfo} levelInfo - The information about the level, including placements.
      * @returns {string} - The placement id for the main character.
      * @throws {Error} - If the main character is not defined in the level.
      */
-    static findMainCharacterId(levelInfo: LevelInfo): string {
+    static findMainCharacter(levelInfo: LevelInfo): Placement {
         const mainCharacterPlacement = levelInfo.placements.find(
             (placement) => placement.type === "Character" && placement.itemName === "main character"
         );
         if (typeof mainCharacterPlacement === "undefined") {
             throw new Error("Error: main character is not defined in the current level");
         }
-        return mainCharacterPlacement.id;
+        return mainCharacterPlacement;
     }
 }

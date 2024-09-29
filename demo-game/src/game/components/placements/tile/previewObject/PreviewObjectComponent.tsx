@@ -10,8 +10,8 @@ const ItemBox = styled(Box)({
     height: GridHelper.getGridSizeInPixel(),
     backgroundColor: CUSTOM_STYLE.COLOR.MAIN_PANEL_COLOR,
     color: CUSTOM_STYLE.COLOR.MAIN_TEXT_COLOR,
+    border: CUSTOM_STYLE.BORDER.PREVIEW_OBJECT_BORDER,
     borderRadius: "5px",
-    margin: "5px",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -20,10 +20,10 @@ const ItemBox = styled(Box)({
 });
 
 interface PreviewObjectComponentProps {
-    itemName: string;
+    objectItemName: string;
 }
 const PreviewObjectComponent = (props: PreviewObjectComponentProps) => {
-    return <ItemBox>{props.itemName}</ItemBox>;
+    return <ItemBox>{props.objectItemName}</ItemBox>;
 };
 
 export default PreviewObjectComponent;

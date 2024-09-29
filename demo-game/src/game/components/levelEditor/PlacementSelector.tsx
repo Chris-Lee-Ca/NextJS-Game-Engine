@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CUSTOM_STYLE } from "@/game/lib/conts";
-import { CustomPlacementType } from "@/game/types/general";
-import { Divider, styled } from "@mui/material";
+import { CustomPlacementType, PreviewObjectItem } from "@/game/types/general";
+import { styled } from "@mui/material";
 import { Box } from "@mui/system";
 import GridHelper from "game-engine/helper/GridHelper";
-
-interface PlacementSelectorProps {}
-
-type Item = { itemName: string; avatar: any };
+import { useAppDispatch, useAppSelector } from "@/game/redux/hooks";
+import { updateSelectedItem } from "@/game/redux/features/editModeSlice";
 
 const TabSelector = styled("select")({
     backgroundColor: CUSTOM_STYLE.COLOR.MAIN_TEXT_BACKGROUND_COLOR,
@@ -33,42 +31,60 @@ const ItemBox = styled(Box)({
     alignItems: "center",
     textAlign: "center",
     cursor: "pointer",
+    userSelect: "none",
 });
 
 const options: { label: string; value: CustomPlacementType }[] = [
     {
         label: "Character",
-        value: "character",
+        value: "Character",
     },
     {
         label: "Enemy",
-        value: "enemy",
+        value: "Enemy",
     },
     {
         label: "Pick Up",
-        value: "pickUp",
+        value: "PickUp",
     },
     {
         label: "Tile",
-        value: "tile",
+        value: "Tile",
     },
 ];
 
-const items: { [key in CustomPlacementType]: Item[] } = {
-    character: [
+const items: { [key in CustomPlacementType]: PreviewObjectItem[] } = {
+    Character: [
         {
-            itemName: "main character",
-            avatar: "yoyo",
+            type: "Character",
+            objectItemName: "main character",
+            avatar: "",
         },
     ],
-    enemy: [],
-    pickUp: [],
-    tile: [],
+    Enemy: [],
+    PickUp: [],
+    Tile: [
+        {
+            type: "Tile",
+            objectItemName: "shrub",
+            avatar: "",
+        },
+    ],
 };
 
+interface PlacementSelectorProps {}
+
 export const PlacementSelector = (props: PlacementSelectorProps) => {
-    const [currentTab, setCurrentTab] = useState<CustomPlacementType>("character");
-    const [selectedItem, setSelectedItem] = useState<Item>();
+    const [currentTab, setCurrentTab] = useState<CustomPlacementType>("Character");
+
+    const editModeState = useAppSelector((state) => state.editMode);
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        return () => {
+            dispatch(updateSelectedItem(null));
+        };
+    }, []);
 
     return (
         <>
@@ -83,11 +99,18 @@ export const PlacementSelector = (props: PlacementSelectorProps) => {
             <ItemSelector>
                 {items[currentTab].map((item) => (
                     <ItemBox
-                        key={item.itemName}
-                        style={{ border: selectedItem === item ? `2px solid ${CUSTOM_STYLE.COLOR.MAIN_BLUE}` : "" }}
-                        onClick={() => setSelectedItem(item)}
+                        key={item.objectItemName}
+                        style={{
+                            border:
+                                editModeState.selectedItem === item ? `2px solid ${CUSTOM_STYLE.COLOR.MAIN_BLUE}` : "",
+                        }}
+                        onClick={() => {
+                            // remove selected item if clicking the same item again
+                            const selectedItem = editModeState.selectedItem !== item ? item : null;
+                            dispatch(updateSelectedItem(selectedItem));
+                        }}
                     >
-                        {item.itemName}
+                        {item.objectItemName}
                     </ItemBox>
                 ))}
             </ItemSelector>

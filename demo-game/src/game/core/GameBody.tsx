@@ -12,6 +12,7 @@ import Viewport from "./Viewport";
 
 const GameBody = ({ gameLoop }: { gameLoop: GameLoop }) => {
     const levelState = useAppSelector((state) => state.level);
+    const currentLevelInfo = levelState.allLevelInfo[levelState.currentLevel];
     const scaleFactor = useCSSVariable("--scale-factor");
 
     useEffect(() => {
@@ -20,7 +21,7 @@ const GameBody = ({ gameLoop }: { gameLoop: GameLoop }) => {
         return () => {
             gameLoop.stop();
         };
-    }, [levelState.currentLevel, levelState.allLevelInfo[levelState.currentLevel], scaleFactor]);
+    }, [levelState.currentLevel, currentLevelInfo, scaleFactor]);
 
     return (
         <>

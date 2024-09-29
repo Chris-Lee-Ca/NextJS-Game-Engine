@@ -43,9 +43,12 @@ export const CUSTOM_STYLE = {
     BORDER: {
         MAP_BORDER: `3px solid black`,
         GRID_BORDER: `1px solid grey`,
+        PREVIEW_OBJECT_BORDER: `2px solid white`,
     },
     SIZE: {
         STATUS_BAR_HEIGHT: 50,
         ACTION_BAR_HEIGHT: 50,
     },
 };
+
+export const EDIT_MODE_LEVEL_NAME = "edit-mode-level";
