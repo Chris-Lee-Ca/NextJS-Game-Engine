@@ -10,7 +10,7 @@ import {
     DirectionCommand,
     Facing,
     MAIN_CHARACTER_CONTROL_MODULE_ID,
-} from "game-engine/extensions/modules/MainCharacterControlModule";
+} from "game-engine/extensions/modules/mainCharacterControlModule";
 import { Vector2 } from "game-engine/types/general";
 import GameObject from "game-engine/components/GameObject";
 import Converter from "game-engine/helper/Converter";
