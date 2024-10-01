@@ -4,13 +4,13 @@ import { MAIN_SPRITE_SHEET } from "./conts";
 export const defaultLevelTheme = {
     backgroundSpriteSheetInfo: MAIN_SPRITE_SHEET,
     imageOffset: {
-        x: MAIN_SPRITE_SHEET.GREEN_ISLAND_SECTION_X_OFFSET,
-        y: MAIN_SPRITE_SHEET.GREEN_ISLAND_SECTION_Y_OFFSET,
+        x: MAIN_SPRITE_SHEET.GREEN_ISLAND_SECTION.X_OFFSET,
+        y: MAIN_SPRITE_SHEET.GREEN_ISLAND_SECTION.Y_OFFSET,
     },
     cliffSpriteSheetInfo: MAIN_SPRITE_SHEET,
     cliffImageOffset: {
-        x: MAIN_SPRITE_SHEET.GREEN_ISLAND_CLIFF_SECTION_X_OFFSET,
-        y: MAIN_SPRITE_SHEET.GREEN_ISLAND_CLIFF_SECTION_Y_OFFSET,
+        x: MAIN_SPRITE_SHEET.GREEN_ISLAND_CLIFF_SECTION.X_OFFSET,
+        y: MAIN_SPRITE_SHEET.GREEN_ISLAND_CLIFF_SECTION.Y_OFFSET,
     },
 };
 export const demoLevel_1: LevelInfo = {

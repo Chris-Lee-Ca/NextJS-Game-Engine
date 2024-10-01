@@ -3,10 +3,13 @@ import Shrub from "./shrub";
 import { CreateCustomObjectParams } from "@/game/types/general";
 import GameObject from "game-engine/components/GameObject";
 import PreviewObject from "./previewObject";
+import Flowers from "./flowers";
 
 class TileFactory extends GameObjectFactory {
     public createObject(params: CreateCustomObjectParams): GameObject {
         switch (params.placement.itemName) {
+            case "flowers":
+                return new Flowers(params.placement);
             case "shrub":
                 return new Shrub(params.placement);
             case "preview object":
