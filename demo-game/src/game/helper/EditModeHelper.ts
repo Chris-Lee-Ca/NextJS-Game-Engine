@@ -1,4 +1,4 @@
-import { Placement } from "game-engine/types/general";
+import { Coordinate, Placement } from "game-engine/types/general";
 import { EditModeLevelInfo, PreviewObjectPlacement } from "../types/general";
 import { CanvasHelper, LevelInfo } from "game-engine/extensions/plugins/levelPlugin";
 import { defaultLevelTheme } from "../lib/level";
@@ -15,9 +15,8 @@ class EditModeHelper {
      * @param levelInfo current level info
      * @returns default edit mode level info
      */
-    static editModeLevelInfoInitializr(levelInfo: LevelInfo): EditModeLevelInfo {
-        const mainCharacterPlacement = CanvasHelper.findMainCharacter(levelInfo);
-        const mainCharacter = ObjectPool.get(mainCharacterPlacement.id);
+    static editModeLevelInfoInitializr(): EditModeLevelInfo {
+        const defaultMainCharacterCoord: Coordinate = { x: 0, y: 0 };
         return {
             levelTitle: "default-game-level-title",
             theme: defaultLevelTheme,
@@ -25,8 +24,8 @@ class EditModeHelper {
             tilesHeight: 3,
             placements: [
                 {
-                    id: `Tile-preview-object-${mainCharacter!.coord.x}-${mainCharacter!.coord.y}`,
-                    coord: mainCharacter!.coord,
+                    id: `Tile-preview-object-${defaultMainCharacterCoord.x}-${defaultMainCharacterCoord.y}`,
+                    coord: defaultMainCharacterCoord,
                     type: "Tile",
                     itemName: "preview object",
                     previewObjectItem: {
@@ -36,8 +35,8 @@ class EditModeHelper {
                     },
                 },
                 {
-                    id: `Character-main-character-${mainCharacter!.coord.x}-${mainCharacter!.coord.y}`,
-                    coord: mainCharacter!.coord,
+                    id: `Character-main-character-${defaultMainCharacterCoord.x}-${defaultMainCharacterCoord.y}`,
+                    coord: defaultMainCharacterCoord,
                     type: "Character",
                     itemName: "main character",
                 },

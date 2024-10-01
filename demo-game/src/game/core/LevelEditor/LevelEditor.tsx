@@ -2,7 +2,7 @@ import { Box, styled } from "@mui/material";
 import { CUSTOM_STYLE, EDIT_MODE_LEVEL_NAME } from "../../lib/conts";
 import { DefaultButton, DefaultInput, DefaultText, DefaultTitle, Panel } from "../../components/styled";
 import { useEffect } from "react";
-import { selectCurrentLevelInfo, setCurrentLevel } from "game-engine/extensions/plugins/levelPlugin";
+import { setCurrentLevel } from "game-engine/extensions/plugins/levelPlugin";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import React from "react";
 import { PlacementSelector } from "../../components/levelEditor/PlacementSelector";
@@ -36,8 +36,7 @@ const ButtonGroup = styled(Box)({
 
 interface LevelEditorProps {}
 
-const LevelEditor = (props: LevelEditorProps) => {
-    const levelInfo = useAppSelector(selectCurrentLevelInfo);
+const LevelEditor = (_props: LevelEditorProps) => {
     const editModeLevelInfo = useAppSelector((state) => state.editMode.editModeLevelInfo);
 
     const dispatch = useAppDispatch();
@@ -47,7 +46,7 @@ const LevelEditor = (props: LevelEditorProps) => {
     };
 
     const initLevelEditorHandler = async () => {
-        const defaultEditModeLevelInfo = EditModeHelper.editModeLevelInfoInitializr(levelInfo);
+        const defaultEditModeLevelInfo = EditModeHelper.editModeLevelInfoInitializr();
         dispatch(syncEditModeLevelInfo(defaultEditModeLevelInfo));
         dispatch(setCurrentLevel(EDIT_MODE_LEVEL_NAME));
     };
