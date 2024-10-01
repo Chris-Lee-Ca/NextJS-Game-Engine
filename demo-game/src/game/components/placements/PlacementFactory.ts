@@ -1,7 +1,7 @@
 import { GameObjectFactory } from "game-engine/components/GameObjectFactory";
 import CharacterFactory from "./character/CharacterFactory";
 // import EnemyFactory from "./enemy/EnemyFactory";
-// import PickUpFactory from "./pickUp/PickUpFactory";
+import PickUpFactory from "./pickUp/PickUpFactory";
 import TileFactory from "./tile/TileFactory";
 import { CreateCustomObjectParams } from "@/game/types/general";
 import GameObject from "game-engine/components/GameObject";
@@ -14,7 +14,7 @@ class PlacementFactory extends GameObjectFactory {
         this.objectFactoryPool = {
             Character: new CharacterFactory(),
             // Enemy: new EnemyFactory(),
-            // PickUp: new PickUpFactory(),
+            PickUp: new PickUpFactory(),
             Tile: new TileFactory(),
         };
     }

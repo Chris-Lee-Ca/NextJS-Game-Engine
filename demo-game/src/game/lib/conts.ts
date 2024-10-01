@@ -1,5 +1,5 @@
-import spriteSheet from "@/game/assets/spritesheet.png";
-import heroSpriteSheet from "@/game/assets/hero.png";
+import spriteSheet from "@/game/assets/spriteSheet/mainSpriteSheet.png";
+import heroSpriteSheet from "@/game/assets/spriteSheet/hero.png";
 import { SpriteSheetInfo } from "game-engine/types/general";
 
 export const GAME_SETTING = {

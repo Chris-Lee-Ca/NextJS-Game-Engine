@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import Rectangle from "game-engine/components/Rectangle";
 import { CustomPlacement } from "@/game/types/general";
 import GridHelper from "game-engine/helper/GridHelper";
