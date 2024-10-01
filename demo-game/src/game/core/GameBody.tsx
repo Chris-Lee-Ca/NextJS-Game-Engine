@@ -13,7 +13,7 @@ import Viewport from "./Viewport";
 const GameBody = ({ gameLoop }: { gameLoop: GameLoop }) => {
     const levelState = useAppSelector((state) => state[LEVEL_PLUGIN_ID]);
     const currentLevelInfo = levelState.allLevelInfo[levelState.currentLevel];
-    const scaleFactor = useCSSVariable("--scale-factor");
+    const scaleFactor = useCSSVariable("--scale-factor"); //TODO make website responsive
 
     useEffect(() => {
         (gameLoop.plugins[LEVEL_PLUGIN_ID] as LevelHandler).loadLevel();

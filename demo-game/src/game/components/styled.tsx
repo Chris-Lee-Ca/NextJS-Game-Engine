@@ -1,6 +1,5 @@
-import { Box, Button, Input, TextField, Typography, styled } from "@mui/material";
+import { Box, Button, Typography, styled } from "@mui/material";
 import { CUSTOM_STYLE } from "../lib/conts";
-import { CSSProperties } from "react";
 
 export const Panel = styled(Box)({
     borderRadius: "5px",
