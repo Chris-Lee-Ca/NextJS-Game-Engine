@@ -1,6 +1,6 @@
 import { Placement } from "game-engine/types/general";
 import { EditModeLevelInfo, PreviewObjectPlacement } from "../types/general";
-import { CanvasHelper, LevelInfo } from "game-engine/redux/modules/levelModule";
+import { CanvasHelper, LevelInfo } from "game-engine/extensions/plugins/levelPlugin";
 import { defaultLevelTheme } from "../lib/level";
 import ObjectPool from "game-engine/core/ObjectPool";
 

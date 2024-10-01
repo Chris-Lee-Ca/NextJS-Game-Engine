@@ -1,18 +1,16 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { configureStore, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../../store";
 import { AllLevelInfo, LevelInfo } from "./types";
+import { LEVEL_PLUGIN_ID } from "./constants";
 
 export interface LevelStateInterface {
     currentLevel: string;
     allLevelInfo: AllLevelInfo;
-    objectIdPool: string[]; // An array storing all IDs of object pool object.
 }
 
 const initialState: LevelStateInterface = {
     currentLevel: "",
     allLevelInfo: {},
-    objectIdPool: [],
 };
 
 export const levelSlice = createSlice({
@@ -28,16 +26,27 @@ export const levelSlice = createSlice({
         setLevelInfoByKey: (state, action: PayloadAction<{ key: string; levelInfo: LevelInfo }>) => {
             state.allLevelInfo[action.payload.key] = action.payload.levelInfo;
         },
-        setObjectIdPool: (state, action: PayloadAction<string[]>) => {
-            state.objectIdPool = action.payload;
-        },
     },
 });
 
 export const selectCurrentLevelInfo = (state: RootState): LevelInfo => {
-    const currentLevel = state.level.currentLevel;
+    const currentLevel = state[LEVEL_PLUGIN_ID].currentLevel;
     return state.level.allLevelInfo[currentLevel];
 };
 
-export const { setCurrentLevel, setAllLevelInfo, setLevelInfoByKey, setObjectIdPool } = levelSlice.actions;
+export const { setCurrentLevel, setAllLevelInfo, setLevelInfoByKey } = levelSlice.actions;
 export const levelReducer = levelSlice.reducer;
+
+const makeStore = () => {
+    return configureStore({
+        reducer: {
+            [LEVEL_PLUGIN_ID]: levelReducer,
+        },
+    });
+};
+
+// Infer the type of makeStore
+export type AppStore = ReturnType<typeof makeStore>;
+// Infer the `RootState` and `AppDispatch` types from the store itself
+export type RootState = ReturnType<AppStore["getState"]>;
+export type AppDispatch = AppStore["dispatch"];

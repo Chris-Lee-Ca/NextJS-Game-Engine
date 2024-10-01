@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/game/redux/hooks";
 import { Button } from "@mui/material";
 import React, { Suspense } from "react";
 import ModeIcon from "@mui/icons-material/Mode";
-import { setLevelInfoByKey } from "game-engine/redux/modules/levelModule";
+import { setLevelInfoByKey } from "game-engine/extensions/plugins/levelPlugin";
 import { PreviewObjectPlacement } from "@/game/types/general";
 import EditModeHelper from "@/game/helper/EditModeHelper";
 

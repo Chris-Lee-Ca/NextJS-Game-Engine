@@ -1,18 +1,18 @@
-import { AppDispatch } from "../../store";
-import { setHeldKeys } from "./keyboardEventSlice";
-import { KEY_MAPPING } from "./constants";
-import { ModuleHandler } from "..";
+import { AppDispatch, setHeldKeys } from "./keyboardEventSlice";
+import { KEYBOARD_EVENT_PLUGIN_ID, KEY_MAPPING } from "./constants";
+import PluginHandler from "../PluginHandler";
 
 export interface KeyboardEventHandlerConfig {
     dispatch: AppDispatch;
 }
-export class KeyboardEventHandler extends ModuleHandler {
+export class KeyboardEventHandler implements PluginHandler {
+    public pluginId: string = KEYBOARD_EVENT_PLUGIN_ID;
+
     private dispatch: AppDispatch;
 
     private heldKeys: string[] = [];
 
     public constructor({ dispatch }: KeyboardEventHandlerConfig) {
-        super();
         this.dispatch = dispatch;
     }
 

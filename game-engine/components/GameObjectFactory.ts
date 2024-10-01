@@ -2,11 +2,11 @@ import { AppStore } from "../redux/store";
 import { Placement } from "../types/general";
 import GameObject from "./GameObject";
 
-export type CreateObjectParams = {
+export type CreateObjectParams<StoreType = AppStore> = {
     placement: Placement;
-    reduxStore?: AppStore;
+    reduxStore?: StoreType;
 };
 
-export abstract class GameObjectFactory {
-    public abstract createObject(params: CreateObjectParams): GameObject;
+export abstract class GameObjectFactory<StoreType = AppStore> {
+    public abstract createObject(params: CreateObjectParams<StoreType>): GameObject;
 }

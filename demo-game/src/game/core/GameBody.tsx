@@ -6,17 +6,17 @@ import { useAppSelector } from "@/game/redux/hooks";
 import { useCSSVariable } from "game-engine/hooks/useCSSVariable";
 import GameLoop from "game-engine/core/GameLoop";
 import { CUSTOM_STYLE } from "../lib/conts";
-import { LevelHandler } from "game-engine/redux/modules/levelModule";
+import { LEVEL_PLUGIN_ID, LevelHandler } from "game-engine/extensions/plugins/levelPlugin";
 import StatusBar from "./StatusBar";
 import Viewport from "./Viewport";
 
 const GameBody = ({ gameLoop }: { gameLoop: GameLoop }) => {
-    const levelState = useAppSelector((state) => state.level);
+    const levelState = useAppSelector((state) => state[LEVEL_PLUGIN_ID]);
     const currentLevelInfo = levelState.allLevelInfo[levelState.currentLevel];
     const scaleFactor = useCSSVariable("--scale-factor");
 
     useEffect(() => {
-        (gameLoop.modules["level-handler"] as LevelHandler).loadLevel();
+        (gameLoop.plugins[LEVEL_PLUGIN_ID] as LevelHandler).loadLevel();
         gameLoop.start();
         return () => {
             gameLoop.stop();

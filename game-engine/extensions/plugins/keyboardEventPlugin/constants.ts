@@ -1,5 +1,6 @@
 import { GameCommand } from "./types";
 
+export const KEYBOARD_EVENT_PLUGIN_ID = "keyboard-control";
 export const KEY_MAPPING: { [key: string]: GameCommand } = {
     ArrowUp: "up",
     KeyW: "up",

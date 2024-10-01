@@ -2,7 +2,7 @@ import { Box, styled } from "@mui/material";
 import { CUSTOM_STYLE, EDIT_MODE_LEVEL_NAME } from "../../lib/conts";
 import { DefaultButton, DefaultInput, DefaultText, DefaultTitle, Panel } from "../../components/styled";
 import { useEffect } from "react";
-import { selectCurrentLevelInfo, setCurrentLevel } from "game-engine/redux/modules/levelModule";
+import { selectCurrentLevelInfo, setCurrentLevel } from "game-engine/extensions/plugins/levelPlugin";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import React from "react";
 import { PlacementSelector } from "../../components/levelEditor/PlacementSelector";

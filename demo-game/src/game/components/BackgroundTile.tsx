@@ -1,7 +1,7 @@
 import { Pixel } from "game-engine/types/general";
 import { CUSTOM_STYLE, MAIN_SPRITE_SHEET } from "../lib/conts";
 import { CSSProperties } from "react";
-import { Theme } from "game-engine/redux/modules/levelModule";
+import { Theme } from "game-engine/extensions/plugins/levelPlugin";
 import SpriteHelper from "game-engine/helper/SpriteHelper";
 import Sprite from "game-engine/components/Sprite/Sprite";
 

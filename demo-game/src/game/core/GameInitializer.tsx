@@ -4,9 +4,9 @@ import React, { useMemo } from "react";
 import { useAppDispatch, useAppSelector, useAppStore } from "@/game/redux/hooks";
 import GameLoop from "game-engine/core/GameLoop";
 import { GAME_SETTING } from "../lib/conts";
-import { KeyboardEventHandler } from "game-engine/redux/modules/keyboardEventModule";
-import { LevelHandler } from "game-engine/redux/modules/levelModule";
-import { DirectionControlHandler } from "game-engine/redux/modules/MainCharacterControlModule";
+import { KeyboardEventHandler } from "game-engine/extensions/plugins/keyboardEventPlugin";
+import { LEVEL_PLUGIN_ID, LevelHandler } from "game-engine/extensions/plugins/levelPlugin";
+import { DirectionControlHandler } from "game-engine/extensions/modules/MainCharacterControlModule";
 import PlacementFactory from "../components/placements/PlacementFactory";
 import { allDemoLevelInfo } from "../lib/level";
 import GameBody from "./GameBody";
@@ -14,16 +14,16 @@ import GameBody from "./GameBody";
 const GameInitializer = () => {
     const appStore = useAppStore();
     const dispatch = useAppDispatch();
-    const levelState = useAppSelector((state) => state.level);
+    const levelState = useAppSelector((state) => state[LEVEL_PLUGIN_ID]);
 
     // Memoize the game loop instance
     const gameLoop = useMemo(() => {
         return GameLoop.getInstance({
             targetFPS: GAME_SETTING.TARGET_FPS,
             reduxStore: appStore,
-            modules: {
-                "keyboard-event-handler": new KeyboardEventHandler({ dispatch }),
-                "level-handler": new LevelHandler({
+            plugins: [
+                new KeyboardEventHandler({ dispatch }),
+                new LevelHandler({
                     store: appStore,
                     dispatch,
                     gameObjectFactory: new PlacementFactory(),
@@ -31,8 +31,8 @@ const GameInitializer = () => {
                     allLevelInfo:
                         Object.keys(levelState.allLevelInfo).length !== 0 ? levelState.allLevelInfo : allDemoLevelInfo,
                 }),
-                "direction-handler": new DirectionControlHandler({ store: appStore, dispatch }),
-            },
+            ],
+            modules: [new DirectionControlHandler({ store: appStore, dispatch })],
         });
     }, [appStore, dispatch]);
 

@@ -1,20 +1,23 @@
-import { ModuleHandler } from "..";
-import { AppDispatch, AppStore, RootState } from "../../store";
-import { DIRECTION_KEYS } from "./constants";
-import { DirectionCommand, Facing } from "./types";
+import ModuleHandler from "../ModuleHandler";
+import { AppDispatch, AppStore, RootState } from "./mainCharacterSlice";
+import { DIRECTION_KEYS, MAIN_CHARACTER_CONTROL_MODULE_ID } from "./constants";
+import { DirectionCommand } from "./types";
 import { setMovmentDirection } from "./mainCharacterSlice";
+import { KEYBOARD_EVENT_PLUGIN_ID } from "../../plugins/keyboardEventPlugin";
 
 export interface DirectionControlHandlerConfig {
     store: AppStore;
     dispatch: AppDispatch;
 }
 
-export class DirectionControlHandler extends ModuleHandler {
+export class DirectionControlHandler implements ModuleHandler {
+    public pluginId: string = KEYBOARD_EVENT_PLUGIN_ID;
+    public moduleId: string = MAIN_CHARACTER_CONTROL_MODULE_ID;
+
     private store: AppStore;
     private dispatch: AppDispatch;
 
     public constructor({ store, dispatch }: DirectionControlHandlerConfig) {
-        super();
         this.store = store;
         this.dispatch = dispatch;
     }
@@ -28,14 +31,14 @@ export class DirectionControlHandler extends ModuleHandler {
 
         const heldDirectionKeys = this.getHeldDirectionKeys(state);
         const movementDirection = this.getActiveDirectionKey(heldDirectionKeys);
-        const oldMovmentDirection = state.mainCharacter.movmentDirection;
+        const oldMovmentDirection = state[MAIN_CHARACTER_CONTROL_MODULE_ID].movementDirection;
         if (movementDirection !== oldMovmentDirection) {
             this.dispatch(setMovmentDirection(movementDirection));
         }
     }
 
     private getHeldDirectionKeys(state: RootState): DirectionCommand[] {
-        const heldKeys = state.keyboardControl.heldKeys;
+        const heldKeys = state[KEYBOARD_EVENT_PLUGIN_ID].heldKeys;
         const heldDirectionKeys = heldKeys.filter((key) => DIRECTION_KEYS.includes(key as any)) as DirectionCommand[];
         return heldDirectionKeys;
     }

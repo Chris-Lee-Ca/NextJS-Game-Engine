@@ -1,4 +1,4 @@
-import { LevelInfo, AllLevelInfo } from "game-engine/redux/modules/levelModule";
+import { LevelInfo, AllLevelInfo } from "game-engine/extensions/plugins/levelPlugin";
 import { MAIN_SPRITE_SHEET } from "./conts";
 
 export const defaultLevelTheme = {

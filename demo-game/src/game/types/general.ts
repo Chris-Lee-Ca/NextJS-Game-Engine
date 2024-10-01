@@ -1,7 +1,7 @@
 import { CreateObjectParams } from "game-engine/components/GameObjectFactory";
 import { Placement } from "game-engine/types/general";
 import { AppStore } from "../redux/store";
-import { LevelInfo } from "game-engine/redux/modules/levelModule";
+import { LevelInfo } from "game-engine/extensions/plugins/levelPlugin";
 
 type CustomPlacementType = "Character" | "Enemy" | "PickUp" | "Tile";
 

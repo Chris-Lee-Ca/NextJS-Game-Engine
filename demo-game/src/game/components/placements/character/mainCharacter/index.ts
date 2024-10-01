@@ -5,8 +5,12 @@ import { CreateCustomObjectParams } from "@/game/types/general";
 import { AppStore } from "@/game/redux/store";
 import Rectangle from "game-engine/components/Rectangle";
 import GridHelper from "game-engine/helper/GridHelper";
-import { DirectionCommand, Facing } from "game-engine/redux/modules/MainCharacterControlModule/types";
-import { getCharacterOffset } from "game-engine/redux/modules/MainCharacterControlModule";
+import {
+    getCharacterOffset,
+    DirectionCommand,
+    Facing,
+    MAIN_CHARACTER_CONTROL_MODULE_ID,
+} from "game-engine/extensions/modules/MainCharacterControlModule";
 import { Vector2 } from "game-engine/types/general";
 import GameObject from "game-engine/components/GameObject";
 import Converter from "game-engine/helper/Converter";
@@ -40,10 +44,10 @@ class MainCharacter extends CharacterObject {
 
     override update(deltaTime: number) {
         const state = this.store.getState();
-        const movmentDirection = state.mainCharacter.movmentDirection;
-        this.facing = this.getFacing(movmentDirection);
+        const movementDirection = state[MAIN_CHARACTER_CONTROL_MODULE_ID].movementDirection;
+        this.facing = this.getFacing(movementDirection);
 
-        const characterOffset = getCharacterOffset(movmentDirection, this.movingSpeed, deltaTime);
+        const characterOffset = getCharacterOffset(movementDirection, this.movingSpeed, deltaTime);
         const characterNewPosition = {
             x: this.position.x + characterOffset.x,
             y: this.position.y + characterOffset.y,
@@ -72,8 +76,8 @@ class MainCharacter extends CharacterObject {
 
     performCollisionLogic(object: GameObject): void {}
 
-    private getFacing(movmentDirection: DirectionCommand): Facing {
-        switch (movmentDirection) {
+    private getFacing(movementDirection: DirectionCommand): Facing {
+        switch (movementDirection) {
             case "up":
                 return "up";
             case "down":
@@ -85,8 +89,8 @@ class MainCharacter extends CharacterObject {
             case "":
                 return "none";
             default:
-                const facing: never = movmentDirection;
-                throw new Error(`Unknown movmentDirection ${movmentDirection}`);
+                const facing: never = movementDirection;
+                throw new Error(`Unknown movementDirection ${movementDirection}`);
         }
     }
 

@@ -4,11 +4,11 @@ import { DIRECTION_COMMAND_MAPPING } from "./constants";
 import { DirectionCommand } from "./types";
 
 export const getCharacterOffset = (
-    movmentDirection: DirectionCommand,
+    directionCommand: DirectionCommand,
     movingSpeed: number,
     deltaTime: number
 ): Vector2 => {
-    const movementDirection = DIRECTION_COMMAND_MAPPING[movmentDirection];
+    const movementDirection = DIRECTION_COMMAND_MAPPING[directionCommand];
     const gridSize = GridHelper.getGridSizeInPixel();
     const movementPerLoop = (movingSpeed * deltaTime) / gridSize;
     return {

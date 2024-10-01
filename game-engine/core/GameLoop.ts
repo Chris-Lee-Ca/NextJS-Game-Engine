@@ -1,12 +1,14 @@
+import PluginHandler from "../extensions/plugins/PluginHandler";
+import ModuleHandler from "../extensions/modules/ModuleHandler";
 import { updateTime } from "../redux/features/coreSlice";
-import { ModuleHandler } from "../redux/modules";
 import { AppStore } from "../redux/store";
 import ObjectPool from "./ObjectPool";
 
 interface GameLoopConfig {
     targetFPS: number;
     reduxStore: AppStore;
-    modules: { [key: string]: ModuleHandler };
+    plugins: PluginHandler[];
+    modules: ModuleHandler[];
 }
 
 class GameLoop {
@@ -14,13 +16,32 @@ class GameLoop {
     store: AppStore;
     lastFrameTime: number;
     targetFPS: number;
+    plugins: { [key: string]: PluginHandler };
     modules: { [key: string]: ModuleHandler };
 
-    private constructor({ targetFPS, reduxStore, modules }: GameLoopConfig) {
+    private constructor({ targetFPS, reduxStore, plugins, modules }: GameLoopConfig) {
         this.lastFrameTime = 0;
         this.targetFPS = targetFPS;
         this.store = reduxStore;
-        this.modules = modules;
+        this.plugins = plugins.reduce((acc, plugin) => {
+            acc[plugin.pluginId] = plugin;
+            return acc;
+        }, {} as { [key: string]: PluginHandler });
+        this.modules = modules.reduce((acc, module) => {
+            // Validate if all modules' related plugins are installed
+            if (!(module.pluginId in this.plugins)) {
+                throw new Error(
+                    `Plugin ${module.pluginId} is missing, which is a prerequisite of module ${module.moduleId}`
+                );
+            }
+            acc[module.moduleId] = module;
+            return acc;
+        }, {} as { [key: string]: ModuleHandler });
+        // init plugins
+        Object.entries(this.plugins).forEach(([_key, pluginHandler]) => {
+            pluginHandler.init();
+        });
+
         // init modules
         Object.entries(this.modules).forEach(([_key, moduleHandler]) => {
             moduleHandler.init();
@@ -53,12 +74,20 @@ class GameLoop {
 
     private update(deltaTime: number) {
         this.store.dispatch(updateTime());
-        const state = this.store!.getState();
-        const objectIdPool = state.level.objectIdPool;
+
+        // update plugins
+        Object.entries(this.plugins).forEach(([_key, pluginHandler]) => {
+            pluginHandler.update(deltaTime);
+        });
+
         // update modules
         Object.entries(this.modules).forEach(([_key, moduleHandler]) => {
             moduleHandler.update(deltaTime);
         });
+
+        // update game object
+        const state = this.store!.getState();
+        const objectIdPool = state.core.objectIdPool;
 
         objectIdPool.forEach((objectId) => {
             const object = ObjectPool.get(objectId);
@@ -70,6 +99,10 @@ class GameLoop {
         // deinit modules
         Object.entries(this.modules).forEach(([_key, moduleHandler]) => {
             moduleHandler.deinit();
+        });
+        // deinit plugins
+        Object.entries(this.plugins).forEach(([_key, pluginHandler]) => {
+            pluginHandler.deinit();
         });
     }
 }

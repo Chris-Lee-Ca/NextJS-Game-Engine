@@ -1,12 +1,13 @@
-import { AppDispatch, AppStore } from "../../store";
-import { ModuleHandler } from "..";
-import { setAllLevelInfo, setCurrentLevel, setObjectIdPool } from "./levelSlice";
+import { AppDispatch, AppStore, setAllLevelInfo, setCurrentLevel } from "./levelSlice";
 import { AllLevelInfo, LevelInfo } from "./types";
+import { CreateObjectParams, GameObjectFactory } from "../../../components/GameObjectFactory";
 import GameObject from "../../../components/GameObject";
-import { GameObjectFactory } from "../../../components/GameObjectFactory";
 import ObjectPool from "../../../core/ObjectPool";
 import { Coordinate, Placement } from "../../../types/general";
 import InvisibleWall from "../../../components/InvisibleWall";
+import PluginHandler from "../PluginHandler";
+import { LEVEL_PLUGIN_ID } from ".";
+import { setObjectIdPool } from "../../../redux/features/coreSlice";
 
 export interface LevelHandlerConfig {
     store: AppStore;
@@ -16,14 +17,15 @@ export interface LevelHandlerConfig {
     allLevelInfo: AllLevelInfo;
 }
 
-export class LevelHandler extends ModuleHandler {
+export class LevelHandler implements PluginHandler {
+    public pluginId: string;
     private store: AppStore;
     private dispatch: AppDispatch;
     private objectPool: Map<string, GameObject>;
-    private gameObjectFactory: GameObjectFactory;
+    private gameObjectFactory: GameObjectFactory<unknown>;
 
     public constructor({ store, dispatch, gameObjectFactory, currentLevel, allLevelInfo }: LevelHandlerConfig) {
-        super();
+        this.pluginId = LEVEL_PLUGIN_ID;
         this.store = store;
         this.dispatch = dispatch;
         this.gameObjectFactory = gameObjectFactory;
@@ -44,7 +46,7 @@ export class LevelHandler extends ModuleHandler {
         this.objectPool.clear();
 
         const state = this.store.getState();
-        const levelState = state.level;
+        const levelState = state[LEVEL_PLUGIN_ID];
         const currentLevelInfo = levelState.allLevelInfo[levelState.currentLevel];
         this.createMapBoundry(currentLevelInfo);
 
@@ -52,7 +54,11 @@ export class LevelHandler extends ModuleHandler {
         const newObjectIdPool = currentLevelPlacements.map((placement) => placement.id);
         this.dispatch(setObjectIdPool(newObjectIdPool));
         currentLevelPlacements.forEach((placement) => {
-            const gameObject = this.gameObjectFactory.createObject({ placement, reduxStore: this.store });
+            const params: CreateObjectParams<AppStore> = {
+                placement,
+                reduxStore: this.store,
+            };
+            const gameObject = this.gameObjectFactory.createObject(params);
             this.objectPool.set(placement.id, gameObject);
         });
     }

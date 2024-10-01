@@ -1,12 +1,12 @@
 "use client";
 
 import { useAppSelector } from "@/game/redux/hooks";
-import { CanvasHelper, LevelInfo } from "game-engine/redux/modules/levelModule";
+import { CanvasHelper, LevelInfo } from "game-engine/extensions/plugins/levelPlugin";
 import { Box } from "@mui/material";
 import { styled } from "@mui/system";
 import React from "react";
 import GridHelper from "game-engine/helper/GridHelper";
-import { selectCurrentLevelInfo } from "game-engine/redux/modules/levelModule";
+import { selectCurrentLevelInfo } from "game-engine/extensions/plugins/levelPlugin";
 import ObjectPool from "game-engine/core/ObjectPool";
 import BackgroundTile from "../components/BackgroundTile";
 import EditModeWrapper from "../components/EditModeWrapper";
