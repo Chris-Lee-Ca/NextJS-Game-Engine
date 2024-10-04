@@ -75,7 +75,7 @@ const AnimatedSprite = (props: AnimatedSpriteProps) => {
         return () => {
             cancelAnimationFrame(animationFrameId);
         };
-    }, [currentAnimation]);
+    }, [animation, currentAnimation, frameDelay, scaleFactor, spriteSheetInfo.HEIGHT, spriteSheetInfo.SRC, spriteSheetInfo.WIDTH]);
 
     return <canvas ref={canvasRef}></canvas>;
 };
