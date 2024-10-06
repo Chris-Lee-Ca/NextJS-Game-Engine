@@ -1,10 +1,9 @@
 {
     "name": "game-engine",
-    "main": "src/gameEngine",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "private": true,
     "scripts": {
-        "build": "next build",
+        "build": "tsc",
         "lint": "next lint"
     },
     "dependencies": {

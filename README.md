@@ -23,3 +23,10 @@ rm -rf .next
 npm link ../game-engine
 npm run dev
 ```
+
+## Build Library
+
+```sh
+# Under /game-engine
+make all
+```
