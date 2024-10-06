@@ -50,7 +50,7 @@ const Sprite = (props: SpriteProps) => {
                 spriteSheetInfo.HEIGHT * scaleFactor // Scaled height
             );
         };
-    }, [frame.x, frame.y, scaleFactor, spriteSheetInfo.HEIGHT, spriteSheetInfo.SRC, spriteSheetInfo.WIDTH]);
+    }, []);
 
     return <canvas ref={canvasRef}></canvas>;
 };
