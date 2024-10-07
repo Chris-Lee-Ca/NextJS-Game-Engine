@@ -1,5 +1,4 @@
 import { ModalWindowConfig } from "@/game/components/modal/ModalWindowFactory";
-import CloseActionButton from "@/game/components/template/CloseActionButton";
 import CloseModalButton from "@/game/components/template/CloseModalButton";
 import { Box, styled } from "@mui/material";
 
@@ -20,7 +19,7 @@ const Content = styled(Box)({
 const Span = styled('span')({
 })
 
-const SignageDialogContent: React.FC = () => {
+const SignageIntroDialogContent: React.FC = () => {
     return (
         <>
             <Title>About this World</Title>
@@ -31,7 +30,7 @@ const SignageDialogContent: React.FC = () => {
     );
 };
 
-const SignageDialogButtonGroup: React.FC = () => {
+const SignageIntroDialogButtonGroup: React.FC = () => {
     return (
         <>
             <CloseModalButton />
@@ -40,10 +39,10 @@ const SignageDialogButtonGroup: React.FC = () => {
 };
 
 
-const SignageModalWindowComponent: ModalWindowConfig = {
+const SignageIntroModalWindowComponent: ModalWindowConfig = {
     imageSrc: require("../../../../assets/componentImage/signage.png").default.src,
-    content: <SignageDialogContent/>,
-    buttonGroup: <SignageDialogButtonGroup/>
+    content: <SignageIntroDialogContent/>,
+    buttonGroup: <SignageIntroDialogButtonGroup/>
 }
 
-export default  SignageModalWindowComponent;
+export default  SignageIntroModalWindowComponent;

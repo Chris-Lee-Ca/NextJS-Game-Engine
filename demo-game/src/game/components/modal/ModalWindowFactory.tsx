@@ -1,7 +1,7 @@
 import { ModalWindowType as OriginalModalWindowType } from "@/game/redux/features/modalSlice";
 import ModalWindow from "./ModalWindow";
 import { ReactNode } from "react";
-import SignageModalWindowComponent from "@/game/components/placements/tile/signage/SignageModalWindowComponent"
+import SignageIntroModalWindowComponent from "@/game/components/placements/tile/signage/SignageIntroModalWindowComponent"
 
 type ModalWindowType = Exclude<OriginalModalWindowType, null>;
 
@@ -12,7 +12,7 @@ export interface ModalWindowConfig {
 }
 
 const modalWindowComponents: Record<ModalWindowType, ModalWindowConfig> = {
-    intro: SignageModalWindowComponent,
+    intro: SignageIntroModalWindowComponent,
 };
 
 interface ModalWindowFactoryProps {

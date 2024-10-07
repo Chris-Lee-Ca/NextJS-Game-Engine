@@ -26,6 +26,10 @@ interface PreviewObjectItem {
     avatar: any;
 }
 
+interface SignageObjectPlacement extends CustomPlacement {
+    signageType: string;
+}
+
 type EditModeLevelInfo = Omit<LevelInfo, "placements"> & {
     placements: (Placement | PreviewObjectPlacement)[];
 };
@@ -37,5 +41,6 @@ export type {
     CreateCustomObjectParams,
     PreviewObjectPlacement,
     PreviewObjectItem,
+    SignageObjectPlacement,
     EditModeLevelInfo,
 };
