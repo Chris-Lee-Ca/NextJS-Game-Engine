@@ -1,5 +1,6 @@
+import { DialogWindowConfig } from "@/game/components/dialog/DialogWindowFactory";
 import ActionButton from "@/game/components/template/ActionButton";
-import CloseActionButton from "@/game/components/template/CloseActionButton";
+import CloseDialogButton from "@/game/components/template/CloseDialogButton";
 import { Bio } from "@/game/lib/gameContent";
 import { closeDialogWindow } from "@/game/redux/features/dialogSlice";
 import { useAppDispatch } from "@/game/redux/hooks";
@@ -33,10 +34,16 @@ const ResumeDialogButtonGroup: React.FC = () => {
 
     return (
         <>
-            <ActionButton onClickFunction={handleOnClickReadIt} buttonKey={"L"} buttonDescription={"Read It"} />
-            <CloseActionButton />
+            <ActionButton onClickFunction={handleOnClickReadIt} buttonKey={"K"} buttonDescription={"Read It"} />
+            <CloseDialogButton/>
         </>
     );
 };
 
-export { ResumeDialogContent, ResumeDialogButtonGroup };
+const ResumeDialogWindowComponent: DialogWindowConfig = {
+    imageSrc: require("../../../../assets/componentImage/paper.png").default.src,
+    content: <ResumeDialogContent/>,
+    buttonGroup: <ResumeDialogButtonGroup/>
+}
+
+export default  ResumeDialogWindowComponent;
