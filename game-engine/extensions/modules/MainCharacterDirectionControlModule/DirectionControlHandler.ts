@@ -1,6 +1,6 @@
 import ModuleHandler from "../ModuleHandler";
 import { AppDispatch, AppStore, RootState } from "./mainCharacterSlice";
-import { MAIN_CHARACTER_CONTROL_MODULE_ID } from "./constants";
+import { MAIN_CHARACTER_DIRECTION_CONTROL_MODULE_ID } from "./constants";
 import { DirectionCommand, DirectionKeyMapping, InvertedDirectionKeyMapping } from "./types";
 import { setMovmentDirection } from "./mainCharacterSlice";
 import { KEYBOARD_EVENT_PLUGIN_ID } from "../../plugins/keyboardEventPlugin";
@@ -13,7 +13,7 @@ export interface DirectionControlHandlerConfig {
 
 export class DirectionControlHandler implements ModuleHandler {
     public pluginId: string = KEYBOARD_EVENT_PLUGIN_ID;
-    public moduleId: string = MAIN_CHARACTER_CONTROL_MODULE_ID;
+    public moduleId: string = MAIN_CHARACTER_DIRECTION_CONTROL_MODULE_ID;
 
     private store: AppStore;
     private dispatch: AppDispatch;
@@ -45,14 +45,14 @@ export class DirectionControlHandler implements ModuleHandler {
     public update(deltaTime: number) {
         const state = this.store.getState();
 
-        if (state[MAIN_CHARACTER_CONTROL_MODULE_ID].disabled) {
+        if (state[MAIN_CHARACTER_DIRECTION_CONTROL_MODULE_ID].disabled) {
             this.dispatch(setMovmentDirection(""));
             return;
         }
 
         const heldDirectionKeys = this.getHeldDirectionKeys(state);
         const movementDirection = this.getActiveDirectionKey(heldDirectionKeys);
-        const oldMovmentDirection = state[MAIN_CHARACTER_CONTROL_MODULE_ID].movementDirection;
+        const oldMovmentDirection = state[MAIN_CHARACTER_DIRECTION_CONTROL_MODULE_ID].movementDirection;
         if (movementDirection !== oldMovmentDirection) {
             this.dispatch(setMovmentDirection(movementDirection));
         }

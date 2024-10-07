@@ -1,6 +1,6 @@
-# MainCharacterControlModule
+# MainCharacterDirectionControlModule
 
-Main Character Control Module manages direction related interaction to the main character.
+Main Character Direction Control Module manages direction related interaction to the main character.
 
 It relies on information provided by the `KeyboardEventModule`.
 Please ensure that the `KeyboardEventModule` is activated for this module to function correctly.
@@ -39,14 +39,14 @@ GameLoop.getInstance({
 });
 ```
 
-3. Add keyboardEventReducer & mainCharacterReducer in your configureStore
+3. Add keyboardEventReducer & mainCharacterDirectionReducer in your configureStore
 
 ```ts
 const makeStore = () => {
     return configureStore({
         reducer: {
             [KEYBOARD_EVENT_PLUGIN_ID]: keyboardEventReducer,
-            [MAIN_CHARACTER_CONTROL_MODULE_ID]: mainCharacterReducer,
+            [MAIN_CHARACTER_DIRECTION_CONTROL_MODULE_ID]: mainCharacterDirectionReducer,
         },
     });
 };

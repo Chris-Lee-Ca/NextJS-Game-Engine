@@ -3,7 +3,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { DirectionCommand } from "./types";
 import { KEYBOARD_EVENT_PLUGIN_ID, keyboardEventReducer } from "../../plugins/keyboardEventPlugin";
-import { MAIN_CHARACTER_CONTROL_MODULE_ID } from "./constants";
+import { MAIN_CHARACTER_DIRECTION_CONTROL_MODULE_ID } from "./constants";
 
 export interface MainCharacterStateInterface {
     disabled: boolean;
@@ -15,7 +15,7 @@ const initialState: MainCharacterStateInterface = {
     movementDirection: "",
 };
 
-export const mainCharacterSlice = createSlice({
+export const mainCharacterDirectionSlice = createSlice({
     name: "mainCharacter",
     initialState,
     reducers: {
@@ -28,14 +28,14 @@ export const mainCharacterSlice = createSlice({
     },
 });
 
-export const { setIsDisabledMainCharacterControl, setMovmentDirection } = mainCharacterSlice.actions;
-export const mainCharacterReducer = mainCharacterSlice.reducer;
+export const { setIsDisabledMainCharacterControl, setMovmentDirection } = mainCharacterDirectionSlice.actions;
+export const mainCharacterDirectionReducer = mainCharacterDirectionSlice.reducer;
 
 const makeStore = () => {
     return configureStore({
         reducer: {
             [KEYBOARD_EVENT_PLUGIN_ID]: keyboardEventReducer,
-            [MAIN_CHARACTER_CONTROL_MODULE_ID]: mainCharacterReducer,
+            [MAIN_CHARACTER_DIRECTION_CONTROL_MODULE_ID]: mainCharacterDirectionReducer,
         },
     });
 };

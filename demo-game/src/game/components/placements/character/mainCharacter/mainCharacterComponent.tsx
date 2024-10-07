@@ -7,7 +7,7 @@ import { Animations, Vector2 } from "game-engine/types/general";
 import { HERO_SPRITE_SHEET } from "@/game/lib/conts";
 import AnimationHelper from "@/game/helper/AnimationHelper";
 import SpriteHelper from "game-engine/helper/SpriteHelper";
-import { Facing } from "game-engine/extensions/modules/MainCharacterControlModule";
+import { Facing } from "game-engine/extensions/modules/MainCharacterDirectionControlModule";
 import Rectangle from "game-engine/components/Rectangle";
 import Bound from "@/game/components/Bound";
 import { useAppSelector } from "@/game/redux/hooks";

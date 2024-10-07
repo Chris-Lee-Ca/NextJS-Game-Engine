@@ -2,7 +2,7 @@ import { Direction } from "../../../types/general";
 import { KeyboardKey } from "../../plugins/keyboardEventPlugin";
 import { DirectionCommand } from "./types";
 
-export const MAIN_CHARACTER_CONTROL_MODULE_ID = "main-character-control";
+export const MAIN_CHARACTER_DIRECTION_CONTROL_MODULE_ID = "main-character-direction-control";
 export const DIRECTION_KEYS: DirectionCommand[] = ["up", "down", "left", "right"];
 
 export const DEFAULT_DIRECTION_KEY_MAPPING: { [key in DirectionCommand]?: KeyboardKey[] } = {

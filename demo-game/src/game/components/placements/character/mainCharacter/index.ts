@@ -9,8 +9,8 @@ import {
     getCharacterOffset,
     DirectionCommand,
     Facing,
-    MAIN_CHARACTER_CONTROL_MODULE_ID,
-} from "game-engine/extensions/modules/MainCharacterControlModule";
+    MAIN_CHARACTER_DIRECTION_CONTROL_MODULE_ID,
+} from "game-engine/extensions/modules/MainCharacterDirectionControlModule";
 import { Vector2 } from "game-engine/types/general";
 import GameObject from "game-engine/components/GameObject";
 import Converter from "game-engine/helper/Converter";
@@ -44,7 +44,7 @@ class MainCharacter extends CharacterObject {
 
     override update(deltaTime: number) {
         const state = this.store.getState();
-        const movementDirection = state[MAIN_CHARACTER_CONTROL_MODULE_ID].movementDirection;
+        const movementDirection = state[MAIN_CHARACTER_DIRECTION_CONTROL_MODULE_ID].movementDirection;
         this.facing = this.getFacing(movementDirection);
 
         const characterOffset = getCharacterOffset(movementDirection, this.movingSpeed, deltaTime);

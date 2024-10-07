@@ -6,7 +6,7 @@ import { CUSTOM_STYLE } from "@/game/lib/conts";
 import { useAppDispatch, useAppSelector } from "@/game/redux/hooks";
 import { closeDialogWindow } from "@/game/redux/features/dialogSlice";
 import Image from "game-engine/components/Image";
-import { setIsDisabledMainCharacterControl } from "game-engine/extensions/modules/MainCharacterControlModule";
+import { setIsDisabledMainCharacterControl } from "game-engine/extensions/modules/MainCharacterDirectionControlModule";
 
 const slideUp = keyframes`
   0% {
