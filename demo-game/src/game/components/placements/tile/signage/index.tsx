@@ -1,10 +1,10 @@
 import { CustomPlacement } from "@/game/types/general";
 import TileObject from "../TileObject";
-import FlowersComponent from "./FlowersComponent";
+import SignageComponent from "./SignageComponent";
 import React from "react";
 import GameObject from "game-engine/components/GameObject";
 
-class Flowers extends TileObject {
+class Signage extends TileObject {
     constructor(placement: CustomPlacement) {
         super(placement);
         this.bound = undefined;
@@ -13,10 +13,10 @@ class Flowers extends TileObject {
     override update(deltaTime: number) {}
 
     render() {
-        return React.createElement(FlowersComponent);
+        return React.createElement(SignageComponent);
     }
 
     performCollisionLogic(object: GameObject): void {}
 }
 
-export default Flowers;
+export default Signage;

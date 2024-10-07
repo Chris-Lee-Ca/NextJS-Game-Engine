@@ -4,7 +4,7 @@ import GridHelper from "game-engine/helper/GridHelper";
 import GameObject from "game-engine/components/GameObject";
 
 abstract class TileObject extends GameObject {
-    bound: Rectangle;
+    bound: Rectangle | undefined;
     constructor(placement: CustomPlacement) {
         super(placement);
         const gridSize = GridHelper.getGridSizeInPixel();
