@@ -17,12 +17,12 @@ const SignageComponent: React.FC<SignageComponentProps> = (props) => {
     const onClickHandler = () => {
         dispatch(openModalWindow("intro"));
     }
-    // TODO define primary key and secondary key, maybe create a module for that
+
     return (
     <>
         {isUserNearSignage && 
         <InteractionPrompt 
-            promptKey="K" 
+            promptKey="k" 
             onClickFunction={onClickHandler}
         />}
         <GridSizeImage src={SignageImage.src} />

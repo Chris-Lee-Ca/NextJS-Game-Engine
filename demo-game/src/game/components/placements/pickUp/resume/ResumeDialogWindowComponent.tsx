@@ -34,7 +34,7 @@ const ResumeDialogButtonGroup: React.FC = () => {
 
     return (
         <>
-            <ActionButton onClickFunction={handleOnClickReadIt} buttonKey={"K"} buttonDescription={"Read It"} />
+            <ActionButton onClickFunction={handleOnClickReadIt} buttonKey={"k"} buttonDescription={"Read It"} />
             <CloseDialogButton/>
         </>
     );

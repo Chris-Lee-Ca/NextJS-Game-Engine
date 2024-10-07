@@ -4,18 +4,20 @@ import { gameReducer } from "./features/gameSlice";
 import { editModeReducer } from "./features/editModeSlice";
 import { KEYBOARD_EVENT_PLUGIN_ID, keyboardEventReducer } from "game-engine/extensions/plugins/keyboardEventPlugin";
 import {
-    MAIN_CHARACTER_CONTROL_MODULE_ID,
-    mainCharacterReducer,
-} from "game-engine/extensions/modules/MainCharacterControlModule";
+    MAIN_CHARACTER_DIRECTION_CONTROL_MODULE_ID,
+    mainCharacterDirectionReducer,
+} from "game-engine/extensions/modules/MainCharacterDirectionControlModule";
 import { LEVEL_PLUGIN_ID, levelReducer } from "game-engine/extensions/plugins/levelPlugin";
 import { backpackReducer } from "./features/backpackSlice";
 import { dialogReducer } from "./features/dialogSlice";
 import { modalReducer } from "./features/modalSlice";
+import { MAIN_CHARACTER_ACTION_CONTROL_MODULE_ID, mainCharacterActionReducer } from "game-engine/extensions/modules/MainCharacterActionControlModule";
 
 const rootReducer = combineReducers({
     ...gameEngineReducer,
     [KEYBOARD_EVENT_PLUGIN_ID]: keyboardEventReducer,
-    [MAIN_CHARACTER_CONTROL_MODULE_ID]: mainCharacterReducer,
+    [MAIN_CHARACTER_DIRECTION_CONTROL_MODULE_ID]: mainCharacterDirectionReducer,
+    [MAIN_CHARACTER_ACTION_CONTROL_MODULE_ID]: mainCharacterActionReducer,
     [LEVEL_PLUGIN_ID]: levelReducer,
     game: gameReducer,
     editMode: editModeReducer,

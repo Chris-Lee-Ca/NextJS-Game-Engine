@@ -8,7 +8,7 @@ const CloseModalButton = () => {
     const handleClose = () => {
         dispatch(closeModalWindow());
     };
-    return <ActionButton onClickFunction={handleClose} buttonKey={"L"} buttonDescription={"Close"} />;
+    return <ActionButton onClickFunction={handleClose} buttonKey={"l"} buttonDescription={"Close"} />;
 };
 
 export default CloseModalButton;

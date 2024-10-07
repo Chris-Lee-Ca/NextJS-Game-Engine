@@ -4,7 +4,8 @@ import { Box, IconButton, Typography, styled } from "@mui/material";
 import { CSSProperties, useEffect } from "react";
 import { CUSTOM_STYLE } from "@/game/lib/conts";
 import { useAppSelector } from "@/game/redux/hooks";
-import { KEYBOARD_EVENT_PLUGIN_ID } from "game-engine/extensions/plugins/keyboardEventPlugin";
+import { ActionCommandType } from "@/game/types/control";
+import { MAIN_CHARACTER_ACTION_CONTROL_MODULE_ID } from "game-engine/extensions/modules/MainCharacterActionControlModule";
 
 const Container = styled(Box)({
     display: "flex",
@@ -28,17 +29,17 @@ const ButtonDescription = styled(Typography)({
 interface GridSizeImageProps {
     style?: CSSProperties;
     onClickFunction: () => void;
-    buttonKey: string;
+    buttonKey: ActionCommandType;
     buttonDescription: string;
 }
 
 const ActionButton = (props: GridSizeImageProps) => {
     const { style, onClickFunction, buttonKey, buttonDescription } = props;
 
-    const heldKeys = useAppSelector((state) => state[KEYBOARD_EVENT_PLUGIN_ID].heldKeys);
+    const heldKeys = useAppSelector((state) => state[MAIN_CHARACTER_ACTION_CONTROL_MODULE_ID].heldActionKeys);
 
     useEffect(() => {
-        if (heldKeys.includes(buttonKey.toUpperCase()) || heldKeys.includes(buttonKey.toLowerCase())) {
+        if (heldKeys.includes(buttonKey)) {
             onClickFunction();
         }
     }, [heldKeys]);
@@ -46,7 +47,7 @@ const ActionButton = (props: GridSizeImageProps) => {
     return (
         <Container style={{ ...style }}>
             <ButtonIcon aria-label="close" onClick={onClickFunction}>
-                {buttonKey}
+                {buttonKey.toUpperCase()}
             </ButtonIcon>
             <ButtonDescription>- {buttonDescription}</ButtonDescription>
         </Container>

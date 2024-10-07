@@ -8,7 +8,7 @@ const CloseDialogButton = () => {
     const handleClose = () => {
         dispatch(closeDialogWindow());
     };
-    return <ActionButton onClickFunction={handleClose} buttonKey={"L"} buttonDescription={"Close"} />;
+    return <ActionButton onClickFunction={handleClose} buttonKey={"l"} buttonDescription={"Close"} />;
 };
 
 export default CloseDialogButton;

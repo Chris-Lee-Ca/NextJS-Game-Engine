@@ -2,7 +2,9 @@
 
 import { CUSTOM_STYLE } from "@/game/lib/conts";
 import { useAppSelector } from "@/game/redux/hooks";
+import { ActionCommandType } from "@/game/types/control";
 import { Box, keyframes, styled } from "@mui/material";
+import { MAIN_CHARACTER_ACTION_CONTROL_MODULE_ID } from "game-engine/extensions/modules/MainCharacterActionControlModule";
 import { KEYBOARD_EVENT_PLUGIN_ID } from "game-engine/extensions/plugins/keyboardEventPlugin";
 import { useEffect } from "react";
 
@@ -51,17 +53,17 @@ const Button = styled(Box)({
 });
 
 interface InteractionPromptProps {
-    promptKey: string
+    promptKey: ActionCommandType;
     onClickFunction: () => void;
     
 }
 const InteractionPrompt: React.FC<InteractionPromptProps> = (props) => {
     const {promptKey, onClickFunction} = props;
-    
-    const heldKeys = useAppSelector((state) => state[KEYBOARD_EVENT_PLUGIN_ID].heldKeys);
+
+    const heldKeys = useAppSelector((state) => state[MAIN_CHARACTER_ACTION_CONTROL_MODULE_ID].heldActionKeys);
 
     useEffect(() => {
-        if (heldKeys.includes(promptKey.toUpperCase()) || heldKeys.includes(promptKey.toLowerCase())) {
+        if (heldKeys.includes(promptKey)) {
             onClickFunction();
         }
     }, [heldKeys]);
