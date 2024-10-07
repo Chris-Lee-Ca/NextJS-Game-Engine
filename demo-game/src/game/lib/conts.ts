@@ -52,6 +52,7 @@ export const CUSTOM_STYLE = {
         MAIN_TEXT_COLOR: "white",
         MAIN_TEXT_BACKGROUND_COLOR: "rgb(28, 47, 92)",
         MAIN_PAPER_COLOR: "#e4cc96",
+        SECONDARY_PAPER_COLOR: '#eee0c0',
     },
     BORDER: {
         MAP_BORDER: `3px solid black`,

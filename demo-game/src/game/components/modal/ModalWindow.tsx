@@ -45,7 +45,12 @@ const ImgWrapper = styled(Box)({
     maxWidth: "200px",
     height: "100%",
     maxHeight: '200px',
-    paddingRight: "20px",
+    backgroundColor: CUSTOM_STYLE.COLOR.MAIN_WHITE,
+    border: `3px solid ${CUSTOM_STYLE.COLOR.MAIN_BLACK}`,
+    borderRadius: '10px',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
 });
 
 const ContentContainer = styled(Box)({
@@ -53,7 +58,10 @@ const ContentContainer = styled(Box)({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    margin: '20px'
+    margin: '20px',
+    backgroundColor: CUSTOM_STYLE.COLOR.SECONDARY_PAPER_COLOR,
+    borderRadius: '10px',
+    padding: '20px',
 });
 
 const ButtonContainer = styled(Box)({
