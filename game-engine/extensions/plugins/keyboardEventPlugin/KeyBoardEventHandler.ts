@@ -1,6 +1,7 @@
 import { AppDispatch, setHeldKeys } from "./keyboardEventSlice";
-import { KEYBOARD_EVENT_PLUGIN_ID, KEY_MAPPING } from "./constants";
+import { KEYBOARD_EVENT_PLUGIN_ID } from "./constants";
 import PluginHandler from "../PluginHandler";
+import { KeyboardKey } from "./types";
 
 export interface KeyboardEventHandlerConfig {
     dispatch: AppDispatch;
@@ -10,7 +11,7 @@ export class KeyboardEventHandler implements PluginHandler {
 
     private dispatch: AppDispatch;
 
-    private heldKeys: string[] = [];
+    private heldKeys: KeyboardKey[] = [];
 
     public constructor({ dispatch }: KeyboardEventHandlerConfig) {
         this.dispatch = dispatch;
@@ -33,14 +34,14 @@ export class KeyboardEventHandler implements PluginHandler {
     public update(deltaTime: number): void {}
 
     private handleKeyUp(event: KeyboardEvent): void {
-        const key = event.key in KEY_MAPPING ? KEY_MAPPING[event.key] : event.key;
+        const key = event.key as KeyboardKey;
 
         this.heldKeys = this.heldKeys.filter((heldkey) => heldkey !== key);
         this.dispatch(setHeldKeys(this.heldKeys));
     }
 
     private handleKeyDown(event: KeyboardEvent): void {
-        const key = event.key in KEY_MAPPING ? KEY_MAPPING[event.key] : event.key;
+        const key = event.key as KeyboardKey;
         if (!this.heldKeys.includes(key)) {
             this.heldKeys.unshift(key);
         }

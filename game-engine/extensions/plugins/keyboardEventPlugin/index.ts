@@ -3,7 +3,7 @@
  *
  * @packageDocumentation
  */
-export type { GameCommand } from "./types";
+export type { KeyboardKey } from "./types";
 export type { KeyboardEventHandlerConfig } from "./KeyBoardEventHandler";
 export { KEYBOARD_EVENT_PLUGIN_ID } from "./constants";
 export { KeyboardEventHandler } from "./KeyBoardEventHandler";

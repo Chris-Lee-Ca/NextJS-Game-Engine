@@ -2,9 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { configureStore } from "@reduxjs/toolkit";
 import { KEYBOARD_EVENT_PLUGIN_ID } from "./constants";
+import { KeyboardKey } from "./types";
 
 export interface KeyboardEventStateInterface {
-    heldKeys: string[];
+    heldKeys: KeyboardKey[];
 }
 
 const initialState: KeyboardEventStateInterface = {
@@ -15,7 +16,7 @@ export const keyboardEventSlice = createSlice({
     name: "keyboardEvent",
     initialState,
     reducers: {
-        setHeldKeys: (state, action: PayloadAction<string[]>) => {
+        setHeldKeys: (state, action: PayloadAction<KeyboardKey[]>) => {
             state.heldKeys = [...action.payload];
         },
     },
