@@ -10,7 +10,6 @@ class PreviewObject extends TileObject {
     constructor(placement: CustomPlacement) {
         super(placement);
         this.placement = placement as PreviewObjectPlacement;
-        this.bound = undefined as any;
     }
 
     override update(deltaTime: number) {}

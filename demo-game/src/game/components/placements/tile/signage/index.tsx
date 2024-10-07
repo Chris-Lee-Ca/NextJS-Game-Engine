@@ -3,6 +3,8 @@ import TileObject from "../TileObject";
 import SignageComponent from "./SignageComponent";
 import React from "react";
 import GameObject from "game-engine/components/GameObject";
+import GridHelper from "game-engine/helper/GridHelper";
+import Rectangle from "game-engine/components/Rectangle";
 
 class Signage extends TileObject {
     placement: SignageObjectPlacement;
@@ -13,6 +15,8 @@ class Signage extends TileObject {
     constructor(placement: CustomPlacement) {
         super(placement);
         this.placement = placement as SignageObjectPlacement;
+        const gridSize = GridHelper.getGridSizeInPixel();
+        this.bound = new Rectangle(this.position.x, this.position.y, gridSize, gridSize);
         this.isUserNearSignage = false;
     }
 
@@ -30,10 +34,10 @@ class Signage extends TileObject {
             clearTimeout(this.signageTimeout);
         }
 
-        // Set a timeout to reset the flag after a 0.5 seconds delay
+        // Set a timeout to reset the flag after a 1 seconds delay
         this.signageTimeout = setTimeout(() => {
             this.isUserNearSignage = false;
-        }, 500);
+        }, 1000);
     }
 }
 

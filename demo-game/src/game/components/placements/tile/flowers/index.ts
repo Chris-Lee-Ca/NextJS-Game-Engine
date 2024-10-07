@@ -7,7 +7,6 @@ import GameObject from "game-engine/components/GameObject";
 class Flowers extends TileObject {
     constructor(placement: CustomPlacement) {
         super(placement);
-        this.bound = undefined;
     }
 
     override update(deltaTime: number) {}
