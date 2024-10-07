@@ -10,6 +10,7 @@ import {
 import { LEVEL_PLUGIN_ID, levelReducer } from "game-engine/extensions/plugins/levelPlugin";
 import { backpackReducer } from "./features/backpackSlice";
 import { dialogReducer } from "./features/dialogSlice";
+import { modalReducer } from "./features/modalSlice";
 
 const rootReducer = combineReducers({
     ...gameEngineReducer,
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
     editMode: editModeReducer,
     backpack: backpackReducer,
     dialog: dialogReducer,
+    modal: modalReducer,
 });
 
 export const makeGameStore = () => {

@@ -10,11 +10,13 @@ import { LEVEL_PLUGIN_ID, LevelHandler } from "game-engine/extensions/plugins/le
 import StatusBar from "./StatusBar";
 import Viewport from "./Viewport";
 import DialogWindowFactory from "../components/dialog/DialogWindowFactory";
+import ModalWindowFactory from "../components/modal/ModalWindowFactory";
 
 const GameBody = ({ gameLoop }: { gameLoop: GameLoop }) => {
     const levelState = useAppSelector((state) => state[LEVEL_PLUGIN_ID]);
     const currentLevelInfo = levelState.allLevelInfo[levelState.currentLevel];
     const dialogState = useAppSelector((state) => state.dialog);
+    const modalState = useAppSelector((state) => state.modal);
     const scaleFactor = useCSSVariable("--scale-factor"); //TODO make website responsive
 
     useEffect(() => {
@@ -29,6 +31,7 @@ const GameBody = ({ gameLoop }: { gameLoop: GameLoop }) => {
         <>
             <StatusBar />
             {dialogState.isOpenDialogWindow && <DialogWindowFactory windowType={dialogState.dialogWindowType as any} />}
+            {modalState.isOpenModalWindow && <ModalWindowFactory windowType={modalState.modalWindowType as any} />}
             <Viewport
                 backgroundColor={CUSTOM_STYLE.COLOR.MAIN_BLUE}
                 top={CUSTOM_STYLE.SIZE.ACTION_BAR_HEIGHT}
