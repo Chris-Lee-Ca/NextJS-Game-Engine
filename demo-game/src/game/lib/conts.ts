@@ -46,9 +46,12 @@ export const HERO_SPRITE_SHEET: SpriteSheetInfo = {
 export const CUSTOM_STYLE = {
     COLOR: {
         MAIN_BLUE: "rgb(88,180,252)",
+        MAIN_WHITE: "white",
+        MAIN_BLACK: "black",
         MAIN_PANEL_COLOR: "rgb(3, 11, 30)", //blue grey
         MAIN_TEXT_COLOR: "white",
         MAIN_TEXT_BACKGROUND_COLOR: "rgb(28, 47, 92)",
+        MAIN_PAPER_COLOR: "#e4cc96",
     },
     BORDER: {
         MAP_BORDER: `3px solid black`,
