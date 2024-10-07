@@ -18,7 +18,7 @@ class Signage extends InteractableTileObject {
     override update(deltaTime: number) {}
 
     render() {
-        return React.createElement(SignageComponent, {isUserNearSignage: this.isUserNearSignage});
+        return React.createElement(SignageComponent, {isUserNearSignage: this.isUserNearSignage, signageType: this.placement.signageType});
     }
 }
 
