@@ -8,6 +8,8 @@ import {
     mainCharacterReducer,
 } from "game-engine/extensions/modules/mainCharacterControlModule";
 import { LEVEL_PLUGIN_ID, levelReducer } from "game-engine/extensions/plugins/levelPlugin";
+import { backpackReducer } from "./features/backpackSlice";
+import { dialogReducer } from "./features/dialogSlice";
 
 const rootReducer = combineReducers({
     ...gameEngineReducer,
@@ -16,6 +18,8 @@ const rootReducer = combineReducers({
     [LEVEL_PLUGIN_ID]: levelReducer,
     game: gameReducer,
     editMode: editModeReducer,
+    backpack: backpackReducer,
+    dialog: dialogReducer,
 });
 
 export const makeGameStore = () => {

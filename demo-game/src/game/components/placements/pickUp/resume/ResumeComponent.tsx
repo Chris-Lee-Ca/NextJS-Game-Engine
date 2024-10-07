@@ -1,12 +1,12 @@
 "use client";
 
 import React from "react";
-import Image from "game-engine/components/Image";
 import paper from "@/game/assets/componentImage/paper.png";
+import GridSizeImage from "@/game/components/GridSizeImage";
 
 interface ResumeComponentProps {}
 const ResumeComponent: React.FC<ResumeComponentProps> = (_props) => {
-    return <Image src={paper.src} />;
+    return <GridSizeImage src={paper.src} />;
 };
 
 export default ResumeComponent;

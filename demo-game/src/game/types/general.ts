@@ -5,6 +5,8 @@ import { LevelInfo } from "game-engine/extensions/plugins/levelPlugin";
 
 type CustomPlacementType = "Character" | "Enemy" | "PickUp" | "Tile";
 
+type PickUpTypeItem = "resume";
+
 interface CustomPlacement extends Placement {
     type: CustomPlacementType;
 }
@@ -30,6 +32,7 @@ type EditModeLevelInfo = Omit<LevelInfo, "placements"> & {
 
 export type {
     CustomPlacementType,
+    PickUpTypeItem,
     CustomPlacement,
     CreateCustomObjectParams,
     PreviewObjectPlacement,
