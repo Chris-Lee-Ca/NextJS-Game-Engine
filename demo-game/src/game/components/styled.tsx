@@ -36,3 +36,17 @@ export const DefaultButton = styled(Button)({
     color: "white",
     backgroundColor: CUSTOM_STYLE.COLOR.MAIN_TEXT_BACKGROUND_COLOR,
 });
+
+export const ModalTitle = styled(Box)({
+    fontWeight: 'bolder',
+    fontSize: '30px',
+    marginBottom: '20px'
+})
+
+export const ModalContent = styled(Box)({
+    width: '100%',
+    fontWeight: 'bold',
+    textDecoration: 'underline',
+    textAlign: 'center',
+    marginBottom: '5px'
+})
