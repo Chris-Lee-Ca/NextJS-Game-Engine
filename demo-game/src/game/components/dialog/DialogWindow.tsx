@@ -69,7 +69,7 @@ interface DialogWindowPropsInterface {
     buttonGroup: ReactNode;
 }
 
-const DialogWrapper = (props: DialogWindowPropsInterface) => {
+const DialogWindow = (props: DialogWindowPropsInterface) => {
     const { imageSrc, content, buttonGroup } = props;
 
     const dialogState = useAppSelector((state) => state.dialog);
@@ -109,4 +109,4 @@ const DialogWrapper = (props: DialogWindowPropsInterface) => {
     );
 };
 
-export default DialogWrapper;
+export default DialogWindow;
