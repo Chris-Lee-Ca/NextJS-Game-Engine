@@ -8,6 +8,12 @@ import {
     ProjectModalWindowComponent,
     SkillModalWindowComponent
 } from "@/game/components/placements/tile/signage/ModalComponent";
+import {    
+    BackendSkillModalWindowComponent,
+    FrontendSkillModalWindowComponent,
+    LanguageSkillModalWindowComponent,
+    OthersSkillModalWindowComponent
+} from "../placements/tile/signage2/ModalComponent";
 
 type ModalWindowType = Exclude<OriginalModalWindowType, null>;
 
@@ -22,7 +28,11 @@ const modalWindowComponents: Record<ModalWindowType, ModalWindowConfig> = {
     skill: SkillModalWindowComponent,
     project: ProjectModalWindowComponent,
     education: EducationModalWindowComponent,
-    experience: ExperienceModalWindowComponent
+    experience: ExperienceModalWindowComponent,
+    "skill-languages": LanguageSkillModalWindowComponent,
+    "skill-frontend": FrontendSkillModalWindowComponent,
+    "skill-backend": BackendSkillModalWindowComponent,
+    "skill-others": OthersSkillModalWindowComponent
 };
 
 interface ModalWindowFactoryProps {

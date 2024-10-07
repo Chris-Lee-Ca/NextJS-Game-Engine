@@ -1,6 +1,7 @@
 "use client";
 
 import { styled } from "@mui/material";
+import { CSSProperties } from "react";
 
 const Img = styled("img")({
     width: `100%`,
@@ -9,12 +10,13 @@ const Img = styled("img")({
 
 interface ImageProps {
     src: string;
+    style?: CSSProperties
 }
 
 const Image = (props: ImageProps) => {
-    const { src } = props;
+    const { src, style } = props;
 
-    return <Img src={src} />;
+    return <Img src={src} style={{...style}}/>;
 };
 
 export default Image;

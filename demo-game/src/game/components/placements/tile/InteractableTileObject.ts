@@ -3,17 +3,17 @@ import TileObject from "./TileObject";
 import GameObject from "game-engine/components/GameObject";
 
 abstract class InteractableTileObject extends TileObject {
-    isUserNearSignage: boolean;
+    isUserNearObject: boolean;
 
     private signageTimeout: NodeJS.Timeout | null = null;
     
     constructor(placement: CustomPlacement) {
         super(placement);
-        this.isUserNearSignage = false;
+        this.isUserNearObject = false;
     }
 
     performCollisionLogic(_object: GameObject): void {
-        this.isUserNearSignage = true;
+        this.isUserNearObject = true;
 
         // Clear any existing timeout to prevent it from resetting the flag while user is near
         if (this.signageTimeout) {
@@ -22,7 +22,7 @@ abstract class InteractableTileObject extends TileObject {
 
         // Set a timeout to reset the flag after a 1 seconds delay
         this.signageTimeout = setTimeout(() => {
-            this.isUserNearSignage = false;
+            this.isUserNearObject = false;
         }, 1000);
     }
 }

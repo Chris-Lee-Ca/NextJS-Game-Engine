@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch } from "../store";
 
-export type ModalWindowType = "intro" | "skill" | "project" | "education"| "experience" | null;
+export type ModalWindowType = "intro" | "skill" | "project" | "education"| "experience" | "skill-languages" | "skill-frontend" | "skill-backend" | "skill-others" | null;
 
 export interface ModalStateInterface {
     isOpenModalWindow: boolean;

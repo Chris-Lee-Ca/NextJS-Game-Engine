@@ -1,11 +1,11 @@
 import { CustomPlacement, SignageObjectPlacement } from "@/game/types/general";
-import SignageComponent from "./SignageComponent";
+import Signage2Component from "./Signage2Component";
 import React from "react";
 import GridHelper from "game-engine/helper/GridHelper";
 import Rectangle from "game-engine/components/Rectangle";
 import InteractableTileObject from "../InteractableTileObject";
 
-class Signage extends InteractableTileObject {
+class Signage2 extends InteractableTileObject {
     placement: SignageObjectPlacement;
 
     constructor(placement: CustomPlacement) {
@@ -18,8 +18,8 @@ class Signage extends InteractableTileObject {
     override update(deltaTime: number) {}
 
     render() {
-        return React.createElement(SignageComponent, {isUserNearSignage: this.isUserNearObject, signageType: this.placement.signageType});
+        return React.createElement(Signage2Component, {isUserNearSignage2: this.isUserNearObject, signageType: this.placement.signageType});
     }
 }
 
-export default Signage;
+export default Signage2;

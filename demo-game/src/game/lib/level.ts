@@ -25,6 +25,7 @@ export const demoLevel_1: LevelInfo = {
         { id: "Tile-shrub-1-1", coord: { x: 1, y: 1 }, type: "Tile", itemName: "shrub" },
         { id: "Tile-signage-2-3", coord: { x: 2, y: 3 }, type: "Tile", itemName: "signage", signageType: "intro"} as Placement,
         { id: "Tile-signage-2-5", coord: { x: 2, y: 5 }, type: "Tile", itemName: "signage", signageType: "experience"} as Placement,
+        { id: "Tile-signage-3-5", coord: { x: 3, y: 5 }, type: "Tile", itemName: "signage2", signageType: "skill-languages"} as Placement,
         { id: "Character-main-character-3-2", coord: { x: 3, y: 2 }, type: "Character", itemName: "main character" }, // main character must be the last item of the list, such that it draw on the canvas last and over all other item.
     ],
 };
