@@ -11,5 +11,5 @@ export type { DirectionControlHandlerConfig } from "./DirectionControlHandler";
 export type { DirectionCommand, Facing } from "./types";
 export { MAIN_CHARACTER_CONTROL_MODULE_ID } from "./constants";
 export { DirectionControlHandler } from "./DirectionControlHandler";
-export { mainCharacterReducer } from "./mainCharacterSlice";
+export { mainCharacterReducer, setIsDisabledMainCharacterControl } from "./mainCharacterSlice";
 export { getCharacterOffset } from "./helper";

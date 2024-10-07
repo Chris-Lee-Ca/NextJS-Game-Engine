@@ -6,7 +6,7 @@ import GameLoop from "game-engine/core/GameLoop";
 import { GAME_SETTING } from "../lib/conts";
 import { KeyboardEventHandler } from "game-engine/extensions/plugins/keyboardEventPlugin";
 import { LEVEL_PLUGIN_ID, LevelHandler } from "game-engine/extensions/plugins/levelPlugin";
-import { DirectionControlHandler } from "game-engine/extensions/modules/mainCharacterControlModule";
+import { DirectionControlHandler } from "game-engine/extensions/modules/MainCharacterControlModule";
 import PlacementFactory from "../components/placements/PlacementFactory";
 import { allDemoLevelInfo } from "../lib/level";
 import GameBody from "./GameBody";

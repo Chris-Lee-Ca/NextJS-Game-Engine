@@ -6,7 +6,7 @@ import { KEYBOARD_EVENT_PLUGIN_ID, keyboardEventReducer } from "game-engine/exte
 import {
     MAIN_CHARACTER_CONTROL_MODULE_ID,
     mainCharacterReducer,
-} from "game-engine/extensions/modules/mainCharacterControlModule";
+} from "game-engine/extensions/modules/MainCharacterControlModule";
 import { LEVEL_PLUGIN_ID, levelReducer } from "game-engine/extensions/plugins/levelPlugin";
 import { backpackReducer } from "./features/backpackSlice";
 import { dialogReducer } from "./features/dialogSlice";
