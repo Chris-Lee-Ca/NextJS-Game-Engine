@@ -1,9 +1,6 @@
 # MainCharacterControlModule
 
-Main Character Control Module manages all interactions related to the main character.
-
-<!-- TODO -->
-<!-- This module encompasses both direction and action controls. -->
+Main Character Control Module manages direction related interaction to the main character.
 
 It relies on information provided by the `KeyboardEventModule`.
 Please ensure that the `KeyboardEventModule` is activated for this module to function correctly.
@@ -36,7 +33,7 @@ GameLoop.getInstance({
         // ... other plugins
     ],
     modules: [
-        new DirectionControlHandler({ store: appStore, dispatch }),
+        new DirectionControlHandler({ store: appStore, dispatch, directionKeyMapping: {your_custom_DirectionKeyMapping} }),
         // ... other modules
     ],
 });
