@@ -50,3 +50,9 @@ export const ModalContent = styled(Box)({
     textAlign: 'center',
     marginBottom: '5px'
 })
+
+export const DialogContent = styled(Box)({
+    width: "250px",
+    fontWeight: "bold",
+    textDecoration: "underline",
+});

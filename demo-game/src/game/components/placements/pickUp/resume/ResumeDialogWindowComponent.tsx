@@ -1,25 +1,19 @@
+import DialogWindowBuilder from "@/game/components/dialog/DialogWindowBuilder";
 import { DialogWindowConfig } from "@/game/components/dialog/DialogWindowFactory";
+import { DialogContent } from "@/game/components/styled";
 import ActionButton from "@/game/components/template/ActionButton";
 import CloseDialogButton from "@/game/components/template/CloseDialogButton";
 import { Bio } from "@/game/lib/gameContent";
 import { closeDialogWindow } from "@/game/redux/features/dialogSlice";
 import { useAppDispatch } from "@/game/redux/hooks";
-import styled from "@emotion/styled";
-import { Box } from "@mui/material";
 import TypeWriter from "game-engine/components/TypeWriter";
-
-const Content = styled(Box)({
-    width: "250px",
-    fontWeight: "bold",
-    textDecoration: "underline ",
-});
 
 const ResumeDialogContent: React.FC = () => {
     return (
         <>
-            <Content>
+            <DialogContent>
                 <TypeWriter content={"I discovered an attractive piece of paper on the ground."} />
-            </Content>
+            </DialogContent>
         </>
     );
 };
@@ -40,10 +34,10 @@ const ResumeDialogButtonGroup: React.FC = () => {
     );
 };
 
-const ResumeDialogWindowComponent: DialogWindowConfig = {
-    imageSrc: require("../../../../assets/componentImage/paper.png").default.src,
-    content: <ResumeDialogContent/>,
-    buttonGroup: <ResumeDialogButtonGroup/>
-}
+const ResumeDialogWindowComponent: DialogWindowConfig = new DialogWindowBuilder()
+    .setImageSrc(require("../../../../assets/componentImage/paper.png").default.src)
+    .setContent(ResumeDialogContent)
+    .setButtonGroup(ResumeDialogButtonGroup)
+    .build();
 
 export default  ResumeDialogWindowComponent;
