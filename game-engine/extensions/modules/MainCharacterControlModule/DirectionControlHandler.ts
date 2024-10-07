@@ -29,6 +29,11 @@ export class DirectionControlHandler implements ModuleHandler {
     public update(deltaTime: number) {
         const state = this.store.getState();
 
+        if (state[MAIN_CHARACTER_CONTROL_MODULE_ID].disabled) {
+            this.dispatch(setMovmentDirection(""));
+            return;
+        }
+
         const heldDirectionKeys = this.getHeldDirectionKeys(state);
         const movementDirection = this.getActiveDirectionKey(heldDirectionKeys);
         const oldMovmentDirection = state[MAIN_CHARACTER_CONTROL_MODULE_ID].movementDirection;

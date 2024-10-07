@@ -6,10 +6,12 @@ import { KEYBOARD_EVENT_PLUGIN_ID, keyboardEventReducer } from "../../plugins/ke
 import { MAIN_CHARACTER_CONTROL_MODULE_ID } from "./constants";
 
 export interface MainCharacterStateInterface {
+    disabled: boolean;
     movementDirection: DirectionCommand;
 }
 
 const initialState: MainCharacterStateInterface = {
+    disabled: false,
     movementDirection: "",
 };
 
@@ -17,13 +19,16 @@ export const mainCharacterSlice = createSlice({
     name: "mainCharacter",
     initialState,
     reducers: {
+        setIsDisabledMainCharacterControl: (state, action: PayloadAction<boolean>) => {
+            state.disabled = action.payload;
+        },
         setMovmentDirection: (state, action: PayloadAction<DirectionCommand>) => {
             state.movementDirection = action.payload;
         },
     },
 });
 
-export const { setMovmentDirection } = mainCharacterSlice.actions;
+export const { setIsDisabledMainCharacterControl, setMovmentDirection } = mainCharacterSlice.actions;
 export const mainCharacterReducer = mainCharacterSlice.reducer;
 
 const makeStore = () => {
