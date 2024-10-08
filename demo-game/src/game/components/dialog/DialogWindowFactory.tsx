@@ -2,6 +2,7 @@ import { DialogWindowType as OriginalDialogWindowType } from "@/game/redux/featu
 import ResumeDialogWindowComponent from "../placements/pickUp/resume/ResumeDialogWindowComponent";
 import DialogWindow from "./DialogWindow";
 import { ReactNode } from "react";
+import { FinishLineDialogWindowComponent } from "../placements/tile/finishLine/DialogComponent";
 
 type DialogWindowType = Exclude<OriginalDialogWindowType, null>;
 
@@ -13,6 +14,7 @@ export interface DialogWindowConfig {
 
 const dialogWindowComponents: Record<DialogWindowType, DialogWindowConfig> = {
     resume: ResumeDialogWindowComponent,
+    "finish-line": FinishLineDialogWindowComponent,
 };
 
 interface DialogWindowFactoryProps {

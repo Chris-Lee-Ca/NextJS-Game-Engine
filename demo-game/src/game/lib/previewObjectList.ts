@@ -100,5 +100,11 @@ export const previewObjectList: { [key in CustomPlacementType]: PreviewObjectIte
             avatar: "",
             signageType: "skill-others",
         },
+        {
+            id: "finish-line",
+            type: "Tile",
+            objectItemName: "finish line",
+            avatar: "",
+        },
     ],
 };

@@ -4,9 +4,9 @@ import React from "react";
 import GridSizeImage from "@/game/components/GridSizeImage";
 import BalloonImage from "@/game/assets/componentImage/balloon.png";
 
-interface FlowersComponentProps {}
-const FlowersComponent: React.FC<FlowersComponentProps> = (_props) => {
+interface BalloonComponentProps {}
+const BalloonComponent: React.FC<BalloonComponentProps> = (_props) => {
     return <GridSizeImage src={BalloonImage.src} />;
 };
 
-export default FlowersComponent;
+export default BalloonComponent;

@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch } from "../store";
 
-export type DialogWindowType = "resume" | null;
+export type DialogWindowType = "resume" | "finish-line" | null;
 
 export interface DialogStateInterface {
     isOpenDialogWindow: boolean;
