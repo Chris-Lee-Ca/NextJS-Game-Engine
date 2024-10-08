@@ -6,10 +6,10 @@ export const MAIN_CHARACTER_DIRECTION_CONTROL_MODULE_ID = "main-character-direct
 export const DIRECTION_KEYS: DirectionCommand[] = ["up", "down", "left", "right"];
 
 export const DEFAULT_DIRECTION_KEY_MAPPING: { [key in DirectionCommand]?: KeyboardKey[] } = {
-    up: ['ArrowUp', 'w'],
-    down: ['ArrowDown', 's'],
-    left: ['ArrowLeft', 'a'],
-    right: ['ArrowRight', 'd']
+    up: ["ArrowUp", "w"],
+    down: ["ArrowDown", "s"],
+    left: ["ArrowLeft", "a"],
+    right: ["ArrowRight", "d"],
 };
 
 export const DIRECTION_COMMAND_MAPPING: { [key in DirectionCommand]: Direction } = {

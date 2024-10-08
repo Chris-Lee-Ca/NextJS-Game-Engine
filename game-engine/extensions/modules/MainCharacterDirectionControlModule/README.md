@@ -33,7 +33,11 @@ GameLoop.getInstance({
         // ... other plugins
     ],
     modules: [
-        new DirectionControlHandler({ store: appStore, dispatch, directionKeyMapping: {your_custom_DirectionKeyMapping} }),
+        new DirectionControlHandler({
+            store: appStore,
+            dispatch,
+            directionKeyMapping: { your_custom_DirectionKeyMapping },
+        }),
         // ... other modules
     ],
 });

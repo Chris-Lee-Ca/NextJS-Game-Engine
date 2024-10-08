@@ -11,7 +11,10 @@ import { LEVEL_PLUGIN_ID, levelReducer } from "game-engine/extensions/plugins/le
 import { backpackReducer } from "./features/backpackSlice";
 import { dialogReducer } from "./features/dialogSlice";
 import { modalReducer } from "./features/modalSlice";
-import { MAIN_CHARACTER_ACTION_CONTROL_MODULE_ID, mainCharacterActionReducer } from "game-engine/extensions/modules/MainCharacterActionControlModule";
+import {
+    MAIN_CHARACTER_ACTION_CONTROL_MODULE_ID,
+    mainCharacterActionReducer,
+} from "game-engine/extensions/modules/MainCharacterActionControlModule";
 
 const rootReducer = combineReducers({
     ...gameEngineReducer,

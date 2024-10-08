@@ -17,7 +17,7 @@ export class DirectionControlHandler implements ModuleHandler {
 
     private store: AppStore;
     private dispatch: AppDispatch;
-    private invertedKeyMapping: InvertedDirectionKeyMapping; 
+    private invertedKeyMapping: InvertedDirectionKeyMapping;
 
     public constructor({ store, dispatch, directionKeyMapping }: DirectionControlHandlerConfig) {
         this.store = store;
@@ -25,15 +25,15 @@ export class DirectionControlHandler implements ModuleHandler {
         this.invertedKeyMapping = this.getInvertedKeyMapping(directionKeyMapping);
     }
 
-    private getInvertedKeyMapping(directionKeyMapping: DirectionKeyMapping): InvertedDirectionKeyMapping{
+    private getInvertedKeyMapping(directionKeyMapping: DirectionKeyMapping): InvertedDirectionKeyMapping {
         const invertedKeyMapping: InvertedDirectionKeyMapping = {};
         Object.entries(directionKeyMapping).forEach(([keyType, keys]) => {
             keys.forEach((keyboardKey) => {
-                if (keyboardKey in invertedKeyMapping){
-                    throw Error (`Keyboard Key: ${keyboardKey} is defined twice in ActionControlHandler`);
+                if (keyboardKey in invertedKeyMapping) {
+                    throw Error(`Keyboard Key: ${keyboardKey} is defined twice in ActionControlHandler`);
                 }
                 invertedKeyMapping[keyboardKey] = keyType as DirectionCommand;
-            })
+            });
         });
         return invertedKeyMapping;
     }
@@ -60,7 +60,9 @@ export class DirectionControlHandler implements ModuleHandler {
 
     private getHeldDirectionKeys(state: RootState): DirectionCommand[] {
         const heldKeys = state[KEYBOARD_EVENT_PLUGIN_ID].heldKeys;
-        const heldDirectionKeys = heldKeys.filter((key) => key in this.invertedKeyMapping).map((key) => this.invertedKeyMapping[key]);
+        const heldDirectionKeys = heldKeys
+            .filter((key) => key in this.invertedKeyMapping)
+            .map((key) => this.invertedKeyMapping[key]);
         return heldDirectionKeys as DirectionCommand[];
     }
 

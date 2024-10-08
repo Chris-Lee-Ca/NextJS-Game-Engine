@@ -29,15 +29,15 @@ const ResumeDialogButtonGroup: React.FC = () => {
     return (
         <>
             <ActionButton onClickFunction={handleOnClickReadIt} buttonKey={"k"} buttonDescription={"Read It"} />
-            <CloseDialogButton/>
+            <CloseDialogButton />
         </>
     );
 };
 
 const ResumeDialogWindowComponent: DialogWindowConfig = new DialogWindowBuilder()
-    .setImageSrc(require("../../../../assets/componentImage/paper.png").default.src)
+    .setImageSrc(require("../../../../../assets/componentImage/paper.png").default.src)
     .setContent(ResumeDialogContent)
     .setButtonGroup(ResumeDialogButtonGroup)
     .build();
 
-export default  ResumeDialogWindowComponent;
+export default ResumeDialogWindowComponent;

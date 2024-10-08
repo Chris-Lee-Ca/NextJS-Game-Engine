@@ -7,6 +7,6 @@
  */
 export type { ActionControlHandlerConfig } from "./ActionControlHandler";
 export type { ActionKeyMapping } from "./types";
-export {ActionControlHandler} from "./ActionControlHandler";
+export { ActionControlHandler } from "./ActionControlHandler";
 export { MAIN_CHARACTER_ACTION_CONTROL_MODULE_ID } from "./constants";
 export { mainCharacterActionReducer, setIsDisabledMainCharacterActionControl } from "./mainCharacterActionSlice";

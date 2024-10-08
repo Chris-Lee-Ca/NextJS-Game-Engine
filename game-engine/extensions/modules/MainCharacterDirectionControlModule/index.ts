@@ -7,7 +7,7 @@
  *
  * @packageDocumentation
  */
-export type { DirectionControlHandlerConfig,  } from "./DirectionControlHandler";
+export type { DirectionControlHandlerConfig } from "./DirectionControlHandler";
 export type { DirectionCommand, Facing } from "./types";
 export { MAIN_CHARACTER_DIRECTION_CONTROL_MODULE_ID, DEFAULT_DIRECTION_KEY_MAPPING } from "./constants";
 export { DirectionControlHandler } from "./DirectionControlHandler";

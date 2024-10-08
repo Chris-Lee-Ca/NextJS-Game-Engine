@@ -1,7 +1,7 @@
 import { DialogWindowType as OriginalDialogWindowType } from "@/game/redux/features/dialogSlice";
-import ResumeDialogWindowComponent from "../placements/pickUp/resume/ResumeDialogWindowComponent";
 import DialogWindow from "./DialogWindow";
 import { ReactNode } from "react";
+import { ResumeDialogWindowComponent } from "../placements/pickUp/resume/DialogComponent";
 import { FinishLineDialogWindowComponent } from "../placements/tile/finishLine/DialogComponent";
 
 type DialogWindowType = Exclude<OriginalDialogWindowType, null>;

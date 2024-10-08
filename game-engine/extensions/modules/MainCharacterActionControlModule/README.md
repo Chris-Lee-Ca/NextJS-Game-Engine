@@ -33,7 +33,7 @@ GameLoop.getInstance({
         // ... other plugins
     ],
     modules: [
-        new ActionControlHandler({ store: appStore, dispatch, actionKeyMapping: {your_custom_ActionKeyMapping} }),
+        new ActionControlHandler({ store: appStore, dispatch, actionKeyMapping: { your_custom_ActionKeyMapping } }),
         // ... other modules
     ],
 });
