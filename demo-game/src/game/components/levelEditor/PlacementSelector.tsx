@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { CUSTOM_STYLE } from "@/game/lib/conts";
-import { CustomPlacementType, PreviewObjectItem } from "@/game/types/general";
+import { CustomPlacementType } from "@/game/types/general";
 import { styled } from "@mui/material";
 import { Box } from "@mui/system";
 import GridHelper from "game-engine/helper/GridHelper";
 import { useAppDispatch, useAppSelector } from "@/game/redux/hooks";
 import { updateSelectedItem } from "@/game/redux/features/editModeSlice";
+import { previewObjectList } from "@/game/lib/previewObjectList";
 
 const TabSelector = styled("select")({
     backgroundColor: CUSTOM_STYLE.COLOR.MAIN_TEXT_BACKGROUND_COLOR,
@@ -17,6 +18,8 @@ const TabSelector = styled("select")({
 
 const ItemSelector = styled(Box)({
     display: "flex",
+    maxWidth: "100%",
+    flexWrap: "wrap",
 });
 
 const ItemBox = styled(Box)({
@@ -32,6 +35,7 @@ const ItemBox = styled(Box)({
     textAlign: "center",
     cursor: "pointer",
     userSelect: "none",
+    ffontSize: "calc(4vw + 4vh + 2vmin)",
 });
 
 const options: { label: string; value: CustomPlacementType }[] = [
@@ -52,25 +56,6 @@ const options: { label: string; value: CustomPlacementType }[] = [
         value: "Tile",
     },
 ];
-
-const items: { [key in CustomPlacementType]: PreviewObjectItem[] } = {
-    Character: [
-        {
-            type: "Character",
-            objectItemName: "main character",
-            avatar: "",
-        },
-    ],
-    Enemy: [],
-    PickUp: [],
-    Tile: [
-        {
-            type: "Tile",
-            objectItemName: "shrub",
-            avatar: "",
-        },
-    ],
-};
 
 interface PlacementSelectorProps {}
 
@@ -97,9 +82,9 @@ export const PlacementSelector = (props: PlacementSelectorProps) => {
             </TabSelector>
             {/* TODO: show avatar for item instead of item name */}
             <ItemSelector>
-                {items[currentTab].map((item) => (
+                {previewObjectList[currentTab].map((item) => (
                     <ItemBox
-                        key={item.objectItemName}
+                        key={item.id}
                         style={{
                             border:
                                 editModeState.selectedItem === item ? `2px solid ${CUSTOM_STYLE.COLOR.MAIN_BLUE}` : "",
@@ -110,7 +95,7 @@ export const PlacementSelector = (props: PlacementSelectorProps) => {
                             dispatch(updateSelectedItem(selectedItem));
                         }}
                     >
-                        {item.objectItemName}
+                        {item.id.replaceAll("-", " ")}
                     </ItemBox>
                 ))}
             </ItemSelector>

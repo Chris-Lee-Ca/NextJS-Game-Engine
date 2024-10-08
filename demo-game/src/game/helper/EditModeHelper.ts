@@ -1,8 +1,6 @@
 import { Coordinate, Placement } from "game-engine/types/general";
 import { EditModeLevelInfo, PreviewObjectPlacement } from "../types/general";
-import { CanvasHelper, LevelInfo } from "game-engine/extensions/plugins/levelPlugin";
 import { defaultLevelTheme } from "../lib/level";
-import ObjectPool from "game-engine/core/ObjectPool";
 
 class EditModeHelper {
     static isPreviewObject(placement: PreviewObjectPlacement): boolean {
@@ -29,9 +27,10 @@ class EditModeHelper {
                     type: "Tile",
                     itemName: "preview object",
                     previewObjectItem: {
+                        id: "main character",
                         type: "Character",
                         objectItemName: "main character",
-                        avatar: undefined,
+                        avatar: "",
                     },
                 },
                 {
@@ -120,12 +119,16 @@ class EditModeHelper {
     static previewObjectConvertor(placements: PreviewObjectPlacement[]): Placement[] {
         const newPlacements = placements
             .filter((p) => this.isPreviewObject(p))
-            .map((p) => ({
-                id: `${p.previewObjectItem.type}-${p.previewObjectItem.objectItemName}-${p.coord.x}-${p.coord.y}`,
-                coord: p.coord,
-                type: p.previewObjectItem.type,
-                itemName: p.previewObjectItem.objectItemName,
-            }));
+            .map((p) => {
+                const { id, avatar, objectItemName, type, ...rest } = p.previewObjectItem; // Extract explicit fields
+                return {
+                    id: `${type}-${objectItemName}-${p.coord.x}-${p.coord.y}`,
+                    coord: p.coord,
+                    type,
+                    itemName: objectItemName,
+                    ...rest, // Spread the remaining properties
+                };
+            });
         return newPlacements;
     }
 }

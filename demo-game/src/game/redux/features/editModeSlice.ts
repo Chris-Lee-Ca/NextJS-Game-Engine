@@ -22,17 +22,6 @@ const initialState: EditModeStateInterface = {
         tilesHeight: 3,
         placements: [
             {
-                id: "Tile-preview-object-0-0",
-                coord: { x: 0, y: 0 },
-                type: "Tile",
-                itemName: "preview object",
-                previewObjectItem: {
-                    type: "Character",
-                    objectItemName: "main character",
-                    avatar: undefined,
-                },
-            },
-            {
                 id: "Character-main-character-0-0",
                 coord: { x: 0, y: 0 },
                 type: "Character",

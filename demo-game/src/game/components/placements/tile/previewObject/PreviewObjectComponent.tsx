@@ -20,10 +20,10 @@ const ItemBox = styled(Box)({
 });
 
 interface PreviewObjectComponentProps {
-    objectItemName: string;
+    id: string;
 }
 const PreviewObjectComponent = (props: PreviewObjectComponentProps) => {
-    return <ItemBox>{props.objectItemName}</ItemBox>;
+    return <ItemBox>{props.id}</ItemBox>;
 };
 
 export default PreviewObjectComponent;

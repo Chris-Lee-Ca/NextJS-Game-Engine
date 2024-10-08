@@ -21,9 +21,11 @@ interface PreviewObjectPlacement extends CustomPlacement {
 }
 
 interface PreviewObjectItem {
+    id: string;
+    avatar: any;
     type: CustomPlacementType;
     objectItemName: string;
-    avatar: any;
+    [key: string]: string;
 }
 
 interface SignageObjectPlacement extends CustomPlacement {
