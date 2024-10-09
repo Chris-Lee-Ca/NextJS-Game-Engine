@@ -107,5 +107,19 @@ export const previewObjectList: { [key in CustomPlacementType]: PreviewObjectIte
             objectItemName: "finish line",
             avatar: "",
         },
+        {
+            id: "portal-prev",
+            type: "Tile",
+            objectItemName: "portal",
+            avatar: "",
+            portalType: "prev",
+        },
+        {
+            id: "portal-next",
+            type: "Tile",
+            objectItemName: "portal",
+            avatar: "",
+            portalType: "next",
+        },
     ],
 };

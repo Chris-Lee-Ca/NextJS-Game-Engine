@@ -2,6 +2,7 @@ import { Placement } from "game-engine/types/general";
 import { PreviewObjectItem } from "./general";
 
 type CustomPlacementType = "Character" | "Enemy" | "PickUp" | "Tile";
+type PortalType = "prev" | "next";
 
 interface CustomPlacement extends Placement {
     type: CustomPlacementType;
@@ -16,11 +17,12 @@ interface SignageObjectPlacement extends CustomPlacement {
 }
 
 interface PortalObjectPlacement extends CustomPlacement {
-    portalType: "prev" | "next";
+    portalType: PortalType;
 }
 
 export type {
     CustomPlacementType,
+    PortalType,
     CustomPlacement,
     PreviewObjectPlacement,
     SignageObjectPlacement,

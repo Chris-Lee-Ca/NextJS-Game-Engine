@@ -3,7 +3,6 @@ import TileObject from "../TileObject";
 import PreviewObjectComponent from "./PreviewObjectComponent";
 import React from "react";
 import GameObject from "game-engine/components/GameObject";
-import Rectangle from "game-engine/components/Rectangle";
 
 class PreviewObject extends TileObject {
     placement: PreviewObjectPlacement;

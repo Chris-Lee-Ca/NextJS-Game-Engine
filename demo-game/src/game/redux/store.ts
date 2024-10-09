@@ -15,6 +15,7 @@ import {
     MAIN_CHARACTER_ACTION_CONTROL_MODULE_ID,
     mainCharacterActionReducer,
 } from "game-engine/extensions/modules/MainCharacterActionControlModule";
+import { alertReducer } from "./features/alertSlice";
 
 const rootReducer = combineReducers({
     ...gameEngineReducer,
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
     backpack: backpackReducer,
     dialog: dialogReducer,
     modal: modalReducer,
+    alert: alertReducer,
 });
 
 export const makeGameStore = () => {
