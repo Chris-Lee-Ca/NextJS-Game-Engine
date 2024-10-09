@@ -5,7 +5,7 @@ import { Button } from "@mui/material";
 import React, { Suspense } from "react";
 import ModeIcon from "@mui/icons-material/Mode";
 import { setLevelInfoByKey } from "game-engine/extensions/plugins/levelPlugin";
-import { PreviewObjectPlacement } from "@/game/types/general";
+import { PreviewObjectPlacement } from "@/game/types/placement";
 import EditModeHelper from "@/game/helper/EditModeHelper";
 
 export const LevelEditorStatusBarButton = () => {

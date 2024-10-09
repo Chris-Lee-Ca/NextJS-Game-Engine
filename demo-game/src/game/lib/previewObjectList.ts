@@ -1,4 +1,5 @@
-import { CustomPlacementType, PreviewObjectItem } from "../types/general";
+import { PreviewObjectItem } from "../types/general";
+import { CustomPlacementType } from "../types/placement";
 
 export const previewObjectList: { [key in CustomPlacementType]: PreviewObjectItem[] } = {
     Character: [

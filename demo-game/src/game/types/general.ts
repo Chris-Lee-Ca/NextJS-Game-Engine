@@ -2,22 +2,13 @@ import { CreateObjectParams } from "game-engine/components/GameObjectFactory";
 import { Placement } from "game-engine/types/general";
 import { AppStore } from "../redux/store";
 import { LevelInfo } from "game-engine/extensions/plugins/levelPlugin";
-
-type CustomPlacementType = "Character" | "Enemy" | "PickUp" | "Tile";
+import { CustomPlacement, CustomPlacementType, PreviewObjectPlacement } from "./placement";
 
 type PickUpTypeItem = "resume";
-
-interface CustomPlacement extends Placement {
-    type: CustomPlacementType;
-}
 
 interface CreateCustomObjectParams extends CreateObjectParams {
     placement: CustomPlacement;
     reduxStore: AppStore;
-}
-
-interface PreviewObjectPlacement extends CustomPlacement {
-    previewObjectItem: PreviewObjectItem;
 }
 
 interface PreviewObjectItem {
@@ -28,21 +19,8 @@ interface PreviewObjectItem {
     [key: string]: string;
 }
 
-interface SignageObjectPlacement extends CustomPlacement {
-    signageType: string;
-}
-
 type EditModeLevelInfo = Omit<LevelInfo, "placements"> & {
     placements: (Placement | PreviewObjectPlacement)[];
 };
 
-export type {
-    CustomPlacementType,
-    PickUpTypeItem,
-    CustomPlacement,
-    CreateCustomObjectParams,
-    PreviewObjectPlacement,
-    PreviewObjectItem,
-    SignageObjectPlacement,
-    EditModeLevelInfo,
-};
+export type { PickUpTypeItem, CreateCustomObjectParams, PreviewObjectItem, EditModeLevelInfo };

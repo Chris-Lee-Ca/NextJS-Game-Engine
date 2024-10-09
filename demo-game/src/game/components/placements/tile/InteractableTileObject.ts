@@ -1,4 +1,4 @@
-import { CustomPlacement } from "@/game/types/general";
+import { CustomPlacement } from "@/game/types/placement";
 import TileObject from "./TileObject";
 import GameObject from "game-engine/components/GameObject";
 
@@ -6,7 +6,7 @@ abstract class InteractableTileObject extends TileObject {
     isUserNearObject: boolean;
 
     private signageTimeout: NodeJS.Timeout | null = null;
-    
+
     constructor(placement: CustomPlacement) {
         super(placement);
         this.isUserNearObject = false;

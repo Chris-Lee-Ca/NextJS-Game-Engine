@@ -1,6 +1,7 @@
 import { Coordinate, Placement } from "game-engine/types/general";
-import { EditModeLevelInfo, PreviewObjectPlacement } from "../types/general";
+import { EditModeLevelInfo } from "../types/general";
 import { defaultLevelTheme } from "../lib/level";
+import { PreviewObjectPlacement } from "../types/placement";
 
 class EditModeHelper {
     static isPreviewObject(placement: PreviewObjectPlacement): boolean {

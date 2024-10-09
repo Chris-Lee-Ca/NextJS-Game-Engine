@@ -1,4 +1,5 @@
-import { PreviewObjectItem, PreviewObjectPlacement } from "../types/general";
+import { PreviewObjectItem } from "../types/general";
+import { PreviewObjectPlacement } from "../types/placement";
 import { Box, styled } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { ReactNode } from "react";

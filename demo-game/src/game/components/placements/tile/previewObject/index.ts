@@ -1,4 +1,4 @@
-import { CustomPlacement, PreviewObjectPlacement } from "@/game/types/general";
+import { CustomPlacement, PreviewObjectPlacement } from "@/game/types/placement";
 import TileObject from "../TileObject";
 import PreviewObjectComponent from "./PreviewObjectComponent";
 import React from "react";

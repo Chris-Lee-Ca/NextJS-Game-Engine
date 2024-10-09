@@ -1,4 +1,4 @@
-import { CustomPlacement } from "@/game/types/general";
+import { CustomPlacement } from "@/game/types/placement";
 import TileObject from "../TileObject";
 import BalloonComponent from "./BalloonComponent";
 import React from "react";

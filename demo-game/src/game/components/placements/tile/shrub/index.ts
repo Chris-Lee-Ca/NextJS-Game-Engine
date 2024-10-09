@@ -1,4 +1,4 @@
-import { CustomPlacement } from "@/game/types/general";
+import { CustomPlacement } from "@/game/types/placement";
 import TileObject from "../TileObject";
 import ShrubComponent from "./ShrubComponent";
 import React from "react";

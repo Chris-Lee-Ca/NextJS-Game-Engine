@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CUSTOM_STYLE } from "@/game/lib/conts";
-import { CustomPlacementType } from "@/game/types/general";
+import { CustomPlacementType } from "@/game/types/placement";
 import { styled } from "@mui/material";
 import { Box } from "@mui/system";
 import GridHelper from "game-engine/helper/GridHelper";
