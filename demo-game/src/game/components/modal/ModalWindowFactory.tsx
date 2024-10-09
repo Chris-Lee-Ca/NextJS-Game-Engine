@@ -2,18 +2,23 @@ import { ModalWindowType as OriginalModalWindowType } from "@/game/redux/feature
 import ModalWindow from "./ModalWindow";
 import { ReactNode } from "react";
 import {
-    EducationModalWindowComponent, 
-    ExperienceModalWindowComponent, 
-    IntroModalWindowComponent, 
+    EducationModalWindowComponent,
+    ExperienceModalWindowComponent,
+    IntroModalWindowComponent,
     ProjectModalWindowComponent,
-    SkillModalWindowComponent
+    SkillModalWindowComponent,
 } from "@/game/components/placements/tile/signage/ModalComponent";
-import {    
+import {
     BackendSkillModalWindowComponent,
     FrontendSkillModalWindowComponent,
     LanguageSkillModalWindowComponent,
-    OthersSkillModalWindowComponent
+    OthersSkillModalWindowComponent,
 } from "../placements/tile/signage2/ModalComponent";
+import {
+    PLCompanyModalWindowComponent,
+    RedcliffCompanyModalWindowComponent,
+    YauLeeCompanyModalWindowComponent,
+} from "../placements/tile/company/ModalComponent";
 
 type ModalWindowType = Exclude<OriginalModalWindowType, null>;
 
@@ -32,7 +37,10 @@ const modalWindowComponents: Record<ModalWindowType, ModalWindowConfig> = {
     "skill-languages": LanguageSkillModalWindowComponent,
     "skill-frontend": FrontendSkillModalWindowComponent,
     "skill-backend": BackendSkillModalWindowComponent,
-    "skill-others": OthersSkillModalWindowComponent
+    "skill-others": OthersSkillModalWindowComponent,
+    "company-yau-lee": YauLeeCompanyModalWindowComponent,
+    "company-pl": PLCompanyModalWindowComponent,
+    "company-redcliff": RedcliffCompanyModalWindowComponent,
 };
 
 interface ModalWindowFactoryProps {

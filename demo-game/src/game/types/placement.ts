@@ -20,6 +20,14 @@ interface PortalObjectPlacement extends CustomPlacement {
     portalType: PortalType;
 }
 
+interface CompanyObjectPlacement extends CustomPlacement {
+    companyType: string;
+}
+
+interface PaintingObjectPlacement extends CustomPlacement {
+    paintingType: string;
+}
+
 export type {
     CustomPlacementType,
     PortalType,
@@ -27,4 +35,6 @@ export type {
     PreviewObjectPlacement,
     SignageObjectPlacement,
     PortalObjectPlacement,
+    CompanyObjectPlacement,
+    PaintingObjectPlacement,
 };

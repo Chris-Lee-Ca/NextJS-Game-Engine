@@ -48,12 +48,13 @@ export const CUSTOM_STYLE = {
         MAIN_BLUE: "rgb(88,180,252)",
         MAIN_WHITE: "white",
         MAIN_BLACK: "black",
+        MAIN_GREY: "rgb(229 231 235)",
         MAIN_PANEL_COLOR: "rgb(3, 11, 30)", //blue grey
         MAIN_TEXT_COLOR: "white",
         MAIN_TEXT_BACKGROUND_COLOR: "rgb(28, 47, 92)",
         MAIN_PAPER_COLOR: "#e4cc96",
-        SECONDARY_PAPER_COLOR: '#eee0c0',
-        MAIN_TRANSPARENT: 'rgb(255,255,255, 0.5)'
+        SECONDARY_PAPER_COLOR: "#eee0c0",
+        MAIN_TRANSPARENT: "rgb(255,255,255, 0.5)",
     },
     BORDER: {
         MAP_BORDER: `3px solid black`,

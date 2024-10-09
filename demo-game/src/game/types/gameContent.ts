@@ -20,7 +20,7 @@ interface SkillSetInterface {
 }
 
 interface ExperienceInterface {
-    id: number;
+    id: string;
     img: any;
     role: string;
     company: string;

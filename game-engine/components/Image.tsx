@@ -10,13 +10,13 @@ const Img = styled("img")({
 
 interface ImageProps {
     src: string;
-    style?: CSSProperties
+    style?: CSSProperties;
 }
 
 const Image = (props: ImageProps) => {
     const { src, style } = props;
 
-    return <Img src={src} style={{...style}}/>;
+    return <Img src={src} style={{ ...style }} />;
 };
 
 export default Image;

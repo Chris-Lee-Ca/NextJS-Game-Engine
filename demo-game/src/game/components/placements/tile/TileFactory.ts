@@ -9,6 +9,7 @@ import Signage2 from "./signage2";
 import Balloon from "./balloon";
 import FinishLine from "./finishLine";
 import Portal from "./portal";
+import Company from "./company";
 
 class TileFactory extends GameObjectFactory {
     public createObject(params: CreateCustomObjectParams): GameObject {
@@ -29,6 +30,8 @@ class TileFactory extends GameObjectFactory {
                 return new FinishLine(params);
             case "portal":
                 return new Portal(params);
+            case "company":
+                return new Company(params.placement);
             default:
                 const placementItemName = params.placement.itemName;
                 throw new Error(`Unknown placement itemName: ${placementItemName}`);

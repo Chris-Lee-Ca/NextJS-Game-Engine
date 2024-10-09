@@ -12,6 +12,9 @@ export type ModalWindowType =
     | "skill-frontend"
     | "skill-backend"
     | "skill-others"
+    | "company-yau-lee"
+    | "company-pl"
+    | "company-redcliff"
     | null;
 
 export interface ModalStateInterface {

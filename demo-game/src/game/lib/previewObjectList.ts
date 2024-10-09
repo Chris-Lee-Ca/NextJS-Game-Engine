@@ -121,5 +121,26 @@ export const previewObjectList: { [key in CustomPlacementType]: PreviewObjectIte
             avatar: "",
             portalType: "next",
         },
+        {
+            id: "company-pl",
+            type: "Tile",
+            objectItemName: "company",
+            avatar: "",
+            companyType: "pl",
+        },
+        {
+            id: "company-yau-lee",
+            type: "Tile",
+            objectItemName: "company",
+            avatar: "",
+            companyType: "yau-lee",
+        },
+        {
+            id: "company-redcliff",
+            type: "Tile",
+            objectItemName: "company",
+            avatar: "",
+            companyType: "redcliff",
+        },
     ],
 };

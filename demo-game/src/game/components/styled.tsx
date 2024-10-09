@@ -38,18 +38,24 @@ export const DefaultButton = styled(Button)({
 });
 
 export const ModalTitle = styled(Box)({
-    fontWeight: 'bolder',
-    fontSize: '30px',
-})
+    fontWeight: "bolder",
+    fontSize: "30px",
+});
+
+export const ModalSubTitle = styled(Box)({
+    fontWeight: "bold",
+    fontSize: "20x",
+    marginTop: "5px",
+});
 
 export const ModalContent = styled(Box)({
-    width: '100%',
-    fontWeight: 'bold',
-    textDecoration: 'underline',
-    textAlign: 'center',
-    marginTop: '20px',
-    marginBottom: '5px'
-})
+    width: "100%",
+    fontWeight: "bold",
+    textDecoration: "underline",
+    textAlign: "center",
+    marginTop: "20px",
+    marginBottom: "5px",
+});
 
 export const DialogContent = styled(Box)({
     width: "250px",
