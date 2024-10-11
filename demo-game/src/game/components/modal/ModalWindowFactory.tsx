@@ -19,6 +19,15 @@ import {
     RedcliffCompanyModalWindowComponent,
     YauLeeCompanyModalWindowComponent,
 } from "../placements/tile/company/ModalComponent";
+import {
+    ArduinoCarModalWindowComponent,
+    BigTwoModalWindowComponent,
+    CharacterGPTModalWindowComponent,
+    FinalYearProjectModalWindowComponent,
+    GamehubModalWindowComponent,
+    PortfolioGameV1ModalWindowComponent,
+    SudokuModalWindowComponent,
+} from "../placements/tile/painting/ModalComponent";
 
 type ModalWindowType = Exclude<OriginalModalWindowType, null>;
 
@@ -41,6 +50,13 @@ const modalWindowComponents: Record<ModalWindowType, ModalWindowConfig> = {
     "company-yau-lee": YauLeeCompanyModalWindowComponent,
     "company-pl": PLCompanyModalWindowComponent,
     "company-redcliff": RedcliffCompanyModalWindowComponent,
+    "project-gamehub": GamehubModalWindowComponent,
+    "project-big-two": BigTwoModalWindowComponent,
+    "project-character-gpt": CharacterGPTModalWindowComponent,
+    "project-sudoku": SudokuModalWindowComponent,
+    "project-final-year-project": FinalYearProjectModalWindowComponent,
+    "project-arduino-car": ArduinoCarModalWindowComponent,
+    "project-portfolio-game-v1": PortfolioGameV1ModalWindowComponent,
 };
 
 interface ModalWindowFactoryProps {

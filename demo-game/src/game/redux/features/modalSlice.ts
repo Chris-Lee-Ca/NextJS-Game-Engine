@@ -15,6 +15,13 @@ export type ModalWindowType =
     | "company-yau-lee"
     | "company-pl"
     | "company-redcliff"
+    | "project-gamehub"
+    | "project-big-two"
+    | "project-character-gpt"
+    | "project-sudoku"
+    | "project-final-year-project"
+    | "project-arduino-car"
+    | "project-portfolio-game-v1"
     | null;
 
 export interface ModalStateInterface {

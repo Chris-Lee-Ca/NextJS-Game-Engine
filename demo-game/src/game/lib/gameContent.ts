@@ -434,7 +434,7 @@ export const Projects: ProjectsInterface[] = [
     {
         id: 6,
         title: "Portfolio Game",
-        nickname: "ThisGame",
+        nickname: "PortfolioGameV1",
         description: [
             "Crafted a 2D web game engine using TypeScript, React JS, Material UI",
             "Offering an engaging journey to explore my personal experiences.",
