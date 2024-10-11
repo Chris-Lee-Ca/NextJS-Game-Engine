@@ -93,6 +93,34 @@ class EditModeHelper {
     }
 
     /**
+     * A function for removing a preview object placement to an existing placements array.
+     *
+     * Rule:
+     * 1. If the target remove item is main character, ignore it.
+     *
+     * @param oldPlacements - The array of placements containing the current preview object placements.
+     * @param coord - The coord of preview object placement to be removed.
+     * @returns The updated placements array without the removed preview object placement.
+     */
+    static placementsRemover(oldPlacements: PreviewObjectPlacement[], coord: Coordinate): PreviewObjectPlacement[] {
+        // Find the index of the target placement
+        const targetIndex = oldPlacements.findIndex(
+            (placement) =>
+                this.isPreviewObject(placement) &&
+                JSON.stringify(placement.coord) === JSON.stringify(coord) &&
+                placement.previewObjectItem.objectItemName !== "main character"
+        );
+
+        if (targetIndex === -1) {
+            return oldPlacements;
+        }
+
+        const updatedPlacements = [...oldPlacements];
+        updatedPlacements.splice(targetIndex, 1); // Remove the target placement
+        return updatedPlacements;
+    }
+
+    /**
      * A function for validating the design of level info placements.
      *
      * Rule:

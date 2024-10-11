@@ -17,6 +17,7 @@ const ItemBox = styled(Box)({
     alignItems: "center",
     textAlign: "center",
     cursor: "pointer",
+    userSelect: "none",
 });
 
 interface PreviewObjectComponentProps {

@@ -22,7 +22,8 @@ const EditModeWrapper = (props: EditModeBackgroundTileProps) => {
     const editModeState = useAppSelector((state) => state.editMode);
     const dispatch = useAppDispatch();
 
-    const onCLickHandler = (rowIndex: number, colIndex: number) => {
+    // add preview object
+    const leftClickHandler = (rowIndex: number, colIndex: number) => {
         if (editModeSelectedItem === null) return;
         const previewObjectPlacement: PreviewObjectPlacement = {
             id: `Tile-preview-object-${editModeSelectedItem.objectItemName}-${rowIndex}-${colIndex}`,
@@ -43,10 +44,27 @@ const EditModeWrapper = (props: EditModeBackgroundTileProps) => {
         dispatch(syncEditModeLevelInfo(newLevelInfo));
     };
 
+    // remove preview object
+    const rightClickHandler = (rowIndex: number, colIndex: number) => {
+        const oldLevelInfo = editModeState.editModeLevelInfo;
+        const newLevelInfo = {
+            ...oldLevelInfo,
+            placements: EditModeHelper.placementsRemover(oldLevelInfo.placements as PreviewObjectPlacement[], {
+                x: rowIndex,
+                y: colIndex,
+            }),
+        };
+        dispatch(syncEditModeLevelInfo(newLevelInfo));
+    };
+
     return (
         <EditModeBackgroundTileWrapper
             style={{ cursor: editModeSelectedItem !== null ? "pointer" : "default" }}
-            onClick={() => onCLickHandler(rowIndex, colIndex)}
+            onClick={(e) => leftClickHandler(rowIndex, colIndex)}
+            onContextMenu={(e) => {
+                e.preventDefault();
+                rightClickHandler(rowIndex, colIndex);
+            }}
         >
             {children}
         </EditModeBackgroundTileWrapper>
