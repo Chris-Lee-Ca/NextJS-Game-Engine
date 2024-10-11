@@ -2,11 +2,9 @@ import React, { useEffect, useState } from "react";
 import { CUSTOM_STYLE } from "@/game/lib/conts";
 import { CustomPlacementType } from "@/game/types/placement";
 import { styled } from "@mui/material";
-import { Box } from "@mui/system";
-import GridHelper from "game-engine/helper/GridHelper";
-import { useAppDispatch, useAppSelector } from "@/game/redux/hooks";
+import { useAppDispatch } from "@/game/redux/hooks";
 import { updateSelectedItem } from "@/game/redux/features/editModeSlice";
-import { previewObjectList } from "@/game/lib/previewObjectList";
+import PaginatedItemSelector from "./PaginatedItemSelector";
 
 const TabSelector = styled("select")({
     backgroundColor: CUSTOM_STYLE.COLOR.MAIN_TEXT_BACKGROUND_COLOR,
@@ -14,28 +12,6 @@ const TabSelector = styled("select")({
     width: "100%",
     border: "none",
     margin: "5px",
-});
-
-const ItemSelector = styled(Box)({
-    display: "flex",
-    maxWidth: "100%",
-    flexWrap: "wrap",
-});
-
-const ItemBox = styled(Box)({
-    width: GridHelper.getGridSizeInPixel(),
-    height: GridHelper.getGridSizeInPixel(),
-    backgroundColor: CUSTOM_STYLE.COLOR.MAIN_PANEL_COLOR,
-    color: CUSTOM_STYLE.COLOR.MAIN_TEXT_COLOR,
-    borderRadius: "5px",
-    margin: "5px",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    textAlign: "center",
-    cursor: "pointer",
-    userSelect: "none",
-    ffontSize: "calc(4vw + 4vh + 2vmin)",
 });
 
 const options: { label: string; value: CustomPlacementType }[] = [
@@ -62,14 +38,13 @@ interface PlacementSelectorProps {}
 export const PlacementSelector = (props: PlacementSelectorProps) => {
     const [currentTab, setCurrentTab] = useState<CustomPlacementType>("Character");
 
-    const editModeState = useAppSelector((state) => state.editMode);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         return () => {
             dispatch(updateSelectedItem(null));
         };
-    }, []);
+    }, [currentTab]);
 
     return (
         <>
@@ -80,25 +55,7 @@ export const PlacementSelector = (props: PlacementSelectorProps) => {
                     </option>
                 ))}
             </TabSelector>
-            {/* TODO: show avatar for item instead of item name */}
-            <ItemSelector>
-                {previewObjectList[currentTab].map((item) => (
-                    <ItemBox
-                        key={item.id}
-                        style={{
-                            border:
-                                editModeState.selectedItem === item ? `2px solid ${CUSTOM_STYLE.COLOR.MAIN_BLUE}` : "",
-                        }}
-                        onClick={() => {
-                            // remove selected item if clicking the same item again
-                            const selectedItem = editModeState.selectedItem !== item ? item : null;
-                            dispatch(updateSelectedItem(selectedItem));
-                        }}
-                    >
-                        {item.id.replaceAll("-", " ")}
-                    </ItemBox>
-                ))}
-            </ItemSelector>
+            <PaginatedItemSelector currentTab={currentTab} />
         </>
     );
 };
