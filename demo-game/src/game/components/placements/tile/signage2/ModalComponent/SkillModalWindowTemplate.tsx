@@ -1,8 +1,11 @@
+import { ModalWindowConfig } from "@/game/components/modal/ModalWindowFactory";
 import { ModalContent, ModalTitle } from "@/game/components/styled";
 import { CUSTOM_STYLE } from "@/game/lib/conts";
 import { SkillSetInterface } from "@/game/types/gameContent";
 import { Box, styled, Typography } from "@mui/material";
 import Image from "game-engine/components/Image";
+import Signage2ModalWindowBuilder from "./Signage2ModalWindowBuilder";
+import { SkillSets } from "@/game/lib/gameContent";
 
 const SkillSetContainer = styled(Box)({
     display: "flex",
@@ -32,7 +35,7 @@ interface SkillModalWindowTemplateProps {
     skillSet: SkillSetInterface;
 }
 
-const SkillModalWindowTemplate: React.FC<SkillModalWindowTemplateProps> = (props) => {
+export const SkillModalWindowTemplate: React.FC<SkillModalWindowTemplateProps> = (props) => {
     const { skillSet } = props;
 
     return (
@@ -59,4 +62,10 @@ const SkillModalWindowTemplate: React.FC<SkillModalWindowTemplateProps> = (props
     );
 };
 
-export default SkillModalWindowTemplate;
+export const createSkillModalWindowComponent = (skillSetTitle: string): ModalWindowConfig => {
+    const skillSet = SkillSets.find((skillSet) => skillSet.title === skillSetTitle) as SkillSetInterface;
+
+    const ContentComponent: React.FC = () => <SkillModalWindowTemplate skillSet={skillSet} />;
+
+    return new Signage2ModalWindowBuilder().setContent(ContentComponent).build();
+};

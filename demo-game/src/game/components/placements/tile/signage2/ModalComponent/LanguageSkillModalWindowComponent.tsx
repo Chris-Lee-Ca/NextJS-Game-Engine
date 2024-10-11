@@ -1,21 +1,5 @@
-import { ModalWindowConfig } from "@/game/components/modal/ModalWindowFactory";
-import Signage2ModalWindowBuilder from "./Signage2ModalWindowBuilder";
-import SkillModalWindowTemplate from "./SkillModalWindowTemplate";
-import { SkillSetInterface } from "@/game/types/gameContent";
-import { SkillSets } from "@/game/lib/gameContent";
+import { createSkillModalWindowComponent } from "./SkillModalWindowTemplate";
 
-const LanguageModalModalContent: React.FC = () => {
-    return (
-        <>
-            <SkillModalWindowTemplate
-                skillSet={SkillSets.find((skillSet) => skillSet.title === "Languages") as SkillSetInterface}
-            />
-        </>
-    );
-};
+const LanguagesSkillModalWindowComponent = createSkillModalWindowComponent("Languages");
 
-const LanguageModalWindowComponent: ModalWindowConfig = new Signage2ModalWindowBuilder()
-    .setContent(LanguageModalModalContent)
-    .build();
-
-export default LanguageModalWindowComponent;
+export default LanguagesSkillModalWindowComponent;

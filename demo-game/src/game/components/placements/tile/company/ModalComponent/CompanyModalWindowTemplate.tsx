@@ -1,5 +1,8 @@
-import { ModalContent, ModalSubTitle, ModalTitle } from "@/game/components/styled";
+import ModalWindowBuilder from "@/game/components/modal/ModalWindowBuilder";
+import { ModalWindowConfig } from "@/game/components/modal/ModalWindowFactory";
+import { ModalSubTitle, ModalTitle } from "@/game/components/styled";
 import { CUSTOM_STYLE } from "@/game/lib/conts";
+import { Experiences } from "@/game/lib/gameContent";
 import { ExperienceInterface } from "@/game/types/gameContent";
 import { Box, styled, Typography } from "@mui/material";
 
@@ -47,7 +50,7 @@ interface CompanyModalWindowTemplateProps {
     experience: ExperienceInterface;
 }
 
-const CompanyModalWindowTemplate: React.FC<CompanyModalWindowTemplateProps> = (props) => {
+export const CompanyModalWindowTemplate: React.FC<CompanyModalWindowTemplateProps> = (props) => {
     const { experience } = props;
 
     return (
@@ -75,4 +78,10 @@ const CompanyModalWindowTemplate: React.FC<CompanyModalWindowTemplateProps> = (p
     );
 };
 
-export default CompanyModalWindowTemplate;
+export const createCompanyModalWindowComponent = (experienceId: string): ModalWindowConfig => {
+    const experience = Experiences.find((experience) => experience.id === experienceId) as ExperienceInterface;
+
+    const ContentComponent: React.FC = () => <CompanyModalWindowTemplate experience={experience} />;
+
+    return new ModalWindowBuilder().setImageSrc(experience.img).setContent(ContentComponent).build();
+};
