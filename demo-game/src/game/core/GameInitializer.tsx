@@ -6,8 +6,11 @@ import GameLoop from "game-engine/core/GameLoop";
 import { GAME_SETTING } from "../lib/conts";
 import { KeyboardEventHandler } from "game-engine/extensions/plugins/keyboardEventPlugin";
 import { LEVEL_PLUGIN_ID, LevelHandler } from "game-engine/extensions/plugins/levelPlugin";
-import { DEFAULT_DIRECTION_KEY_MAPPING, DirectionControlHandler } from "game-engine/extensions/modules/MainCharacterDirectionControlModule";
-import {ActionControlHandler} from "game-engine/extensions/modules/MainCharacterActionControlModule";
+import {
+    DEFAULT_DIRECTION_KEY_MAPPING,
+    DirectionControlHandler,
+} from "game-engine/extensions/modules/MainCharacterDirectionControlModule";
+import { ActionControlHandler } from "game-engine/extensions/modules/MainCharacterActionControlModule";
 import PlacementFactory from "../components/placements/PlacementFactory";
 import { allDemoLevelInfo } from "../lib/level";
 import GameBody from "./GameBody";
@@ -35,9 +38,13 @@ const GameInitializer = () => {
                 }),
             ],
             modules: [
-                new DirectionControlHandler({ store: appStore, dispatch, directionKeyMapping: DEFAULT_DIRECTION_KEY_MAPPING}),
-                new ActionControlHandler({store: appStore, dispatch, actionKeyMapping: ACTION_KEY_MAPPING})
-                ],
+                new DirectionControlHandler({
+                    store: appStore,
+                    dispatch,
+                    directionKeyMapping: DEFAULT_DIRECTION_KEY_MAPPING,
+                }),
+                new ActionControlHandler({ store: appStore, dispatch, actionKeyMapping: ACTION_KEY_MAPPING }),
+            ],
         });
     }, [appStore, dispatch]);
 

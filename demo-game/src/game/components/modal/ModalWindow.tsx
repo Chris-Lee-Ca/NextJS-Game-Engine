@@ -6,10 +6,7 @@ import { CUSTOM_STYLE } from "@/game/lib/conts";
 import { useAppDispatch, useAppSelector } from "@/game/redux/hooks";
 import { closeModalWindow } from "@/game/redux/features/modalSlice";
 import Image from "game-engine/components/Image";
-import {
-    MAIN_CHARACTER_DIRECTION_CONTROL_MODULE_ID,
-    setIsDisabledMainCharacterControl,
-} from "game-engine/extensions/modules/MainCharacterDirectionControlModule";
+import { setIsDisabledMainCharacterControl } from "game-engine/extensions/modules/MainCharacterDirectionControlModule";
 import { KEYBOARD_EVENT_PLUGIN_ID } from "game-engine/extensions/plugins/keyboardEventPlugin";
 
 const slideUp = keyframes`
