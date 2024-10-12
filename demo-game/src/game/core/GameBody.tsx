@@ -15,7 +15,6 @@ import StyledAlert from "../components/template/StyledAlert";
 
 const GameBody = ({ gameLoop }: { gameLoop: GameLoop }) => {
     const levelState = useAppSelector((state) => state[LEVEL_PLUGIN_ID]);
-    const currentLevelInfo = levelState.allLevelInfo[levelState.currentLevel];
     const dialogState = useAppSelector((state) => state.dialog);
     const modalState = useAppSelector((state) => state.modal);
     const alertState = useAppSelector((state) => state.alert);
@@ -27,7 +26,7 @@ const GameBody = ({ gameLoop }: { gameLoop: GameLoop }) => {
         return () => {
             gameLoop.stop();
         };
-    }, [levelState.currentLevel, currentLevelInfo, scaleFactor]);
+    }, [levelState.currentLevel, scaleFactor]);
 
     return (
         <>

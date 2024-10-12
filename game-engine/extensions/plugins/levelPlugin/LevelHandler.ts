@@ -24,6 +24,8 @@ export class LevelHandler implements PluginHandler {
     private objectPool: Map<string, GameObject>;
     private gameObjectFactory: GameObjectFactory<unknown>;
 
+    private previousLevelInfo: LevelInfo | undefined;
+
     public constructor({ store, dispatch, gameObjectFactory, currentLevel, allLevelInfo }: LevelHandlerConfig) {
         this.pluginId = LEVEL_PLUGIN_ID;
         this.store = store;
@@ -54,18 +56,51 @@ export class LevelHandler implements PluginHandler {
         const newObjectIdPool = currentLevelPlacements.map((placement) => placement.id);
         this.dispatch(setObjectIdPool(newObjectIdPool));
         currentLevelPlacements.forEach((placement) => {
-            const params: CreateObjectParams<AppStore> = {
-                placement,
-                reduxStore: this.store,
-            };
-            const gameObject = this.gameObjectFactory.createObject(params);
-            this.objectPool.set(placement.id, gameObject);
+            this.createGameObject(placement);
         });
+
+        this.previousLevelInfo = currentLevelInfo;
     }
 
     public deinit(): void {}
 
-    public update(deltaTime: number): void {}
+    public update(_deltaTime: number): void {
+        const levelState = this.store.getState()[LEVEL_PLUGIN_ID];
+        const currentLevelInfo = levelState.allLevelInfo[levelState.currentLevel];
+        const currentLevelPlacements = currentLevelInfo.placements;
+
+        // Add objects that are in placements but not in the objectPool
+        currentLevelPlacements.forEach((placement) => {
+            if (!this.objectPool.has(placement.id)) {
+                this.createGameObject(placement);
+            }
+        });
+
+        // Remove objects that are in objectPool but not in placements
+        // except it is a invisibleWall (map boundary)
+        const placementIds = new Set(currentLevelPlacements.map((p) => p.id));
+        this.objectPool.forEach((_, objectId) => {
+            if (!placementIds.has(objectId) && !objectId.startsWith("Other-invisible-wall")) {
+                this.objectPool.delete(objectId);
+            }
+        });
+
+        // Re-create map boundry if the map size change
+        const previousLevelInfo = this.previousLevelInfo as LevelInfo;
+        if (
+            previousLevelInfo.tilesHeight !== currentLevelInfo.tilesHeight ||
+            previousLevelInfo.tilesWidth !== currentLevelInfo.tilesWidth
+        ) {
+            this.objectPool.forEach((_, objectId) => {
+                if (objectId.startsWith("Other-invisible-wall")) {
+                    this.objectPool.delete(objectId);
+                }
+            });
+            this.createMapBoundry(currentLevelInfo);
+        }
+
+        this.previousLevelInfo = currentLevelInfo;
+    }
 
     private createMapBoundry(currentLevelInfo: LevelInfo): void {
         for (let x = 0; x < currentLevelInfo.tilesWidth; x++) {
@@ -76,6 +111,15 @@ export class LevelHandler implements PluginHandler {
             this.createInvisibleWall({ x: -1, y });
             this.createInvisibleWall({ x: currentLevelInfo.tilesWidth, y });
         }
+    }
+
+    private createGameObject(placement: Placement) {
+        const params: CreateObjectParams<AppStore> = {
+            placement,
+            reduxStore: this.store,
+        };
+        const gameObject = this.gameObjectFactory.createObject(params);
+        this.objectPool.set(placement.id, gameObject);
     }
 
     private createInvisibleWall(coord: Coordinate): void {

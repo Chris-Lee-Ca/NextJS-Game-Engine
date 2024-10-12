@@ -1,10 +1,10 @@
 import { CUSTOM_STYLE, EDIT_MODE_LEVEL_NAME } from "@/game/lib/conts";
-import { updateEditMode } from "@/game/redux/features/editModeSlice";
+import { syncEditModeLevelInfo, updateEditMode } from "@/game/redux/features/editModeSlice";
 import { useAppDispatch, useAppSelector } from "@/game/redux/hooks";
 import { Button } from "@mui/material";
 import React, { Suspense } from "react";
 import ModeIcon from "@mui/icons-material/Mode";
-import { setLevelInfoByKey } from "game-engine/extensions/plugins/levelPlugin";
+import { setCurrentLevel, setLevelInfoByKey } from "game-engine/extensions/plugins/levelPlugin";
 import { PreviewObjectPlacement } from "@/game/types/placement";
 import EditModeHelper from "@/game/helper/EditModeHelper";
 
@@ -14,6 +14,31 @@ export const LevelEditorStatusBarButton = () => {
     const dispatch = useAppDispatch();
 
     const LazyLevelEditorComponent = React.lazy(() => import("./LevelEditor"));
+
+    const handleApplyEditModeChanges = () => {
+        // validate
+        const placements = editModeLevelInfo.placements as PreviewObjectPlacement[];
+        const { isValid, errMessage } = EditModeHelper.placementsValidator(placements);
+        if (!isValid) {
+            window.alert(errMessage);
+            return;
+        }
+        // convert
+        const newPlacements = EditModeHelper.previewObjectConvertor(placements);
+        const newEditModeLevelInfo = { ...editModeLevelInfo, placements: newPlacements };
+        dispatch(setLevelInfoByKey({ key: newEditModeLevelInfo.levelTitle, levelInfo: newEditModeLevelInfo }));
+        dispatch(setCurrentLevel(newEditModeLevelInfo.levelTitle));
+
+        dispatch(updateEditMode(false));
+    };
+
+    const handleTurnOnEditMode = () => {
+        const defaultEditModeLevelInfo = EditModeHelper.editModeLevelInfoInitializr();
+        dispatch(syncEditModeLevelInfo(defaultEditModeLevelInfo));
+        dispatch(setCurrentLevel(EDIT_MODE_LEVEL_NAME));
+
+        dispatch(updateEditMode(true));
+    };
 
     return (
         <>
@@ -25,20 +50,9 @@ export const LevelEditorStatusBarButton = () => {
                 }}
                 onClick={() => {
                     if (isEditMode) {
-                        // validate
-                        const placements = editModeLevelInfo.placements as PreviewObjectPlacement[];
-                        const { isValid, errMessage } = EditModeHelper.placementsValidator(placements);
-                        if (!isValid) {
-                            window.alert(errMessage);
-                            return;
-                        }
-                        // convert
-                        const newPlacements = EditModeHelper.previewObjectConvertor(placements);
-                        const newEditModeLevelInfo = { ...editModeLevelInfo, placements: newPlacements };
-                        dispatch(setLevelInfoByKey({ key: EDIT_MODE_LEVEL_NAME, levelInfo: newEditModeLevelInfo }));
-                        dispatch(updateEditMode(false));
+                        handleApplyEditModeChanges();
                     } else {
-                        dispatch(updateEditMode(true));
+                        handleTurnOnEditMode();
                     }
                 }}
             >

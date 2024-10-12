@@ -1,14 +1,13 @@
 import { Box, styled } from "@mui/material";
-import { CUSTOM_STYLE, EDIT_MODE_LEVEL_NAME } from "../../lib/conts";
+import { CUSTOM_STYLE } from "../../lib/conts";
 import { DefaultButton, DefaultInput, DefaultText, DefaultTitle, Panel } from "../../components/styled";
-import { useEffect } from "react";
-import { setCurrentLevel } from "game-engine/extensions/plugins/levelPlugin";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import React from "react";
 import { PlacementSelector } from "../../components/levelEditor/PlacementSelector";
 import { syncEditModeLevelInfo } from "../../redux/features/editModeSlice";
 import { EditModeLevelInfo } from "../../types/general";
-import EditModeHelper from "../../helper/EditModeHelper";
+import { Coordinate } from "game-engine/types/general";
+import ObjectPool from "game-engine/core/ObjectPool";
 
 const LevelEditorWrapper = styled(Panel)({
     top: `${CUSTOM_STYLE.SIZE.STATUS_BAR_HEIGHT}px`,
@@ -45,10 +44,59 @@ const LevelEditor = (_props: LevelEditorProps) => {
         dispatch(syncEditModeLevelInfo(editModeLevelInfo));
     };
 
-    const initLevelEditorHandler = async () => {
-        const defaultEditModeLevelInfo = EditModeHelper.editModeLevelInfoInitializr();
-        dispatch(syncEditModeLevelInfo(defaultEditModeLevelInfo));
-        dispatch(setCurrentLevel(EDIT_MODE_LEVEL_NAME));
+    const handleMapDimensionChange = (dimensionToChange: "tilesWidth" | "tilesHeight", newDimensionSize: number) => {
+        const currentDimensionSize = editModeLevelInfo[dimensionToChange];
+        if (newDimensionSize > currentDimensionSize) {
+            setEditModeLevelInfo({ ...editModeLevelInfo, [dimensionToChange]: Number(newDimensionSize) });
+            return;
+        }
+
+        // Check the removed area of the map, if main character or main character preview object in that area, show error
+        const isCoordInRemovedArea = (coord: Coordinate): boolean => {
+            return (
+                (dimensionToChange === "tilesWidth" && coord.x >= newDimensionSize) ||
+                (dimensionToChange === "tilesHeight" && coord.y >= newDimensionSize)
+            );
+        };
+
+        const getMainCharacterPlacement = () =>
+            editModeLevelInfo.placements.find((p) => p.itemName === "main character" && p.type === "Character");
+
+        const getMainCharacterPreviewObjectPlacement = () =>
+            editModeLevelInfo.placements.find(
+                (p) =>
+                    p.itemName === "preview object" &&
+                    "previewObjectItem" in p &&
+                    p.previewObjectItem.type === "Character" &&
+                    p.previewObjectItem.objectItemName === "main character"
+            );
+
+        const mainCharacterPlacement = getMainCharacterPlacement();
+        if (mainCharacterPlacement) {
+            const mainCharacterObject = ObjectPool.get(mainCharacterPlacement.id);
+            if (mainCharacterObject && isCoordInRemovedArea(mainCharacterObject.coord)) {
+                alert("Please move 'Main Character' out of the area that will be removed before resizing the map.");
+                return;
+            }
+        }
+
+        const mainCharacterPreviewObjectPlacement = getMainCharacterPreviewObjectPlacement();
+        if (mainCharacterPreviewObjectPlacement && isCoordInRemovedArea(mainCharacterPreviewObjectPlacement.coord)) {
+            alert(
+                "Please move 'Main Character Preview Object' out of the area that will be removed before resizing the map."
+            );
+            return;
+        }
+
+        // Check the removed area of the map, if there are any items in that area, remove it
+        const updatedPlacements = editModeLevelInfo.placements.filter(
+            (placement) => !isCoordInRemovedArea(placement.coord)
+        );
+        setEditModeLevelInfo({
+            ...editModeLevelInfo,
+            [dimensionToChange]: Number(newDimensionSize),
+            placements: updatedPlacements,
+        });
     };
 
     const downLoadLevelInfoHandler = () => {
@@ -61,10 +109,6 @@ const LevelEditor = (_props: LevelEditorProps) => {
         downloadAnchorNode.click();
         downloadAnchorNode.remove();
     };
-
-    useEffect(() => {
-        initLevelEditorHandler();
-    }, []);
 
     return (
         <LevelEditorWrapper>
@@ -89,7 +133,7 @@ const LevelEditor = (_props: LevelEditorProps) => {
                     min="1"
                     max="20"
                     onChange={(e) => {
-                        setEditModeLevelInfo({ ...editModeLevelInfo, tilesWidth: Number(e.target.value) });
+                        handleMapDimensionChange("tilesWidth", Number(e.target.value));
                     }}
                     value={editModeLevelInfo.tilesWidth}
                 />
@@ -99,7 +143,7 @@ const LevelEditor = (_props: LevelEditorProps) => {
                     min="1"
                     max="20"
                     onChange={(e) => {
-                        setEditModeLevelInfo({ ...editModeLevelInfo, tilesHeight: Number(e.target.value) });
+                        handleMapDimensionChange("tilesHeight", Number(e.target.value));
                     }}
                     value={editModeLevelInfo.tilesHeight}
                 />
