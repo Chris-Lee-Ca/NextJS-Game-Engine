@@ -11,6 +11,7 @@ import FinishLine from "./finishLine";
 import Portal from "./portal";
 import Company from "./company";
 import Painting from "./painting";
+import Road from "./road";
 
 class TileFactory extends GameObjectFactory {
     public createObject(params: CreateCustomObjectParams): GameObject {
@@ -35,6 +36,8 @@ class TileFactory extends GameObjectFactory {
                 return new Company(params.placement);
             case "painting":
                 return new Painting(params.placement);
+            case "road":
+                return new Road(params.placement);
             default:
                 const placementItemName = params.placement.itemName;
                 throw new Error(`Unknown placement itemName: ${placementItemName}`);
