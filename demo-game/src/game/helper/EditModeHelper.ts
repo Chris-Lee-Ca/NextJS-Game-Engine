@@ -31,7 +31,7 @@ class EditModeHelper {
                         id: "main character",
                         type: "Character",
                         objectItemName: "main character",
-                        avatar: "",
+                        avatar: undefined,
                     },
                 },
                 {
@@ -149,13 +149,13 @@ class EditModeHelper {
         const newPlacements = placements
             .filter((p) => this.isPreviewObject(p))
             .map((p) => {
-                const { id, avatar, objectItemName, type, ...rest } = p.previewObjectItem; // Extract explicit fields
+                const { id, avatar, objectItemName, type, customProperties } = p.previewObjectItem;
                 return {
                     id: `${type}-${objectItemName}-${p.coord.x}-${p.coord.y}`,
                     coord: p.coord,
                     type,
                     itemName: objectItemName,
-                    ...rest, // Spread the remaining properties
+                    ...customProperties,
                 };
             });
         return newPlacements;

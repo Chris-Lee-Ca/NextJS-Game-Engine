@@ -13,10 +13,10 @@ interface CreateCustomObjectParams extends CreateObjectParams {
 
 interface PreviewObjectItem {
     id: string;
-    avatar: any;
+    avatar: { type: "text" | "ReactNode"; interface: any } | undefined;
     type: CustomPlacementType;
     objectItemName: string;
-    [key: string]: string;
+    customProperties?: Record<string, string>;
 }
 
 type EditModeLevelInfo = Omit<LevelInfo, "placements"> & {
