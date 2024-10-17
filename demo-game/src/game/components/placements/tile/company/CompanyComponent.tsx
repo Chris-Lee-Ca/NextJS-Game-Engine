@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import GridSizeImage from "@/game/components/GridSizeImage";
+import GridSizeImage from "@/game/components/template/GridSizeImage";
 import CompanyImage from "@/game/assets/componentImage/company.png";
 import InteractionPrompt from "@/game/components/template/InteractionPrompt";
 import { useAppDispatch } from "@/game/redux/hooks";

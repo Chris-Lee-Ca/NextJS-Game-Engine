@@ -2,7 +2,7 @@
 
 import React from "react";
 import paper from "@/game/assets/componentImage/paper.png";
-import GridSizeImage from "@/game/components/GridSizeImage";
+import GridSizeImage from "@/game/components/template/GridSizeImage";
 
 interface ResumeComponentProps {}
 const ResumeComponent: React.FC<ResumeComponentProps> = (_props) => {
