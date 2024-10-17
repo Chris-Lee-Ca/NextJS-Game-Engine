@@ -15,7 +15,7 @@ class PreviewObject extends TileObject {
 
     render() {
         return React.createElement(PreviewObjectComponent, {
-            id: this.placement.previewObjectItem.id,
+            previewObjectItem: this.placement.previewObjectItem,
         });
     }
 

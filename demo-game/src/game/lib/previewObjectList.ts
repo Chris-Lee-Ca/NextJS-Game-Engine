@@ -1,6 +1,8 @@
 import { Facing } from "game-engine/extensions/modules/MainCharacterDirectionControlModule";
-import { PreviewObjectItem } from "../types/general";
+import { Avatar, PreviewObjectItem } from "../types/general";
 import { CustomPlacementType, RoadType } from "../types/placement";
+import RoadComponentFactory from "../components/placements/tile/road/RoadComponentFactory";
+import React from "react";
 
 class PreviewObjectItemBuilder {
     private item: Partial<PreviewObjectItem>;
@@ -12,14 +14,15 @@ class PreviewObjectItemBuilder {
     }
 
     private setId() {
+        const type = this.item.type;
         const objectItemName = this.item.objectItemName;
         const customPropertyString = Object.values(this.customProperties).join("-").replace(/\s+/g, "-"); // Replace spaces with dashes
 
-        const id = `${objectItemName}-${customPropertyString}`;
+        const id = `${type}-${objectItemName}-${customPropertyString}`;
         this.item.id = id;
     }
 
-    setAvatar(avatar: any): this {
+    setAvatar(avatar: Avatar): this {
         this.item.avatar = avatar;
         return this;
     }
@@ -108,13 +111,40 @@ const createPaintingPreviewObjectList = (paintingTypes: string[]): PreviewObject
     return paintingTiles;
 };
 
-const createRoadPreviewObjectList = (roadTypes: RoadType[], facing: Exclude<Facing, "none">[]): PreviewObjectItem[] => {
+const createRoadPreviewObjectList = (roadTypes: RoadType[]): PreviewObjectItem[] => {
     const roadTiles: PreviewObjectItem[] = [];
 
     roadTypes.forEach((roadType) => {
-        facing.forEach((f) => {
+        let applicableFacings: Exclude<Facing, "none">[] = [];
+
+        // Determine applicable facings for each roadType
+        switch (roadType) {
+            case "dead-end":
+            case "turn":
+            case "t-junction":
+                applicableFacings = ["up", "left", "right", "down"];
+                break;
+            case "straight":
+                applicableFacings = ["up", "left"];
+                break;
+            case "x-junction":
+                applicableFacings = ["up"];
+                break;
+        }
+
+        applicableFacings.forEach((f) => {
             const roadTile = new PreviewObjectItemBuilder()
                 .setType("Tile")
+                .setAvatar({
+                    type: "ReactNode",
+                    interface: {
+                        componentId: "RoadComponentFactory",
+                        props: {
+                            roadType,
+                            facing: f,
+                        },
+                    },
+                })
                 .setObjectItemName("road")
                 .setCustomProperty("roadType", roadType)
                 .setCustomProperty("facing", f)
@@ -125,6 +155,10 @@ const createRoadPreviewObjectList = (roadTypes: RoadType[], facing: Exclude<Faci
     });
 
     return roadTiles;
+};
+
+const avatarComponentMap: Record<string, React.ElementType> = {
+    RoadComponentFactory: RoadComponentFactory,
 };
 
 export const previewObjectList: { [key in CustomPlacementType]: PreviewObjectItem[] } = {
@@ -163,9 +197,23 @@ export const previewObjectList: { [key in CustomPlacementType]: PreviewObjectIte
             "project-portfolio-game-v1",
         ]),
         // road
-        ...createRoadPreviewObjectList(
-            ["dead-end", "straight", "t-junction", "turn", "x-junction"],
-            ["up", "left", "right", "down"]
-        ),
+        ...createRoadPreviewObjectList(["dead-end", "straight", "t-junction", "turn", "x-junction"]),
     ],
+};
+
+export const handleDisplayAvatar = (item: PreviewObjectItem) => {
+    if (typeof item.avatar === "undefined") {
+        return item.id.split("-").slice(1).join(" ");
+    }
+    switch (item.avatar.type) {
+        case "text":
+            return item.id.split("-").slice(1).join(" ");
+        case "ReactNode":
+            const { componentId, props } = item.avatar.interface;
+            const AvatarComponent = avatarComponentMap[componentId];
+            return React.createElement(AvatarComponent, { ...props });
+        default:
+            const avatarType: never = item.avatar.type;
+            throw new Error(`Unknown avatar type: ${item.avatar.type}`);
+    }
 };

@@ -5,6 +5,7 @@ import { LevelInfo } from "game-engine/extensions/plugins/levelPlugin";
 import { CustomPlacement, CustomPlacementType, PreviewObjectPlacement } from "./placement";
 
 type PickUpTypeItem = "resume";
+type Avatar = { type: "text" | "ReactNode"; interface: any };
 
 interface CreateCustomObjectParams extends CreateObjectParams {
     placement: CustomPlacement;
@@ -13,7 +14,7 @@ interface CreateCustomObjectParams extends CreateObjectParams {
 
 interface PreviewObjectItem {
     id: string;
-    avatar: { type: "text" | "ReactNode"; interface: any } | undefined;
+    avatar: Avatar | undefined;
     type: CustomPlacementType;
     objectItemName: string;
     customProperties?: Record<string, string>;
@@ -23,4 +24,4 @@ type EditModeLevelInfo = Omit<LevelInfo, "placements"> & {
     placements: (Placement | PreviewObjectPlacement)[];
 };
 
-export type { PickUpTypeItem, CreateCustomObjectParams, PreviewObjectItem, EditModeLevelInfo };
+export type { PickUpTypeItem, Avatar, CreateCustomObjectParams, PreviewObjectItem, EditModeLevelInfo };

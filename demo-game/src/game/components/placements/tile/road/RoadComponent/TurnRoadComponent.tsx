@@ -4,6 +4,8 @@ import { Box } from "@mui/material";
 
 const Container = styled(Box)({
     position: "absolute",
+    height: "100%",
+    width: "100%",
     display: "flex",
     flexDirection: "column",
 });
@@ -19,8 +21,6 @@ const Road = styled(Box)({
     backgroundColor: CUSTOM_STYLE.COLOR.MAIN_ROAD,
     width: "calc(100%/3)",
     height: "100%",
-    borderLeft: CUSTOM_STYLE.BORDER.MAP_BORDER,
-    borderRight: CUSTOM_STYLE.BORDER.MAP_BORDER,
     boxSizing: "border-box",
 });
 

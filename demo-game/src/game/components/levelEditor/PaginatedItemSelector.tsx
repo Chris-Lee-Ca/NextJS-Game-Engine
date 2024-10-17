@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, styled } from "@mui/material";
 import GridHelper from "game-engine/helper/GridHelper";
 import { CUSTOM_STYLE } from "@/game/lib/conts";
-import { previewObjectList } from "@/game/lib/previewObjectList";
+import { handleDisplayAvatar, previewObjectList } from "@/game/lib/previewObjectList";
 import { CustomPlacementType } from "@/game/types/placement";
 import { useAppDispatch, useAppSelector } from "@/game/redux/hooks";
 import { updateSelectedItem } from "@/game/redux/features/editModeSlice";
@@ -10,10 +10,13 @@ import { DefaultButton } from "../styled";
 
 const ITEMS_PER_PAGE = 12; // Max items per page
 
-const ItemSelector = styled(Box)({
+const ItemsBackground = styled(Box)({
     height: `${(GridHelper.getGridSizeInPixel() * ITEMS_PER_PAGE) / 3 + 50}px`,
-    display: "flex",
     maxWidth: "100%",
+});
+
+const ItemSelector = styled(Box)({
+    display: "flex",
     flexWrap: "wrap",
 });
 
@@ -76,25 +79,28 @@ const PaginatedItemSelector = (props: PaginatedItemSelectorProps) => {
 
     return (
         <Box>
-            {/* TODO: show avatar for item instead of item name */}
-            <ItemSelector>
-                {itemsToShow.map((item) => (
-                    <ItemBox
-                        key={item.id}
-                        style={{
-                            border:
-                                editModeState.selectedItem === item ? `2px solid ${CUSTOM_STYLE.COLOR.MAIN_BLUE}` : "",
-                        }}
-                        onClick={() => {
-                            // remove selected item if clicking the same item again
-                            const selectedItem = editModeState.selectedItem !== item ? item : null;
-                            dispatch(updateSelectedItem(selectedItem));
-                        }}
-                    >
-                        {item.id.replaceAll("-", " ")}
-                    </ItemBox>
-                ))}
-            </ItemSelector>
+            <ItemsBackground>
+                <ItemSelector>
+                    {itemsToShow.map((item) => (
+                        <ItemBox
+                            key={item.id}
+                            style={{
+                                border:
+                                    editModeState.selectedItem === item
+                                        ? `2px solid ${CUSTOM_STYLE.COLOR.MAIN_BLUE}`
+                                        : "",
+                            }}
+                            onClick={() => {
+                                // remove selected item if clicking the same item again
+                                const selectedItem = editModeState.selectedItem !== item ? item : null;
+                                dispatch(updateSelectedItem(selectedItem));
+                            }}
+                        >
+                            {handleDisplayAvatar(item)}
+                        </ItemBox>
+                    ))}
+                </ItemSelector>
+            </ItemsBackground>
 
             {/* Pagination Controls */}
             <ButtonGroup>

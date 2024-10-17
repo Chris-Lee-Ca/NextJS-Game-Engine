@@ -12,8 +12,6 @@ const Road = styled(Box)({
     backgroundColor: CUSTOM_STYLE.COLOR.MAIN_ROAD,
     width: "calc(100%/3)",
     height: "100%",
-    borderLeft: CUSTOM_STYLE.BORDER.MAP_BORDER,
-    borderRight: CUSTOM_STYLE.BORDER.MAP_BORDER,
     boxSizing: "border-box",
 });
 

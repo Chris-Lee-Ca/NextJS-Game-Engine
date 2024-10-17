@@ -4,6 +4,8 @@ import React from "react";
 import { CUSTOM_STYLE } from "@/game/lib/conts";
 import { Box, styled } from "@mui/material";
 import GridHelper from "game-engine/helper/GridHelper";
+import { handleDisplayAvatar } from "@/game/lib/previewObjectList";
+import { PreviewObjectItem } from "@/game/types/general";
 
 const ItemBox = styled(Box)({
     width: GridHelper.getGridSizeInPixel(),
@@ -21,10 +23,11 @@ const ItemBox = styled(Box)({
 });
 
 interface PreviewObjectComponentProps {
-    id: string;
+    previewObjectItem: PreviewObjectItem;
 }
 const PreviewObjectComponent = (props: PreviewObjectComponentProps) => {
-    return <ItemBox>{props.id}</ItemBox>;
+    const { previewObjectItem } = props;
+    return <ItemBox>{handleDisplayAvatar(previewObjectItem)}</ItemBox>;
 };
 
 export default PreviewObjectComponent;
