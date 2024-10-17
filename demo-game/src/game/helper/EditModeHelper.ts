@@ -2,6 +2,7 @@ import { Coordinate, Placement } from "game-engine/types/general";
 import { EditModeLevelInfo } from "../types/general";
 import { defaultLevelTheme } from "../lib/level";
 import { PreviewObjectPlacement } from "../types/placement";
+import { PreviewObjectItemBuilder } from "../lib/previewObjectList";
 
 class EditModeHelper {
     static isPreviewObject(placement: PreviewObjectPlacement): boolean {
@@ -27,12 +28,10 @@ class EditModeHelper {
                     coord: defaultMainCharacterCoord,
                     type: "Tile",
                     itemName: "preview object",
-                    previewObjectItem: {
-                        id: "main character",
-                        type: "Character",
-                        objectItemName: "main character",
-                        avatar: undefined,
-                    },
+                    previewObjectItem: new PreviewObjectItemBuilder()
+                        .setType("Character")
+                        .setObjectItemName("main character")
+                        .build(),
                 },
                 {
                     id: `Character-main-character-${defaultMainCharacterCoord.x}-${defaultMainCharacterCoord.y}`,
@@ -145,7 +144,7 @@ class EditModeHelper {
      * @param placements placements array filled with preview object's placement
      * @returns actual object placemnt
      */
-    static previewObjectConvertor(placements: PreviewObjectPlacement[]): Placement[] {
+    static previewObjectToPlacement(placements: PreviewObjectPlacement[]): Placement[] {
         const newPlacements = placements
             .filter((p) => this.isPreviewObject(p))
             .map((p) => {

@@ -24,7 +24,7 @@ export const LevelEditorStatusBarButton = () => {
             return;
         }
         // convert
-        const newPlacements = EditModeHelper.previewObjectConvertor(placements);
+        const newPlacements = EditModeHelper.previewObjectToPlacement(placements);
         const newEditModeLevelInfo = { ...editModeLevelInfo, placements: newPlacements };
         dispatch(setLevelInfoByKey({ key: newEditModeLevelInfo.levelTitle, levelInfo: newEditModeLevelInfo }));
         dispatch(setCurrentLevel(newEditModeLevelInfo.levelTitle));

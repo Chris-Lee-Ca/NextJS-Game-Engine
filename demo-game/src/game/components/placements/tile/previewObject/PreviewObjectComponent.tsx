@@ -27,6 +27,7 @@ interface PreviewObjectComponentProps {
 }
 const PreviewObjectComponent = (props: PreviewObjectComponentProps) => {
     const { previewObjectItem } = props;
+
     return <ItemBox>{handleDisplayAvatar(previewObjectItem)}</ItemBox>;
 };
 

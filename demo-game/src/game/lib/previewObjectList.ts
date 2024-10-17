@@ -4,7 +4,7 @@ import { CustomPlacementType, RoadType } from "../types/placement";
 import RoadComponentFactory from "../components/placements/tile/road/RoadComponentFactory";
 import React from "react";
 
-class PreviewObjectItemBuilder {
+export class PreviewObjectItemBuilder {
     private item: Partial<PreviewObjectItem>;
     private customProperties: Record<string, string>;
 
