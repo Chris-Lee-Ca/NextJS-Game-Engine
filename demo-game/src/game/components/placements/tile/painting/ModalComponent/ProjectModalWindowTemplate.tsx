@@ -2,7 +2,7 @@ import ModalWindowBuilder from "@/game/components/modal/ModalWindowBuilder";
 import { ModalWindowConfig } from "@/game/components/modal/ModalWindowFactory";
 import { ModalTitle } from "@/game/components/styled";
 import ActionButton from "@/game/components/template/ActionButton";
-import CloseDialogButton from "@/game/components/template/CloseDialogButton";
+import CloseModalButton from "@/game/components/template/CloseModalButton";
 import { CUSTOM_STYLE } from "@/game/lib/conts";
 import { Projects } from "@/game/lib/gameContent";
 import { ProjectsInterface } from "@/game/types/gameContent";
@@ -82,7 +82,8 @@ export const createProjectPaintingModalWindowComponent = (projectNickname: strin
                     buttonKey={"k"}
                     buttonDescription={project.links[0].title}
                 />
-                <CloseDialogButton />
+                <Box mr={2} />
+                <CloseModalButton />
             </>
         );
     };

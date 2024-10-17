@@ -1,7 +1,7 @@
 "use client";
 
 import { Box, IconButton, Typography, styled } from "@mui/material";
-import { CSSProperties, useEffect } from "react";
+import { CSSProperties, useEffect, useRef } from "react";
 import { CUSTOM_STYLE } from "@/game/lib/conts";
 import { useAppSelector } from "@/game/redux/hooks";
 import { ActionCommandType } from "@/game/types/control";
@@ -38,11 +38,20 @@ const ActionButton = (props: GridSizeImageProps) => {
 
     const heldKeys = useAppSelector((state) => state[MAIN_CHARACTER_ACTION_CONTROL_MODULE_ID].heldActionKeys);
 
+    // Ref to track if the buttonKey was held at the component creation
+    const previousHeldState = useRef(heldKeys.includes(buttonKey));
+
     useEffect(() => {
-        if (heldKeys.includes(buttonKey)) {
-            onClickFunction();
+        const isKeyCurrentlyHeld = heldKeys.includes(buttonKey);
+
+        // Check if the key was previously not held, and now it is held (new press)
+        if (!previousHeldState.current && isKeyCurrentlyHeld) {
+            onClickFunction(); // Trigger onClick when the key was just pressed
         }
-    }, [heldKeys]);
+
+        // Update previousHeldState after processing the current state
+        previousHeldState.current = isKeyCurrentlyHeld;
+    }, [heldKeys, buttonKey, onClickFunction]);
 
     return (
         <Container style={{ ...style }}>

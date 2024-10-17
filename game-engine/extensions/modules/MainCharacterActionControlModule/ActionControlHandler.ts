@@ -24,7 +24,6 @@ export class ActionControlHandler implements ModuleHandler {
         this.invertedKeyMapping = this.getInvertedActionKeyMapping(actionKeyMapping);
     }
 
-    //TODO bug fix, when i open another browser with "K" (open resume), and release the key in another browser, since the onkeyup is not able to catch the event (it happens in another browser), the k key value is keey staying in the action control handler
     private getInvertedActionKeyMapping(actionKeyMapping: ActionKeyMapping): InvertedActionKeyMapping {
         const invertedKeyMapping: InvertedActionKeyMapping = {};
         Object.entries(actionKeyMapping).forEach(([keyType, keys]) => {
