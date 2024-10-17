@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, styled } from "@mui/material";
 import GridHelper from "game-engine/helper/GridHelper";
 import { CUSTOM_STYLE } from "@/game/lib/conts";
@@ -76,6 +76,10 @@ const PaginatedItemSelector = (props: PaginatedItemSelectorProps) => {
             setCurrentPage(currentPage - 1);
         }
     };
+
+    useEffect(() => {
+        setCurrentPage(0);
+    }, [currentTab]);
 
     return (
         <Box>

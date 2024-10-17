@@ -1,11 +1,11 @@
 import ModalWindowBuilder from "@/game/components/modal/ModalWindowBuilder";
 import { ModalWindowConfig } from "@/game/components/modal/ModalWindowFactory";
-import { ModalContent, ModalSubTitle, ModalTitle } from "@/game/components/styled";
+import { ModalTitle } from "@/game/components/styled";
 import ActionButton from "@/game/components/template/ActionButton";
 import CloseDialogButton from "@/game/components/template/CloseDialogButton";
 import { CUSTOM_STYLE } from "@/game/lib/conts";
 import { Projects } from "@/game/lib/gameContent";
-import { ExperienceInterface, ProjectsInterface } from "@/game/types/gameContent";
+import { ProjectsInterface } from "@/game/types/gameContent";
 import { Box, styled, Typography } from "@mui/material";
 
 const Date = styled(Typography)({

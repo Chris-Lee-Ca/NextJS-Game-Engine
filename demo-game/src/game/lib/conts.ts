@@ -67,6 +67,9 @@ export const CUSTOM_STYLE = {
         STATUS_BAR_HEIGHT: 50,
         ACTION_BAR_HEIGHT: 50,
     },
+    SHADOW: {
+        MAIN_BLACK_SHADOW: "black 0px 0px 2px",
+    },
 };
 
 export const EDIT_MODE_LEVEL_NAME = "edit-mode-level";

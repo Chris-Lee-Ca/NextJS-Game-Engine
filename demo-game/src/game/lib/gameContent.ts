@@ -383,7 +383,7 @@ export const Projects: ProjectsInterface[] = [
             "Developed a web sudoku game using React JS",
             "Adopted backtracking algorithm in the game to solve any valid sudoku.",
         ],
-        image: require("@/game/assets/projectImage/sudoku.png"),
+        image: require("@/game/assets/projectImage/sudoku.png").default.src,
         tags: ["JavaScript", "React JS", "CSS", "Algorithm"],
         category: "web app",
         links: [
