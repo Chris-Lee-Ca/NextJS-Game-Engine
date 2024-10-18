@@ -34,6 +34,11 @@ export const selectCurrentLevelInfo = (state: RootState): LevelInfo => {
     return state.level.allLevelInfo[currentLevel];
 };
 
+export const updateCurrentLevelInfo = (levelInfo: LevelInfo) => (dispatch: AppDispatch) => {
+    dispatch(setLevelInfoByKey({ key: levelInfo.levelTitle, levelInfo: levelInfo }));
+    dispatch(setCurrentLevel(levelInfo.levelTitle));
+};
+
 export const { setCurrentLevel, setAllLevelInfo, setLevelInfoByKey } = levelSlice.actions;
 export const levelReducer = levelSlice.reducer;
 

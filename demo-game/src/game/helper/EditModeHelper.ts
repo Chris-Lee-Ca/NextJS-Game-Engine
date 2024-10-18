@@ -1,46 +1,14 @@
 import { Coordinate, Placement } from "game-engine/types/general";
-import { EditModeLevelInfo } from "../types/general";
-import { defaultLevelTheme } from "../lib/level";
-import { PreviewObjectPlacement } from "../types/placement";
-import { PreviewObjectItemBuilder } from "../lib/previewObjectList";
+import { CustomPlacement, PreviewObjectPlacement } from "../types/placement";
+import { previewObjectList } from "../lib/previewObjectList";
 
 class EditModeHelper {
     static isPreviewObject(placement: PreviewObjectPlacement): boolean {
         return placement.itemName === "preview object";
     }
 
-    /**
-     * A function for creating the default edit mode level info
-     *
-     * @param levelInfo current level info
-     * @returns default edit mode level info
-     */
-    static editModeLevelInfoInitializr(): EditModeLevelInfo {
-        const defaultMainCharacterCoord: Coordinate = { x: 0, y: 0 };
-        return {
-            levelTitle: "default-game-level-title",
-            theme: defaultLevelTheme,
-            tilesWidth: 3,
-            tilesHeight: 3,
-            placements: [
-                {
-                    id: `Tile-preview-object-${defaultMainCharacterCoord.x}-${defaultMainCharacterCoord.y}`,
-                    coord: defaultMainCharacterCoord,
-                    type: "Tile",
-                    itemName: "preview object",
-                    previewObjectItem: new PreviewObjectItemBuilder()
-                        .setType("Character")
-                        .setObjectItemName("main character")
-                        .build(),
-                },
-                {
-                    id: `Character-main-character-${defaultMainCharacterCoord.x}-${defaultMainCharacterCoord.y}`,
-                    coord: defaultMainCharacterCoord,
-                    type: "Character",
-                    itemName: "main character",
-                },
-            ],
-        };
+    static isMainCharacter(placement: Placement): boolean {
+        return placement.itemName === "main character" && placement.type === "Character";
     }
 
     /**
@@ -138,26 +106,87 @@ class EditModeHelper {
         }
         return { isValid: true };
     }
+
+    /**
+     * A convertor function for convert custom placement to preview object placement
+     *
+     * @param customPlacement object's placement
+     * @returns object's preview version placement
+     */
+    static placementToPreviewObjectPlacement(customPlacement: CustomPlacement): PreviewObjectPlacement {
+        const placementIdToPreviewObjectId = (placement: CustomPlacement) => {
+            const { id, coord, type, itemName, ...rest } = placement;
+            const customPropertyString = Object.values(rest).join("-").replace(/\s+/g, "-"); // Replace spaces with dashes
+
+            const previewObjectId = `${type}-${itemName}` + (customPropertyString ? `-${customPropertyString}` : "");
+            return previewObjectId;
+        };
+        const targetedPreviewObject = previewObjectList[customPlacement.type].find(
+            (previewObject) => previewObject.id === placementIdToPreviewObjectId(customPlacement)
+        );
+        if (typeof targetedPreviewObject === "undefined") {
+            throw Error(`Error: Placement -- ${customPlacement.id} does not exist in the preview object list`);
+        }
+        return {
+            id: `Tile-preview-object-${customPlacement.coord.x}-${customPlacement.coord.y}`,
+            coord: customPlacement.coord,
+            type: "Tile",
+            itemName: "preview object",
+            previewObjectItem: targetedPreviewObject,
+        };
+    }
+
     /**
      * A convertor function for convert preview object to actual object
      *
-     * @param placements placements array filled with preview object's placement
+     * @param placements preview object's placement
      * @returns actual object placemnt
      */
-    static previewObjectToPlacement(placements: PreviewObjectPlacement[]): Placement[] {
-        const newPlacements = placements
-            .filter((p) => this.isPreviewObject(p))
-            .map((p) => {
-                const { id, avatar, objectItemName, type, customProperties } = p.previewObjectItem;
-                return {
-                    id: `${type}-${objectItemName}-${p.coord.x}-${p.coord.y}`,
-                    coord: p.coord,
-                    type,
-                    itemName: objectItemName,
-                    ...customProperties,
-                };
-            });
-        return newPlacements;
+    static previewObjectToPlacement(previewObjectPlacement: PreviewObjectPlacement): Placement {
+        const { objectItemName, type, customProperties } = previewObjectPlacement.previewObjectItem;
+        return {
+            id: `${type}-${objectItemName}-${previewObjectPlacement.coord.x}-${previewObjectPlacement.coord.y}`,
+            coord: previewObjectPlacement.coord,
+            type,
+            itemName: objectItemName,
+            ...customProperties,
+        };
+    }
+
+    /**
+     * A convertor function for convert preview object placement list to actual object placement list
+     *
+     * @param previewObjectPlacement placements array filled with preview object's placement
+     * @returns placements array filled with actual object placemnt
+     */
+    static previewObjectPlacementListToPlacementList(placements: PreviewObjectPlacement[]): Placement[] {
+        // Separate main character and others
+        const others = placements.filter((p) => !this.isMainCharacter(p));
+        // Convert
+        const othersPlacements = others.map((p) => this.previewObjectToPlacement(p));
+
+        // Return combined array with main character at the end
+        return othersPlacements;
+    }
+
+    /**
+     * A convertor function for convert actual object placement list to preview object placement list
+     *
+     * @param placements placements array filled with actual object placemnt
+     * @returns placements array filled with preview object's placement and main character
+     */
+    static placementListToPreviewObjectPlacementList(
+        placements: CustomPlacement[]
+    ): (Placement | PreviewObjectPlacement)[] {
+        // Separate main character and others
+        const mainCharacter = placements.filter(this.isMainCharacter)[0];
+        const others = placements.filter((p) => !this.isMainCharacter(p));
+        // Convert
+        const mainCharacterPreviewPlacement = this.placementToPreviewObjectPlacement(mainCharacter);
+        const othersPlacements = others.map((p) => this.placementToPreviewObjectPlacement(p));
+
+        // Return combined array with main character at the end
+        return [...othersPlacements, mainCharacterPreviewPlacement, mainCharacter];
     }
 }
 

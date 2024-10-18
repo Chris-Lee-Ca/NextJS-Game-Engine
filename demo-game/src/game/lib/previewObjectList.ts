@@ -18,7 +18,7 @@ export class PreviewObjectItemBuilder {
         const objectItemName = this.item.objectItemName;
         const customPropertyString = Object.values(this.customProperties).join("-").replace(/\s+/g, "-"); // Replace spaces with dashes
 
-        const id = `${type}-${objectItemName}-${customPropertyString}`;
+        const id = `${type}-${objectItemName}` + (customPropertyString ? `-${customPropertyString}` : "");
         this.item.id = id;
     }
 

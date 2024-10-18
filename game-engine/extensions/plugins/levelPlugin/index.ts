@@ -15,5 +15,6 @@ export {
     setCurrentLevel,
     setAllLevelInfo,
     setLevelInfoByKey,
+    updateCurrentLevelInfo,
 } from "./levelSlice";
 export { CanvasHelper } from "./CanvasHelper";

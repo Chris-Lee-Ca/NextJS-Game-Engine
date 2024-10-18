@@ -2,19 +2,25 @@ import { Box, styled } from "@mui/material";
 import { CUSTOM_STYLE } from "../../lib/conts";
 import { DefaultButton, DefaultInput, DefaultText, DefaultTitle, Panel } from "../../components/styled";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import React from "react";
+import React, { useEffect } from "react";
 import { PlacementSelector } from "../../components/levelEditor/PlacementSelector";
-import { syncEditModeLevelInfo } from "../../redux/features/editModeSlice";
-import { EditModeLevelInfo } from "../../types/general";
 import { Coordinate } from "game-engine/types/general";
 import ObjectPool from "game-engine/core/ObjectPool";
+import EditModeHelper from "@/game/helper/EditModeHelper";
+import { PreviewObjectPlacement } from "@/game/types/placement";
+import { selectCurrentLevelInfo, updateCurrentLevelInfo } from "game-engine/extensions/plugins/levelPlugin";
+import { LevelInfo } from "game-engine/extensions/plugins/levelPlugin";
+import { openAlert } from "@/game/redux/features/alertSlice";
 
 const LevelEditorWrapper = styled(Panel)({
     top: `${CUSTOM_STYLE.SIZE.STATUS_BAR_HEIGHT}px`,
     right: 0,
+    position: "absolute",
+    maxHeight: `calc(100vha - ${CUSTOM_STYLE.SIZE.STATUS_BAR_HEIGHT}px)`,
     width: "300px",
     zIndex: 999,
     borderRadius: "0px 0px 0px 10px",
+    overflow: "auto",
 });
 
 const SectionWrapper = styled(Box)({
@@ -36,18 +42,18 @@ const ButtonGroup = styled(Box)({
 interface LevelEditorProps {}
 
 const LevelEditor = (_props: LevelEditorProps) => {
-    const editModeLevelInfo = useAppSelector((state) => state.editMode.editModeLevelInfo);
+    const currentLevelInfo = useAppSelector(selectCurrentLevelInfo);
 
     const dispatch = useAppDispatch();
 
-    const setEditModeLevelInfo = (editModeLevelInfo: EditModeLevelInfo) => {
-        dispatch(syncEditModeLevelInfo(editModeLevelInfo));
+    const updateLevelInfo = (newLevelInfo: LevelInfo) => {
+        dispatch(updateCurrentLevelInfo(newLevelInfo));
     };
 
     const handleMapDimensionChange = (dimensionToChange: "tilesWidth" | "tilesHeight", newDimensionSize: number) => {
-        const currentDimensionSize = editModeLevelInfo[dimensionToChange];
+        const currentDimensionSize = currentLevelInfo[dimensionToChange];
         if (newDimensionSize > currentDimensionSize) {
-            setEditModeLevelInfo({ ...editModeLevelInfo, [dimensionToChange]: Number(newDimensionSize) });
+            updateLevelInfo({ ...currentLevelInfo, [dimensionToChange]: Number(newDimensionSize) });
             return;
         }
 
@@ -60,16 +66,18 @@ const LevelEditor = (_props: LevelEditorProps) => {
         };
 
         const getMainCharacterPlacement = () =>
-            editModeLevelInfo.placements.find((p) => p.itemName === "main character" && p.type === "Character");
+            currentLevelInfo.placements.find((p) => p.itemName === "main character" && p.type === "Character");
 
         const getMainCharacterPreviewObjectPlacement = () =>
-            editModeLevelInfo.placements.find(
-                (p) =>
+            currentLevelInfo.placements.find((placement) => {
+                const p = placement as PreviewObjectPlacement;
+                return (
                     p.itemName === "preview object" &&
                     "previewObjectItem" in p &&
                     p.previewObjectItem.type === "Character" &&
                     p.previewObjectItem.objectItemName === "main character"
-            );
+                );
+            });
 
         const mainCharacterPlacement = getMainCharacterPlacement();
         if (mainCharacterPlacement) {
@@ -89,35 +97,56 @@ const LevelEditor = (_props: LevelEditorProps) => {
         }
 
         // Check the removed area of the map, if there are any items in that area, remove it
-        const updatedPlacements = editModeLevelInfo.placements.filter(
+        const updatedPlacements = currentLevelInfo.placements.filter(
             (placement) => !isCoordInRemovedArea(placement.coord)
         );
-        setEditModeLevelInfo({
-            ...editModeLevelInfo,
+        updateLevelInfo({
+            ...currentLevelInfo,
             [dimensionToChange]: Number(newDimensionSize),
             placements: updatedPlacements,
         });
     };
 
     const downLoadLevelInfoHandler = () => {
+        // validate
+        const placements = currentLevelInfo.placements as PreviewObjectPlacement[];
+        const { isValid, errMessage } = EditModeHelper.placementsValidator(placements);
+        if (!isValid) {
+            window.alert(errMessage);
+            return;
+        }
+        // convert
+        const newPlacements = EditModeHelper.previewObjectPlacementListToPlacementList(placements);
+        const newEditModeLevelInfo = { ...currentLevelInfo, placements: newPlacements };
+        // download
         const dataStr =
-            "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(editModeLevelInfo, null, 4));
+            "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(newEditModeLevelInfo, null, 4));
         const downloadAnchorNode = document.createElement("a");
         downloadAnchorNode.setAttribute("href", dataStr);
-        downloadAnchorNode.setAttribute("download", `${editModeLevelInfo.levelTitle}.json`);
+        downloadAnchorNode.setAttribute("download", `${currentLevelInfo.levelTitle}.json`);
         document.body.appendChild(downloadAnchorNode);
         downloadAnchorNode.click();
         downloadAnchorNode.remove();
     };
+
+    useEffect(() => {
+        dispatch(
+            openAlert({
+                type: "warning",
+                content: `The Level Editor is intended for development purposes, so the UI may not perform optimally on mobile devices.`,
+                ttl: 10000,
+            })
+        );
+    }, []);
 
     return (
         <LevelEditorWrapper>
             <DefaultTitle>Level Title</DefaultTitle>
             <SectionWrapper>
                 <DefaultInput
-                    value={editModeLevelInfo.levelTitle}
+                    value={currentLevelInfo.levelTitle}
                     onChange={(e) => {
-                        setEditModeLevelInfo({ ...editModeLevelInfo, levelTitle: e.target.value });
+                        updateLevelInfo({ ...currentLevelInfo, levelTitle: e.target.value });
                     }}
                 />
             </SectionWrapper>
@@ -135,7 +164,7 @@ const LevelEditor = (_props: LevelEditorProps) => {
                     onChange={(e) => {
                         handleMapDimensionChange("tilesWidth", Number(e.target.value));
                     }}
-                    value={editModeLevelInfo.tilesWidth}
+                    value={currentLevelInfo.tilesWidth}
                 />
                 <DefaultText>Height</DefaultText>
                 <DefaultInput
@@ -145,7 +174,7 @@ const LevelEditor = (_props: LevelEditorProps) => {
                     onChange={(e) => {
                         handleMapDimensionChange("tilesHeight", Number(e.target.value));
                     }}
-                    value={editModeLevelInfo.tilesHeight}
+                    value={currentLevelInfo.tilesHeight}
                 />
             </SectionWrapper>
             <ButtonGroup>

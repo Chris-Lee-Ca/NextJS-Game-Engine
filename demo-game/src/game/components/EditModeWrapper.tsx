@@ -4,7 +4,7 @@ import { Box, styled } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { ReactNode } from "react";
 import EditModeHelper from "../helper/EditModeHelper";
-import { syncEditModeLevelInfo } from "../redux/features/editModeSlice";
+import { selectCurrentLevelInfo, updateCurrentLevelInfo } from "game-engine/extensions/plugins/levelPlugin";
 
 const EditModeBackgroundTileWrapper = styled(Box)({});
 
@@ -19,7 +19,7 @@ interface EditModeBackgroundTileProps {
 const EditModeWrapper = (props: EditModeBackgroundTileProps) => {
     const { children, rowIndex, colIndex, editModeSelectedItem } = props;
 
-    const editModeState = useAppSelector((state) => state.editMode);
+    const currentLevelInfo = useAppSelector(selectCurrentLevelInfo);
     const dispatch = useAppDispatch();
 
     // add preview object
@@ -32,7 +32,7 @@ const EditModeWrapper = (props: EditModeBackgroundTileProps) => {
             itemName: "preview object",
             previewObjectItem: editModeSelectedItem,
         };
-        const oldLevelInfo = editModeState.editModeLevelInfo;
+        const oldLevelInfo = currentLevelInfo;
         const newLevelInfo = {
             ...oldLevelInfo,
             placements: EditModeHelper.placementsInsertor(
@@ -41,12 +41,12 @@ const EditModeWrapper = (props: EditModeBackgroundTileProps) => {
             ),
         };
 
-        dispatch(syncEditModeLevelInfo(newLevelInfo));
+        dispatch(updateCurrentLevelInfo(newLevelInfo));
     };
 
     // remove preview object
     const rightClickHandler = (rowIndex: number, colIndex: number) => {
-        const oldLevelInfo = editModeState.editModeLevelInfo;
+        const oldLevelInfo = currentLevelInfo;
         const newLevelInfo = {
             ...oldLevelInfo,
             placements: EditModeHelper.placementsRemover(oldLevelInfo.placements as PreviewObjectPlacement[], {
@@ -54,7 +54,7 @@ const EditModeWrapper = (props: EditModeBackgroundTileProps) => {
                 y: colIndex,
             }),
         };
-        dispatch(syncEditModeLevelInfo(newLevelInfo));
+        dispatch(updateCurrentLevelInfo(newLevelInfo));
     };
 
     return (

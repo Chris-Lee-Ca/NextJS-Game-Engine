@@ -1,8 +1,6 @@
 import { CreateObjectParams } from "game-engine/components/GameObjectFactory";
-import { Placement } from "game-engine/types/general";
 import { AppStore } from "../redux/store";
-import { LevelInfo } from "game-engine/extensions/plugins/levelPlugin";
-import { CustomPlacement, CustomPlacementType, PreviewObjectPlacement } from "./placement";
+import { CustomPlacement, CustomPlacementType } from "./placement";
 
 type PickUpTypeItem = "resume";
 type Avatar = { type: "text" | "ReactNode"; interface: any };
@@ -20,8 +18,4 @@ interface PreviewObjectItem {
     customProperties?: Record<string, string>;
 }
 
-type EditModeLevelInfo = Omit<LevelInfo, "placements"> & {
-    placements: (Placement | PreviewObjectPlacement)[];
-};
-
-export type { PickUpTypeItem, Avatar, CreateCustomObjectParams, PreviewObjectItem, EditModeLevelInfo };
+export type { PickUpTypeItem, Avatar, CreateCustomObjectParams, PreviewObjectItem };
