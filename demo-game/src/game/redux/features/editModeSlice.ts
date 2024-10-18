@@ -1,10 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { setLevelInfoByKey } from "game-engine/extensions/plugins/levelPlugin";
-import { AppDispatch } from "../store";
 import { PreviewObjectItem } from "@/game/types/general";
-import { defaultLevelTheme } from "@/game/lib/level";
-import { EDIT_MODE_LEVEL_NAME } from "@/game/lib/conts";
 
 export interface EditModeStateInterface {
     editMode: boolean;

@@ -30,9 +30,9 @@ class Portal extends TileObject {
     private getNewLevel(currentLevel: string): string {
         let newLevel = "";
         if (this.portalType === "prev") {
-            newLevel = String(Number(currentLevel) + 1);
-        } else if (this.portalType === "next") {
             newLevel = String(Number(currentLevel) - 1);
+        } else if (this.portalType === "next") {
+            newLevel = String(Number(currentLevel) + 1);
         } else {
             const portalType: never = this.portalType;
             throw new Error(`Unknown portalType ${portalType}`);
