@@ -2,7 +2,6 @@
 
 import React from "react";
 import GridSizeImage from "@/game/components/template/GridSizeImage";
-import PortalImage from "@/game/assets/componentImage/Portal.png";
 import { PortalType } from "@/game/types/placement";
 
 interface PortalComponentProps {

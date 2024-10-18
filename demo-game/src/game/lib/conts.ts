@@ -22,10 +22,6 @@ export const MAIN_SPRITE_SHEET: SpriteSheetInfo = {
         X_OFFSET: 70.3,
         Y_OFFSET: 14.7,
     },
-    SHRUB_SECTION: {
-        X_OFFSET: 64,
-        Y_OFFSET: 63.9,
-    },
     FLOWERS_SECTION: {
         X_OFFSET: 95,
         Y_OFFSET: 32.5,
