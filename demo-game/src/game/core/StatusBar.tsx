@@ -5,6 +5,7 @@ import React from "react";
 import { CUSTOM_STYLE } from "../lib/conts";
 import { LevelEditorStatusBarButton } from "./LevelEditor/LevelEditorStatusBarButton";
 import { Backpack } from "../components/Backpack";
+import { LevelNavigator } from "../components/LevelNavigator";
 
 const StatusBarWrapper = styled(Box)({
     top: 0,
@@ -16,9 +17,13 @@ const StatusBarWrapper = styled(Box)({
     justifyContent: "space-between",
 });
 
-const LeftSection = styled(Box)({});
+const LeftSection = styled(Box)({
+    display: "flex",
+});
 
-const RightSection = styled(Box)({});
+const RightSection = styled(Box)({
+    display: "flex",
+});
 
 interface StatusBarProps {}
 const StatusBar = (_props: StatusBarProps) => {
@@ -29,6 +34,7 @@ const StatusBar = (_props: StatusBarProps) => {
                     <Backpack />
                 </LeftSection>
                 <RightSection>
+                    <LevelNavigator />
                     <LevelEditorStatusBarButton />
                 </RightSection>
             </StatusBarWrapper>
