@@ -6,7 +6,7 @@ import GameObject from "game-engine/components/GameObject";
 import { AppStore } from "@/game/redux/store";
 import GridHelper from "game-engine/helper/GridHelper";
 import Rectangle from "game-engine/components/Rectangle";
-import { setCurrentLevel } from "game-engine/extensions/plugins/levelPlugin";
+import { AllLevelInfo, LevelInfo, setCurrentLevel } from "game-engine/extensions/plugins/levelPlugin";
 import { PortalObjectPlacement, PortalType } from "@/game/types/placement";
 import { openAlert } from "@/game/redux/features/alertSlice";
 
@@ -27,29 +27,33 @@ class Portal extends TileObject {
         return React.createElement(PortalComponent, { portalType: this.portalType });
     }
 
-    private getNewLevel(currentLevel: string): string {
-        let newLevel = "";
-        if (this.portalType === "prev") {
-            newLevel = String(Number(currentLevel) - 1);
-        } else if (this.portalType === "next") {
-            newLevel = String(Number(currentLevel) + 1);
-        } else {
-            const portalType: never = this.portalType;
-            throw new Error(`Unknown portalType ${portalType}`);
-        }
-        return newLevel;
-    }
-
     private changeLevel() {
         const levelState = this.store.getState().level;
         const { currentLevel, allLevelInfo } = levelState;
-        const newLevel = this.getNewLevel(currentLevel);
+        const currentLevelInfo = allLevelInfo[currentLevel];
+
+        const portalKey = this.portalType === "prev" ? "prevLevel" : this.portalType === "next" ? "nextLevel" : null;
+
+        if (!portalKey) throw new Error(`Unknown portalType ${this.portalType}`);
+
+        const newLevel = currentLevelInfo[portalKey];
+
+        if (typeof newLevel === "undefined") {
+            this.store.dispatch(
+                openAlert({
+                    type: "error",
+                    content: `Level: ${currentLevelInfo.levelTitle}'s ${this.portalType} level is not defined`,
+                    ttl: 4000,
+                })
+            );
+            return;
+        }
 
         if (!(newLevel in allLevelInfo)) {
             this.store.dispatch(
                 openAlert({
                     type: "error",
-                    content: `New Level: ${newLevel} is not defined in all level info`,
+                    content: `Level: ${currentLevelInfo.levelTitle}'s ${this.portalType} level ${newLevel} is not in AllLevelInfo`,
                     ttl: 4000,
                 })
             );

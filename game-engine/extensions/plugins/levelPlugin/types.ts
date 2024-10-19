@@ -13,6 +13,8 @@ type LevelInfo = {
     tilesWidth: number;
     tilesHeight: number;
     placements: Placement[];
+    nextLevel?: string;
+    prevLevel?: string;
 };
 
 type AllLevelInfo = { [key: string]: LevelInfo };

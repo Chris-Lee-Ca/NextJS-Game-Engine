@@ -41,19 +41,21 @@ type Command = "up" | "down";
 export const LevelNavigator: React.FC = () => {
     const dispatch = useAppDispatch();
     const { currentLevel, allLevelInfo } = useAppSelector((state) => state.level);
+    const { editMode } = useAppSelector((state) => state.editMode);
 
-    const handleGetNewLevel = (command: Command): string => {
-        return String(Number(currentLevel) + (command === "up" ? +1 : -1));
+    const handleGetNewLevel = (command: Command): string | null | undefined => {
+        const currentLevelInfo = allLevelInfo[currentLevel];
+        return command === "up" ? currentLevelInfo.nextLevel : command === "down" ? currentLevelInfo.prevLevel : null;
     };
 
     const handleChangeLevel = (command: Command) => {
         const newLevel = handleGetNewLevel(command);
-        dispatch(setCurrentLevel(newLevel));
+        dispatch(setCurrentLevel(newLevel as string));
     };
 
-    const handleIsDisableButton = (command: Command) => {
+    const handleIsDisableButton = (command: Command): boolean => {
         const newLevel = handleGetNewLevel(command);
-        return !(newLevel in allLevelInfo);
+        return typeof newLevel === "undefined" || newLevel === null || !(newLevel in allLevelInfo);
     };
 
     return (
@@ -65,7 +67,7 @@ export const LevelNavigator: React.FC = () => {
                     onClick={() => {
                         handleChangeLevel("up");
                     }}
-                    disabled={handleIsDisableButton("up")}
+                    disabled={handleIsDisableButton("up") || editMode}
                 >
                     <KeyboardArrowUpIcon />
                 </StyledButton>
@@ -74,7 +76,7 @@ export const LevelNavigator: React.FC = () => {
                     onClick={() => {
                         handleChangeLevel("down");
                     }}
-                    disabled={handleIsDisableButton("down")}
+                    disabled={handleIsDisableButton("down") || editMode}
                 >
                     <KeyboardArrowDownIcon />
                 </StyledButton>

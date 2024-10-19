@@ -54,6 +54,7 @@ export class LevelHandler implements PluginHandler {
 
         const currentLevelPlacements = currentLevelInfo.placements;
         const newObjectIdPool = currentLevelPlacements.map((placement) => placement.id);
+
         this.dispatch(setObjectIdPool(newObjectIdPool));
         currentLevelPlacements.forEach((placement) => {
             this.createGameObject(placement);
@@ -75,6 +76,13 @@ export class LevelHandler implements PluginHandler {
                 this.createGameObject(placement);
             }
         });
+
+        // Update Object ID Pool
+        const { objectIdPool } = this.store.getState().core;
+        const newObjectIdPool = currentLevelPlacements.map((placement) => placement.id);
+        if (JSON.stringify(objectIdPool) !== JSON.stringify(newObjectIdPool)) {
+            this.dispatch(setObjectIdPool(newObjectIdPool));
+        }
 
         // Remove objects that are in objectPool but not in placements
         // except it is a invisibleWall (map boundary)

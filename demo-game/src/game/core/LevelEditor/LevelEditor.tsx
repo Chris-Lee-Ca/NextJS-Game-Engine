@@ -143,8 +143,10 @@ const LevelEditor = (_props: LevelEditorProps) => {
         <LevelEditorWrapper>
             <DefaultTitle>Level Title</DefaultTitle>
             <SectionWrapper>
+                {/* TODO: when change title, then change level, it break every thing. because everytime we change the title, we will create a new levelInfo */}
                 <DefaultInput
                     value={currentLevelInfo.levelTitle}
+                    disabled
                     onChange={(e) => {
                         updateLevelInfo({ ...currentLevelInfo, levelTitle: e.target.value });
                     }}

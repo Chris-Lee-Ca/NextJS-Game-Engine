@@ -2,6 +2,7 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { AllLevelInfo, LevelInfo } from "./types";
 import { LEVEL_PLUGIN_ID } from "./constants";
+import { coreReducer } from "../../../redux/features/coreSlice";
 
 export interface LevelStateInterface {
     currentLevel: string;
@@ -45,6 +46,7 @@ export const levelReducer = levelSlice.reducer;
 const makeStore = () => {
     return configureStore({
         reducer: {
+            core: coreReducer,
             [LEVEL_PLUGIN_ID]: levelReducer,
         },
     });
