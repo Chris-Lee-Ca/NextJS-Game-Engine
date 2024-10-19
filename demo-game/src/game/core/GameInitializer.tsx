@@ -32,7 +32,7 @@ const GameInitializer = () => {
                     store: appStore,
                     dispatch,
                     gameObjectFactory: new PlacementFactory(),
-                    currentLevel: levelState.currentLevel ? levelState.currentLevel : "demo_1",
+                    currentLevel: levelState.currentLevel ? levelState.currentLevel : "intro-level-1",
                     allLevelInfo:
                         Object.keys(levelState.allLevelInfo).length !== 0 ? levelState.allLevelInfo : allDemoLevelInfo,
                 }),

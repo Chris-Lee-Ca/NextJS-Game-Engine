@@ -75,7 +75,6 @@ const GameCanvas = (props: GameCanvasProps) => {
                         !editModeState.editMode ? (
                             createBackgroundTile(rowIndex, colIndex, gridSide, levelInfo)
                         ) : (
-                            // TODO, lazy load EditModeWrapper
                             <EditModeWrapper
                                 key={`background-tile-wrapper-${rowIndex}-${colIndex}`}
                                 rowIndex={rowIndex}
@@ -95,7 +94,6 @@ const GameCanvas = (props: GameCanvasProps) => {
                 return !editModeState.editMode ? (
                     createGameObject(object)
                 ) : (
-                    // TODO, lazy load EditModeWrapper
                     <EditModeWrapper
                         key={`game-object-wrapper-${object.id}-${index}`}
                         rowIndex={object.coord.x}

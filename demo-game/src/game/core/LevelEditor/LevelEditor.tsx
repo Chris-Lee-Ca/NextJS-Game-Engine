@@ -162,7 +162,7 @@ const LevelEditor = (_props: LevelEditorProps) => {
                 <DefaultInput
                     type="number"
                     min="1"
-                    max="20"
+                    max="30"
                     onChange={(e) => {
                         handleMapDimensionChange("tilesWidth", Number(e.target.value));
                     }}
@@ -172,7 +172,7 @@ const LevelEditor = (_props: LevelEditorProps) => {
                 <DefaultInput
                     type="number"
                     min="1"
-                    max="20"
+                    max="30"
                     onChange={(e) => {
                         handleMapDimensionChange("tilesHeight", Number(e.target.value));
                     }}
