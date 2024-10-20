@@ -4,18 +4,10 @@ import { ModalTitle } from "@/game/components/styled";
 import ActionButton from "@/game/components/template/ActionButton";
 import CloseModalButton from "@/game/components/template/CloseModalButton";
 import SanityBlockContent from "@/game/components/template/SanityBlockContent";
-import { CUSTOM_STYLE } from "@/game/lib/conts";
 import { reduxStore } from "@/game/redux/store";
 import { projectNicknameMapping } from "@/game/sanity/sanityContentMapping";
 import { Project } from "@/game/types/gameStaticData";
 import { Box, styled, Typography } from "@mui/material";
-
-const Date = styled(Typography)({
-    fontWeight: "bold",
-    fontSize: "20x",
-    color: CUSTOM_STYLE.COLOR.MAIN_PANEL_COLOR,
-    marginTop: "5px",
-});
 
 const SkillsContainer = styled(Box)({
     margin: "10px 0px 10px",

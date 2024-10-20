@@ -32,11 +32,6 @@ const Skill = styled(Box)({
     fontWeight: "400",
 });
 
-const Description = styled(Typography)({
-    fontWeight: "bold",
-    margin: "15px",
-});
-
 const Achievements = styled("ul")({
     margin: "8px 0px 6px 0px",
 });
