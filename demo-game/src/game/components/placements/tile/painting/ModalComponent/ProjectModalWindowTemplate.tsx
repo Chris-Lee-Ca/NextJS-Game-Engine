@@ -3,9 +3,11 @@ import { ModalWindowConfig } from "@/game/components/modal/ModalWindowFactory";
 import { ModalTitle } from "@/game/components/styled";
 import ActionButton from "@/game/components/template/ActionButton";
 import CloseModalButton from "@/game/components/template/CloseModalButton";
+import SanityBlockContent from "@/game/components/template/SanityBlockContent";
 import { CUSTOM_STYLE } from "@/game/lib/conts";
-import { Projects } from "@/game/lib/gameContent";
-import { ProjectsInterface } from "@/game/types/gameContent";
+import { reduxStore } from "@/game/redux/store";
+import { projectNicknameMapping } from "@/game/sanity/sanityContentMapping";
+import { Project } from "@/game/types/gameStaticData";
 import { Box, styled, Typography } from "@mui/material";
 
 const Date = styled(Typography)({
@@ -37,7 +39,7 @@ const KeyFeatures = styled(Box)({
 });
 
 interface ProjectModalWindowTemplateProps {
-    project: ProjectsInterface;
+    project: Project;
 }
 
 export const ProjectModalWindowTemplate: React.FC<ProjectModalWindowTemplateProps> = (props) => {
@@ -57,22 +59,25 @@ export const ProjectModalWindowTemplate: React.FC<ProjectModalWindowTemplateProp
                 Key Features:
             </Typography>
             <KeyFeatures>
-                <div>{project.description}</div>
+                <SanityBlockContent content={project.descriptionRaw} />
             </KeyFeatures>
         </>
     );
 };
 
 export const createProjectPaintingModalWindowComponent = (projectNickname: string): ModalWindowConfig => {
-    const project = Projects.find((project) => project.nickname === projectNickname) as ProjectsInterface;
+    const data = reduxStore.getState().gameContent.data;
+    const { allProject } = data!;
+
+    const project = allProject.find(
+        (project) => project.slug.current === projectNicknameMapping[projectNickname]
+    ) as Project;
 
     const ContentComponent: React.FC = () => <ProjectModalWindowTemplate project={project} />;
-    const ButtonGroup: React.FC = () => {
-        // const dispatch = useAppDispatch();
 
+    const ButtonGroup: React.FC = () => {
         const handleOnClick = () => {
-            window.open(project.links[0].address, "_blank");
-            // dispatch(closeDialogWindow());
+            window.open(project.links[0].url, "_blank");
         };
 
         return (
@@ -89,7 +94,7 @@ export const createProjectPaintingModalWindowComponent = (projectNickname: strin
     };
 
     return new ModalWindowBuilder()
-        .setImageSrc(project.image)
+        .setImageSrc(project.image.asset.url)
         .setContent(ContentComponent)
         .setButtonGroup(ButtonGroup)
         .build();

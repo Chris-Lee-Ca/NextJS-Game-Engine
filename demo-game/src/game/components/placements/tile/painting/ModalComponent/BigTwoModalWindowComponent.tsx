@@ -1,5 +1,5 @@
 import { createProjectPaintingModalWindowComponent } from "./ProjectModalWindowTemplate";
 
-const BigTwoModalWindowComponent = createProjectPaintingModalWindowComponent("BigTwo");
+const BigTwoModalWindowComponent = createProjectPaintingModalWindowComponent("big-two");
 
 export default BigTwoModalWindowComponent;

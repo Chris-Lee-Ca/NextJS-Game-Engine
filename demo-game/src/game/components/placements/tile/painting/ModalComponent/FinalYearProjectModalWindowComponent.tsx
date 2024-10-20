@@ -1,5 +1,5 @@
 import { createProjectPaintingModalWindowComponent } from "./ProjectModalWindowTemplate";
 
-const FinalYearProjectModalWindowComponent = createProjectPaintingModalWindowComponent("FinalYearProject");
+const FinalYearProjectModalWindowComponent = createProjectPaintingModalWindowComponent("final-year-project");
 
 export default FinalYearProjectModalWindowComponent;

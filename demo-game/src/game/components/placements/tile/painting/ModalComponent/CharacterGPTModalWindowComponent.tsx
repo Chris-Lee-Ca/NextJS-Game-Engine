@@ -1,5 +1,5 @@
 import { createProjectPaintingModalWindowComponent } from "./ProjectModalWindowTemplate";
 
-const CharacterGPTModalWindowComponent = createProjectPaintingModalWindowComponent("CharacterGPT");
+const CharacterGPTModalWindowComponent = createProjectPaintingModalWindowComponent("character-gpt");
 
 export default CharacterGPTModalWindowComponent;

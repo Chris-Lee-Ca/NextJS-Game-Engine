@@ -1,9 +1,11 @@
 import ModalWindowBuilder from "@/game/components/modal/ModalWindowBuilder";
 import { ModalWindowConfig } from "@/game/components/modal/ModalWindowFactory";
 import { ModalSubTitle, ModalTitle } from "@/game/components/styled";
+import SanityBlockContent from "@/game/components/template/SanityBlockContent";
 import { CUSTOM_STYLE } from "@/game/lib/conts";
-import { Experiences } from "@/game/lib/gameContent";
-import { ExperienceInterface } from "@/game/types/gameContent";
+import { reduxStore } from "@/game/redux/store";
+import { experienceIdMapping } from "@/game/sanity/sanityContentMapping";
+import { Experience } from "@/game/types/gameStaticData";
 import { Box, styled, Typography } from "@mui/material";
 
 const Date = styled(Typography)({
@@ -47,7 +49,7 @@ const Achievement = styled("li")({
 });
 
 interface CompanyModalWindowTemplateProps {
-    experience: ExperienceInterface;
+    experience: Experience;
 }
 
 export const CompanyModalWindowTemplate: React.FC<CompanyModalWindowTemplateProps> = (props) => {
@@ -65,7 +67,7 @@ export const CompanyModalWindowTemplate: React.FC<CompanyModalWindowTemplateProp
                     ))}
                 </SkillWrapper>
             </SkillsContainer>
-            <Description>{experience.desc}</Description>
+            <SanityBlockContent content={experience.descriptionRaw} />
             <Typography mt={1} fontWeight={800} fontSize={"15px"}>
                 Key Achievements:
             </Typography>
@@ -79,9 +81,14 @@ export const CompanyModalWindowTemplate: React.FC<CompanyModalWindowTemplateProp
 };
 
 export const createCompanyModalWindowComponent = (experienceId: string): ModalWindowConfig => {
-    const experience = Experiences.find((experience) => experience.id === experienceId) as ExperienceInterface;
+    const data = reduxStore.getState().gameContent.data;
+    const { allExperience } = data!;
+
+    const experience = allExperience.find(
+        (experience) => experience.company === experienceIdMapping[experienceId]
+    ) as Experience;
 
     const ContentComponent: React.FC = () => <CompanyModalWindowTemplate experience={experience} />;
 
-    return new ModalWindowBuilder().setImageSrc(experience.img).setContent(ContentComponent).build();
+    return new ModalWindowBuilder().setImageSrc(experience.image.asset.url).setContent(ContentComponent).build();
 };

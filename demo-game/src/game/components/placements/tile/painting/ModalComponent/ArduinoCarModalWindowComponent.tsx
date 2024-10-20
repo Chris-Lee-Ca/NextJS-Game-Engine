@@ -1,5 +1,5 @@
 import { createProjectPaintingModalWindowComponent } from "./ProjectModalWindowTemplate";
 
-const ArduinoCarModalWindowComponent = createProjectPaintingModalWindowComponent("ArduinoCar");
+const ArduinoCarModalWindowComponent = createProjectPaintingModalWindowComponent("arduino-car");
 
 export default ArduinoCarModalWindowComponent;

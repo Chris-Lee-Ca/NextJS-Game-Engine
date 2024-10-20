@@ -46,18 +46,4 @@ interface EducationInterface {
     degree: string;
 }
 
-interface ProjectsInterface {
-    id: number;
-    title: string;
-    nickname: string;
-    description: string[];
-    image: any;
-    tags: string[];
-    category: string;
-    links: {
-        title: string;
-        address: string;
-    }[];
-}
-
-export type { BioInterface, SkillItem, SkillSetInterface, ExperienceInterface, EducationInterface, ProjectsInterface };
+export type { BioInterface, SkillItem, SkillSetInterface, ExperienceInterface, EducationInterface };

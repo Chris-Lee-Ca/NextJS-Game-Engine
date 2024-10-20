@@ -1,13 +1,16 @@
 "use client";
 
-import React from "react";
-import GameInitializer from "./GameInitializer";
+import React, { lazy, Suspense } from "react";
 import GameStoreProvider from "./GameStoreProvider";
+
+const LazyGameInitializer = lazy(() => import("./GameInitializer"));
 
 const Game = () => {
     return (
         <GameStoreProvider>
-            <GameInitializer />
+            <Suspense fallback={<div />}>
+                <LazyGameInitializer />
+            </Suspense>
         </GameStoreProvider>
     );
 };

@@ -1,5 +1,5 @@
 import { createProjectPaintingModalWindowComponent } from "./ProjectModalWindowTemplate";
 
-const GameHubModalWindowComponent = createProjectPaintingModalWindowComponent("GameHub");
+const GameHubModalWindowComponent = createProjectPaintingModalWindowComponent("gamehub");
 
 export default GameHubModalWindowComponent;

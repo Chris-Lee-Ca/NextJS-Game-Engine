@@ -16,6 +16,7 @@ import {
     mainCharacterActionReducer,
 } from "game-engine/extensions/modules/MainCharacterActionControlModule";
 import { alertReducer } from "./features/alertSlice";
+import { gameContentReducer } from "./features/gameContentSlice";
 
 const rootReducer = combineReducers({
     ...gameEngineReducer,
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
     [MAIN_CHARACTER_DIRECTION_CONTROL_MODULE_ID]: mainCharacterDirectionReducer,
     [MAIN_CHARACTER_ACTION_CONTROL_MODULE_ID]: mainCharacterActionReducer,
     [LEVEL_PLUGIN_ID]: levelReducer,
+    gameContent: gameContentReducer,
     game: gameReducer,
     editMode: editModeReducer,
     backpack: backpackReducer,
@@ -31,14 +33,12 @@ const rootReducer = combineReducers({
     alert: alertReducer,
 });
 
-export const makeGameStore = () => {
-    return configureStore({
-        reducer: rootReducer,
-    });
-};
+export const reduxStore = configureStore({
+    reducer: rootReducer,
+});
 
-// Infer the type of makeStore
-export type AppStore = ReturnType<typeof makeGameStore>;
+// Infer the type of reduxStore
+export type AppStore = typeof reduxStore;
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<AppStore["getState"]>;
 export type AppDispatch = AppStore["dispatch"];

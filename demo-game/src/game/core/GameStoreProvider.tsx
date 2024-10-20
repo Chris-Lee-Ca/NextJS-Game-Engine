@@ -1,13 +1,27 @@
 "use client";
-import { useRef } from "react";
+import React, { ReactNode, useEffect, useRef, useState } from "react";
 import { Provider } from "react-redux";
-import { makeGameStore, AppStore } from "../redux/store";
+import { AppStore, reduxStore } from "../redux/store";
+import { fetchGameContent } from "../redux/features/gameContentSlice";
 
-export default function GameStoreProvider({ children }: { children: React.ReactNode }) {
-    const storeRef = useRef<AppStore>();
-    if (!storeRef.current) {
-        // Create the store instance the first time this renders
-        storeRef.current = makeGameStore();
+interface GameStoreProviderProps {
+    children: ReactNode;
+}
+
+export default function GameStoreProvider(props: GameStoreProviderProps) {
+    const { children } = props;
+    const storeRef = useRef<AppStore>(reduxStore);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        // Dispatch fetchGameContent and wait for it to complete
+        storeRef.current.dispatch(fetchGameContent()).then(() => {
+            setLoading(false);
+        });
+    }, []);
+
+    if (loading) {
+        return null;
     }
 
     return <Provider store={storeRef.current}>{children}</Provider>;
