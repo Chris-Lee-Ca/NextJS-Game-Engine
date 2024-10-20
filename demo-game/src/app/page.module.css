@@ -7,6 +7,15 @@
     min-height: 100vh;
 }
 
+.mainTitle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6rem;
+    gap: 0.5rem;
+}
+
 .description {
     display: inherit;
     justify-content: inherit;

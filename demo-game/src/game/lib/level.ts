@@ -493,6 +493,39 @@ const eduction_level_4: LevelInfo = {
     tilesHeight: 5,
     placements: [
         {
+            id: "Tile-road-8-2",
+            coord: {
+                x: 8,
+                y: 2,
+            },
+            type: "Tile",
+            itemName: "road",
+            roadType: "t-junction",
+            facing: "down",
+        },
+        {
+            id: "Tile-road-10-2",
+            coord: {
+                x: 10,
+                y: 2,
+            },
+            type: "Tile",
+            itemName: "road",
+            roadType: "t-junction",
+            facing: "up",
+        },
+        {
+            id: "Tile-road-6-2",
+            coord: {
+                x: 6,
+                y: 2,
+            },
+            type: "Tile",
+            itemName: "road",
+            roadType: "t-junction",
+            facing: "up",
+        },
+        {
             id: "Tile-road-4-2",
             coord: {
                 x: 4,
@@ -526,17 +559,6 @@ const eduction_level_4: LevelInfo = {
             facing: "left",
         },
         {
-            id: "Tile-road-6-2",
-            coord: {
-                x: 6,
-                y: 2,
-            },
-            type: "Tile",
-            itemName: "road",
-            roadType: "straight",
-            facing: "left",
-        },
-        {
             id: "Tile-road-7-2",
             coord: {
                 x: 7,
@@ -548,31 +570,9 @@ const eduction_level_4: LevelInfo = {
             facing: "left",
         },
         {
-            id: "Tile-road-8-2",
-            coord: {
-                x: 8,
-                y: 2,
-            },
-            type: "Tile",
-            itemName: "road",
-            roadType: "straight",
-            facing: "left",
-        },
-        {
             id: "Tile-road-9-2",
             coord: {
                 x: 9,
-                y: 2,
-            },
-            type: "Tile",
-            itemName: "road",
-            roadType: "straight",
-            facing: "left",
-        },
-        {
-            id: "Tile-road-10-2",
-            coord: {
-                x: 10,
                 y: 2,
             },
             type: "Tile",

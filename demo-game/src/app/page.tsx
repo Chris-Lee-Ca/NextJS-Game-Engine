@@ -8,21 +8,16 @@ export default function Home() {
             <div className={styles.center}>
                 <Image className={styles.logo} src="/next.svg" alt="Next.js Logo" width={180} height={37} priority />
             </div>
-
-            <div className={styles.grid}>
-                <Link href="/demo" className={styles.card}>
-                    <h2>
-                        Demo <span>-&gt;</span>
-                    </h2>
-                    <p>Explore starter templates for Next.js.</p>
-                </Link>
-                <Link href="/sandbox" className={styles.card}>
-                    <h2>
-                        Sandbox <span>-&gt;</span>
-                    </h2>
-                    <p>Explore starter templates for Next.js.</p>
-                </Link>
+            <div className={styles.mainTitle}>
+                <h1>Next JS Game Engine</h1>
+                <h2>Created By -- Chris Lee</h2>
             </div>
+            <Link href="/demo" className={styles.card}>
+                <h2>
+                    Demo <span>-&gt;</span>
+                </h2>
+                <p>Explore the demo game created by Chris</p>
+            </Link>
         </main>
     );
 }
