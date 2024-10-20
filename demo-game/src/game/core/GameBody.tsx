@@ -12,6 +12,8 @@ import Viewport from "./Viewport";
 import DialogWindowFactory from "../components/dialog/DialogWindowFactory";
 import ModalWindowFactory from "../components/modal/ModalWindowFactory";
 import StyledAlert from "../components/template/StyledAlert";
+import VirtualKeyboard from "../components/VirtualKeyboard";
+import { KEYBOARD_EVENT_PLUGIN_ID, KeyboardEventHandler } from "game-engine/extensions/plugins/keyboardEventPlugin";
 
 const GameBody = ({ gameLoop }: { gameLoop: GameLoop }) => {
     const levelState = useAppSelector((state) => state[LEVEL_PLUGIN_ID]);
@@ -43,6 +45,9 @@ const GameBody = ({ gameLoop }: { gameLoop: GameLoop }) => {
             >
                 <GameCanvas />
             </Viewport>
+            <VirtualKeyboard
+                keyboardEventHandler={gameLoop.plugins[KEYBOARD_EVENT_PLUGIN_ID] as KeyboardEventHandler}
+            />
         </>
     );
 };

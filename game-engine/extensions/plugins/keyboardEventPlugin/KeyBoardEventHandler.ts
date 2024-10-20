@@ -35,13 +35,13 @@ export class KeyboardEventHandler implements PluginHandler {
 
     public update(deltaTime: number): void {}
 
-    private handleKeyUp(event: KeyboardEvent): void {
+    public handleKeyUp(event: KeyboardEvent): void {
         const key = event.key as KeyboardKey;
         this.heldKeys = this.heldKeys.filter((heldkey) => heldkey !== key);
         this.dispatch(setHeldKeys(this.heldKeys));
     }
 
-    private handleKeyDown(event: KeyboardEvent): void {
+    public handleKeyDown(event: KeyboardEvent): void {
         const key = event.key as KeyboardKey;
         if (!this.heldKeys.includes(key)) {
             this.heldKeys.unshift(key);
