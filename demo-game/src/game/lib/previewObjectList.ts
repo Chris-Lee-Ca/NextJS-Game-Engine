@@ -111,6 +111,19 @@ const createPaintingPreviewObjectList = (paintingTypes: string[]): PreviewObject
     return paintingTiles;
 };
 
+const createSchoolPreviewObjectList = (schoolTypes: string[]): PreviewObjectItem[] => {
+    const schoolTiles: PreviewObjectItem[] = [];
+    schoolTypes.forEach((schoolType) => {
+        const schoolTile = new PreviewObjectItemBuilder()
+            .setType("Tile")
+            .setObjectItemName("school")
+            .setCustomProperty("schoolType", schoolType)
+            .build();
+        schoolTiles.push(schoolTile);
+    });
+    return schoolTiles;
+};
+
 const createRoadPreviewObjectList = (roadTypes: RoadType[]): PreviewObjectItem[] => {
     const roadTiles: PreviewObjectItem[] = [];
 
@@ -196,6 +209,8 @@ export const previewObjectList: { [key in CustomPlacementType]: PreviewObjectIte
             "project-arduino-car",
             "project-portfolio-game-v1",
         ]),
+        // school
+        ...createSchoolPreviewObjectList(["hku", "ckad", "aws-saa"]),
         // road
         ...createRoadPreviewObjectList(["dead-end", "straight", "t-junction", "turn", "x-junction"]),
     ],

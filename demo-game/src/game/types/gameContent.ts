@@ -19,31 +19,4 @@ interface SkillSetInterface {
     skills: SkillItem[];
 }
 
-interface ExperienceInterface {
-    id: string;
-    img: any;
-    role: string;
-    company: string;
-    date: string;
-    desc: string;
-    skills: string[];
-    achievements: string[];
-    links?: {
-        title: string;
-        address: string;
-    }[];
-}
-
-interface EducationInterface {
-    id: number;
-    img: any;
-    school: string;
-    desc: {
-        subTitle: string;
-        content: string;
-    }[];
-    skills: string[];
-    degree: string;
-}
-
-export type { BioInterface, SkillItem, SkillSetInterface, ExperienceInterface, EducationInterface };
+export type { BioInterface, SkillItem, SkillSetInterface };

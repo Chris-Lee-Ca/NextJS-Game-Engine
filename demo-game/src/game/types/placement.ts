@@ -30,6 +30,10 @@ interface PaintingObjectPlacement extends CustomPlacement {
     paintingType: string;
 }
 
+interface SchoolObjectPlacement extends CustomPlacement {
+    schoolType: string;
+}
+
 interface RoadObjectPlacement extends CustomPlacement {
     roadType: RoadType;
     facing: Facing;
@@ -45,5 +49,6 @@ export type {
     PortalObjectPlacement,
     CompanyObjectPlacement,
     PaintingObjectPlacement,
+    SchoolObjectPlacement,
     RoadObjectPlacement,
 };

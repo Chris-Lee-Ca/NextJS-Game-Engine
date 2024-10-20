@@ -16,4 +16,11 @@ const projectNicknameMapping: Record<string, string> = {
     "portfolio-game-v1": "portfolio-game",
 };
 
-export { experienceIdMapping, projectNicknameMapping };
+// map education id to sanity all educations school name
+const educationIdMapping: Record<string, string> = {
+    hku: "The University of Hong Kong",
+    ckad: "CKAD: Certified Kubernetes Application Developer",
+    "aws-saa": "AWS Certified Solutions Architect - Associate",
+};
+
+export { experienceIdMapping, projectNicknameMapping, educationIdMapping };

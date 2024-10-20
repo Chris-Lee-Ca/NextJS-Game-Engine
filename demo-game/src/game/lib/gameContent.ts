@@ -1,4 +1,4 @@
-import { BioInterface, EducationInterface, SkillSetInterface } from "../types/gameContent";
+import { BioInterface, SkillSetInterface } from "../types/gameContent";
 
 export const Bio: BioInterface = {
     name: ["Chris Lee"],
@@ -207,35 +207,5 @@ export const SkillSets: SkillSetInterface[] = [
                 image: require("../assets/skillImage/postman-icon.png").default.src,
             },
         ],
-    },
-];
-
-export const Education: EducationInterface[] = [
-    {
-        id: 0,
-        img: "https://media.licdn.com/dms/image/C4D0BAQEubCTgcfA2sQ/company-logo_100_100/0/1519910081555?e=2147483647&v=beta&t=TiJJQSCVIGXAnoxRb2FzpW22OkoaAYZ99Bv-4X7ENvo",
-        school: "The University of Hong Kong",
-        desc: [
-            {
-                subTitle: "Computer science related course work:",
-                content:
-                    "Java & Object-oriented programming (OOP), Data Structure & Algorithms, Linux Environment, Data Science.",
-            },
-            {
-                subTitle: "Programming course work in Electrical engineering major:",
-                content: "Arduino software coding, Matlab simulation for the solar panel.",
-            },
-            {
-                subTitle: "Large scale project:",
-                content: "Arduino automatic vehicle project, Mock algorithm trading with python.",
-            },
-            {
-                subTitle: "Final year project:",
-                content:
-                    '"Training a robot to see and communicate" --- investigate the possibilities and limitation when adopting different latest object detection models into one of the most famous pre-built robot (NAO designed by SoftBank)',
-            },
-        ],
-        skills: ["Python", "C++", "Java", "MATLAB", "Arduino", "TensorFlow", "Linux"],
-        degree: "Bachelor of Electrical Engineering",
     },
 ];

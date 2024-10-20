@@ -28,6 +28,11 @@ import {
     PortfolioGameV1ModalWindowComponent,
     SudokuModalWindowComponent,
 } from "../placements/tile/painting/ModalComponent";
+import {
+    AwsSaaSchoolModalWindowComponent,
+    CkadSchoolModalWindowComponent,
+    HkuSchoolModalWindowComponent,
+} from "../placements/tile/school/ModalComponent";
 
 type ModalWindowType = Exclude<OriginalModalWindowType, null>;
 
@@ -57,6 +62,9 @@ const modalWindowComponents: Record<ModalWindowType, ModalWindowConfig> = {
     "project-final-year-project": FinalYearProjectModalWindowComponent,
     "project-arduino-car": ArduinoCarModalWindowComponent,
     "project-portfolio-game-v1": PortfolioGameV1ModalWindowComponent,
+    "school-hku": HkuSchoolModalWindowComponent,
+    "school-ckad": CkadSchoolModalWindowComponent,
+    "school-aws-saa": AwsSaaSchoolModalWindowComponent,
 };
 
 interface ModalWindowFactoryProps {

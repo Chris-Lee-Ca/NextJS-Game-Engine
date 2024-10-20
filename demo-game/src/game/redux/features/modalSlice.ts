@@ -22,6 +22,9 @@ export type ModalWindowType =
     | "project-final-year-project"
     | "project-arduino-car"
     | "project-portfolio-game-v1"
+    | "school-hku"
+    | "school-ckad"
+    | "school-aws-saa"
     | null;
 
 export interface ModalStateInterface {
