@@ -47,17 +47,10 @@ const InnerContainer = styled(Box)({
 });
 
 const ImgWrapper = styled(Box)({
-    width: "100%",
-    maxWidth: "200px",
-    height: "15vh",
-    maxHeight: "200px",
-    backgroundColor: CUSTOM_STYLE.COLOR.MAIN_WHITE,
-    border: `3px solid ${CUSTOM_STYLE.COLOR.MAIN_BLACK}`,
-    borderRadius: "10px",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    padding: "5px",
+    marginBottom: "15px",
 });
 
 const ContentContainer = styled(Box)({
@@ -123,7 +116,19 @@ const ModalWindow = (props: ModalWindowPropsInterface) => {
                     <Container ref={containerRef}>
                         <InnerContainer>
                             <ImgWrapper>
-                                <Image src={imageSrc} style={{ objectFit: "contain" }} />
+                                <Image
+                                    src={imageSrc}
+                                    style={{
+                                        height: "15vh",
+                                        maxWidth: "90%",
+                                        maxHeight: "250px",
+                                        backgroundColor: CUSTOM_STYLE.COLOR.MAIN_WHITE,
+                                        border: `3px solid ${CUSTOM_STYLE.COLOR.MAIN_BLACK}`,
+                                        borderRadius: "10px",
+                                        objectFit: "contain",
+                                    }}
+                                />
+                                {/* <Img src={imageSrc} /> */}
                             </ImgWrapper>
                             <ContentContainer>{content}</ContentContainer>
                             <ButtonContainer>{buttonGroup}</ButtonContainer>

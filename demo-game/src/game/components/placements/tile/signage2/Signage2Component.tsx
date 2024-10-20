@@ -6,8 +6,15 @@ import Signage2Image from "@/game/assets/componentImage/signage2.png";
 import InteractionPrompt from "@/game/components/template/InteractionPrompt";
 import { useAppDispatch } from "@/game/redux/hooks";
 import { ModalWindowType, openModalWindow } from "@/game/redux/features/modalSlice";
-import { styled, Typography } from "@mui/material";
+import { Box, styled, Typography } from "@mui/material";
 import { CUSTOM_STYLE } from "@/game/lib/conts";
+
+const Wrapper = styled(Box)({
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+});
 
 const Title = styled(Typography)({
     position: "absolute",
@@ -36,8 +43,10 @@ const Signage2Component: React.FC<Signage2ComponentProps> = (props) => {
     return (
         <>
             {isUserNearSignage2 && <InteractionPrompt promptKey="k" onClickFunction={onClickHandler} />}
-            <Title>{field}</Title>
-            <GridSizeImage src={Signage2Image.src} />
+            <Wrapper>
+                <Title>{field}</Title>
+                <GridSizeImage src={Signage2Image.src} />
+            </Wrapper>
         </>
     );
 };

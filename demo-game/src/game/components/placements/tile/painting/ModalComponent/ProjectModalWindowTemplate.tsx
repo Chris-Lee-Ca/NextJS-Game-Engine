@@ -1,6 +1,6 @@
 import ModalWindowBuilder from "@/game/components/modal/ModalWindowBuilder";
 import { ModalWindowConfig } from "@/game/components/modal/ModalWindowFactory";
-import { ModalTitle } from "@/game/components/styled";
+import { ModalBlockContent, ModalTitle } from "@/game/components/styled";
 import ActionButton from "@/game/components/template/ActionButton";
 import CloseModalButton from "@/game/components/template/CloseModalButton";
 import SanityBlockContent from "@/game/components/template/SanityBlockContent";
@@ -10,8 +10,9 @@ import { Project } from "@/game/types/gameStaticData";
 import { Box, styled, Typography } from "@mui/material";
 
 const SkillsContainer = styled(Box)({
-    margin: "10px 0px 10px",
+    margin: "0px 0px 10px",
     display: "flex",
+    justifyContent: "center",
 });
 
 const SkillWrapper = styled(Box)({
@@ -27,7 +28,10 @@ const Skill = styled(Box)({
 });
 
 const KeyFeatures = styled(Box)({
-    margin: "0px 30px 6px 0px",
+    margin: "20px 0px 6px 20px",
+    display: "flex",
+    justifyContent: "center",
+    width: "100%",
 });
 
 interface ProjectModalWindowTemplateProps {
@@ -40,19 +44,29 @@ export const ProjectModalWindowTemplate: React.FC<ProjectModalWindowTemplateProp
     return (
         <>
             <ModalTitle>{project.title}</ModalTitle>
-            <SkillsContainer>
-                <SkillWrapper>
-                    {project.tags.map((tag, index) => (
-                        <Skill key={index}>• {tag}</Skill>
-                    ))}
-                </SkillWrapper>
-            </SkillsContainer>
-            <Typography mt={2} fontWeight={800} fontSize={"20px"}>
-                Key Features:
-            </Typography>
-            <KeyFeatures>
-                <SanityBlockContent content={project.descriptionRaw} />
-            </KeyFeatures>
+            <ModalBlockContent
+                style={{
+                    width: "90%",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}
+            >
+                <SkillsContainer>
+                    <SkillWrapper>
+                        {project.tags.map((tag, index) => (
+                            <Skill key={index}>• {tag}</Skill>
+                        ))}
+                    </SkillWrapper>
+                </SkillsContainer>
+                <Typography mt={2} fontWeight={800} fontSize={"20px"}>
+                    Key Features:
+                </Typography>
+                <KeyFeatures>
+                    <SanityBlockContent content={project.descriptionRaw} />
+                </KeyFeatures>
+            </ModalBlockContent>
         </>
     );
 };

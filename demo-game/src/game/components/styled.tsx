@@ -40,6 +40,7 @@ export const DefaultButton = styled(Button)({
 export const ModalTitle = styled(Box)({
     fontWeight: "bolder",
     fontSize: "30px",
+    textAlign: "center",
 });
 
 export const ModalSubTitle = styled(Box)({
@@ -53,6 +54,12 @@ export const ModalContent = styled(Box)({
     fontWeight: "bold",
     textDecoration: "underline",
     textAlign: "center",
+    marginTop: "20px",
+    marginBottom: "5px",
+});
+
+export const ModalBlockContent = styled(Box)({
+    width: "100%",
     marginTop: "20px",
     marginBottom: "5px",
 });

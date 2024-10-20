@@ -1,6 +1,6 @@
 import ModalWindowBuilder from "@/game/components/modal/ModalWindowBuilder";
 import { ModalWindowConfig } from "@/game/components/modal/ModalWindowFactory";
-import { ModalSubTitle, ModalTitle } from "@/game/components/styled";
+import { ModalBlockContent, ModalSubTitle, ModalTitle } from "@/game/components/styled";
 import SanityBlockContent from "@/game/components/template/SanityBlockContent";
 import { reduxStore } from "@/game/redux/store";
 import { educationIdMapping } from "@/game/sanity/sanityContentMapping";
@@ -8,8 +8,9 @@ import { Education } from "@/game/types/gameStaticData";
 import { Box, styled } from "@mui/material";
 
 const SkillsContainer = styled(Box)({
-    margin: "10px 0px 10px",
+    margin: "20px 0px 10px",
     display: "flex",
+    justifyContent: "center",
 });
 
 const SkillWrapper = styled(Box)({
@@ -35,14 +36,16 @@ export const SchoolModalWindowTemplate: React.FC<SchoolModalWindowTemplateProps>
         <>
             <ModalTitle>{education.school}</ModalTitle>
             <ModalSubTitle>{education.degree}</ModalSubTitle>
-            <SanityBlockContent content={education.descriptionRaw} />
-            <SkillsContainer>
-                <SkillWrapper>
-                    {education.skills.map((skill, index) => (
-                        <Skill key={index}>• {skill}</Skill>
-                    ))}
-                </SkillWrapper>
-            </SkillsContainer>
+            <ModalBlockContent>
+                <SanityBlockContent content={education.descriptionRaw} />
+                <SkillsContainer>
+                    <SkillWrapper>
+                        {education.skills.map((skill, index) => (
+                            <Skill key={index}>• {skill}</Skill>
+                        ))}
+                    </SkillWrapper>
+                </SkillsContainer>
+            </ModalBlockContent>
         </>
     );
 };

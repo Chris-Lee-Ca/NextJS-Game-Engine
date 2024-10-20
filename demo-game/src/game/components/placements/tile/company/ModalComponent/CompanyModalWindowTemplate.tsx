@@ -1,6 +1,6 @@
 import ModalWindowBuilder from "@/game/components/modal/ModalWindowBuilder";
 import { ModalWindowConfig } from "@/game/components/modal/ModalWindowFactory";
-import { ModalSubTitle, ModalTitle } from "@/game/components/styled";
+import { ModalBlockContent, ModalSubTitle, ModalTitle } from "@/game/components/styled";
 import SanityBlockContent from "@/game/components/template/SanityBlockContent";
 import { CUSTOM_STYLE } from "@/game/lib/conts";
 import { reduxStore } from "@/game/redux/store";
@@ -16,8 +16,9 @@ const Date = styled(Typography)({
 });
 
 const SkillsContainer = styled(Box)({
-    margin: "10px 0px 10px",
+    margin: "0px 0px 20px",
     display: "flex",
+    justifyContent: "center",
 });
 
 const SkillWrapper = styled(Box)({
@@ -55,22 +56,24 @@ export const CompanyModalWindowTemplate: React.FC<CompanyModalWindowTemplateProp
             <ModalTitle>{experience.role}</ModalTitle>
             <ModalSubTitle>{experience.company}</ModalSubTitle>
             <Date>{experience.date}</Date>
-            <SkillsContainer>
-                <SkillWrapper>
-                    {experience.skills.map((skill, index) => (
-                        <Skill key={index}>• {skill}</Skill>
-                    ))}
-                </SkillWrapper>
-            </SkillsContainer>
-            <SanityBlockContent content={experience.descriptionRaw} />
-            <Typography mt={1} fontWeight={800} fontSize={"15px"}>
-                Key Achievements:
-            </Typography>
-            {experience.achievements.map((achievement, index) => (
-                <Achievements key={index}>
-                    <Achievement>{achievement}</Achievement>
-                </Achievements>
-            ))}
+            <ModalBlockContent>
+                <SkillsContainer>
+                    <SkillWrapper>
+                        {experience.skills.map((skill, index) => (
+                            <Skill key={index}>• {skill}</Skill>
+                        ))}
+                    </SkillWrapper>
+                </SkillsContainer>
+                <SanityBlockContent content={experience.descriptionRaw} />
+                <Typography mt={2} fontWeight={800} fontSize={"15px"}>
+                    Key Achievements:
+                </Typography>
+                {experience.achievements.map((achievement, index) => (
+                    <Achievements key={index}>
+                        <Achievement>{achievement}</Achievement>
+                    </Achievements>
+                ))}
+            </ModalBlockContent>
         </>
     );
 };
