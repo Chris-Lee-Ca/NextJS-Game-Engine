@@ -1,7 +1,7 @@
 import DialogWindowBuilder from "@/game/components/dialog/DialogWindowBuilder";
 import { DialogWindowConfig } from "@/game/components/dialog/DialogWindowFactory";
 import { DialogContent } from "@/game/components/styled";
-import TypeWriter from "game-engine/components/TypeWriter";
+import TypeWriter from "./TypeWriter";
 
 const IntroDialogContent: React.FC = () => {
     return (

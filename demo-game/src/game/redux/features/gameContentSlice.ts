@@ -24,7 +24,6 @@ const initialState: GameContentStateInterface = {
 export const fetchGameContent = createAsyncThunk<GameContentType>("gameContent/fetchInitialState", async () => {
     try {
         const { data } = await apolloClient.query({ query: getAllGameStaticData });
-        console.log("Fetch data: ", data);
         return {
             allEducation: data.allEducation,
             allExperience: data.allExperience,

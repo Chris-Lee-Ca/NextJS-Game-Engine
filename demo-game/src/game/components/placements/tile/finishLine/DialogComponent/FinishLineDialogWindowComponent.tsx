@@ -3,8 +3,8 @@ import { DialogWindowConfig } from "@/game/components/dialog/DialogWindowFactory
 import { DialogContent } from "@/game/components/styled";
 import ActionButton from "@/game/components/template/ActionButton";
 import CloseDialogButton from "@/game/components/template/CloseDialogButton";
+import TypeWriter from "@/game/components/TypeWriter";
 import { Bio } from "@/game/lib/gameContent";
-import TypeWriter from "game-engine/components/TypeWriter";
 
 const FinishLineDialogContent: React.FC = () => {
     return (

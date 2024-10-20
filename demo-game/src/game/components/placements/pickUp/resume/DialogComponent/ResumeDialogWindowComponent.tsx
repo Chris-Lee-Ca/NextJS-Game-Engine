@@ -3,10 +3,10 @@ import { DialogWindowConfig } from "@/game/components/dialog/DialogWindowFactory
 import { DialogContent } from "@/game/components/styled";
 import ActionButton from "@/game/components/template/ActionButton";
 import CloseDialogButton from "@/game/components/template/CloseDialogButton";
+import TypeWriter from "@/game/components/TypeWriter";
 import { Bio } from "@/game/lib/gameContent";
 import { closeDialogWindow } from "@/game/redux/features/dialogSlice";
 import { useAppDispatch } from "@/game/redux/hooks";
-import TypeWriter from "game-engine/components/TypeWriter";
 
 const ResumeDialogContent: React.FC = () => {
     return (
