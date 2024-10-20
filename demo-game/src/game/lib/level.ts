@@ -23,6 +23,15 @@ const intro_level_1: LevelInfo = {
     tilesHeight: 5,
     placements: [
         {
+            id: "Tile-shrub-5-4",
+            coord: {
+                x: 5,
+                y: 4,
+            },
+            type: "Tile",
+            itemName: "shrub",
+        },
+        {
             id: "Tile-flowers-7-0",
             coord: {
                 x: 7,
@@ -32,35 +41,41 @@ const intro_level_1: LevelInfo = {
             itemName: "flowers",
         },
         {
-            id: "Tile-flowers-1-0",
+            id: "Tile-flowers-5-1",
             coord: {
-                x: 1,
+                x: 5,
+                y: 1,
+            },
+            type: "Tile",
+            itemName: "flowers",
+        },
+        {
+            id: "Tile-flowers-3-0",
+            coord: {
+                x: 3,
                 y: 0,
             },
             type: "Tile",
             itemName: "flowers",
         },
         {
-            id: "Tile-road-7-2",
+            id: "Tile-flowers-1-1",
             coord: {
-                x: 7,
-                y: 2,
+                x: 1,
+                y: 1,
             },
             type: "Tile",
-            itemName: "road",
-            roadType: "dead-end",
-            facing: "left",
+            itemName: "flowers",
         },
         {
-            id: "Tile-road-6-2",
+            id: "Tile-signage-4-2",
             coord: {
-                x: 6,
+                x: 4,
                 y: 2,
             },
             type: "Tile",
-            itemName: "road",
-            roadType: "straight",
-            facing: "left",
+            itemName: "signage",
+            signageType: "intro",
         },
         {
             id: "Tile-portal-8-2",
@@ -73,29 +88,10 @@ const intro_level_1: LevelInfo = {
             portalType: "next",
         },
         {
-            id: "Tile-signage-4-1",
-            coord: {
-                x: 4,
-                y: 1,
-            },
-            type: "Tile",
-            itemName: "signage",
-            signageType: "intro",
-        },
-        {
             id: "Tile-shrub-7-3",
             coord: {
                 x: 7,
                 y: 3,
-            },
-            type: "Tile",
-            itemName: "shrub",
-        },
-        {
-            id: "Tile-shrub-4-4",
-            coord: {
-                x: 4,
-                y: 4,
             },
             type: "Tile",
             itemName: "shrub",
@@ -117,62 +113,6 @@ const intro_level_1: LevelInfo = {
             },
             type: "Tile",
             itemName: "shrub",
-        },
-
-        {
-            id: "Tile-road-4-2",
-            coord: {
-                x: 4,
-                y: 2,
-            },
-            type: "Tile",
-            itemName: "road",
-            roadType: "straight",
-            facing: "left",
-        },
-        {
-            id: "Tile-road-3-2",
-            coord: {
-                x: 3,
-                y: 2,
-            },
-            type: "Tile",
-            itemName: "road",
-            roadType: "straight",
-            facing: "left",
-        },
-        {
-            id: "Tile-road-5-2",
-            coord: {
-                x: 5,
-                y: 2,
-            },
-            type: "Tile",
-            itemName: "road",
-            roadType: "straight",
-            facing: "left",
-        },
-        {
-            id: "Tile-road-2-2",
-            coord: {
-                x: 2,
-                y: 2,
-            },
-            type: "Tile",
-            itemName: "road",
-            roadType: "straight",
-            facing: "left",
-        },
-        {
-            id: "Tile-road-1-2",
-            coord: {
-                x: 1,
-                y: 2,
-            },
-            type: "Tile",
-            itemName: "road",
-            roadType: "dead-end",
-            facing: "right",
         },
         {
             id: "Character-main character-0-2",
