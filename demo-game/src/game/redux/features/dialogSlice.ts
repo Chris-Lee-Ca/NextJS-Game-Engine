@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch } from "../store";
 
-export type DialogWindowType = "resume" | "finish-line" | null;
+export type DialogWindowType = "intro" | "resume" | "finish-line" | null;
 
 export interface DialogStateInterface {
     isOpenDialogWindow: boolean;
@@ -10,8 +10,8 @@ export interface DialogStateInterface {
 }
 
 const initialState: DialogStateInterface = {
-    isOpenDialogWindow: false,
-    dialogWindowType: null,
+    isOpenDialogWindow: true,
+    dialogWindowType: "intro",
 };
 
 export const dialogSlice = createSlice({

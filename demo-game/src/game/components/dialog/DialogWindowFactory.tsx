@@ -3,6 +3,7 @@ import DialogWindow from "./DialogWindow";
 import { ReactNode } from "react";
 import { ResumeDialogWindowComponent } from "../placements/pickUp/resume/DialogComponent";
 import { FinishLineDialogWindowComponent } from "../placements/tile/finishLine/DialogComponent";
+import IntroDialogWindowComponent from "../IntroDialogWindowComponent";
 
 type DialogWindowType = Exclude<OriginalDialogWindowType, null>;
 
@@ -13,6 +14,7 @@ export interface DialogWindowConfig {
 }
 
 const dialogWindowComponents: Record<DialogWindowType, DialogWindowConfig> = {
+    intro: IntroDialogWindowComponent,
     resume: ResumeDialogWindowComponent,
     "finish-line": FinishLineDialogWindowComponent,
 };
