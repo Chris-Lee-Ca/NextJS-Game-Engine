@@ -10,7 +10,6 @@ import GridHelper from "game-engine/helper/GridHelper";
 import Image from "game-engine/components/Image";
 import { reduxStore } from "@/game/redux/store";
 import { Project } from "@/game/types/gameStaticData";
-import { projectNicknameMapping } from "@/game/sanity/sanityContentMapping";
 
 const Wrapper = styled(Box)({
     display: "flex",
@@ -56,9 +55,7 @@ const PaintingComponent: React.FC<PaintingComponentProps> = (props) => {
     const { allProject } = data!;
 
     const projectName = paintingType.split("-").slice(1).join("-");
-    const project = allProject.find(
-        (project) => project.slug.current === projectNicknameMapping[projectName]
-    ) as Project;
+    const project = allProject.find((project) => project.id === projectName) as Project;
 
     return (
         <>

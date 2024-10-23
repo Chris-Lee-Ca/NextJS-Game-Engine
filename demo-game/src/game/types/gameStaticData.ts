@@ -1,4 +1,5 @@
 type Education = {
+    id: string;
     school: string;
     descriptionRaw: any[];
     image: { asset: { url: string } };
@@ -7,6 +8,7 @@ type Education = {
 };
 
 type Experience = {
+    id: string;
     role: string;
     company: string;
     image: { asset: { url: string } };
@@ -17,6 +19,7 @@ type Experience = {
 };
 
 type Project = {
+    id: string;
     title: string;
     slug: {
         current: string;

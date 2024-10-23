@@ -5,7 +5,6 @@ import ActionButton from "@/game/components/template/ActionButton";
 import CloseModalButton from "@/game/components/template/CloseModalButton";
 import SanityBlockContent from "@/game/components/template/SanityBlockContent";
 import { reduxStore } from "@/game/redux/store";
-import { projectNicknameMapping } from "@/game/sanity/sanityContentMapping";
 import { Project } from "@/game/types/gameStaticData";
 import { Box, styled, Typography } from "@mui/material";
 
@@ -71,13 +70,11 @@ export const ProjectModalWindowTemplate: React.FC<ProjectModalWindowTemplateProp
     );
 };
 
-export const createProjectPaintingModalWindowComponent = (projectNickname: string): ModalWindowConfig => {
+export const createProjectPaintingModalWindowComponent = (projectId: string): ModalWindowConfig => {
     const data = reduxStore.getState().gameContent.data;
     const { allProject } = data!;
 
-    const project = allProject.find(
-        (project) => project.slug.current === projectNicknameMapping[projectNickname]
-    ) as Project;
+    const project = allProject.find((project) => project.id === projectId) as Project;
 
     const ContentComponent: React.FC = () => <ProjectModalWindowTemplate project={project} />;
 

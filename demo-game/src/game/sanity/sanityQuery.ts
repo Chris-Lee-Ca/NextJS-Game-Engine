@@ -3,6 +3,7 @@ import { gql } from "@apollo/client";
 export const getAllGameStaticData = gql`
     query GetAllGameStaticData {
         allEducation {
+            id
             school
             descriptionRaw
             image {
@@ -14,6 +15,7 @@ export const getAllGameStaticData = gql`
             degree
         }
         allExperience {
+            id
             role
             company
             image {
@@ -27,6 +29,7 @@ export const getAllGameStaticData = gql`
             achievements
         }
         allProject {
+            id
             title
             slug {
                 current

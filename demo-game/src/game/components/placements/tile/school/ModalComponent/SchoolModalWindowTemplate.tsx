@@ -3,7 +3,6 @@ import { ModalWindowConfig } from "@/game/components/modal/ModalWindowFactory";
 import { ModalBlockContent, ModalSubTitle, ModalTitle } from "@/game/components/styled";
 import SanityBlockContent from "@/game/components/template/SanityBlockContent";
 import { reduxStore } from "@/game/redux/store";
-import { educationIdMapping } from "@/game/sanity/sanityContentMapping";
 import { Education } from "@/game/types/gameStaticData";
 import { Box, styled } from "@mui/material";
 
@@ -54,9 +53,7 @@ export const createSchoolModalWindowComponent = (educationId: string): ModalWind
     const data = reduxStore.getState().gameContent.data;
     const { allEducation } = data!;
 
-    const education = allEducation.find(
-        (education) => education.school === educationIdMapping[educationId]
-    ) as Education;
+    const education = allEducation.find((education) => education.id === educationId) as Education;
 
     const ContentComponent: React.FC = () => <SchoolModalWindowTemplate education={education} />;
 

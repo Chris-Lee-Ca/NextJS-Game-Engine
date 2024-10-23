@@ -4,7 +4,6 @@ import { ModalBlockContent, ModalSubTitle, ModalTitle } from "@/game/components/
 import SanityBlockContent from "@/game/components/template/SanityBlockContent";
 import { CUSTOM_STYLE } from "@/game/lib/conts";
 import { reduxStore } from "@/game/redux/store";
-import { experienceIdMapping } from "@/game/sanity/sanityContentMapping";
 import { Experience } from "@/game/types/gameStaticData";
 import { Box, styled, Typography } from "@mui/material";
 
@@ -82,9 +81,7 @@ export const createCompanyModalWindowComponent = (experienceId: string): ModalWi
     const data = reduxStore.getState().gameContent.data;
     const { allExperience } = data!;
 
-    const experience = allExperience.find(
-        (experience) => experience.company === experienceIdMapping[experienceId]
-    ) as Experience;
+    const experience = allExperience.find((experience) => experience.id === experienceId) as Experience;
 
     const ContentComponent: React.FC = () => <CompanyModalWindowTemplate experience={experience} />;
 
