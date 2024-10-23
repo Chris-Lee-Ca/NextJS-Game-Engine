@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import GameCanvas from "./GameCanvas";
-import { useAppSelector } from "@/game/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/game/redux/hooks";
 import { useCSSVariable } from "game-engine/hooks/useCSSVariable";
 import GameLoop from "game-engine/core/GameLoop";
 import { CUSTOM_STYLE } from "../lib/conts";
@@ -14,6 +14,7 @@ import ModalWindowFactory from "../components/modal/ModalWindowFactory";
 import StyledAlert from "../components/template/StyledAlert";
 import VirtualKeyboard from "../components/VirtualKeyboard";
 import { KEYBOARD_EVENT_PLUGIN_ID, KeyboardEventHandler } from "game-engine/extensions/plugins/keyboardEventPlugin";
+import { openAlert } from "../redux/features/alertSlice";
 
 const GameBody = ({ gameLoop }: { gameLoop: GameLoop }) => {
     const levelState = useAppSelector((state) => state[LEVEL_PLUGIN_ID]);
@@ -21,6 +22,24 @@ const GameBody = ({ gameLoop }: { gameLoop: GameLoop }) => {
     const modalState = useAppSelector((state) => state.modal);
     const alertState = useAppSelector((state) => state.alert);
     const scaleFactor = useCSSVariable("--scale-factor"); //TODO make website responsive
+
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        // Check if the user is using Chrome
+        const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+
+        // If not Chrome, show the warning
+        if (!isChrome) {
+            dispatch(
+                openAlert({
+                    type: "warning",
+                    content: "For the best experience, please switch to using Google Chrome.",
+                    ttl: 5000,
+                })
+            );
+        }
+    }, []);
 
     useEffect(() => {
         (gameLoop.plugins[LEVEL_PLUGIN_ID] as LevelHandler).loadLevel();

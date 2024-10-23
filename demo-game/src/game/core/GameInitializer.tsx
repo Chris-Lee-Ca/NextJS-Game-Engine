@@ -16,6 +16,7 @@ import { allDemoLevelInfo } from "../lib/level";
 import GameBody from "./GameBody";
 import { ACTION_KEY_MAPPING } from "../lib/control";
 
+// Create & Init GameLoop
 const GameInitializer = () => {
     const appStore = useAppStore();
     const dispatch = useAppDispatch();
