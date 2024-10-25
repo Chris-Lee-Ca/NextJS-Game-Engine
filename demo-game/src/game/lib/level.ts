@@ -198,15 +198,6 @@ const resume_level_2: LevelInfo = {
             itemName: "shrub",
         },
         {
-            id: "Character-main character-0-1",
-            coord: {
-                x: 0,
-                y: 1,
-            },
-            type: "Character",
-            itemName: "main character",
-        },
-        {
             id: "Tile-portal-0-0",
             coord: {
                 x: 0,
@@ -360,6 +351,15 @@ const resume_level_2: LevelInfo = {
             },
             type: "Tile",
             itemName: "shrub",
+        },
+        {
+            id: "Character-main character-0-1",
+            coord: {
+                x: 0,
+                y: 1,
+            },
+            type: "Character",
+            itemName: "main character",
         },
     ] as Placement[],
 };
