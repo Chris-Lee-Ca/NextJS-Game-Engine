@@ -14,7 +14,10 @@ import GameObject from "game-engine/components/GameObject";
 
 type GameCanvasProps = {};
 
-const Canvas = styled(Box)({});
+const Canvas = styled(Box)({
+    position: "relative",
+    transformStyle: "preserve-3d",
+});
 
 const createBackgroundTile = (rowIndex: number, colIndex: number, gridSide: number, levelInfo: LevelInfo) => {
     return (
@@ -36,7 +39,9 @@ const createGameObject = (object: GameObject) => {
             key={`game-object-${object.id}`}
             style={{
                 position: "absolute",
-                transform: `translate(${object.position.x}px, ${object.position.y}px)`,
+                transform: `translate3d(${object.position.x}px, ${object.position.y}px, ${
+                    object.bound ? object.bound.y : object.position.y
+                }px)`,
             }}
         >
             {object.render()}
