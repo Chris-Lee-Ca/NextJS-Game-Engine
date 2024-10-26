@@ -27,6 +27,7 @@ import {
     GamehubModalWindowComponent,
     PortfolioGameV1ModalWindowComponent,
     SudokuModalWindowComponent,
+    NextJSGameEngineModalWindowComponent,
 } from "../placements/tile/painting/ModalComponent";
 import {
     AwsSaaSchoolModalWindowComponent,
@@ -62,6 +63,7 @@ const modalWindowComponents: Record<ModalWindowType, ModalWindowConfig> = {
     "project-final-year-project": FinalYearProjectModalWindowComponent,
     "project-arduino-car": ArduinoCarModalWindowComponent,
     "project-portfolio-game-v1": PortfolioGameV1ModalWindowComponent,
+    "project-next-js-game-engine": NextJSGameEngineModalWindowComponent,
     "school-hku": HkuSchoolModalWindowComponent,
     "school-ckad": CkadSchoolModalWindowComponent,
     "school-aws-saa": AwsSaaSchoolModalWindowComponent,

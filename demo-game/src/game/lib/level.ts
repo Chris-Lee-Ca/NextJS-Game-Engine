@@ -1248,8 +1248,61 @@ const project_level_6: LevelInfo = {
     nextLevel: "finish-level-7",
     theme: defaultLevelTheme,
     tilesWidth: 5,
-    tilesHeight: 14,
+    tilesHeight: 15,
     placements: [
+        {
+            id: "Tile-painting-4-12",
+            coord: {
+                x: 4,
+                y: 12,
+            },
+            type: "Tile",
+            itemName: "painting",
+            paintingType: "project-next-js-game-engine",
+        },
+        {
+            id: "Tile-road-3-12",
+            coord: {
+                x: 3,
+                y: 12,
+            },
+            type: "Tile",
+            itemName: "road",
+            roadType: "straight",
+            facing: "left",
+        },
+        {
+            id: "Tile-road-2-12",
+            coord: {
+                x: 2,
+                y: 12,
+            },
+            type: "Tile",
+            itemName: "road",
+            roadType: "t-junction",
+            facing: "right",
+        },
+        {
+            id: "Tile-portal-2-14",
+            coord: {
+                x: 2,
+                y: 14,
+            },
+            type: "Tile",
+            itemName: "portal",
+            portalType: "next",
+        },
+        {
+            id: "Tile-road-2-13",
+            coord: {
+                x: 2,
+                y: 13,
+            },
+            type: "Tile",
+            itemName: "road",
+            roadType: "dead-end",
+            facing: "up",
+        },
         {
             id: "Tile-road-2-4",
             coord: {
@@ -1260,27 +1313,6 @@ const project_level_6: LevelInfo = {
             itemName: "road",
             roadType: "dead-end",
             facing: "down",
-        },
-        {
-            id: "Tile-portal-2-13",
-            coord: {
-                x: 2,
-                y: 13,
-            },
-            type: "Tile",
-            itemName: "portal",
-            portalType: "next",
-        },
-        {
-            id: "Tile-road-2-12",
-            coord: {
-                x: 2,
-                y: 12,
-            },
-            type: "Tile",
-            itemName: "road",
-            roadType: "dead-end",
-            facing: "up",
         },
         {
             id: "Tile-road-1-11",

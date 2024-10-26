@@ -208,6 +208,7 @@ export const previewObjectList: { [key in CustomPlacementType]: PreviewObjectIte
             "project-final-year-project",
             "project-arduino-car",
             "project-portfolio-game-v1",
+            "project-next-js-game-engine",
         ]),
         // school
         ...createSchoolPreviewObjectList(["hku", "ckad", "aws-saa"]),

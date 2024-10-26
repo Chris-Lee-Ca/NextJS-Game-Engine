@@ -5,6 +5,7 @@ import FinalYearProjectModalWindowComponent from "./FinalYearProjectModalWindowC
 import GamehubModalWindowComponent from "./GamehubModalWindowComponent";
 import PortfolioGameV1ModalWindowComponent from "./PortfolioGameV1ModalWindowComponent";
 import SudokuModalWindowComponent from "./SudokuModalWindowComponent";
+import NextJSGameEngineModalWindowComponent from "./NextJSGameEngineModalWindowComponent";
 
 export {
     ArduinoCarModalWindowComponent,
@@ -14,4 +15,5 @@ export {
     GamehubModalWindowComponent,
     PortfolioGameV1ModalWindowComponent,
     SudokuModalWindowComponent,
+    NextJSGameEngineModalWindowComponent,
 };
