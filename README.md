@@ -1,4 +1,4 @@
-# Next JS Game Engine (Under Development)
+# Next JS Game Engine
 
 - The `game-engine` folder provides tools for building a 2D game.
 - The `demo-game` folder offers an example of how to use the `game-engine` folder to build a game.
