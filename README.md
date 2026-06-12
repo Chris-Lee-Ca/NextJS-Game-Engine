@@ -1,11 +1,13 @@
 # Next JS Game Engine
 
-- The `game-engine` folder provides tools for building a 2D game.
-- The `demo-game` folder offers an example of how to use the `game-engine` folder to build a game.
+A 2D game engine built on top of Next.js, with a portfolio game as its demo.
 
-## Tech Using
+- The `game-engine` folder is the reusable library for building 2D games.
+- The `demo-game` folder is a portfolio game built using `game-engine`, serving as both a usage example and a live demo.
 
-Typescript, Next.JS, Redux, Material UI
+## Tech Stack
+
+TypeScript, Next.JS, Redux, Material UI
 
 ## Remark
 
@@ -15,14 +17,36 @@ Even when using "use client," `Next.js` still renders client components on the s
 
 Therefore, if you're more focused on game development, place transfer the entire project to `React.js` (or perhaps using an existing game framework would be a smarter choice—unless you enjoy using `React` like I do !!).
 
+## Project Structure
+
+```
+next-js-game-engine/
+├── game-engine/    # Reusable game library — see game-engine/README.md
+└── demo-game/      # Portfolio game consuming game-engine — see demo-game/README.md
+```
+
+## Key Architectural Concepts
+
+**Extension system** — `core → plugin → module` dependency chain. Plugins extend the core (keyboard input, level management) and are initialised first. Modules build on top of a specific plugin (character direction/action control) and are initialised after. No reverse dependencies are allowed.
+
+**Game loop** — `GameLoop` is a singleton driven by `requestAnimationFrame` with a configurable FPS cap. Each tick dispatches a time update, then calls `update(deltaTime)` on every plugin, module, and pooled game object in order.
+
 ## Local Development
 
 ```sh
+# 1. Build the engine
+# Under /game-engine
+npm run build   # compiles TypeScript to dist/
+npm link        # registers the package globally for linking
+
+# 2. Run the demo game
 # Under /demo-game
 rm -rf .next
-npm link ../game-engine
+npm link game-engine
 npm run dev
 ```
+
+> Alternatively, run `make all` in `/game-engine` to produce a `.tgz`, copy it to `/demo-game`, then `npm install` there.
 
 ## Build Library
 
