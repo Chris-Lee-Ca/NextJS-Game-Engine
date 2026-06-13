@@ -49,7 +49,7 @@ const createGameObject = (object: GameObject) => {
     );
 };
 
-const GameCanvas = (props: GameCanvasProps) => {
+const GameCanvas = (_props: GameCanvasProps) => {
     useAppSelector((state) => state.core.time); //Subscribe "core time" to update the canvas every game loop
     const levelInfo = useAppSelector(selectCurrentLevelInfo);
     const editModeState = useAppSelector((state) => state.editMode);
@@ -66,6 +66,7 @@ const GameCanvas = (props: GameCanvasProps) => {
     }
     return (
         <Canvas
+            data-testid="game-canvas"
             style={{
                 transform: `translate(
                         ${-canvasBaseOffset.x - mainCharacter.position.x}px,

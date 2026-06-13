@@ -33,6 +33,7 @@ const Viewport = (props: ViewportProps) => {
     const { children, backgroundColor, top, bottom, left, right } = props;
     return (
         <ViewportBox
+            data-testid="game-viewport"
             style={{ backgroundColor, top: `${top}px`, bottom: `${bottom}px`, left: `${left}px`, right: `${right}px` }}
         >
             {children}

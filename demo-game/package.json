@@ -6,7 +6,9 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint"
+        "lint": "next lint",
+        "test:e2e": "playwright test",
+        "test:e2e:ui": "playwright test --ui"
     },
     "dependencies": {
         "@apollo/client": "^3.11.8",
@@ -19,12 +21,13 @@
         "@sanity/client": "^6.22.2",
         "game-engine": "file:game-engine-1.0.0.tgz",
         "graphql": "^16.9.0",
-        "next": "^14.2.14",
+        "next": "^14.2.35",
         "react": "^18",
         "react-dom": "^18",
         "react-redux": "^9.1.2"
     },
     "devDependencies": {
+        "@playwright/test": "^1.60.0",
         "@types/node": "^20",
         "@types/react": "^18",
         "@types/react-dom": "^18",

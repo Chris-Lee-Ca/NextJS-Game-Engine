@@ -58,7 +58,7 @@ const VirtualKeyboard = (props: VirtualKeyboardProps) => {
     };
 
     return (
-        <Container>
+        <Container data-testid="virtual-keyboard">
             <InenerContainer container>
                 <DirectionKeyContainer item xs={6}>
                     <Box component="div">

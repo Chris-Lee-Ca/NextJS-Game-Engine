@@ -29,7 +29,7 @@ interface StatusBarProps {}
 const StatusBar = (_props: StatusBarProps) => {
     return (
         <>
-            <StatusBarWrapper>
+            <StatusBarWrapper data-testid="status-bar">
                 <LeftSection>
                     <Backpack />
                 </LeftSection>
