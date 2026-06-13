@@ -34,19 +34,11 @@ next-js-game-engine/
 ## Local Development
 
 ```sh
-# 1. Build the engine
-# Under /game-engine
-npm run build   # compiles TypeScript to dist/
-npm link        # registers the package globally for linking
-
-# 2. Run the demo game
 # Under /demo-game
 rm -rf .next
-npm link game-engine
+npm link ../game-engine
 npm run dev
 ```
-
-> Alternatively, run `make all` in `/game-engine` to produce a `.tgz`, copy it to `/demo-game`, then `npm install` there.
 
 ## Build Library
 

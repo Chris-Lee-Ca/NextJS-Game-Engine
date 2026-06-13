@@ -5,7 +5,7 @@ import { ModalTitle } from "@/game/components/styled";
 const ExperienceModalModalContent: React.FC = () => {
     return (
         <>
-            <ModalTitle>Experience Ave</ModalTitle>
+            <ModalTitle>Quest Log</ModalTitle>
         </>
     );
 };

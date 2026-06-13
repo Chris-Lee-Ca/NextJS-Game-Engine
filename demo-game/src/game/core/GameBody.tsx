@@ -15,6 +15,7 @@ import StyledAlert from "../components/template/StyledAlert";
 import VirtualKeyboard from "../components/VirtualKeyboard";
 import { KEYBOARD_EVENT_PLUGIN_ID, KeyboardEventHandler } from "game-engine/extensions/plugins/keyboardEventPlugin";
 import { openAlert } from "../redux/features/alertSlice";
+import LevelAnnouncement from "../components/LevelAnnouncement";
 
 const GameBody = ({ gameLoop }: { gameLoop: GameLoop }) => {
     const levelState = useAppSelector((state) => state[LEVEL_PLUGIN_ID]);
@@ -51,6 +52,7 @@ const GameBody = ({ gameLoop }: { gameLoop: GameLoop }) => {
 
     return (
         <>
+            <LevelAnnouncement />
             <StatusBar />
             {alertState.isOpenAlertWindow && <StyledAlert />}
             {dialogState.isOpenDialogWindow && <DialogWindowFactory windowType={dialogState.dialogWindowType as any} />}

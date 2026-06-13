@@ -5,7 +5,7 @@ import { ModalTitle } from "@/game/components/styled";
 const EducationModalModalContent: React.FC = () => {
     return (
         <>
-            <ModalTitle>Education Ave</ModalTitle>
+            <ModalTitle>Origin Story</ModalTitle>
         </>
     );
 };

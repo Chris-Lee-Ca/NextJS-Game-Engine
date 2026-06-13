@@ -5,7 +5,7 @@ import { ModalTitle } from "@/game/components/styled";
 const SkillModalModalContent: React.FC = () => {
     return (
         <>
-            <ModalTitle>Skill Ave</ModalTitle>
+            <ModalTitle>Unlocked Skills</ModalTitle>
         </>
     );
 };
