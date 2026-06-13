@@ -5,6 +5,11 @@ Demo-game changes are not included.
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-06-12
+### Changed
+- Add Playwright E2E tests, upgrade Next.js 14.2.35, release tooling
+- more info in read me
+
 ## [1.3.0] - 2024-10-19
 ### Added
 - `MainCharacterActionControlModule` — new module for handling character action keys (e.g. interact) separately from direction input
