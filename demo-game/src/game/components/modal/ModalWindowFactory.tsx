@@ -1,4 +1,3 @@
-import { ModalWindowType as OriginalModalWindowType } from "@/game/redux/features/modalSlice";
 import ModalWindow from "./ModalWindow";
 import { ReactNode } from "react";
 import {
@@ -15,11 +14,6 @@ import {
     OthersSkillModalWindowComponent,
 } from "../placements/tile/signage2/ModalComponent";
 import {
-    PLCompanyModalWindowComponent,
-    RedcliffCompanyModalWindowComponent,
-    YauLeeCompanyModalWindowComponent,
-} from "../placements/tile/company/ModalComponent";
-import {
     ArduinoCarModalWindowComponent,
     BigTwoModalWindowComponent,
     CharacterGPTModalWindowComponent,
@@ -35,15 +29,35 @@ import {
     HkuSchoolModalWindowComponent,
 } from "../placements/tile/school/ModalComponent";
 
-type ModalWindowType = Exclude<OriginalModalWindowType, null>;
-
 export interface ModalWindowConfig {
     imageSrc: string;
     content: ReactNode;
     buttonGroup: ReactNode;
 }
 
-const modalWindowComponents: Record<ModalWindowType, ModalWindowConfig> = {
+type StaticModalWindowType =
+    | "intro"
+    | "skill"
+    | "project"
+    | "education"
+    | "experience"
+    | "skill-languages"
+    | "skill-frontend"
+    | "skill-backend"
+    | "skill-others"
+    | "project-gamehub"
+    | "project-big-two"
+    | "project-character-gpt"
+    | "project-sudoku"
+    | "project-final-year-project"
+    | "project-arduino-car"
+    | "project-portfolio-game-v1"
+    | "project-next-js-game-engine"
+    | "school-hku"
+    | "school-ckad"
+    | "school-aws-saa";
+
+const staticModalWindowComponents: Record<StaticModalWindowType, ModalWindowConfig> = {
     intro: IntroModalWindowComponent,
     skill: SkillModalWindowComponent,
     project: ProjectModalWindowComponent,
@@ -53,9 +67,6 @@ const modalWindowComponents: Record<ModalWindowType, ModalWindowConfig> = {
     "skill-frontend": FrontendSkillModalWindowComponent,
     "skill-backend": BackendSkillModalWindowComponent,
     "skill-others": OthersSkillModalWindowComponent,
-    "company-yau-lee": YauLeeCompanyModalWindowComponent,
-    "company-pl": PLCompanyModalWindowComponent,
-    "company-redcliff": RedcliffCompanyModalWindowComponent,
     "project-gamehub": GamehubModalWindowComponent,
     "project-big-two": BigTwoModalWindowComponent,
     "project-character-gpt": CharacterGPTModalWindowComponent,
@@ -69,18 +80,37 @@ const modalWindowComponents: Record<ModalWindowType, ModalWindowConfig> = {
     "school-aws-saa": AwsSaaSchoolModalWindowComponent,
 };
 
+type ModalResolver = (id: string) => ModalWindowConfig;
+const resolvers: { prefix: string; resolve: ModalResolver }[] = [];
+
+export const registerModalResolver = (prefix: string, resolve: ModalResolver): void => {
+    resolvers.push({ prefix, resolve });
+};
+
 interface ModalWindowFactoryProps {
-    windowType: ModalWindowType;
+    windowType: string;
 }
 
 const ModalWindowFactory = (props: ModalWindowFactoryProps) => {
     const { windowType } = props;
 
-    const config = modalWindowComponents[windowType];
+    let config: ModalWindowConfig | undefined;
+
+    for (const { prefix, resolve } of resolvers) {
+        if (windowType.startsWith(prefix)) {
+            config = resolve(windowType.slice(prefix.length));
+            break;
+        }
+    }
 
     if (!config) {
-        throw new Error(`Unknown modal type: ${windowType}`);
+        config = staticModalWindowComponents[windowType as StaticModalWindowType];
     }
+
+    if (!config) {
+        throw new Error(`Unknown modal type: "${windowType}". Register a resolver or add it to staticModalWindowComponents.`);
+    }
+
     const { imageSrc, content, buttonGroup } = config;
     return <ModalWindow imageSrc={imageSrc} content={content} buttonGroup={buttonGroup} />;
 };

@@ -745,18 +745,39 @@ const experience_level_5: LevelInfo = {
     prevLevel: "education-level-4",
     nextLevel: "project-level-6",
     theme: defaultLevelTheme,
-    tilesWidth: 20,
+    tilesWidth: 21,
     tilesHeight: 5,
     placements: [
         {
-            id: "Tile-portal-19-2",
+            id: "Tile-portal-20-2",
             coord: {
-                x: 19,
+                x: 20,
                 y: 2,
             },
             type: "Tile",
             itemName: "portal",
             portalType: "next",
+        },
+        {
+            id: "Tile-road-19-2",
+            coord: {
+                x: 19,
+                y: 2,
+            },
+            type: "Tile",
+            itemName: "road",
+            roadType: "dead-end",
+            facing: "left",
+        },
+        {
+            id: "Tile-company-18-3",
+            coord: {
+                x: 18,
+                y: 3,
+            },
+            type: "Tile",
+            itemName: "company",
+            companyType: "arctic-wolf",
         },
         {
             id: "Tile-road-18-2",
@@ -766,8 +787,8 @@ const experience_level_5: LevelInfo = {
             },
             type: "Tile",
             itemName: "road",
-            roadType: "dead-end",
-            facing: "left",
+            roadType: "t-junction",
+            facing: "down",
         },
         {
             id: "Tile-road-17-2",

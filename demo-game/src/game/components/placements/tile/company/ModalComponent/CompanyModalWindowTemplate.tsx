@@ -6,6 +6,7 @@ import { CUSTOM_STYLE } from "@/game/lib/conts";
 import { reduxStore } from "@/game/redux/store";
 import { Experience } from "@/game/types/gameStaticData";
 import { Box, styled, Typography } from "@mui/material";
+import CompanyImage from "@/game/assets/componentImage/company.png";
 
 const Date = styled(Typography)({
     fontWeight: "bold",
@@ -77,13 +78,31 @@ export const CompanyModalWindowTemplate: React.FC<CompanyModalWindowTemplateProp
     );
 };
 
+const CompanyNotFoundContent: React.FC<{ id: string }> = ({ id }) => (
+    <>
+        <ModalTitle>Company Not Found</ModalTitle>
+        <ModalBlockContent>
+            <Typography>No Sanity experience found with ID &quot;{id}&quot;.</Typography>
+            <Typography mt={1}>Check that <strong>companyType</strong> in level.ts matches a Sanity experience ID.</Typography>
+        </ModalBlockContent>
+    </>
+);
+
 export const createCompanyModalWindowComponent = (experienceId: string): ModalWindowConfig => {
     const data = reduxStore.getState().gameContent.data;
     const { allExperience } = data!;
 
-    const experience = allExperience.find((experience) => experience.id === experienceId) as Experience;
+    const experience = allExperience.find((exp) => exp.id === experienceId) as Experience | undefined;
+
+    if (!experience) {
+        console.error(
+            `[ModalWindowFactory] Company "${experienceId}" not found in Sanity. ` +
+            `Check that companyType in level.ts matches a Sanity experience ID.`
+        );
+        const ErrorContent: React.FC = () => <CompanyNotFoundContent id={experienceId} />;
+        return new ModalWindowBuilder().setImageSrc(CompanyImage.src).setContent(ErrorContent).build();
+    }
 
     const ContentComponent: React.FC = () => <CompanyModalWindowTemplate experience={experience} />;
-
     return new ModalWindowBuilder().setImageSrc(experience.image.asset.url).setContent(ContentComponent).build();
 };

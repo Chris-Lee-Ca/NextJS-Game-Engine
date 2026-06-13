@@ -13,6 +13,10 @@ import {
 import { ActionControlHandler } from "game-engine/extensions/modules/MainCharacterActionControlModule";
 import PlacementFactory from "../components/placements/PlacementFactory";
 import { allDemoLevelInfo } from "../lib/level";
+import { registerModalResolver } from "@/game/components/modal/ModalWindowFactory";
+import { createCompanyModalWindowComponent } from "@/game/components/placements/tile/company/ModalComponent/CompanyModalWindowTemplate";
+
+registerModalResolver("company-", (id) => createCompanyModalWindowComponent(id));
 import GameBody from "./GameBody";
 import { ACTION_KEY_MAPPING } from "../lib/control";
 

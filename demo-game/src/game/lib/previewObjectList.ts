@@ -198,7 +198,7 @@ export const previewObjectList: { [key in CustomPlacementType]: PreviewObjectIte
             .setCustomProperty("portalType", "next")
             .build(),
         // company
-        ...createCompanyPreviewObjectList(["pl", "yau-lee", "redcliff"]),
+        ...createCompanyPreviewObjectList(["pl", "yau-lee", "redcliff", "arctic-wolf"]),
         // painting
         ...createPaintingPreviewObjectList([
             "project-gamehub",
