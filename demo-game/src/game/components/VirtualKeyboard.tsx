@@ -1,13 +1,12 @@
 import styled from "@emotion/styled";
-import { Box, Grid } from "@mui/material";
+import { Box, GlobalStyles, Grid } from "@mui/material";
 
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
-import VirtualKeyboardButton from "./template/VirtualKeyboardButton";
 import { CUSTOM_STYLE } from "../lib/conts";
-import { KeyboardEventHandler } from "game-engine/extensions/plugins/keyboardEventPlugin";
+import { VirtualKeyboardHandler, VirtualKeyboardButton } from "game-engine/extensions/plugins/virtualKeyboardPlugin";
 
 const Container = styled(Box)({
     position: "absolute",
@@ -40,60 +39,87 @@ const ActionKeyContainer = styled(Grid)({
     alignItems: "center",
 });
 
+const directionButtonStyle = {
+    maxWidth: "30px",
+    maxHeight: "30px",
+    minWidth: "30px",
+    minHeight: "30px",
+    border: `3px solid ${CUSTOM_STYLE.COLOR.MAIN_BLACK}`,
+    boxShadow: CUSTOM_STYLE.SHADOW.MAIN_BLACK_SHADOW,
+    margin: "2px",
+    display: "flex",
+    flexDirection: "column" as const,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: CUSTOM_STYLE.COLOR.MAIN_WHITE,
+    cursor: "pointer",
+    padding: 0,
+};
+
+const actionButtonStyle = {
+    maxWidth: "40px",
+    maxHeight: "40px",
+    minWidth: "40px",
+    minHeight: "40px",
+    borderRadius: "100%",
+    border: `3px solid ${CUSTOM_STYLE.COLOR.MAIN_BLACK}`,
+    boxShadow: CUSTOM_STYLE.SHADOW.MAIN_BLACK_SHADOW,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: CUSTOM_STYLE.COLOR.MAIN_WHITE,
+    fontWeight: "bolder" as const,
+    cursor: "pointer",
+    padding: 0,
+};
+
 interface VirtualKeyboardProps {
-    keyboardEventHandler: KeyboardEventHandler;
+    virtualKeyboardHandler: VirtualKeyboardHandler;
 }
 
-const VirtualKeyboard = (props: VirtualKeyboardProps) => {
-    const { keyboardEventHandler } = props;
-
-    const handleOnMouseDownButton = (command: string) => {
-        const mockEvent = { key: command } as KeyboardEvent;
-        keyboardEventHandler.handleKeyDown(mockEvent);
-    };
-
-    const handleOnMouseUpButton = (command: string) => {
-        const mockEvent = { key: command } as KeyboardEvent;
-        keyboardEventHandler.handleKeyUp(mockEvent);
-    };
-
+const VirtualKeyboard = ({ virtualKeyboardHandler }: VirtualKeyboardProps) => {
     return (
         <Container data-testid="virtual-keyboard">
+            <GlobalStyles
+                styles={{
+                    ".vkb-btn:hover": { backgroundColor: `${CUSTOM_STYLE.COLOR.MAIN_BLUE} !important` },
+                    ".vkb-btn[data-active]": { backgroundColor: `${CUSTOM_STYLE.COLOR.MAIN_BLUE} !important` },
+                }}
+            />
             <InenerContainer container>
                 <DirectionKeyContainer item xs={6}>
                     <Box component="div">
                         <VirtualKeyboardButton
-                            style={{ marginBottom: "0px" }}
-                            type="direction"
-                            correspondingKeys={["ArrowUp", "w"]}
-                            onMouseDown={() => handleOnMouseDownButton("ArrowUp")}
-                            onMouseUp={() => handleOnMouseUpButton("ArrowUp")}
+                            keyCode="ArrowUp"
+                            handler={virtualKeyboardHandler}
+                            className="vkb-btn"
+                            style={{ ...directionButtonStyle, marginBottom: "0px" }}
                         >
                             <ArrowDropUpIcon />
                         </VirtualKeyboardButton>
                     </Box>
                     <Box component="div" display={"flex"}>
                         <VirtualKeyboardButton
-                            type="direction"
-                            correspondingKeys={["ArrowLeft", "a"]}
-                            onMouseDown={() => handleOnMouseDownButton("ArrowLeft")}
-                            onMouseUp={() => handleOnMouseUpButton("ArrowLeft")}
+                            keyCode="ArrowLeft"
+                            handler={virtualKeyboardHandler}
+                            className="vkb-btn"
+                            style={directionButtonStyle}
                         >
                             <ArrowLeftIcon />
                         </VirtualKeyboardButton>
                         <VirtualKeyboardButton
-                            type="direction"
-                            correspondingKeys={["ArrowDown", "s"]}
-                            onMouseDown={() => handleOnMouseDownButton("ArrowDown")}
-                            onMouseUp={() => handleOnMouseUpButton("ArrowDown")}
+                            keyCode="ArrowDown"
+                            handler={virtualKeyboardHandler}
+                            className="vkb-btn"
+                            style={directionButtonStyle}
                         >
                             <ArrowDropDownIcon />
                         </VirtualKeyboardButton>
                         <VirtualKeyboardButton
-                            type="direction"
-                            correspondingKeys={["ArrowRight", "d"]}
-                            onMouseDown={() => handleOnMouseDownButton("ArrowRight")}
-                            onMouseUp={() => handleOnMouseUpButton("ArrowRight")}
+                            keyCode="ArrowRight"
+                            handler={virtualKeyboardHandler}
+                            className="vkb-btn"
+                            style={directionButtonStyle}
                         >
                             <ArrowRightIcon />
                         </VirtualKeyboardButton>
@@ -102,19 +128,18 @@ const VirtualKeyboard = (props: VirtualKeyboardProps) => {
                 <ActionKeyContainer item xs={6}>
                     <Box component="div" display={"flex"}>
                         <VirtualKeyboardButton
-                            type="interaction"
-                            correspondingKeys={["k"]}
-                            onMouseDown={() => handleOnMouseDownButton("k")}
-                            onMouseUp={() => handleOnMouseUpButton("k")}
-                            style={{ marginRight: "10px" }}
+                            keyCode="k"
+                            handler={virtualKeyboardHandler}
+                            className="vkb-btn"
+                            style={{ ...actionButtonStyle, marginRight: "10px" }}
                         >
                             K
                         </VirtualKeyboardButton>
                         <VirtualKeyboardButton
-                            type="interaction"
-                            correspondingKeys={["l"]}
-                            onMouseDown={() => handleOnMouseDownButton("l")}
-                            onMouseUp={() => handleOnMouseUpButton("l")}
+                            keyCode="l"
+                            handler={virtualKeyboardHandler}
+                            className="vkb-btn"
+                            style={actionButtonStyle}
                         >
                             L
                         </VirtualKeyboardButton>

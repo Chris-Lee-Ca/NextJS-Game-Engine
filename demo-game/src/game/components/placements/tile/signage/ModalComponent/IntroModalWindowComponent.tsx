@@ -67,12 +67,19 @@ const IntroModalModalContent: React.FC = () => {
 
             <ControlsHeader>Controls</ControlsHeader>
             <ControlsGrid>
-                <KeyGroup>
-                    <KeyBadge>↑</KeyBadge>
-                    <KeyBadge>↓</KeyBadge>
-                    <KeyBadge>←</KeyBadge>
-                    <KeyBadge>→</KeyBadge>
-                </KeyGroup>
+                <Box sx={{ display: "flex", alignItems: "center", gap: "8px", justifyContent: "flex-end" }}>
+                    {/* Arrow keys in D-pad formation: ↑ on top, ← ↓ → below */}
+                    <Box sx={{ display: "grid", gridTemplateColumns: "repeat(3, auto)", gap: "2px" }}>
+                        <Box /><KeyBadge>↑</KeyBadge><Box />
+                        <KeyBadge>←</KeyBadge><KeyBadge>↓</KeyBadge><KeyBadge>→</KeyBadge>
+                    </Box>
+                    <Typography sx={{ fontSize: "11px", color: "#888" }}>or</Typography>
+                    {/* WASD in D-pad formation: W on top, A S D below */}
+                    <Box sx={{ display: "grid", gridTemplateColumns: "repeat(3, auto)", gap: "2px" }}>
+                        <Box /><KeyBadge>W</KeyBadge><Box />
+                        <KeyBadge>A</KeyBadge><KeyBadge>S</KeyBadge><KeyBadge>D</KeyBadge>
+                    </Box>
+                </Box>
                 <ActionLabel>Move</ActionLabel>
 
                 <KeyGroup><KeyBadge>K</KeyBadge></KeyGroup>

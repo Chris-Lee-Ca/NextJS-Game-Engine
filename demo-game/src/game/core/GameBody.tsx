@@ -13,7 +13,7 @@ import DialogWindowFactory from "../components/dialog/DialogWindowFactory";
 import ModalWindowFactory from "../components/modal/ModalWindowFactory";
 import StyledAlert from "../components/template/StyledAlert";
 import VirtualKeyboard from "../components/VirtualKeyboard";
-import { KEYBOARD_EVENT_PLUGIN_ID, KeyboardEventHandler } from "game-engine/extensions/plugins/keyboardEventPlugin";
+import { VIRTUAL_KEYBOARD_PLUGIN_ID, VirtualKeyboardHandler } from "game-engine/extensions/plugins/virtualKeyboardPlugin";
 import { openAlert } from "../redux/features/alertSlice";
 import LevelAnnouncement from "../components/LevelAnnouncement";
 
@@ -25,6 +25,7 @@ const GameBody = ({ gameLoop }: { gameLoop: GameLoop }) => {
     const scaleFactor = useCSSVariable("--scale-factor"); //TODO make website responsive
 
     const dispatch = useAppDispatch();
+    const virtualKeyboardHandler = gameLoop.plugins[VIRTUAL_KEYBOARD_PLUGIN_ID] as VirtualKeyboardHandler;
 
     useEffect(() => {
         // Check if the user is using Chrome
@@ -66,9 +67,7 @@ const GameBody = ({ gameLoop }: { gameLoop: GameLoop }) => {
             >
                 <GameCanvas />
             </Viewport>
-            <VirtualKeyboard
-                keyboardEventHandler={gameLoop.plugins[KEYBOARD_EVENT_PLUGIN_ID] as KeyboardEventHandler}
-            />
+            <VirtualKeyboard virtualKeyboardHandler={virtualKeyboardHandler} />
         </>
     );
 };

@@ -56,7 +56,12 @@ class GameLoop {
     }
 
     public start() {
-        this.loop(0); // Start the loop
+        // Re-init plugins/modules in case a previous stop() removed their listeners.
+        // addEventListener deduplicates same-reference listeners, so calling init()
+        // here when already initialized (first start) is safe.
+        Object.values(this.plugins).forEach((p) => p.init());
+        Object.values(this.modules).forEach((m) => m.init());
+        this.loop(0);
     }
 
     public loop(currentTime: number) {

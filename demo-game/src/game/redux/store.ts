@@ -17,6 +17,8 @@ import {
 } from "game-engine/extensions/modules/MainCharacterActionControlModule";
 import { alertReducer } from "./features/alertSlice";
 import { gameContentReducer } from "./features/gameContentSlice";
+// runReducer is registered under the "run" key; read by MainCharacter and MainCharacterComponent.
+import { runReducer } from "game-engine/extensions/plugins/doubleTapRunPlugin";
 
 const rootReducer = combineReducers({
     ...gameEngineReducer,
@@ -26,6 +28,7 @@ const rootReducer = combineReducers({
     [LEVEL_PLUGIN_ID]: levelReducer,
     gameContent: gameContentReducer,
     game: gameReducer,
+    run: runReducer,
     editMode: editModeReducer,
     backpack: backpackReducer,
     dialog: dialogReducer,

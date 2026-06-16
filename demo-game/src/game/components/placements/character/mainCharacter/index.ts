@@ -45,6 +45,8 @@ class MainCharacter extends CharacterObject {
     override update(deltaTime: number) {
         const state = this.store.getState();
         const movementDirection = state[MAIN_CHARACTER_DIRECTION_CONTROL_MODULE_ID].movementDirection;
+        // Run mode doubles movement speed; activated via double-tap on a direction key.
+        this.movingSpeed = state.run.isRunning ? 20 : 10;
         this.facing = this.getFacing(movementDirection);
 
         const characterOffset = getCharacterOffset(movementDirection, this.movingSpeed, deltaTime);

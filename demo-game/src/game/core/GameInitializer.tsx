@@ -5,11 +5,13 @@ import { useAppDispatch, useAppSelector, useAppStore } from "@/game/redux/hooks"
 import GameLoop from "game-engine/core/GameLoop";
 import { GAME_SETTING } from "../lib/conts";
 import { KeyboardEventHandler } from "game-engine/extensions/plugins/keyboardEventPlugin";
+import { VirtualKeyboardHandler } from "game-engine/extensions/plugins/virtualKeyboardPlugin";
 import { LEVEL_PLUGIN_ID, LevelHandler } from "game-engine/extensions/plugins/levelPlugin";
 import {
     DEFAULT_DIRECTION_KEY_MAPPING,
     DirectionControlHandler,
 } from "game-engine/extensions/modules/MainCharacterDirectionControlModule";
+import { DoubleTapRunHandler } from "game-engine/extensions/plugins/doubleTapRunPlugin";
 import { ActionControlHandler } from "game-engine/extensions/modules/MainCharacterActionControlModule";
 import PlacementFactory from "../components/placements/PlacementFactory";
 import { allDemoLevelInfo } from "../lib/level";
@@ -33,6 +35,16 @@ const GameInitializer = () => {
             reduxStore: appStore,
             plugins: [
                 new KeyboardEventHandler({ dispatch }),
+                new VirtualKeyboardHandler(),
+                // Disable double-tap detection while a modal or dialog is open so overlay
+                // interactions don't accidentally activate run mode.
+                new DoubleTapRunHandler({
+                    dispatch,
+                    getIsBlocked: () => {
+                        const state = appStore.getState();
+                        return state.modal.isOpenModalWindow || state.dialog.isOpenDialogWindow;
+                    },
+                }),
                 new LevelHandler({
                     store: appStore,
                     dispatch,

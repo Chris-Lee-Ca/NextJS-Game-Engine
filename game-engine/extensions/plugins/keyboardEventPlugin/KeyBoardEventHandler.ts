@@ -19,39 +19,39 @@ export class KeyboardEventHandler implements PluginHandler {
 
     public init(): void {
         if (typeof window !== "undefined") {
-            window.addEventListener("keyup", this.handleKeyUp.bind(this));
-            window.addEventListener("keydown", this.handleKeyDown.bind(this));
-            window.addEventListener("focus", this.handleWindowFocus.bind(this));
+            window.addEventListener("keyup", this.handleKeyUp);
+            window.addEventListener("keydown", this.handleKeyDown);
+            window.addEventListener("focus", this.handleWindowFocus);
         }
     }
 
     public deinit(): void {
         if (typeof window !== "undefined") {
-            window.removeEventListener("keyup", this.handleKeyUp.bind(this));
-            window.removeEventListener("keydown", this.handleKeyDown.bind(this));
-            window.removeEventListener("focus", this.handleWindowFocus.bind(this));
+            window.removeEventListener("keyup", this.handleKeyUp);
+            window.removeEventListener("keydown", this.handleKeyDown);
+            window.removeEventListener("focus", this.handleWindowFocus);
         }
     }
 
     public update(deltaTime: number): void {}
 
-    public handleKeyUp(event: KeyboardEvent): void {
+    private handleKeyUp = (event: KeyboardEvent): void => {
         const key = event.key as KeyboardKey;
         this.heldKeys = this.heldKeys.filter((heldkey) => heldkey !== key);
         this.dispatch(setHeldKeys(this.heldKeys));
-    }
+    };
 
-    public handleKeyDown(event: KeyboardEvent): void {
+    private handleKeyDown = (event: KeyboardEvent): void => {
         const key = event.key as KeyboardKey;
         if (!this.heldKeys.includes(key)) {
             this.heldKeys.unshift(key);
         }
         this.dispatch(setHeldKeys(this.heldKeys));
-    }
+    };
 
-    private handleWindowFocus(): void {
+    private handleWindowFocus = (): void => {
         // Reset heldKeys to ensure accurate state when returning to the window
         this.heldKeys = [];
         this.dispatch(setHeldKeys(this.heldKeys));
-    }
+    };
 }

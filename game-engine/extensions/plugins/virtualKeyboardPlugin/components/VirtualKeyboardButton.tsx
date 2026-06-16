@@ -1,0 +1,80 @@
+"use client";
+
+import React, { CSSProperties, ReactNode, useEffect, useRef, useState } from "react";
+import { VirtualKeyboardHandler } from "../VirtualKeyboardHandler";
+
+export interface VirtualKeyboardButtonProps {
+    keyCode: string;
+    handler: VirtualKeyboardHandler;
+    children?: ReactNode;
+    className?: string;
+    style?: CSSProperties;
+}
+
+/**
+ * Engine-provided virtual keyboard button.
+ *
+ * Uses Pointer Events so it responds immediately on both mouse and touch
+ * (no 300 ms synthetic mouse delay). Dispatches real DOM KeyboardEvents via
+ * the handler so every plugin/module (DoubleTapRun, DirectionControl, etc.)
+ * picks them up the same way it picks up physical key presses.
+ *
+ * Style via `className` or `style` — the engine applies no visual opinions.
+ * A `data-active` attribute is set while the key is held so CSS selectors
+ * ([data-active]) can drive hover/press styling.
+ */
+export const VirtualKeyboardButton = ({ keyCode, handler, children, className, style }: VirtualKeyboardButtonProps) => {
+    const [isActive, setIsActive] = useState(false);
+    // Tracks whether THIS button is the one currently being held so the global
+    // pointerup handler only fires keyup for keys this button actually pressed.
+    const isHeldRef = useRef(false);
+
+    // Mirror the held state from DOM events — this covers both physical key presses
+    // and virtual button presses (which also dispatch DOM events).
+    useEffect(() => {
+        const onKeyDown = (e: KeyboardEvent) => {
+            if (e.key === keyCode) setIsActive(true);
+        };
+        const onKeyUp = (e: KeyboardEvent) => {
+            if (e.key === keyCode) setIsActive(false);
+        };
+        window.addEventListener("keydown", onKeyDown);
+        window.addEventListener("keyup", onKeyUp);
+        return () => {
+            window.removeEventListener("keydown", onKeyDown);
+            window.removeEventListener("keyup", onKeyUp);
+        };
+    }, [keyCode]);
+
+    // Global pointerup handles all release scenarios: normal release on the button,
+    // pointer released after sliding off, and touch-end anywhere on screen.
+    useEffect(() => {
+        const onGlobalPointerUp = () => {
+            if (isHeldRef.current) {
+                isHeldRef.current = false;
+                handler.dispatchKeyUp(keyCode);
+            }
+        };
+        window.addEventListener("pointerup", onGlobalPointerUp);
+        return () => window.removeEventListener("pointerup", onGlobalPointerUp);
+    }, [keyCode, handler]);
+
+    const handlePointerDown = (e: React.PointerEvent) => {
+        // Prevent the browser from synthesising a mousedown/mouseup sequence
+        // on touch devices, which would double-fire the key events.
+        e.preventDefault();
+        isHeldRef.current = true;
+        handler.dispatchKeyDown(keyCode);
+    };
+
+    return (
+        <button
+            className={className}
+            style={style}
+            data-active={isActive || undefined}
+            onPointerDown={handlePointerDown}
+        >
+            {children}
+        </button>
+    );
+};
