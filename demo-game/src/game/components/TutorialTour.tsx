@@ -1,6 +1,6 @@
 "use client";
 
-import { Joyride, CallBackProps, STATUS } from "react-joyride";
+import { Joyride, EventData, STATUS } from "react-joyride";
 import { useRef, useState } from "react";
 import { useAppDispatch } from "@/game/redux/hooks";
 import { openDialogWindow } from "@/game/redux/features/dialogSlice";
@@ -12,19 +12,19 @@ const steps = [
         title: "Welcome!",
         content:
             "This world is built with TypeScript, Next.js, and MUI. Before you explore, here's a quick look at the tools available to you.",
-        disableBeacon: true,
+        skipBeacon: true,
     },
     {
         target: '[data-tour="backpack"]',
         title: "Backpack",
         content: "Items you collect on your journey appear here. Click any item to view it.",
-        disableBeacon: true,
+        skipBeacon: true,
     },
     {
         target: "#level-navigator",
         title: "Level Navigator",
         content: "Use the arrow buttons to move between levels.",
-        disableBeacon: true,
+        skipBeacon: true,
         spotlightPadding: 2,
     },
     {
@@ -32,7 +32,7 @@ const steps = [
         title: "Edit Mode",
         content:
             "Curious how this world is built? This is a developer tool — click it to explore and rearrange the layout. It's not part of the game itself.",
-        disableBeacon: true,
+        skipBeacon: true,
     },
 ];
 
@@ -41,7 +41,7 @@ const TutorialTour = () => {
     const dispatch = useAppDispatch();
     const hasFinished = useRef(false);
 
-    const handleCallback = (data: CallBackProps) => {
+    const handleCallback = (data: EventData) => {
         const { status } = data;
         if (!hasFinished.current && ([STATUS.FINISHED, STATUS.SKIPPED] as string[]).includes(status)) {
             hasFinished.current = true;
@@ -51,26 +51,28 @@ const TutorialTour = () => {
         }
     };
 
+    if (!run) return null;
+
     return (
         <Joyride
             steps={steps}
             run={run}
             continuous
-            showSkipButton
-            showProgress
-            callback={handleCallback}
+            onEvent={handleCallback}
             locale={{
                 last: "Done",
-                skip: "Skip tour",
                 next: "Next",
             }}
+            options={{
+                overlayColor: "rgba(0, 0, 0, 0.7)",
+                primaryColor: "#2c3e50",
+                textColor: "#3d2b0a",
+                zIndex: 10000,
+                buttons: ["back", "close", "primary"],
+                closeButtonAction: "skip",
+                showProgress: true,
+            }}
             styles={{
-                options: {
-                    overlayColor: "rgba(0, 0, 0, 0.7)",
-                    primaryColor: "#2c3e50",
-                    textColor: "#3d2b0a",
-                    zIndex: 10000,
-                },
                 tooltip: {
                     borderRadius: "10px",
                 },
