@@ -5,6 +5,10 @@ Demo-game changes are not included.
 
 ## [Unreleased]
 
+## [1.6.0] - 2026-06-15
+### Changed
+- virtual keyboard plugin support alias keycodes to light the button
+
 ## [1.4.0] - 2026-06-12
 ### Changed
 - Add Playwright E2E tests, upgrade Next.js 14.2.35, release tooling
