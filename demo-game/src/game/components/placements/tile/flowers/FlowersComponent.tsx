@@ -5,8 +5,7 @@ import { MAIN_SPRITE_SHEET } from "@/game/lib/conts";
 import SpriteHelper from "game-engine/helper/SpriteHelper";
 import Sprite from "game-engine/components/Sprite/Sprite";
 
-interface FlowersComponentProps {}
-const FlowersComponent: React.FC<FlowersComponentProps> = (_props) => {
+const FlowersComponent: React.FC = () => {
     return (
         <Sprite
             spriteSheetInfo={MAIN_SPRITE_SHEET}

@@ -10,7 +10,7 @@ class Resume extends PickUpObject {
         super(params);
     }
 
-    override update(deltaTime: number) {}
+    override update(_deltaTime: number) {}
 
     override renderPendingPickup(): React.ReactNode {
         return React.createElement(ResumeComponent);

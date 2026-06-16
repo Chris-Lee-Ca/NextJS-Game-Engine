@@ -13,13 +13,13 @@ class Shrub extends TileObject {
         this.bound = new Rectangle(this.position.x, this.position.y, gridSize, gridSize);
     }
 
-    override update(deltaTime: number) {}
+    override update(_deltaTime: number) {}
 
     render() {
         return React.createElement(ShrubComponent);
     }
 
-    performCollisionLogic(object: GameObject): void {}
+    performCollisionLogic(_object: GameObject): void {}
 }
 
 export default Shrub;

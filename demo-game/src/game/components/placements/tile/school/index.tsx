@@ -15,7 +15,7 @@ class School extends InteractableTileObject {
         this.bound = new Rectangle(this.position.x, this.position.y, gridSize, gridSize);
     }
 
-    override update(deltaTime: number) {}
+    override update(_deltaTime: number) {}
 
     render() {
         return React.createElement(SchoolComponent, {

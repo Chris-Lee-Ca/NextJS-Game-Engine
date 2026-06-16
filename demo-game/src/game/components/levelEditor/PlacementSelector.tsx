@@ -33,9 +33,7 @@ const options: { label: string; value: CustomPlacementType }[] = [
     },
 ];
 
-interface PlacementSelectorProps {}
-
-export const PlacementSelector = (props: PlacementSelectorProps) => {
+export const PlacementSelector = () => {
     const [currentTab, setCurrentTab] = useState<CustomPlacementType>("Character");
 
     const dispatch = useAppDispatch();

@@ -60,7 +60,7 @@ const EditModeWrapper = (props: EditModeBackgroundTileProps) => {
     return (
         <EditModeBackgroundTileWrapper
             style={{ cursor: editModeSelectedItem !== null ? "pointer" : "default" }}
-            onClick={(e) => leftClickHandler(rowIndex, colIndex)}
+            onClick={() => leftClickHandler(rowIndex, colIndex)}
             onContextMenu={(e) => {
                 e.preventDefault();
                 rightClickHandler(rowIndex, colIndex);

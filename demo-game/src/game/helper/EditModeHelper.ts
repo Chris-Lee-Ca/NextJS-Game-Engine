@@ -115,7 +115,7 @@ class EditModeHelper {
      */
     static placementToPreviewObjectPlacement(customPlacement: CustomPlacement): PreviewObjectPlacement {
         const placementIdToPreviewObjectId = (placement: CustomPlacement) => {
-            const { id, coord, type, itemName, ...rest } = placement;
+            const { id: _id, coord: _coord, type, itemName, ...rest } = placement;
             const customPropertyString = Object.values(rest).join("-").replace(/\s+/g, "-"); // Replace spaces with dashes
 
             const previewObjectId = `${type}-${itemName}` + (customPropertyString ? `-${customPropertyString}` : "");

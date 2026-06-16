@@ -4,21 +4,8 @@ import SignageModalWindowBuilder from "./SignageModalWindowBuilder";
 import { ModalContent, ModalTitle } from "@/game/components/styled";
 import { Box, Button, Typography, styled } from "@mui/material";
 import { useAppSelector } from "@/game/redux/hooks";
-import { KEYBOARD_EVENT_PLUGIN_ID } from "game-engine/extensions/plugins/keyboardEventPlugin";
+import { KEYBOARD_EVENT_PLUGIN_ID, KeyboardKey } from "game-engine/extensions/plugins/keyboardEventPlugin";
 
-const ControlsHeader = styled(Typography)({
-    fontWeight: "bold",
-    fontSize: "14px",
-    letterSpacing: "2px",
-    textTransform: "uppercase",
-    color: "#5a3e1b",
-    borderBottom: "1px solid rgba(90,62,27,0.3)",
-    paddingBottom: "6px",
-    marginTop: "18px",
-    marginBottom: "10px",
-    textAlign: "center",
-    alignSelf: "stretch",
-});
 
 const ControlsGrid = styled(Box)({
     display: "grid",
@@ -82,7 +69,8 @@ const IntroModalModalContent: React.FC = () => {
     const prevKeys = useRef<string[]>([]);
 
     useEffect(() => {
-        const justPressed = (key: string) => heldKeys.includes(key) && !prevKeys.current.includes(key);
+        const justPressed = (key: string) =>
+            heldKeys.includes(key as KeyboardKey) && !prevKeys.current.includes(key as KeyboardKey);
         if (page === 0 && (justPressed("ArrowRight") || justPressed("d"))) {
             setPage(1);
         } else if (page === 1 && (justPressed("ArrowLeft") || justPressed("a"))) {
@@ -106,7 +94,8 @@ const IntroModalModalContent: React.FC = () => {
                 >
                     <ModalTitle>About this World</ModalTitle>
                     <ModalContent>
-                        This world is created by <span>TypeScript</span>, <span>Next JS</span> and <span>Material UI</span>.
+                        This world is created by <span>TypeScript</span>, <span>Next JS</span> and{" "}
+                        <span>Material UI</span>.
                     </ModalContent>
                     <ModalContent>
                         Memories from <span>Sanity (headless CMS) </span>are scattered across the world.
@@ -123,27 +112,46 @@ const IntroModalModalContent: React.FC = () => {
                         visibility: page === 1 ? "visible" : "hidden",
                     }}
                 >
-                    <ModalTitle sx={{ borderBottom: "1px solid rgba(90,62,27,0.3)", paddingBottom: "6px", marginBottom: "10px", alignSelf: "stretch" }}>
+                    <ModalTitle
+                        sx={{
+                            borderBottom: "1px solid rgba(90,62,27,0.3)",
+                            paddingBottom: "6px",
+                            marginBottom: "10px",
+                            alignSelf: "stretch",
+                        }}
+                    >
                         Controls
                     </ModalTitle>
                     <ControlsGrid>
                         <Box sx={{ display: "flex", alignItems: "center", gap: "8px", justifyContent: "flex-end" }}>
                             <Box sx={{ display: "grid", gridTemplateColumns: "repeat(3, auto)", gap: "2px" }}>
-                                <Box /><KeyBadge>↑</KeyBadge><Box />
-                                <KeyBadge>←</KeyBadge><KeyBadge>↓</KeyBadge><KeyBadge>→</KeyBadge>
+                                <Box />
+                                <KeyBadge>↑</KeyBadge>
+                                <Box />
+                                <KeyBadge>←</KeyBadge>
+                                <KeyBadge>↓</KeyBadge>
+                                <KeyBadge>→</KeyBadge>
                             </Box>
                             <Typography sx={{ fontSize: "11px", color: "#888" }}>or</Typography>
                             <Box sx={{ display: "grid", gridTemplateColumns: "repeat(3, auto)", gap: "2px" }}>
-                                <Box /><KeyBadge>W</KeyBadge><Box />
-                                <KeyBadge>A</KeyBadge><KeyBadge>S</KeyBadge><KeyBadge>D</KeyBadge>
+                                <Box />
+                                <KeyBadge>W</KeyBadge>
+                                <Box />
+                                <KeyBadge>A</KeyBadge>
+                                <KeyBadge>S</KeyBadge>
+                                <KeyBadge>D</KeyBadge>
                             </Box>
                         </Box>
                         <ActionLabel>Move</ActionLabel>
 
-                        <KeyGroup><KeyBadge>K</KeyBadge></KeyGroup>
+                        <KeyGroup>
+                            <KeyBadge>K</KeyBadge>
+                        </KeyGroup>
                         <ActionLabel>Interact</ActionLabel>
 
-                        <KeyGroup><KeyBadge>L</KeyBadge></KeyGroup>
+                        <KeyGroup>
+                            <KeyBadge>L</KeyBadge>
+                        </KeyGroup>
                         <ActionLabel>Close</ActionLabel>
 
                         <KeyGroup>

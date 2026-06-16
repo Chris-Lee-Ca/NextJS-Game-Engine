@@ -16,7 +16,7 @@ interface TypeWriterProps {
 const TypeWriter = (props: TypeWriterProps) => {
     const { content, style } = props;
     const [text, setText] = useState<string>("");
-    const [fullText, _setFullText] = useState<string>(content);
+    const [fullText] = useState<string>(content);
     const [currentIndex, setCurrentIndex] = useState(0);
 
     useEffect(() => {

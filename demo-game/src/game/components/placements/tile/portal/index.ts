@@ -6,7 +6,7 @@ import GameObject from "game-engine/components/GameObject";
 import { AppStore } from "@/game/redux/store";
 import GridHelper from "game-engine/helper/GridHelper";
 import Rectangle from "game-engine/components/Rectangle";
-import { AllLevelInfo, LevelInfo, setCurrentLevel } from "game-engine/extensions/plugins/levelPlugin";
+import { setCurrentLevel } from "game-engine/extensions/plugins/levelPlugin";
 import { PortalObjectPlacement, PortalType } from "@/game/types/placement";
 import { openAlert } from "@/game/redux/features/alertSlice";
 
@@ -21,7 +21,7 @@ class Portal extends TileObject {
         this.portalType = (params.placement as PortalObjectPlacement).portalType;
     }
 
-    override update(deltaTime: number) {}
+    override update(_deltaTime: number) {}
 
     render() {
         return React.createElement(PortalComponent, { portalType: this.portalType });

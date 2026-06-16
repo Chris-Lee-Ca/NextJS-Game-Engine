@@ -12,7 +12,7 @@ class Road extends TileObject {
         this.placement = placement as RoadObjectPlacement;
     }
 
-    override update(deltaTime: number) {}
+    override update(_deltaTime: number) {}
 
     render() {
         return React.createElement(RoadComponentFactory, {
@@ -21,7 +21,7 @@ class Road extends TileObject {
         });
     }
 
-    performCollisionLogic(object: GameObject): void {}
+    performCollisionLogic(_object: GameObject): void {}
 }
 
 export default Road;

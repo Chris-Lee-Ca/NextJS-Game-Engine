@@ -72,7 +72,7 @@ const ButtonContainer = styled(Box)({
 });
 
 interface ModalWindowPropsInterface {
-    imageSrc: any;
+    imageSrc: string;
     content: ReactNode;
     buttonGroup: ReactNode;
 }

@@ -25,8 +25,7 @@ const RightSection = styled(Box)({
     display: "flex",
 });
 
-interface StatusBarProps {}
-const StatusBar = (_props: StatusBarProps) => {
+const StatusBar = (_props: Record<string, never>) => {
     return (
         <>
             <StatusBarWrapper data-testid="status-bar">

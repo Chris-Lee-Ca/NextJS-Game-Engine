@@ -17,7 +17,7 @@ class FinishLine extends TileObject {
         this.bound = new Rectangle(this.position.x + gridSize / 4, this.position.y, gridSize / 2, gridSize); // only cover the center part of the item
     }
 
-    override update(deltaTime: number) {}
+    override update(_deltaTime: number) {}
 
     render() {
         return React.createElement(FinishLineComponent);
@@ -27,7 +27,7 @@ class FinishLine extends TileObject {
         this.store.dispatch(openDialogWindow("finish-line"));
     }
 
-    override performCollisionLogic(object: GameObject): void {
+    override performCollisionLogic(_object: GameObject): void {
         // Show the dialog when a collision happens
         this.openResumeDialog();
     }

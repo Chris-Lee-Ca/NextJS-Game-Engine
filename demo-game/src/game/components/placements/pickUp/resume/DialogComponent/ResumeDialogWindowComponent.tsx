@@ -7,6 +7,7 @@ import TypeWriter from "@/game/components/TypeWriter";
 import { Bio } from "@/game/lib/gameContent";
 import { closeDialogWindow } from "@/game/redux/features/dialogSlice";
 import { useAppDispatch } from "@/game/redux/hooks";
+import paperImage from "../../../../../assets/componentImage/paper.png";
 
 const ResumeDialogContent: React.FC = () => {
     return (
@@ -35,7 +36,7 @@ const ResumeDialogButtonGroup: React.FC = () => {
 };
 
 const ResumeDialogWindowComponent: DialogWindowConfig = new DialogWindowBuilder()
-    .setImageSrc(require("../../../../../assets/componentImage/paper.png").default.src)
+    .setImageSrc(paperImage.src)
     .setContent(ResumeDialogContent)
     .setButtonGroup(ResumeDialogButtonGroup)
     .build();

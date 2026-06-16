@@ -12,7 +12,7 @@ import BackgroundTile from "../components/BackgroundTile";
 import EditModeWrapper from "../components/EditModeWrapper";
 import GameObject from "game-engine/components/GameObject";
 
-type GameCanvasProps = {};
+type GameCanvasProps = Record<string, never>;
 
 const Canvas = styled(Box)({
     position: "relative",

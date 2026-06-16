@@ -11,7 +11,7 @@ class PreviewObject extends TileObject {
         this.placement = placement as PreviewObjectPlacement;
     }
 
-    override update(deltaTime: number) {}
+    override update(_deltaTime: number) {}
 
     render() {
         return React.createElement(PreviewObjectComponent, {
@@ -19,7 +19,7 @@ class PreviewObject extends TileObject {
         });
     }
 
-    performCollisionLogic(object: GameObject): void {}
+    performCollisionLogic(_object: GameObject): void {}
 }
 
 export default PreviewObject;

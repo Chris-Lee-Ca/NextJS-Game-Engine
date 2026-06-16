@@ -7,14 +7,16 @@ import { Box, Typography, styled } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { CUSTOM_STYLE } from "@/game/lib/conts";
+import portalPrevImage from "@/game/assets/componentImage/portal-prev.png";
+import portalNextImage from "@/game/assets/componentImage/portal-next.png";
 
 interface PortalComponentProps {
     portalType: PortalType;
 }
 
 const portalTmage: Record<PortalType, string> = {
-    prev: require("@/game/assets/componentImage/portal-prev.png").default.src,
-    next: require("@/game/assets/componentImage/portal-next.png").default.src,
+    prev: portalPrevImage.src,
+    next: portalNextImage.src,
 };
 
 const Wrapper = styled(Box)({

@@ -11,6 +11,7 @@ import {
     Facing,
     MAIN_CHARACTER_DIRECTION_CONTROL_MODULE_ID,
 } from "game-engine/extensions/modules/MainCharacterDirectionControlModule";
+import { setIsRunning } from "game-engine/extensions/plugins/doubleTapRunPlugin";
 import { Vector2 } from "game-engine/types/general";
 import GameObject from "game-engine/components/GameObject";
 import Converter from "game-engine/helper/Converter";
@@ -133,6 +134,7 @@ class MainCharacter extends CharacterObject {
         if (dirX === 0 && dirY === 0) return;
 
         this.hurtKey = Date.now();
+        this.store.dispatch(setIsRunning(false));
         this.knockbackState = { directionX: dirX, directionY: dirY, remaining: KNOCKBACK_TOTAL_PX };
     }
 
@@ -178,7 +180,7 @@ class MainCharacter extends CharacterObject {
                 return "none";
             default:
                 const facing: never = movementDirection;
-                throw new Error(`Unknown movementDirection ${movementDirection}`);
+                throw new Error(`Unknown movementDirection ${facing as string}`);
         }
     }
 

@@ -26,9 +26,7 @@ const BackpackItemComponents: Record<string, FC<{ style: CSSProperties }>> = {
     // Add more items here as needed
 };
 
-interface BackpackProps {}
-
-export const Backpack = (props: BackpackProps) => {
+export const Backpack = () => {
     const backpackItems = useAppSelector((state) => state.backpack.backpackItems);
 
     return (

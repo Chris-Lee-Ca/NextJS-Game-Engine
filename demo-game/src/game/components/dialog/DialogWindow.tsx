@@ -64,7 +64,7 @@ const ButtonContainer = styled(Grid)({
 });
 
 interface DialogWindowPropsInterface {
-    imageSrc: any;
+    imageSrc: string;
     content: ReactNode;
     buttonGroup: ReactNode;
 }

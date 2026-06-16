@@ -4,8 +4,7 @@ import React from "react";
 import GridSizeImage from "@/game/components/template/GridSizeImage";
 import FinishLineImage from "@/game/assets/componentImage/finishLine.png";
 
-interface FinishLineComponentProps {}
-const FinishLineComponent: React.FC<FinishLineComponentProps> = (_props) => {
+const FinishLineComponent: React.FC = () => {
     return <GridSizeImage src={FinishLineImage.src} />;
 };
 

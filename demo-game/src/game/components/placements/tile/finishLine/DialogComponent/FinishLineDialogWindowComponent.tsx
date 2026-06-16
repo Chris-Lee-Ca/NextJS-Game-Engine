@@ -5,6 +5,7 @@ import ActionButton from "@/game/components/template/ActionButton";
 import CloseDialogButton from "@/game/components/template/CloseDialogButton";
 import TypeWriter from "@/game/components/TypeWriter";
 import { Bio } from "@/game/lib/gameContent";
+import heroImage from "../../../../../assets/componentImage/hero.png";
 
 const FinishLineDialogContent: React.FC = () => {
     return (
@@ -34,7 +35,7 @@ const FinishLineDialogButtonGroup: React.FC = () => {
 };
 
 const FinishLineDialogWindowComponent: DialogWindowConfig = new DialogWindowBuilder()
-    .setImageSrc(require("../../../../../assets/componentImage/hero.png").default.src)
+    .setImageSrc(heroImage.src)
     .setContent(FinishLineDialogContent)
     .setButtonGroup(FinishLineDialogButtonGroup)
     .build();

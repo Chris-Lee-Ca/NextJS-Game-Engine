@@ -16,8 +16,8 @@ interface BackgroundTileProps {
 const BackgroundTile = (props: BackgroundTileProps) => {
     const { rowIndex, colIndex, gridSide, theme, tilesWidth, tilesHeight } = props;
 
-    const handleTileBorderStyle = (row: number, col: number, tilesWidth: number, isCliff: Boolean): CSSProperties => {
-        let borderStyle: CSSProperties = {};
+    const handleTileBorderStyle = (row: number, col: number, tilesWidth: number, isCliff: boolean): CSSProperties => {
+        const borderStyle: CSSProperties = {};
         const mapBorder = CUSTOM_STYLE.BORDER.MAP_BORDER;
         const gridBorder = CUSTOM_STYLE.BORDER.GRID_BORDER;
 

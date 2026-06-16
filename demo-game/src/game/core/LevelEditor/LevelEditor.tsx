@@ -39,9 +39,7 @@ const ButtonGroup = styled(Box)({
     alignItems: "center",
 });
 
-interface LevelEditorProps {}
-
-const LevelEditor = (_props: LevelEditorProps) => {
+const LevelEditor = (_props: Record<string, never>) => {
     const currentLevelInfo = useAppSelector(selectCurrentLevelInfo);
 
     const dispatch = useAppDispatch();

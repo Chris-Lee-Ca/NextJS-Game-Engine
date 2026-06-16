@@ -58,8 +58,8 @@ const GameBody = ({ gameLoop }: { gameLoop: GameLoop }) => {
             <LevelAnnouncement />
             <StatusBar />
             {alertState.isOpenAlertWindow && <StyledAlert />}
-            {dialogState.isOpenDialogWindow && <DialogWindowFactory windowType={dialogState.dialogWindowType as any} />}
-            {modalState.isOpenModalWindow && <ModalWindowFactory windowType={modalState.modalWindowType as any} />}
+            {dialogState.isOpenDialogWindow && <DialogWindowFactory windowType={dialogState.dialogWindowType!} />}
+            {modalState.isOpenModalWindow && <ModalWindowFactory windowType={modalState.modalWindowType!} />}
             <Viewport
                 backgroundColor={CUSTOM_STYLE.COLOR.MAIN_BLUE}
                 top={CUSTOM_STYLE.SIZE.ACTION_BAR_HEIGHT}
