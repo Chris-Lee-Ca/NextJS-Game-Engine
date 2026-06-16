@@ -243,11 +243,11 @@ export const handleDisplayAvatar = (item: PreviewObjectItem) => {
         case "text":
             return item.id.split("-").slice(1).join(" ");
         case "ReactNode":
-            const { componentId, props } = item.avatar.interface;
+            const { componentId, props } = item.avatar.interface as { componentId: string; props: Record<string, unknown> };
             const AvatarComponent = avatarComponentMap[componentId];
             return React.createElement(AvatarComponent, { ...props });
         default:
             const avatarType: never = item.avatar.type;
-            throw new Error(`Unknown avatar type: ${item.avatar.type}`);
+            throw new Error(`Unknown avatar type: ${avatarType as string}`);
     }
 };

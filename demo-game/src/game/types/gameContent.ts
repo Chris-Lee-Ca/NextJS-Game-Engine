@@ -11,7 +11,7 @@ interface BioInterface {
 
 interface SkillItem {
     name: string;
-    image: any;
+    image: string;
 }
 
 interface SkillSetInterface {

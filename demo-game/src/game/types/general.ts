@@ -3,7 +3,7 @@ import { AppStore } from "../redux/store";
 import { CustomPlacement, CustomPlacementType } from "./placement";
 
 type PickUpTypeItem = "resume";
-type Avatar = { type: "text" | "ReactNode"; interface: any };
+type Avatar = { type: "text" | "ReactNode"; interface: Record<string, unknown> };
 
 interface CreateCustomObjectParams extends CreateObjectParams {
     placement: CustomPlacement;
