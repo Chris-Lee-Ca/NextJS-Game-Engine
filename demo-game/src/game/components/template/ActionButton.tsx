@@ -14,12 +14,22 @@ const Container = styled(Box)({
 });
 
 const ButtonIcon = styled(IconButton)({
-    width: "40px",
-    height: "40px",
     marginRight: "10px",
     color: CUSTOM_STYLE.COLOR.MAIN_WHITE,
     backgroundColor: CUSTOM_STYLE.COLOR.MAIN_TEXT_BACKGROUND_COLOR,
-    borderRadius: "20px",
+    borderRadius: "5px",
+    padding: "4px 8px",
+    minWidth: "28px",
+    height: "auto",
+    fontSize: "13px",
+    fontFamily: "monospace",
+    fontWeight: "bold",
+    boxShadow: "0 2px 0 rgba(0,0,0,0.4)",
+    border: "1px solid rgba(255,255,255,0.15)",
+    "&:hover": {
+        backgroundColor: CUSTOM_STYLE.COLOR.MAIN_TEXT_BACKGROUND_COLOR,
+        opacity: 0.85,
+    },
 });
 
 const ButtonDescription = styled(Typography)({

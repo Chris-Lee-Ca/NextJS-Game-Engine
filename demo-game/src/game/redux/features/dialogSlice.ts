@@ -10,7 +10,7 @@ export interface DialogStateInterface {
 }
 
 const initialState: DialogStateInterface = {
-    isOpenDialogWindow: true,
+    isOpenDialogWindow: false,
     dialogWindowType: "intro",
 };
 

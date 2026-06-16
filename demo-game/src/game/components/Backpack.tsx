@@ -32,7 +32,7 @@ export const Backpack = (props: BackpackProps) => {
     const backpackItems = useAppSelector((state) => state.backpack.backpackItems);
 
     return (
-        <BackpackWrapper>
+        <BackpackWrapper data-tour="backpack">
             <BackpackIcon />:
             {backpackItems.map((item) => {
                 return (

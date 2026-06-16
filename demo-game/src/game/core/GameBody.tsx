@@ -16,6 +16,7 @@ import VirtualKeyboard from "../components/VirtualKeyboard";
 import { VIRTUAL_KEYBOARD_PLUGIN_ID, VirtualKeyboardHandler } from "game-engine/extensions/plugins/virtualKeyboardPlugin";
 import { openAlert } from "../redux/features/alertSlice";
 import LevelAnnouncement from "../components/LevelAnnouncement";
+import TutorialTour from "../components/TutorialTour";
 
 const GameBody = ({ gameLoop }: { gameLoop: GameLoop }) => {
     const levelState = useAppSelector((state) => state[LEVEL_PLUGIN_ID]);
@@ -53,6 +54,7 @@ const GameBody = ({ gameLoop }: { gameLoop: GameLoop }) => {
 
     return (
         <>
+            <TutorialTour />
             <LevelAnnouncement />
             <StatusBar />
             {alertState.isOpenAlertWindow && <StyledAlert />}

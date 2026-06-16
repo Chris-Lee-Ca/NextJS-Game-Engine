@@ -59,7 +59,7 @@ export const LevelNavigator: React.FC = () => {
     };
 
     return (
-        <LevelNavigatorWrapper>
+        <LevelNavigatorWrapper id="level-navigator" data-tour="level-navigator">
             <Text>Level Navigator: </Text>
             <ButtonWrapper>
                 <StyledButton

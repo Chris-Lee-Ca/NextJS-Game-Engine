@@ -49,6 +49,7 @@ export const LevelEditorStatusBarButton = () => {
     return (
         <>
             <Button
+                data-tour="edit-button"
                 variant="outlined"
                 style={{
                     backgroundColor: CUSTOM_STYLE.COLOR.MAIN_TEXT_COLOR,
