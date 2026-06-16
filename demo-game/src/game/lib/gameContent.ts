@@ -37,7 +37,11 @@ export const SkillSets: SkillSetInterface[] = [
             },
             {
                 name: "JavaScript",
-                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/JavaScript-logo.png/800px-JavaScript-logo.png",
+                image: require("../assets/skillImage/js-icon.png").default.src,
+            },
+            {
+                name: "Go",
+                image: require("../assets/skillImage/golang-icon.png").default.src,
             },
             {
                 name: "VBA",
@@ -50,10 +54,6 @@ export const SkillSets: SkillSetInterface[] = [
             {
                 name: "HTML",
                 image: "https://www.w3.org/html/logo/badge/html5-badge-h-solo.png",
-            },
-            {
-                name: "CSS",
-                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/CSS3_logo_and_wordmark.svg/1452px-CSS3_logo_and_wordmark.svg.png",
             },
         ],
     },
@@ -151,18 +151,6 @@ export const SkillSets: SkillSetInterface[] = [
                 image: "https://skillicons.dev/icons?i=aws",
             },
             {
-                name: "Junit",
-                image: "https://asset.brandfetch.io/idD7RfhCFS/id3KSPzOxb.png?updated=1667605689688",
-            },
-            {
-                name: "Unittest",
-                image: "https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg",
-            },
-            {
-                name: "Jest",
-                image: "https://skillicons.dev/icons?i=jest",
-            },
-            {
                 name: "Git",
                 image: require("../assets/skillImage/git-icon.png").default.src,
             },
@@ -183,10 +171,6 @@ export const SkillSets: SkillSetInterface[] = [
                 image: require("../assets/skillImage/figma-icon.png").default.src,
             },
             {
-                name: "Linux",
-                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Tux.svg/2560px-Tux.svg.png",
-            },
-            {
                 name: "Raspberrypi",
                 image: require("../assets/skillImage/raspberrry-pi-logo.png").default.src,
             },
@@ -197,10 +181,6 @@ export const SkillSets: SkillSetInterface[] = [
             {
                 name: "Selenium",
                 image: "https://skillicons.dev/icons?i=selenium",
-            },
-            {
-                name: "VS Code",
-                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Visual_Studio_Code_1.35_icon.svg/512px-Visual_Studio_Code_1.35_icon.svg.png?20210804221519",
             },
             {
                 name: "Postman",
