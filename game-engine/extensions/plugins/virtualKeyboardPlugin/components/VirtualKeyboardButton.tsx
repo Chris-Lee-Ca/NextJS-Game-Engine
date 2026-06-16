@@ -5,6 +5,8 @@ import { VirtualKeyboardHandler } from "../VirtualKeyboardHandler";
 
 export interface VirtualKeyboardButtonProps {
     keyCode: string;
+    /** Additional key codes that should also light up this button (e.g. WASD aliases for arrow buttons). */
+    aliasKeyCodes?: string[];
     handler: VirtualKeyboardHandler;
     children?: ReactNode;
     className?: string;
@@ -23,7 +25,7 @@ export interface VirtualKeyboardButtonProps {
  * A `data-active` attribute is set while the key is held so CSS selectors
  * ([data-active]) can drive hover/press styling.
  */
-export const VirtualKeyboardButton = ({ keyCode, handler, children, className, style }: VirtualKeyboardButtonProps) => {
+export const VirtualKeyboardButton = ({ keyCode, aliasKeyCodes, handler, children, className, style }: VirtualKeyboardButtonProps) => {
     const [isActive, setIsActive] = useState(false);
     // Tracks whether THIS button is the one currently being held so the global
     // pointerup handler only fires keyup for keys this button actually pressed.
@@ -32,11 +34,12 @@ export const VirtualKeyboardButton = ({ keyCode, handler, children, className, s
     // Mirror the held state from DOM events — this covers both physical key presses
     // and virtual button presses (which also dispatch DOM events).
     useEffect(() => {
+        const allKeys = [keyCode, ...(aliasKeyCodes ?? [])];
         const onKeyDown = (e: KeyboardEvent) => {
-            if (e.key === keyCode) setIsActive(true);
+            if (allKeys.includes(e.key)) setIsActive(true);
         };
         const onKeyUp = (e: KeyboardEvent) => {
-            if (e.key === keyCode) setIsActive(false);
+            if (allKeys.includes(e.key)) setIsActive(false);
         };
         window.addEventListener("keydown", onKeyDown);
         window.addEventListener("keyup", onKeyUp);
@@ -44,7 +47,7 @@ export const VirtualKeyboardButton = ({ keyCode, handler, children, className, s
             window.removeEventListener("keydown", onKeyDown);
             window.removeEventListener("keyup", onKeyUp);
         };
-    }, [keyCode]);
+    }, [keyCode, aliasKeyCodes]);
 
     // Global pointerup handles all release scenarios: normal release on the button,
     // pointer released after sliding off, and touch-end anywhere on screen.

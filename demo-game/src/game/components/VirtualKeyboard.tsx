@@ -91,6 +91,7 @@ const VirtualKeyboard = ({ virtualKeyboardHandler }: VirtualKeyboardProps) => {
                     <Box component="div">
                         <VirtualKeyboardButton
                             keyCode="ArrowUp"
+                            aliasKeyCodes={["w"]}
                             handler={virtualKeyboardHandler}
                             className="vkb-btn"
                             style={{ ...directionButtonStyle, marginBottom: "0px" }}
@@ -101,6 +102,7 @@ const VirtualKeyboard = ({ virtualKeyboardHandler }: VirtualKeyboardProps) => {
                     <Box component="div" display={"flex"}>
                         <VirtualKeyboardButton
                             keyCode="ArrowLeft"
+                            aliasKeyCodes={["a"]}
                             handler={virtualKeyboardHandler}
                             className="vkb-btn"
                             style={directionButtonStyle}
@@ -109,6 +111,7 @@ const VirtualKeyboard = ({ virtualKeyboardHandler }: VirtualKeyboardProps) => {
                         </VirtualKeyboardButton>
                         <VirtualKeyboardButton
                             keyCode="ArrowDown"
+                            aliasKeyCodes={["s"]}
                             handler={virtualKeyboardHandler}
                             className="vkb-btn"
                             style={directionButtonStyle}
@@ -117,6 +120,7 @@ const VirtualKeyboard = ({ virtualKeyboardHandler }: VirtualKeyboardProps) => {
                         </VirtualKeyboardButton>
                         <VirtualKeyboardButton
                             keyCode="ArrowRight"
+                            aliasKeyCodes={["d"]}
                             handler={virtualKeyboardHandler}
                             className="vkb-btn"
                             style={directionButtonStyle}
