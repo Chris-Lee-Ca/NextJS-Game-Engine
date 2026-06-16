@@ -63,7 +63,7 @@ class Portal extends TileObject {
         this.store.dispatch(setCurrentLevel(newLevel));
     }
 
-    override performCollisionLogic(object: GameObject): void {
+    override performCollisionLogic(_object: GameObject): void {
         this.changeLevel();
     }
 }

@@ -1,7 +1,8 @@
 import { Facing } from "game-engine/extensions/modules/MainCharacterDirectionControlModule";
 import { Avatar, PreviewObjectItem } from "../types/general";
-import { CustomPlacementType, RoadType } from "../types/placement";
+import { CustomPlacementType, PatrolDirection, RoadType } from "../types/placement";
 import RoadComponentFactory from "../components/placements/tile/road/RoadComponentFactory";
+import PatrolEnemyPreviewComponent from "../components/placements/enemy/patrolEnemy/PatrolEnemyPreviewComponent";
 import React from "react";
 
 export class PreviewObjectItemBuilder {
@@ -170,13 +171,30 @@ const createRoadPreviewObjectList = (roadTypes: RoadType[]): PreviewObjectItem[]
     return roadTiles;
 };
 
+const createPatrolEnemyPreviewObjectList = (directions: PatrolDirection[]): PreviewObjectItem[] =>
+    directions.map((direction) =>
+        new PreviewObjectItemBuilder()
+            .setType("Enemy")
+            .setAvatar({
+                type: "ReactNode",
+                interface: {
+                    componentId: "PatrolEnemyPreviewComponent",
+                    props: { patrolDirection: direction },
+                },
+            })
+            .setObjectItemName("patrol enemy")
+            .setCustomProperty("patrolDirection", direction)
+            .build()
+    );
+
 const avatarComponentMap: Record<string, React.ElementType> = {
     RoadComponentFactory: RoadComponentFactory,
+    PatrolEnemyPreviewComponent: PatrolEnemyPreviewComponent,
 };
 
 export const previewObjectList: { [key in CustomPlacementType]: PreviewObjectItem[] } = {
     Character: [new PreviewObjectItemBuilder().setType("Character").setObjectItemName("main character").build()],
-    Enemy: [],
+    Enemy: [...createPatrolEnemyPreviewObjectList(["up", "right", "down", "left"])],
     PickUp: [new PreviewObjectItemBuilder().setType("PickUp").setObjectItemName("resume").build()],
     Tile: [
         new PreviewObjectItemBuilder().setType("Tile").setObjectItemName("balloon").build(),

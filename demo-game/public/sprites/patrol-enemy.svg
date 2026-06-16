@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 44" shape-rendering="crispEdges">
+  <!--
+    Patrol Enemy — pixel-art red slime, 12×11 grid at 4px/pixel, facing RIGHT.
+    Flip horizontally (scaleX(-1)) in CSS for left-facing.
+
+    Palette:
+      O = #330000  outline / dark border
+      R = #CC3333  body red
+      L = #FF8888  highlight pink
+      D = #881111  dark underbelly
+      W = #FFFFFF  eye white
+      K = #1A0000  pupil
+
+    Grid layout (. = transparent):
+      row  0:  . . . O O O O O O . . .
+      row  1:  . . O R R R R R R O . .
+      row  2:  . O R R L R R L R R O .
+      row  3:  O R R R R R R R R R R O
+      row  4:  O R W W R R R R W W R O
+      row  5:  O R W K R R R R W K R O
+      row  6:  O R R R R R R R R R R O
+      row  7:  O R R D R R R R D R R O
+      row  8:  . O R R R R R R R R O .
+      row  9:  . . O D D D D D D O . .
+      row 10:  . . . O O O O O O . . .
+  -->
+
+  <!-- row 0 -->
+  <rect x="12" y="0"  width="4" height="4" fill="#330000"/>
+  <rect x="16" y="0"  width="4" height="4" fill="#330000"/>
+  <rect x="20" y="0"  width="4" height="4" fill="#330000"/>
+  <rect x="24" y="0"  width="4" height="4" fill="#330000"/>
+  <rect x="28" y="0"  width="4" height="4" fill="#330000"/>
+  <rect x="32" y="0"  width="4" height="4" fill="#330000"/>
+
+  <!-- row 1 -->
+  <rect x="8"  y="4"  width="4" height="4" fill="#330000"/>
+  <rect x="12" y="4"  width="4" height="4" fill="#CC3333"/>
+  <rect x="16" y="4"  width="4" height="4" fill="#CC3333"/>
+  <rect x="20" y="4"  width="4" height="4" fill="#CC3333"/>
+  <rect x="24" y="4"  width="4" height="4" fill="#CC3333"/>
+  <rect x="28" y="4"  width="4" height="4" fill="#CC3333"/>
+  <rect x="32" y="4"  width="4" height="4" fill="#CC3333"/>
+  <rect x="36" y="4"  width="4" height="4" fill="#330000"/>
+
+  <!-- row 2 -->
+  <rect x="4"  y="8"  width="4" height="4" fill="#330000"/>
+  <rect x="8"  y="8"  width="4" height="4" fill="#CC3333"/>
+  <rect x="12" y="8"  width="4" height="4" fill="#CC3333"/>
+  <rect x="16" y="8"  width="4" height="4" fill="#FF8888"/>
+  <rect x="20" y="8"  width="4" height="4" fill="#CC3333"/>
+  <rect x="24" y="8"  width="4" height="4" fill="#CC3333"/>
+  <rect x="28" y="8"  width="4" height="4" fill="#FF8888"/>
+  <rect x="32" y="8"  width="4" height="4" fill="#CC3333"/>
+  <rect x="36" y="8"  width="4" height="4" fill="#CC3333"/>
+  <rect x="40" y="8"  width="4" height="4" fill="#330000"/>
+
+  <!-- row 3 -->
+  <rect x="0"  y="12" width="4" height="4" fill="#330000"/>
+  <rect x="4"  y="12" width="4" height="4" fill="#CC3333"/>
+  <rect x="8"  y="12" width="4" height="4" fill="#CC3333"/>
+  <rect x="12" y="12" width="4" height="4" fill="#CC3333"/>
+  <rect x="16" y="12" width="4" height="4" fill="#CC3333"/>
+  <rect x="20" y="12" width="4" height="4" fill="#CC3333"/>
+  <rect x="24" y="12" width="4" height="4" fill="#CC3333"/>
+  <rect x="28" y="12" width="4" height="4" fill="#CC3333"/>
+  <rect x="32" y="12" width="4" height="4" fill="#CC3333"/>
+  <rect x="36" y="12" width="4" height="4" fill="#CC3333"/>
+  <rect x="40" y="12" width="4" height="4" fill="#CC3333"/>
+  <rect x="44" y="12" width="4" height="4" fill="#330000"/>
+
+  <!-- row 4 -->
+  <rect x="0"  y="16" width="4" height="4" fill="#330000"/>
+  <rect x="4"  y="16" width="4" height="4" fill="#CC3333"/>
+  <rect x="8"  y="16" width="4" height="4" fill="#FFFFFF"/>
+  <rect x="12" y="16" width="4" height="4" fill="#FFFFFF"/>
+  <rect x="16" y="16" width="4" height="4" fill="#CC3333"/>
+  <rect x="20" y="16" width="4" height="4" fill="#CC3333"/>
+  <rect x="24" y="16" width="4" height="4" fill="#CC3333"/>
+  <rect x="28" y="16" width="4" height="4" fill="#CC3333"/>
+  <rect x="32" y="16" width="4" height="4" fill="#FFFFFF"/>
+  <rect x="36" y="16" width="4" height="4" fill="#FFFFFF"/>
+  <rect x="40" y="16" width="4" height="4" fill="#CC3333"/>
+  <rect x="44" y="16" width="4" height="4" fill="#330000"/>
+
+  <!-- row 5 -->
+  <rect x="0"  y="20" width="4" height="4" fill="#330000"/>
+  <rect x="4"  y="20" width="4" height="4" fill="#CC3333"/>
+  <rect x="8"  y="20" width="4" height="4" fill="#FFFFFF"/>
+  <rect x="12" y="20" width="4" height="4" fill="#1A0000"/>
+  <rect x="16" y="20" width="4" height="4" fill="#CC3333"/>
+  <rect x="20" y="20" width="4" height="4" fill="#CC3333"/>
+  <rect x="24" y="20" width="4" height="4" fill="#CC3333"/>
+  <rect x="28" y="20" width="4" height="4" fill="#CC3333"/>
+  <rect x="32" y="20" width="4" height="4" fill="#FFFFFF"/>
+  <rect x="36" y="20" width="4" height="4" fill="#1A0000"/>
+  <rect x="40" y="20" width="4" height="4" fill="#CC3333"/>
+  <rect x="44" y="20" width="4" height="4" fill="#330000"/>
+
+  <!-- row 6 -->
+  <rect x="0"  y="24" width="4" height="4" fill="#330000"/>
+  <rect x="4"  y="24" width="4" height="4" fill="#CC3333"/>
+  <rect x="8"  y="24" width="4" height="4" fill="#CC3333"/>
+  <rect x="12" y="24" width="4" height="4" fill="#CC3333"/>
+  <rect x="16" y="24" width="4" height="4" fill="#CC3333"/>
+  <rect x="20" y="24" width="4" height="4" fill="#CC3333"/>
+  <rect x="24" y="24" width="4" height="4" fill="#CC3333"/>
+  <rect x="28" y="24" width="4" height="4" fill="#CC3333"/>
+  <rect x="32" y="24" width="4" height="4" fill="#CC3333"/>
+  <rect x="36" y="24" width="4" height="4" fill="#CC3333"/>
+  <rect x="40" y="24" width="4" height="4" fill="#CC3333"/>
+  <rect x="44" y="24" width="4" height="4" fill="#330000"/>
+
+  <!-- row 7 -->
+  <rect x="0"  y="28" width="4" height="4" fill="#330000"/>
+  <rect x="4"  y="28" width="4" height="4" fill="#CC3333"/>
+  <rect x="8"  y="28" width="4" height="4" fill="#CC3333"/>
+  <rect x="12" y="28" width="4" height="4" fill="#881111"/>
+  <rect x="16" y="28" width="4" height="4" fill="#CC3333"/>
+  <rect x="20" y="28" width="4" height="4" fill="#CC3333"/>
+  <rect x="24" y="28" width="4" height="4" fill="#CC3333"/>
+  <rect x="28" y="28" width="4" height="4" fill="#CC3333"/>
+  <rect x="32" y="28" width="4" height="4" fill="#881111"/>
+  <rect x="36" y="28" width="4" height="4" fill="#CC3333"/>
+  <rect x="40" y="28" width="4" height="4" fill="#CC3333"/>
+  <rect x="44" y="28" width="4" height="4" fill="#330000"/>
+
+  <!-- row 8 -->
+  <rect x="4"  y="32" width="4" height="4" fill="#330000"/>
+  <rect x="8"  y="32" width="4" height="4" fill="#CC3333"/>
+  <rect x="12" y="32" width="4" height="4" fill="#CC3333"/>
+  <rect x="16" y="32" width="4" height="4" fill="#CC3333"/>
+  <rect x="20" y="32" width="4" height="4" fill="#CC3333"/>
+  <rect x="24" y="32" width="4" height="4" fill="#CC3333"/>
+  <rect x="28" y="32" width="4" height="4" fill="#CC3333"/>
+  <rect x="32" y="32" width="4" height="4" fill="#CC3333"/>
+  <rect x="36" y="32" width="4" height="4" fill="#CC3333"/>
+  <rect x="40" y="32" width="4" height="4" fill="#330000"/>
+
+  <!-- row 9 -->
+  <rect x="8"  y="36" width="4" height="4" fill="#330000"/>
+  <rect x="12" y="36" width="4" height="4" fill="#881111"/>
+  <rect x="16" y="36" width="4" height="4" fill="#881111"/>
+  <rect x="20" y="36" width="4" height="4" fill="#881111"/>
+  <rect x="24" y="36" width="4" height="4" fill="#881111"/>
+  <rect x="28" y="36" width="4" height="4" fill="#881111"/>
+  <rect x="32" y="36" width="4" height="4" fill="#881111"/>
+  <rect x="36" y="36" width="4" height="4" fill="#330000"/>
+
+  <!-- row 10 -->
+  <rect x="12" y="40" width="4" height="4" fill="#330000"/>
+  <rect x="16" y="40" width="4" height="4" fill="#330000"/>
+  <rect x="20" y="40" width="4" height="4" fill="#330000"/>
+  <rect x="24" y="40" width="4" height="4" fill="#330000"/>
+  <rect x="28" y="40" width="4" height="4" fill="#330000"/>
+  <rect x="32" y="40" width="4" height="4" fill="#330000"/>
+</svg>

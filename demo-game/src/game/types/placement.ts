@@ -5,6 +5,7 @@ import { Facing } from "game-engine/extensions/modules/MainCharacterDirectionCon
 type CustomPlacementType = "Character" | "Enemy" | "PickUp" | "Tile";
 type PortalType = "prev" | "next";
 type RoadType = "straight" | "dead-end" | "t-junction" | "turn" | "x-junction";
+type PatrolDirection = "left" | "right" | "up" | "down";
 
 interface CustomPlacement extends Placement {
     type: CustomPlacementType;
@@ -39,10 +40,15 @@ interface RoadObjectPlacement extends CustomPlacement {
     facing: Facing;
 }
 
+interface PatrolEnemyObjectPlacement extends CustomPlacement {
+    patrolDirection: PatrolDirection;
+}
+
 export type {
     CustomPlacementType,
     PortalType,
     RoadType,
+    PatrolDirection,
     CustomPlacement,
     PreviewObjectPlacement,
     SignageObjectPlacement,
@@ -51,4 +57,5 @@ export type {
     PaintingObjectPlacement,
     SchoolObjectPlacement,
     RoadObjectPlacement,
+    PatrolEnemyObjectPlacement,
 };

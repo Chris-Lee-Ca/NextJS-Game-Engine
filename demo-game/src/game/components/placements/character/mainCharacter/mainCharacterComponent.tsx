@@ -19,6 +19,16 @@ const pulse = keyframes`
     50%       { transform: translateX(-50%) scale(1.18); }
 `;
 
+// Brief red-flash + horizontal shake triggered on each new knockback hit.
+const hurtFlash = keyframes`
+    0%   { filter: brightness(1)   saturate(1);   transform: translateX(0); }
+    15%  { filter: brightness(3.5) saturate(0.2) sepia(1) hue-rotate(310deg); transform: translateX(-5px); }
+    35%  { filter: brightness(2.5) saturate(0.2) sepia(1) hue-rotate(310deg); transform: translateX(4px); }
+    55%  { filter: brightness(1.8) saturate(0.5) sepia(0.6) hue-rotate(310deg); transform: translateX(-3px); }
+    75%  { filter: brightness(1.3) saturate(0.8); transform: translateX(2px); }
+    100% { filter: brightness(1)   saturate(1);   transform: translateX(0); }
+`;
+
 const CharacterBox = styled(Box)({
     position: "relative",
 });
@@ -43,9 +53,17 @@ interface MainCharacterComponentProps {
     facing: Facing;
     position: Vector2;
     bound: Rectangle;
+    isKnockedBack: boolean;
+    hurtKey: number;
 }
 
-const MainCharacterComponent: React.FC<MainCharacterComponentProps> = ({ facing, position, bound }) => {
+const MainCharacterComponent: React.FC<MainCharacterComponentProps> = ({
+    facing,
+    position,
+    bound,
+    isKnockedBack,
+    hurtKey,
+}) => {
     const devMode = useAppSelector((state) => state.game.devMode);
     // isRunning drives both the speed in MainCharacter.update() and this visual indicator.
     const isRunning = useAppSelector((state) => state.run.isRunning);
@@ -86,16 +104,29 @@ const MainCharacterComponent: React.FC<MainCharacterComponentProps> = ({ facing,
                     <DirectionsRunIcon sx={{ fontSize: 16, color: "#fff" }} />
                 </RunPill>
             )}
-            <AnimatedSprite
-                spriteSheetInfo={HERO_SPRITE_SHEET}
-                imageOffset={{
-                    x: HERO_SPRITE_SHEET.MAIN_CHARACTER_SECTION_X_OFFSET,
-                    y: HERO_SPRITE_SHEET.MAIN_CHARACTER_SECTION_Y_OFFSET,
-                }}
-                scaleFactor={SpriteHelper.getSpriteSheetScaleFactor(HERO_SPRITE_SHEET)}
-                animations={animations}
-                currentAnimation={AnimationHelper.animationSelector(facing)}
-            />
+            {/*
+             * The key prop on this Box forces React to unmount+remount the element on
+             * each new knockback hit, restarting the CSS animation from frame 0.
+             */}
+            <Box
+                key={hurtKey}
+                sx={
+                    isKnockedBack
+                        ? { animation: `${hurtFlash} 0.22s ease-out forwards` }
+                        : undefined
+                }
+            >
+                <AnimatedSprite
+                    spriteSheetInfo={HERO_SPRITE_SHEET}
+                    imageOffset={{
+                        x: HERO_SPRITE_SHEET.MAIN_CHARACTER_SECTION_X_OFFSET,
+                        y: HERO_SPRITE_SHEET.MAIN_CHARACTER_SECTION_Y_OFFSET,
+                    }}
+                    scaleFactor={SpriteHelper.getSpriteSheetScaleFactor(HERO_SPRITE_SHEET)}
+                    animations={animations}
+                    currentAnimation={AnimationHelper.animationSelector(facing)}
+                />
+            </Box>
         </CharacterBox>
     );
 };

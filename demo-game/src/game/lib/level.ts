@@ -481,6 +481,66 @@ const skills_level_3: LevelInfo = {
             type: "Character",
             itemName: "main character",
         },
+        {
+            id: "Enemy-patrol enemy-7-4",
+            coord: {
+                x: 7,
+                y: 4,
+            },
+            type: "Enemy",
+            itemName: "patrol enemy",
+            patrolDirection: "up",
+        },
+        {
+            id: "Enemy-patrol enemy-7-0",
+            coord: {
+                x: 7,
+                y: 0,
+            },
+            type: "Enemy",
+            itemName: "patrol enemy",
+            patrolDirection: "down",
+        },
+        {
+            id: "Enemy-patrol enemy-1-4",
+            coord: {
+                x: 1,
+                y: 4,
+            },
+            type: "Enemy",
+            itemName: "patrol enemy",
+            patrolDirection: "up",
+        },
+        {
+            id: "Enemy-patrol enemy-1-0",
+            coord: {
+                x: 1,
+                y: 0,
+            },
+            type: "Enemy",
+            itemName: "patrol enemy",
+            patrolDirection: "down",
+        },
+        {
+            id: "Enemy-patrol enemy-1-2",
+            coord: {
+                x: 1,
+                y: 2,
+            },
+            type: "Enemy",
+            itemName: "patrol enemy",
+            patrolDirection: "up",
+        },
+        {
+            id: "Enemy-patrol enemy-7-2",
+            coord: {
+                x: 7,
+                y: 2,
+            },
+            type: "Enemy",
+            itemName: "patrol enemy",
+            patrolDirection: "down",
+        },
     ] as Placement[],
 };
 
