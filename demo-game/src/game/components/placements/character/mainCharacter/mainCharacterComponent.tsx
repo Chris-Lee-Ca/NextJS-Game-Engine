@@ -13,6 +13,7 @@ import { Facing } from "game-engine/extensions/modules/MainCharacterDirectionCon
 import Rectangle from "game-engine/components/Rectangle";
 import Bound from "@/game/components/Bound";
 import { useAppSelector } from "@/game/redux/hooks";
+import { DOUBLE_TAP_RUN_PLUGIN_ID } from "game-engine/extensions/plugins/doubleTapRunPlugin";
 
 const pulse = keyframes`
     0%, 100% { transform: translateX(-50%) scale(1); }
@@ -66,7 +67,7 @@ const MainCharacterComponent: React.FC<MainCharacterComponentProps> = ({
 }) => {
     const devMode = useAppSelector((state) => state.game.devMode);
     // isRunning drives both the speed in MainCharacter.update() and this visual indicator.
-    const isRunning = useAppSelector((state) => state.run.isRunning);
+    const isRunning = useAppSelector((state) => state[DOUBLE_TAP_RUN_PLUGIN_ID].isRunning);
 
     const animations: Animations = {
         idleDown: [[0, 0]],

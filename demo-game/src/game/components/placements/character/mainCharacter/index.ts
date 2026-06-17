@@ -11,7 +11,7 @@ import {
     Facing,
     MAIN_CHARACTER_DIRECTION_CONTROL_MODULE_ID,
 } from "game-engine/extensions/modules/MainCharacterDirectionControlModule";
-import { setIsRunning } from "game-engine/extensions/plugins/doubleTapRunPlugin";
+import { setIsRunning, DOUBLE_TAP_RUN_PLUGIN_ID } from "game-engine/extensions/plugins/doubleTapRunPlugin";
 import { Vector2 } from "game-engine/types/general";
 import GameObject from "game-engine/components/GameObject";
 import Converter from "game-engine/helper/Converter";
@@ -66,7 +66,7 @@ class MainCharacter extends CharacterObject {
         const state = this.store.getState();
         const movementDirection = state[MAIN_CHARACTER_DIRECTION_CONTROL_MODULE_ID].movementDirection;
         // Run mode doubles movement speed; activated via double-tap on a direction key.
-        this.movingSpeed = state.run.isRunning ? 20 : 10;
+        this.movingSpeed = state[DOUBLE_TAP_RUN_PLUGIN_ID].isRunning ? 20 : 10;
         this.facing = this.getFacing(movementDirection);
 
         const characterOffset = getCharacterOffset(movementDirection, this.movingSpeed, deltaTime);
