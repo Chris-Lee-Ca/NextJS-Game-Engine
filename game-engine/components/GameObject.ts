@@ -9,6 +9,7 @@ abstract class GameObject {
     coord: Coordinate;
     position: Vector2;
     bound: Rectangle | undefined;
+    triggerBound?: Rectangle;
 
     constructor(placement: Placement) {
         this.id = placement.id;
@@ -19,6 +20,10 @@ abstract class GameObject {
     abstract update(deltaTime: number): void;
 
     abstract render(): ReactNode;
+
+    onTriggerEnter(_other: GameObject): void {}
+
+    onTriggerExit(_other: GameObject): void {}
 
     checkCollision(bound: Rectangle): GameObject[] {
         const collisionList: GameObject[] = [];

@@ -18,25 +18,32 @@ class GameLoop {
     targetFPS: number;
     plugins: { [key: string]: PluginHandler };
     modules: { [key: string]: ModuleHandler };
+    private triggerOverlapState: Map<string, Set<string>> = new Map();
 
     private constructor({ targetFPS, reduxStore, plugins, modules }: GameLoopConfig) {
         this.lastFrameTime = 0;
         this.targetFPS = targetFPS;
         this.store = reduxStore;
-        this.plugins = plugins.reduce((acc, plugin) => {
-            acc[plugin.pluginId] = plugin;
-            return acc;
-        }, {} as { [key: string]: PluginHandler });
-        this.modules = modules.reduce((acc, module) => {
-            // Validate if all modules' related plugins are installed
-            if (!(module.pluginId in this.plugins)) {
-                throw new Error(
-                    `Plugin ${module.pluginId} is missing, which is a prerequisite of module ${module.moduleId}`
-                );
-            }
-            acc[module.moduleId] = module;
-            return acc;
-        }, {} as { [key: string]: ModuleHandler });
+        this.plugins = plugins.reduce(
+            (acc, plugin) => {
+                acc[plugin.pluginId] = plugin;
+                return acc;
+            },
+            {} as { [key: string]: PluginHandler },
+        );
+        this.modules = modules.reduce(
+            (acc, module) => {
+                // Validate if all modules' related plugins are installed
+                if (!(module.pluginId in this.plugins)) {
+                    throw new Error(
+                        `Plugin ${module.pluginId} is missing, which is a prerequisite of module ${module.moduleId}`,
+                    );
+                }
+                acc[module.moduleId] = module;
+                return acc;
+            },
+            {} as { [key: string]: ModuleHandler },
+        );
         // init plugins
         Object.entries(this.plugins).forEach(([_key, pluginHandler]) => {
             pluginHandler.init();
@@ -98,6 +105,51 @@ class GameLoop {
             const object = ObjectPool.get(objectId);
             object?.update(deltaTime);
         });
+
+        // update trigger overlap state
+        this.processTriggers();
+    }
+
+    // Runs every frame after all object updates.
+    // For every object that defines a triggerBound, checks which other objects'
+    // solid bounds overlap it, then fires onTriggerEnter / onTriggerExit for
+    // objects that newly entered or left since the previous frame.
+    // Unlike performCollisionLogic (which blocks movement), triggers are passive —
+    // they never affect physics, only notify the owner.
+    private processTriggers(): void {
+        for (const [triggerId, triggerObject] of ObjectPool) {
+            if (!triggerObject.triggerBound) continue;
+
+            const previousOverlaps = this.triggerOverlapState.get(triggerId) ?? new Set<string>();
+            const currentOverlaps = new Set<string>();
+
+            // Build the set of objects currently inside this trigger zone.
+            for (const [otherId, otherObject] of ObjectPool) {
+                if (otherId === triggerId) continue;
+                if (!otherObject.bound) continue;
+                if (triggerObject.triggerBound.overlaps(otherObject.bound)) {
+                    currentOverlaps.add(otherId);
+                }
+            }
+
+            // Fire enter for objects that weren't inside last frame.
+            for (const id of currentOverlaps) {
+                if (!previousOverlaps.has(id)) {
+                    const other = ObjectPool.get(id)!;
+                    triggerObject.onTriggerEnter(other);
+                }
+            }
+
+            // Fire exit for objects that were inside last frame but no longer are.
+            for (const id of previousOverlaps) {
+                if (!currentOverlaps.has(id)) {
+                    const other = ObjectPool.get(id)!;
+                    triggerObject.onTriggerExit(other);
+                }
+            }
+
+            this.triggerOverlapState.set(triggerId, currentOverlaps);
+        }
     }
 
     stop() {
