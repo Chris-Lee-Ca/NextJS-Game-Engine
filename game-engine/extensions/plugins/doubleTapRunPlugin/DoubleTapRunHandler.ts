@@ -55,7 +55,7 @@ export class DoubleTapRunHandler implements PluginHandler {
     };
 
     private _onKeyUp = (e: KeyboardEvent): void => {
-        this.handleKeyUp(e.key);
+        this.handleKeyUp(e.key, e.isTrusted);
     };
 
     private handleKeyDown(key: string): void {
@@ -77,18 +77,23 @@ export class DoubleTapRunHandler implements PluginHandler {
         if (triggered) this.dispatch(setIsRunning(true));
     }
 
-    private handleKeyUp(key: string): void {
+    private handleKeyUp(key: string, isTrusted: boolean): void {
         if (!this.directionKeys.has(key)) return;
 
         this.doubleTapState = onKeyUp(this.doubleTapState, key, Date.now());
         this.heldDirectionKeys.delete(key);
 
         if (this.heldDirectionKeys.size === 0) {
-            // Grace period lets mobile users swap fingers without dropping run mode
-            this.cancelRunTimer = setTimeout(() => {
-                this.cancelRunTimer = null;
+            if (isTrusted) {
+                // Real keyboard: cancel run immediately, no grace period
                 this.dispatch(setIsRunning(false));
-            }, this.gracePeriodMs);
+            } else {
+                // Virtual keyboard: grace period lets users swap fingers without dropping run mode
+                this.cancelRunTimer = setTimeout(() => {
+                    this.cancelRunTimer = null;
+                    this.dispatch(setIsRunning(false));
+                }, this.gracePeriodMs);
+            }
         }
     }
 }

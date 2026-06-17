@@ -3,6 +3,7 @@ import TileObject from "./TileObject";
 import GameObject from "game-engine/components/GameObject";
 import GridHelper from "game-engine/helper/GridHelper";
 import Rectangle from "game-engine/components/Rectangle";
+import CharacterObject from "../character/CharacterObject";
 
 abstract class InteractableTileObject extends TileObject {
     isUserNearObject: boolean;
@@ -20,12 +21,16 @@ abstract class InteractableTileObject extends TileObject {
         );
     }
 
-    override onTriggerEnter(_other: GameObject): void {
-        this.isUserNearObject = true;
+    override onTriggerEnter(other: GameObject): void {
+        if (other instanceof CharacterObject) {
+            this.isUserNearObject = true;
+        }
     }
 
-    override onTriggerExit(_other: GameObject): void {
-        this.isUserNearObject = false;
+    override onTriggerExit(other: GameObject): void {
+        if (other instanceof CharacterObject) {
+            this.isUserNearObject = false;
+        }
     }
 
     performCollisionLogic(_object: GameObject): void {}
