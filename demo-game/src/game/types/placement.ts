@@ -44,6 +44,11 @@ interface PatrolEnemyObjectPlacement extends CustomPlacement {
     patrolDirection: PatrolDirection;
 }
 
+interface AiGuidePlacement extends CustomPlacement {
+    npcId: string;
+    npcName?: string;
+}
+
 export type {
     CustomPlacementType,
     PortalType,
@@ -58,4 +63,5 @@ export type {
     SchoolObjectPlacement,
     RoadObjectPlacement,
     PatrolEnemyObjectPlacement,
+    AiGuidePlacement,
 };

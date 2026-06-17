@@ -13,6 +13,8 @@ import Company from "./company";
 import Painting from "./painting";
 import Road from "./road";
 import School from "./school";
+import AiGuide from "./aiGuide";
+import { AiGuidePlacement } from "@/game/types/placement";
 
 class TileFactory extends GameObjectFactory {
     public createObject(params: CreateCustomObjectParams): GameObject {
@@ -41,6 +43,8 @@ class TileFactory extends GameObjectFactory {
                 return new Road(params.placement);
             case "school":
                 return new School(params.placement);
+            case "ai-guide":
+                return new AiGuide(params.placement as AiGuidePlacement);
             default:
                 const placementItemName = params.placement.itemName;
                 throw new Error(`Unknown placement itemName: ${placementItemName}`);

@@ -19,6 +19,12 @@ import { alertReducer } from "./features/alertSlice";
 import { gameContentReducer } from "./features/gameContentSlice";
 // runReducer is registered under the "run" key; read by MainCharacter and MainCharacterComponent.
 import { runReducer } from "game-engine/extensions/plugins/doubleTapRunPlugin";
+import {
+    WEB_LLM_PLUGIN_ID,
+    AI_CHAT_SLICE_ID,
+    webLLMReducer,
+    aiChatReducer,
+} from "game-engine/extensions/plugins/webLLMPlugin";
 
 const rootReducer = combineReducers({
     ...gameEngineReducer,
@@ -34,6 +40,8 @@ const rootReducer = combineReducers({
     dialog: dialogReducer,
     modal: modalReducer,
     alert: alertReducer,
+    [WEB_LLM_PLUGIN_ID]: webLLMReducer,
+    [AI_CHAT_SLICE_ID]: aiChatReducer,
 });
 
 export const reduxStore = configureStore({

@@ -541,6 +541,17 @@ const skills_level_3: LevelInfo = {
             itemName: "patrol enemy",
             patrolDirection: "down",
         },
+        {
+            id: "Tile-ai-guide-4-4",
+            coord: {
+                x: 4,
+                y: 4,
+            },
+            type: "Tile",
+            itemName: "ai-guide",
+            npcId: "chris",
+            npcName: "Chris",
+        },
     ] as Placement[],
 };
 
@@ -1319,6 +1330,17 @@ const experience_level_5: LevelInfo = {
             },
             type: "Character",
             itemName: "main character",
+        },
+        {
+            id: "Tile-ai-guide-20-1",
+            coord: {
+                x: 20,
+                y: 1,
+            },
+            type: "Tile",
+            itemName: "ai-guide",
+            npcId: "chris",
+            npcName: "Chris",
         },
     ] as Placement[],
 };

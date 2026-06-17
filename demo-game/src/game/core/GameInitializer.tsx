@@ -17,10 +17,19 @@ import PlacementFactory from "../components/placements/PlacementFactory";
 import { allDemoLevelInfo } from "../lib/level";
 import { registerModalResolver } from "@/game/components/modal/ModalWindowFactory";
 import { createCompanyModalWindowComponent } from "@/game/components/placements/tile/company/ModalComponent/CompanyModalWindowTemplate";
-
-registerModalResolver("company-", (id) => createCompanyModalWindowComponent(id));
+import { WebLLMHandler } from "game-engine/extensions/plugins/webLLMPlugin";
+import { buildSystemPrompt } from "../lib/systemPrompt";
+import AIChatModal from "@/game/components/modal/AIChatModal";
+import HeroImage from "@/game/assets/componentImage/hero.png";
 import GameBody from "./GameBody";
 import { ACTION_KEY_MAPPING } from "../lib/control";
+
+registerModalResolver("company-", (id) => createCompanyModalWindowComponent(id));
+registerModalResolver("ai-chat-", (npcId) => ({
+    imageSrc: HeroImage.src,
+    content: React.createElement(AIChatModal, { npcName: npcId }),
+    buttonGroup: React.createElement(React.Fragment, null),
+}));
 
 // Create & Init GameLoop
 const GameInitializer = () => {
@@ -52,6 +61,11 @@ const GameInitializer = () => {
                     currentLevel: levelState.currentLevel ? levelState.currentLevel : "intro-level-1",
                     allLevelInfo:
                         Object.keys(levelState.allLevelInfo).length !== 0 ? levelState.allLevelInfo : allDemoLevelInfo,
+                }),
+                new WebLLMHandler({
+                    dispatch,
+                    store: appStore,
+                    systemPrompt: buildSystemPrompt(),
                 }),
             ],
             modules: [
