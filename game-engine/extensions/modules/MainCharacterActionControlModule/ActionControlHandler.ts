@@ -41,16 +41,22 @@ export class ActionControlHandler implements ModuleHandler {
 
     public deinit(): void {}
 
-    public update(deltaTime: number) {
+    public update(_deltaTime: number) {
         const state = this.store.getState();
+        const prevKeys: string[] = state[MAIN_CHARACTER_ACTION_CONTROL_MODULE_ID].heldActionKeys;
 
         if (state[MAIN_CHARACTER_ACTION_CONTROL_MODULE_ID].disabled) {
-            this.dispatch(setHeldActionKeys([]));
+            if (prevKeys.length > 0) this.dispatch(setHeldActionKeys([]));
             return;
         }
 
         const heldActionKeys = this.getHeldActionKeys(state);
-        this.dispatch(setHeldActionKeys(heldActionKeys));
+        if (
+            heldActionKeys.length !== prevKeys.length ||
+            heldActionKeys.some((k, i) => k !== prevKeys[i])
+        ) {
+            this.dispatch(setHeldActionKeys(heldActionKeys));
+        }
     }
 
     private getHeldActionKeys(state: RootState): string[] {

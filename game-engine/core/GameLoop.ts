@@ -3,6 +3,7 @@ import ModuleHandler from "../extensions/modules/ModuleHandler";
 import { updateTime } from "../redux/features/coreSlice";
 import { AppStore } from "../redux/store";
 import ObjectPool from "./ObjectPool";
+import GameObject from "../components/GameObject";
 
 interface GameLoopConfig {
     targetFPS: number;
@@ -117,17 +118,22 @@ class GameLoop {
     // Unlike performCollisionLogic (which blocks movement), triggers are passive —
     // they never affect physics, only notify the owner.
     private processTriggers(): void {
-        for (const [triggerId, triggerObject] of ObjectPool) {
-            if (!triggerObject.triggerBound) continue;
+        // Pre-filter once per frame: avoids O(n²) by not scanning all ObjectPool entries in the inner loop.
+        const triggerObjects: [string, GameObject][] = [];
+        const boundedObjects: [string, GameObject][] = [];
+        for (const [id, obj] of ObjectPool) {
+            if (obj.triggerBound) triggerObjects.push([id, obj]);
+            if (obj.bound) boundedObjects.push([id, obj]);
+        }
 
+        for (const [triggerId, triggerObject] of triggerObjects) {
             const previousOverlaps = this.triggerOverlapState.get(triggerId) ?? new Set<string>();
             const currentOverlaps = new Set<string>();
 
             // Build the set of objects currently inside this trigger zone.
-            for (const [otherId, otherObject] of ObjectPool) {
+            for (const [otherId, otherObject] of boundedObjects) {
                 if (otherId === triggerId) continue;
-                if (!otherObject.bound) continue;
-                if (triggerObject.triggerBound.overlaps(otherObject.bound)) {
+                if (triggerObject.triggerBound!.overlaps(otherObject.bound!)) {
                     currentOverlaps.add(otherId);
                 }
             }
@@ -135,16 +141,14 @@ class GameLoop {
             // Fire enter for objects that weren't inside last frame.
             for (const id of currentOverlaps) {
                 if (!previousOverlaps.has(id)) {
-                    const other = ObjectPool.get(id)!;
-                    triggerObject.onTriggerEnter(other);
+                    triggerObject.onTriggerEnter(ObjectPool.get(id)!);
                 }
             }
 
             // Fire exit for objects that were inside last frame but no longer are.
             for (const id of previousOverlaps) {
                 if (!currentOverlaps.has(id)) {
-                    const other = ObjectPool.get(id)!;
-                    triggerObject.onTriggerExit(other);
+                    triggerObject.onTriggerExit(ObjectPool.get(id)!);
                 }
             }
 

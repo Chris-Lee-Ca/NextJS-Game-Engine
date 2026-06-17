@@ -80,7 +80,10 @@ export class LevelHandler implements PluginHandler {
         // Update Object ID Pool
         const { objectIdPool } = this.store.getState().core;
         const newObjectIdPool = currentLevelPlacements.map((placement) => placement.id);
-        if (JSON.stringify(objectIdPool) !== JSON.stringify(newObjectIdPool)) {
+        const poolChanged =
+            objectIdPool.length !== newObjectIdPool.length ||
+            objectIdPool.some((id, i) => id !== newObjectIdPool[i]);
+        if (poolChanged) {
             this.dispatch(setObjectIdPool(newObjectIdPool));
         }
 

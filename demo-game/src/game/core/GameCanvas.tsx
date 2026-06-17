@@ -11,6 +11,7 @@ import ObjectPool from "game-engine/core/ObjectPool";
 import BackgroundTile from "../components/BackgroundTile";
 import EditModeWrapper from "../components/EditModeWrapper";
 import GameObject from "game-engine/components/GameObject";
+import { EditModeStateInterface } from "@/game/redux/features/editModeSlice";
 
 type GameCanvasProps = Record<string, never>;
 
@@ -49,6 +50,39 @@ const createGameObject = (object: GameObject) => {
     );
 };
 
+type BackgroundProps = {
+    tilesWidth: number;
+    tilesHeight: number;
+    gridSide: number;
+    levelInfo: LevelInfo;
+    editModeState: EditModeStateInterface;
+};
+
+// Background tiles are static within a level — memoize so they don't re-render on every game tick.
+const Background = React.memo(({ tilesWidth, tilesHeight, gridSide, levelInfo, editModeState }: BackgroundProps) => (
+    <>
+        {Array.from({ length: tilesWidth }).map((_, rowIndex) => (
+            <div key={rowIndex} style={{ display: "flex" }}>
+                {Array.from({ length: tilesHeight }).map((_, colIndex) =>
+                    !editModeState.editMode ? (
+                        createBackgroundTile(rowIndex, colIndex, gridSide, levelInfo)
+                    ) : (
+                        <EditModeWrapper
+                            key={`background-tile-wrapper-${rowIndex}-${colIndex}`}
+                            rowIndex={rowIndex}
+                            colIndex={colIndex}
+                            editModeSelectedItem={editModeState.selectedItem}
+                        >
+                            {createBackgroundTile(rowIndex, colIndex, gridSide, levelInfo)}
+                        </EditModeWrapper>
+                    )
+                )}
+            </div>
+        ))}
+    </>
+));
+Background.displayName = "Background";
+
 const GameCanvas = (_props: GameCanvasProps) => {
     useAppSelector((state) => state.core.time); //Subscribe "core time" to update the canvas every game loop
     const levelInfo = useAppSelector(selectCurrentLevelInfo);
@@ -75,24 +109,13 @@ const GameCanvas = (_props: GameCanvasProps) => {
             }}
         >
             {/* Background */}
-            {Array.from({ length: levelInfo.tilesWidth }).map((_, rowIndex) => (
-                <div key={rowIndex} style={{ display: "flex" }}>
-                    {Array.from({ length: levelInfo.tilesHeight }).map((_, colIndex) =>
-                        !editModeState.editMode ? (
-                            createBackgroundTile(rowIndex, colIndex, gridSide, levelInfo)
-                        ) : (
-                            <EditModeWrapper
-                                key={`background-tile-wrapper-${rowIndex}-${colIndex}`}
-                                rowIndex={rowIndex}
-                                colIndex={colIndex}
-                                editModeSelectedItem={editModeState.selectedItem}
-                            >
-                                {createBackgroundTile(rowIndex, colIndex, gridSide, levelInfo)}
-                            </EditModeWrapper>
-                        )
-                    )}
-                </div>
-            ))}
+            <Background
+                tilesWidth={levelInfo.tilesWidth}
+                tilesHeight={levelInfo.tilesHeight}
+                gridSide={gridSide}
+                levelInfo={levelInfo}
+                editModeState={editModeState}
+            />
             {/* Game Object */}
             {levelInfo.placements.map((placement, index) => {
                 const object = ObjectPool.get(placement.id);
