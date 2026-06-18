@@ -21,6 +21,7 @@ import { createCompanyModalWindowComponent } from "@/game/components/placements/
 registerModalResolver("company-", (id) => createCompanyModalWindowComponent(id));
 import GameBody from "./GameBody";
 import { ACTION_KEY_MAPPING } from "../lib/control";
+import { AudioHandler } from "game-engine/extensions/plugins/audioPlugin";
 
 // Create & Init GameLoop
 const GameInitializer = () => {
@@ -53,6 +54,7 @@ const GameInitializer = () => {
                     allLevelInfo:
                         Object.keys(levelState.allLevelInfo).length !== 0 ? levelState.allLevelInfo : allDemoLevelInfo,
                 }),
+                new AudioHandler({ store: appStore }),
             ],
             modules: [
                 new DirectionControlHandler({

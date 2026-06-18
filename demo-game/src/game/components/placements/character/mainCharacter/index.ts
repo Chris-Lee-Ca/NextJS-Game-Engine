@@ -12,18 +12,45 @@ import {
     MAIN_CHARACTER_DIRECTION_CONTROL_MODULE_ID,
 } from "game-engine/extensions/modules/MainCharacterDirectionControlModule";
 import { setIsRunning, DOUBLE_TAP_RUN_PLUGIN_ID } from "game-engine/extensions/plugins/doubleTapRunPlugin";
+import { getAudioHandler } from "game-engine/extensions/plugins/audioPlugin";
 import { Vector2 } from "game-engine/types/general";
 import GameObject from "game-engine/components/GameObject";
 import Converter from "game-engine/helper/Converter";
 
 const KNOCKBACK_TOTAL_PX = GridHelper.getGridSizeInPixel() * 1.4;
-// Travel the full knockback distance in ~180ms for a snappy but visible slide.
 const KNOCKBACK_SPEED_PX_PER_MS = KNOCKBACK_TOTAL_PX / 180;
+
+const SFX_HURT      = { type: "square" as const, frequency: 280, endFrequency: 90, duration: 0.22, volume: 0.45 };
+const SFX_STEP_WALK = { type: "file" as const, id: "step-walk", volume: 0.35 };
+const SFX_STEP_RUN  = { type: "file" as const, id: "step-run",  volume: 0.35 };
+const FOOTSTEP_WALK_INTERVAL_MS = 320;
+const FOOTSTEP_RUN_INTERVAL_MS  = 160;
 
 interface KnockbackState {
     directionX: number; // normalised (-1 or 1)
     directionY: number;
     remaining: number;  // pixels left to travel
+}
+
+// Throttles footstep audio to one sound per interval rather than every frame.
+// Without this, playSfxDirect would fire ~60×/sec and sound like a buzz.
+class FootstepPlayer {
+    private elapsed: number = 0;
+
+    tick(deltaTime: number, isRunning: boolean): void {
+        this.elapsed += deltaTime;
+        const interval = isRunning ? FOOTSTEP_RUN_INTERVAL_MS : FOOTSTEP_WALK_INTERVAL_MS;
+        if (this.elapsed >= interval) {
+            this.elapsed = 0;
+            getAudioHandler()?.playSfxDirect(isRunning ? SFX_STEP_RUN : SFX_STEP_WALK);
+        }
+    }
+
+    // Reset when the character stops or is blocked so the next step fires
+    // promptly on resumption instead of immediately from leftover elapsed time.
+    reset(): void {
+        this.elapsed = 0;
+    }
 }
 
 class MainCharacter extends CharacterObject {
@@ -34,10 +61,13 @@ class MainCharacter extends CharacterObject {
     legArea: { xOffset: number; yOffset: number; width: number; height: number };
     private knockbackState: KnockbackState | null = null;
     private hurtKey: number = 0;
+    private footstep = new FootstepPlayer();
 
     constructor(params: CreateCustomObjectParams) {
         super(params.placement);
         this.store = params.reduxStore;
+        getAudioHandler()?.preloadSfx("step-walk", "/audio/step-walk.mp3");
+        getAudioHandler()?.preloadSfx("step-run",  "/audio/step-run.mp3");
         this.facing = "none";
         this.movingSpeed = 10;
 
@@ -65,9 +95,14 @@ class MainCharacter extends CharacterObject {
 
         const state = this.store.getState();
         const movementDirection = state[MAIN_CHARACTER_DIRECTION_CONTROL_MODULE_ID].movementDirection;
-        // Run mode doubles movement speed; activated via double-tap on a direction key.
-        this.movingSpeed = state[DOUBLE_TAP_RUN_PLUGIN_ID].isRunning ? 20 : 10;
+        const isRunning = state[DOUBLE_TAP_RUN_PLUGIN_ID].isRunning;
+        this.movingSpeed = isRunning ? 20 : 10;
         this.facing = this.getFacing(movementDirection);
+
+        if (movementDirection === "") {
+            this.footstep.reset();
+            return;
+        }
 
         const characterOffset = getCharacterOffset(movementDirection, this.movingSpeed, deltaTime);
         const characterNewPosition = {
@@ -87,9 +122,11 @@ class MainCharacter extends CharacterObject {
                     this.startKnockback(0, 0); // movement direction is active, no fallback needed
                 }
             }
+            this.footstep.reset();
             return;
         }
         this.performMovment(characterNewPosition, characterNewBound);
+        this.footstep.tick(deltaTime, isRunning);
     }
 
     render() {
@@ -135,6 +172,7 @@ class MainCharacter extends CharacterObject {
 
         this.hurtKey = Date.now();
         this.store.dispatch(setIsRunning(false));
+        getAudioHandler()?.playSfxDirect(SFX_HURT);
         this.knockbackState = { directionX: dirX, directionY: dirY, remaining: KNOCKBACK_TOTAL_PX };
     }
 

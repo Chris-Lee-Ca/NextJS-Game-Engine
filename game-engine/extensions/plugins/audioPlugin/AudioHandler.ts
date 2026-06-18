@@ -9,6 +9,12 @@ export interface AudioHandlerConfig {
 
 const BGM_FADE_IN_SECONDS = 3;
 
+let _instance: AudioHandler | null = null;
+
+export function getAudioHandler(): AudioHandler | null {
+    return _instance;
+}
+
 export class AudioHandler implements PluginHandler {
     public pluginId: string = AUDIO_PLUGIN_ID;
 
@@ -40,6 +46,7 @@ export class AudioHandler implements PluginHandler {
     }
 
     public init(): void {
+        _instance = this;
         if (typeof window === "undefined") return;
         // These listeners only create the AudioContext (browser autoplay policy).
         // BGM is started separately via update() once the context is running.
@@ -49,6 +56,7 @@ export class AudioHandler implements PluginHandler {
     }
 
     public deinit(): void {
+        _instance = null;
         if (typeof window === "undefined") return;
         window.removeEventListener("click", this.resumeContext);
         window.removeEventListener("keydown", this.resumeContext);

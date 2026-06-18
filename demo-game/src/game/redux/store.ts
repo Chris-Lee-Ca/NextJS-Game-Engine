@@ -18,6 +18,7 @@ import {
 import { alertReducer } from "./features/alertSlice";
 import { gameContentReducer } from "./features/gameContentSlice";
 import { DOUBLE_TAP_RUN_PLUGIN_ID, runReducer } from "game-engine/extensions/plugins/doubleTapRunPlugin";
+import { AUDIO_PLUGIN_ID, audioReducer } from "game-engine/extensions/plugins/audioPlugin";
 
 const rootReducer = combineReducers({
     ...gameEngineReducer,
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
     gameContent: gameContentReducer,
     game: gameReducer,
     [DOUBLE_TAP_RUN_PLUGIN_ID]: runReducer,
+    [AUDIO_PLUGIN_ID]: audioReducer,
     editMode: editModeReducer,
     backpack: backpackReducer,
     dialog: dialogReducer,

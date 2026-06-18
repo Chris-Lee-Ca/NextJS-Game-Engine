@@ -9,6 +9,9 @@ import Rectangle from "game-engine/components/Rectangle";
 import { setCurrentLevel } from "game-engine/extensions/plugins/levelPlugin";
 import { PortalObjectPlacement, PortalType } from "@/game/types/placement";
 import { openAlert } from "@/game/redux/features/alertSlice";
+import { getAudioHandler } from "game-engine/extensions/plugins/audioPlugin";
+
+const SFX_LEVEL_TRANSITION = { type: "file" as const, id: "level-transition", bgmBehavior: "block" as const };
 
 class Portal extends TileObject {
     store: AppStore;
@@ -19,6 +22,7 @@ class Portal extends TileObject {
         this.store = params.reduxStore;
         this.bound = new Rectangle(this.position.x + gridSize / 4, this.position.y, gridSize / 2, gridSize); // only cover the center part of the item
         this.portalType = (params.placement as PortalObjectPlacement).portalType;
+        getAudioHandler()?.preloadSfx("level-transition", "/audio/level-transition.mp3");
     }
 
     override update(_deltaTime: number) {}
@@ -60,6 +64,7 @@ class Portal extends TileObject {
             return;
         }
 
+        getAudioHandler()?.playSfxDirect(SFX_LEVEL_TRANSITION);
         this.store.dispatch(setCurrentLevel(newLevel));
     }
 
