@@ -1,7 +1,7 @@
 import PluginHandler from "../PluginHandler";
 import { AUDIO_PLUGIN_ID } from "./constants";
 import { AppStore, AudioState } from "./audioSlice";
-import { BgmConfig, SfxConfig } from "./types";
+import { BgmConfig, FileSfxConfig, SfxConfig, SynthSfxConfig } from "./types";
 
 export interface AudioHandlerConfig {
     store: AppStore;
@@ -30,6 +30,11 @@ export class AudioHandler implements PluginHandler {
     /** Counts how many "block" SFX are currently playing. BGM only resumes when this reaches 0. */
     private bgmBlockCount: number = 0;
 
+    /** src paths waiting for AudioContext to be ready before decoding. */
+    private sfxPending: Map<string, string> = new Map();
+    /** Decoded AudioBuffers keyed by the id passed to preloadSfx(). */
+    private sfxBuffers: Map<string, AudioBuffer> = new Map();
+
     public constructor({ store }: AudioHandlerConfig) {
         this.store = store;
     }
@@ -55,6 +60,8 @@ export class AudioHandler implements PluginHandler {
             this.masterGain = null;
             this.bgmGain = null;
         }
+        this.sfxBuffers.clear();
+        this.sfxPending.clear();
     }
 
     public update(_deltaTime: number): void {
@@ -71,7 +78,87 @@ export class AudioHandler implements PluginHandler {
         }
     }
 
+    /**
+     * Preload an audio file so it can be played instantly with playSfxDirect({ type: "file", id }).
+     * Safe to call before the AudioContext exists — decoding happens automatically after first
+     * user interaction.
+     */
+    public preloadSfx(id: string, src: string): void {
+        if (this.audioContext && this.audioContext.state === "running") {
+            this._decodeAndCache(id, src);
+        } else {
+            this.sfxPending.set(id, src);
+        }
+    }
+
     public playSfxDirect(config: SfxConfig): void {
+        if (!this.audioContext || !this.masterGain) return;
+        if (config.type === "file") {
+            this._playFileSfx(config);
+        } else {
+            this._playSynthSfx(config);
+        }
+    }
+
+    public startBgm(config: BgmConfig): void {
+        this.bgmConfig = config;
+        this.shouldPlayBgm = true;
+        // Actual start happens in update() once AudioContext is confirmed running.
+    }
+
+    public stopBgm(): void {
+        this.shouldPlayBgm = false;
+        this.bgmStarted = false;
+        this.bgmBlockCount = 0;
+        this._stopSynthBgm();
+        this._stopFileBgm();
+    }
+
+    // ── private ─────────────────────────────────────────────────────────────
+
+    private resumeContext = (): void => {
+        if (!this.audioContext) {
+            this.audioContext = new AudioContext();
+            this.bgmGain = this.audioContext.createGain();
+            this.masterGain = this.audioContext.createGain();
+            this.bgmGain.connect(this.masterGain);
+            this.masterGain.connect(this.audioContext.destination);
+            const state = this.store.getState()[AUDIO_PLUGIN_ID] as AudioState;
+            this.masterGain.gain.value = state.muted ? 0 : state.masterVolume;
+        }
+        if (this.audioContext.state === "suspended") {
+            this.audioContext.resume();
+        }
+        // Decode any SFX files that were registered before the context existed.
+        this.sfxPending.forEach((src, id) => this._decodeAndCache(id, src));
+        this.sfxPending.clear();
+        // BGM NOT started here — update() handles it on the next frame.
+    };
+
+    private _playFileSfx(config: FileSfxConfig): void {
+        const buffer = this.sfxBuffers.get(config.id);
+        if (!buffer || !this.audioContext || !this.masterGain) return;
+
+        const source = this.audioContext.createBufferSource();
+        const gain = this.audioContext.createGain();
+        source.buffer = buffer;
+        gain.gain.value = config.volume ?? 1.0;
+        source.connect(gain);
+        gain.connect(this.masterGain);
+        source.start();
+
+        if (config.bgmBehavior === "block") {
+            this._blockBgm();
+            source.onended = () => {
+                this._unblockBgm();
+                gain.disconnect();
+            };
+        } else {
+            source.onended = () => { gain.disconnect(); };
+        }
+    }
+
+    private _playSynthSfx(config: SynthSfxConfig): void {
         if (!this.audioContext || !this.masterGain) return;
 
         const ctx = this.audioContext;
@@ -111,39 +198,9 @@ export class AudioHandler implements PluginHandler {
         }
     }
 
-    public startBgm(config: BgmConfig): void {
-        this.bgmConfig = config;
-        this.shouldPlayBgm = true;
-        // Actual start happens in update() once AudioContext is confirmed running.
-    }
-
-    public stopBgm(): void {
-        this.shouldPlayBgm = false;
-        this.bgmStarted = false;
-        this.bgmBlockCount = 0;
-        this._stopSynthBgm();
-        this._stopFileBgm();
-    }
-
-    private resumeContext = (): void => {
-        if (!this.audioContext) {
-            this.audioContext = new AudioContext();
-            this.bgmGain = this.audioContext.createGain();
-            this.masterGain = this.audioContext.createGain();
-            this.bgmGain.connect(this.masterGain);
-            this.masterGain.connect(this.audioContext.destination);
-            const state = this.store.getState()[AUDIO_PLUGIN_ID] as AudioState;
-            this.masterGain.gain.value = state.muted ? 0 : state.masterVolume;
-        }
-        if (this.audioContext.state === "suspended") {
-            this.audioContext.resume();
-        }
-        // BGM NOT started here — update() handles it on the next frame.
-    };
-
     private _blockBgm(): void {
         this.bgmBlockCount++;
-        if (this.bgmBlockCount > 1) return; // already blocked
+        if (this.bgmBlockCount > 1) return;
 
         if (this.bgmConfig?.type === "file" && this.bgmElement) {
             this.bgmElement.pause();
@@ -154,7 +211,7 @@ export class AudioHandler implements PluginHandler {
 
     private _unblockBgm(): void {
         this.bgmBlockCount = Math.max(0, this.bgmBlockCount - 1);
-        if (this.bgmBlockCount > 0) return; // other blocking SFX still playing
+        if (this.bgmBlockCount > 0) return;
 
         if (this.bgmConfig?.type === "file" && this.bgmElement) {
             this.bgmElement.play().catch(() => {});
@@ -178,9 +235,7 @@ export class AudioHandler implements PluginHandler {
         const el = new Audio(config.src);
         el.loop = config.loop ?? true;
         el.volume = config.volume ?? 0.5;
-        el.play().catch(() => {
-            // Autoplay blocked or file missing — fail silently
-        });
+        el.play().catch(() => {});
         this.bgmElement = el;
     }
 
@@ -199,8 +254,10 @@ export class AudioHandler implements PluginHandler {
         const ctx = this.audioContext;
         const now = ctx.currentTime;
         const targetGain = config.volume ?? 0.04;
+        const waveType = config.waveType ?? "sine";
+        const lfoRate = config.lfoRate ?? 0.3;
+        const lfoDepth = config.lfoDepth ?? 3;
 
-        // Ensure bgmGain is at full before starting (may have been zeroed by a block)
         this.bgmGain.gain.setValueAtTime(this.bgmBlockCount > 0 ? 0 : 1, now);
 
         config.frequencies.forEach((freq: number, i: number) => {
@@ -209,17 +266,16 @@ export class AudioHandler implements PluginHandler {
             const lfo = ctx.createOscillator();
             const lfoGain = ctx.createGain();
 
-            osc.type = "sine";
+            osc.type = waveType;
             osc.frequency.value = freq;
             osc.detune.value = i % 2 === 0 ? -5 : 5;
 
             lfo.type = "sine";
-            lfo.frequency.value = 0.3;
-            lfoGain.gain.value = 3;
+            lfo.frequency.value = lfoRate;
+            lfoGain.gain.value = lfoDepth;
             lfo.connect(lfoGain);
             lfoGain.connect(osc.detune);
 
-            // Fade in gradually so BGM doesn't pop on first interaction
             gain.gain.setValueAtTime(0, now);
             gain.gain.linearRampToValueAtTime(targetGain, now + BGM_FADE_IN_SECONDS);
 
@@ -245,5 +301,17 @@ export class AudioHandler implements PluginHandler {
         });
         this.bgmLFOs = [];
         this.bgmOscillators = [];
+    }
+
+    private async _decodeAndCache(id: string, src: string): Promise<void> {
+        if (!this.audioContext) return;
+        try {
+            const response = await fetch(src);
+            const arrayBuffer = await response.arrayBuffer();
+            const audioBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
+            this.sfxBuffers.set(id, audioBuffer);
+        } catch (_) {
+            // File missing or decode error — fail silently
+        }
     }
 }
