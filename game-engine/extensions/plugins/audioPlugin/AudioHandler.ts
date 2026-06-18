@@ -10,9 +10,20 @@ export interface AudioHandlerConfig {
 const BGM_FADE_IN_SECONDS = 3;
 
 let _instance: AudioHandler | null = null;
+const _pendingPreloads: Array<{ id: string; src: string }> = [];
 
 export function getAudioHandler(): AudioHandler | null {
     return _instance;
+}
+
+// Safe to call at any time — including before AudioHandler.init() has run.
+// Calls registered before init() are queued and flushed automatically on init.
+export function preloadSfx(id: string, src: string): void {
+    if (_instance) {
+        _instance.preloadSfx(id, src);
+    } else {
+        _pendingPreloads.push({ id, src });
+    }
 }
 
 export class AudioHandler implements PluginHandler {
@@ -47,6 +58,8 @@ export class AudioHandler implements PluginHandler {
 
     public init(): void {
         _instance = this;
+        _pendingPreloads.forEach(({ id, src }) => this.preloadSfx(id, src));
+        _pendingPreloads.length = 0;
         if (typeof window === "undefined") return;
         // These listeners only create the AudioContext (browser autoplay policy).
         // BGM is started separately via update() once the context is running.

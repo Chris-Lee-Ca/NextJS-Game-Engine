@@ -12,7 +12,7 @@ import {
     MAIN_CHARACTER_DIRECTION_CONTROL_MODULE_ID,
 } from "game-engine/extensions/modules/MainCharacterDirectionControlModule";
 import { setIsRunning, DOUBLE_TAP_RUN_PLUGIN_ID } from "game-engine/extensions/plugins/doubleTapRunPlugin";
-import { getAudioHandler } from "game-engine/extensions/plugins/audioPlugin";
+import { getAudioHandler, preloadSfx } from "game-engine/extensions/plugins/audioPlugin";
 import { Vector2 } from "game-engine/types/general";
 import GameObject from "game-engine/components/GameObject";
 import Converter from "game-engine/helper/Converter";
@@ -66,8 +66,8 @@ class MainCharacter extends CharacterObject {
     constructor(params: CreateCustomObjectParams) {
         super(params.placement);
         this.store = params.reduxStore;
-        getAudioHandler()?.preloadSfx("step-walk", "/audio/step-walk.mp3");
-        getAudioHandler()?.preloadSfx("step-run",  "/audio/step-run.mp3");
+        preloadSfx("step-walk", "/audio/step-walk.mp3");
+        preloadSfx("step-run",  "/audio/step-run.mp3");
         this.facing = "none";
         this.movingSpeed = 10;
 
