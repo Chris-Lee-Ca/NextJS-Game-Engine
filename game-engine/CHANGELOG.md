@@ -5,6 +5,17 @@ Demo-game changes are not included.
 
 ## [Unreleased]
 
+## [1.7.0] - 2026-06-17
+### Changed
+- some small fix
+- audio plugin -- singleton, & add audio to the game
+-  audio plugin fix
+- some performance improvement
+- add audio plugin
+- fixing the ingame trigger bound logic (character only, no moster checking)
+- add trigger bound concept
+- more eslint problem
+
 ## [1.6.0] - 2026-06-15
 ### Changed
 - virtual keyboard plugin support alias keycodes to light the button
