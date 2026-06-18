@@ -21,7 +21,7 @@ import { createCompanyModalWindowComponent } from "@/game/components/placements/
 registerModalResolver("company-", (id) => createCompanyModalWindowComponent(id));
 import GameBody from "./GameBody";
 import { ACTION_KEY_MAPPING } from "../lib/control";
-import { AudioHandler, preloadSfx } from "game-engine/extensions/plugins/audioPlugin";
+import { AudioHandler } from "game-engine/extensions/plugins/audioPlugin";
 
 // Create & Init GameLoop
 const GameInitializer = () => {
