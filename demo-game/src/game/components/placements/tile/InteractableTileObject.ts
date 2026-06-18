@@ -12,12 +12,12 @@ abstract class InteractableTileObject extends TileObject {
         super(placement);
         this.isUserNearObject = false;
         const gridSize = GridHelper.getGridSizeInPixel();
-        const padding = gridSize * 0.5;
+        const padding = gridSize * 0.3;
         this.triggerBound = new Rectangle(
             this.position.x - padding,
             this.position.y - padding,
             gridSize + padding * 2,
-            gridSize + padding * 2
+            gridSize + padding * 2,
         );
     }
 
