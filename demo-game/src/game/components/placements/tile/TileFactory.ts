@@ -14,37 +14,35 @@ import Painting from "./painting";
 import Road from "./road";
 import School from "./school";
 
+type TileCreator = (params: CreateCustomObjectParams) => GameObject;
+
+const tileCreators: Record<string, TileCreator> = {
+    flowers: (params) => new Flowers(params.placement),
+    shrub: (params) => new Shrub(params.placement),
+    "preview object": (params) => new PreviewObject(params.placement),
+    signage: (params) => new Signage(params.placement),
+    signage2: (params) => new Signage2(params.placement),
+    balloon: (params) => new Balloon(params.placement),
+    "finish line": (params) => new FinishLine(params),
+    portal: (params) => new Portal(params),
+    company: (params) => new Company(params.placement),
+    painting: (params) => new Painting(params.placement),
+    road: (params) => new Road(params.placement),
+    school: (params) => new School(params.placement),
+};
+
+// Lets callers register a new tile itemName -> creator without editing this file.
+export const registerTileCreator = (itemName: string, creator: TileCreator): void => {
+    tileCreators[itemName] = creator;
+};
+
 class TileFactory extends GameObjectFactory {
     public createObject(params: CreateCustomObjectParams): GameObject {
-        switch (params.placement.itemName) {
-            case "flowers":
-                return new Flowers(params.placement);
-            case "shrub":
-                return new Shrub(params.placement);
-            case "preview object":
-                return new PreviewObject(params.placement);
-            case "signage":
-                return new Signage(params.placement);
-            case "signage2":
-                return new Signage2(params.placement);
-            case "balloon":
-                return new Balloon(params.placement);
-            case "finish line":
-                return new FinishLine(params);
-            case "portal":
-                return new Portal(params);
-            case "company":
-                return new Company(params.placement);
-            case "painting":
-                return new Painting(params.placement);
-            case "road":
-                return new Road(params.placement);
-            case "school":
-                return new School(params.placement);
-            default:
-                const placementItemName = params.placement.itemName;
-                throw new Error(`Unknown placement itemName: ${placementItemName}`);
+        const creator = tileCreators[params.placement.itemName];
+        if (!creator) {
+            throw new Error(`Unknown placement itemName: ${params.placement.itemName}`);
         }
+        return creator(params);
     }
 }
 
