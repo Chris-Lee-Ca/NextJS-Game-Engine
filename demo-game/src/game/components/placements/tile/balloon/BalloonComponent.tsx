@@ -8,4 +8,4 @@ const BalloonComponent: React.FC = () => {
     return <GridSizeImage src={BalloonImage.src} />;
 };
 
-export default BalloonComponent;
+export default React.memo(BalloonComponent);

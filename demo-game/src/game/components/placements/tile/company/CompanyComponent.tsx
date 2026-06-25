@@ -27,4 +27,4 @@ const CompanyComponent: React.FC<CompanyComponentProps> = (props) => {
     );
 };
 
-export default CompanyComponent;
+export default React.memo(CompanyComponent);

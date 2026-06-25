@@ -6,4 +6,4 @@ const EmptyComponent = () => {
     return <div />;
 };
 
-export default EmptyComponent;
+export default React.memo(EmptyComponent);

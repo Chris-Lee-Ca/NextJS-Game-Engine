@@ -27,4 +27,4 @@ const SchoolComponent: React.FC<SchoolComponentProps> = (props) => {
     );
 };
 
-export default SchoolComponent;
+export default React.memo(SchoolComponent);

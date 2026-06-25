@@ -132,4 +132,4 @@ const MainCharacterComponent: React.FC<MainCharacterComponentProps> = ({
     );
 };
 
-export default MainCharacterComponent;
+export default React.memo(MainCharacterComponent);

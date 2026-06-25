@@ -1,6 +1,7 @@
 import { CUSTOM_STYLE } from "@/game/lib/conts";
 import styled from "@emotion/styled";
 import { Box } from "@mui/material";
+import { memo } from "react";
 
 const Container = styled(Box)({
     position: "absolute",
@@ -63,4 +64,4 @@ const TurnRoadComponent: React.FC = () => {
     );
 };
 
-export default TurnRoadComponent;
+export default memo(TurnRoadComponent);

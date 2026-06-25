@@ -8,4 +8,4 @@ const ResumeComponent: React.FC = () => {
     return <GridSizeImage src={paper.src} />;
 };
 
-export default ResumeComponent;
+export default React.memo(ResumeComponent);

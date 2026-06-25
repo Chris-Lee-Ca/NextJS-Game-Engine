@@ -86,4 +86,4 @@ const PatrolEnemyComponent: React.FC<PatrolEnemyComponentProps> = ({ position, b
     );
 };
 
-export default PatrolEnemyComponent;
+export default React.memo(PatrolEnemyComponent);

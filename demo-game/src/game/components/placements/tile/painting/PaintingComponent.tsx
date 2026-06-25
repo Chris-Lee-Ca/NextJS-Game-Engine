@@ -77,4 +77,4 @@ const PaintingComponent: React.FC<PaintingComponentProps> = (props) => {
     );
 };
 
-export default PaintingComponent;
+export default React.memo(PaintingComponent);

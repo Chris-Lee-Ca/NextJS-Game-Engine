@@ -18,4 +18,4 @@ const FlowersComponent: React.FC = () => {
     );
 };
 
-export default FlowersComponent;
+export default React.memo(FlowersComponent);

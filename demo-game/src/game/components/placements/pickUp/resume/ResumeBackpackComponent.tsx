@@ -22,4 +22,4 @@ const ResumeBackpackComponent: React.FC<ResumeBackpackComponentProps> = (props) 
     );
 };
 
-export default ResumeBackpackComponent;
+export default React.memo(ResumeBackpackComponent);

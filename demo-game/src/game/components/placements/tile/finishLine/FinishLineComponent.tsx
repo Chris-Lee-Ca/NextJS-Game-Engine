@@ -8,4 +8,4 @@ const FinishLineComponent: React.FC = () => {
     return <GridSizeImage src={FinishLineImage.src} />;
 };
 
-export default FinishLineComponent;
+export default React.memo(FinishLineComponent);

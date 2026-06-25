@@ -51,4 +51,4 @@ const Signage2Component: React.FC<Signage2ComponentProps> = (props) => {
     );
 };
 
-export default Signage2Component;
+export default React.memo(Signage2Component);

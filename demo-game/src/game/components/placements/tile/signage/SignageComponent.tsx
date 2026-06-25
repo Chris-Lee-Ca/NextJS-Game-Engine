@@ -27,4 +27,4 @@ const SignageComponent: React.FC<SignageComponentProps> = (props) => {
     );
 };
 
-export default SignageComponent;
+export default React.memo(SignageComponent);

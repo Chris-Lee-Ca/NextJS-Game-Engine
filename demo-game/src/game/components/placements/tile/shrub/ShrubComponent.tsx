@@ -7,4 +7,4 @@ import ShrubImage from "@/game/assets/componentImage/shrub.png";
 const ShrubComponent: React.FC = () => {
     return <GridSizeImage src={ShrubImage.src} />;
 };
-export default ShrubComponent;
+export default React.memo(ShrubComponent);

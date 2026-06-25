@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, memo } from "react";
 import { RoadType } from "@/game/types/placement";
 import { Facing } from "game-engine/extensions/modules/MainCharacterDirectionControlModule";
 import {
@@ -38,4 +38,4 @@ const RoadComponentFactory = (props: RoadComponentFactoryProps) => {
     return <RoadComponentWrapper facing={facing} roadInterface={renderComponent(roadInterface)} />;
 };
 
-export default RoadComponentFactory;
+export default memo(RoadComponentFactory);

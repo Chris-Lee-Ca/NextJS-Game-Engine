@@ -1,7 +1,9 @@
 "use client";
 
+import { memo } from "react";
+
 const InvisibleWallComponent = () => {
     return <div />;
 };
 
-export default InvisibleWallComponent;
+export default memo(InvisibleWallComponent);

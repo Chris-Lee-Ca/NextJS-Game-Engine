@@ -64,4 +64,4 @@ const PortalComponent: React.FC<PortalComponentProps> = ({ portalType }) => {
     );
 };
 
-export default PortalComponent;
+export default React.memo(PortalComponent);

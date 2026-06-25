@@ -1,6 +1,7 @@
 import { CUSTOM_STYLE } from "@/game/lib/conts";
 import styled from "@emotion/styled";
 import { Box } from "@mui/material";
+import { memo } from "react";
 
 const RowContainer = styled(Box)({
     display: "flex",
@@ -35,4 +36,4 @@ const StraightRoadComponent: React.FC = () => {
     );
 };
 
-export default StraightRoadComponent;
+export default memo(StraightRoadComponent);
