@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import GameCanvas from "./GameCanvas";
-import { useAppDispatch, useAppSelector } from "@/game/redux/hooks";
+import { useAppSelector } from "@/game/redux/hooks";
 import { useCSSVariable } from "game-engine/hooks/useCSSVariable";
 import GameLoop from "game-engine/core/GameLoop";
 import { CUSTOM_STYLE } from "../lib/conts";
@@ -14,9 +14,9 @@ import ModalWindowFactory from "../components/modal/ModalWindowFactory";
 import StyledAlert from "../components/template/StyledAlert";
 import VirtualKeyboard from "../components/VirtualKeyboard";
 import { VIRTUAL_KEYBOARD_PLUGIN_ID, VirtualKeyboardHandler } from "game-engine/extensions/plugins/virtualKeyboardPlugin";
-import { openAlert } from "../redux/features/alertSlice";
 import LevelAnnouncement from "../components/LevelAnnouncement";
 import TutorialTour from "../components/TutorialTour";
+import UnsupportedBrowserBanner from "../components/UnsupportedBrowserBanner";
 
 const GameBody = ({ gameLoop }: { gameLoop: GameLoop }) => {
     const levelState = useAppSelector((state) => state[LEVEL_PLUGIN_ID]);
@@ -25,24 +25,23 @@ const GameBody = ({ gameLoop }: { gameLoop: GameLoop }) => {
     const alertState = useAppSelector((state) => state.alert);
     const scaleFactor = useCSSVariable("--scale-factor"); //TODO make website responsive
 
-    const dispatch = useAppDispatch();
     const virtualKeyboardHandler = gameLoop.plugins[VIRTUAL_KEYBOARD_PLUGIN_ID] as VirtualKeyboardHandler;
 
-    useEffect(() => {
-        // Check if the user is using Chrome
-        const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+    const [showBrowserWarning, setShowBrowserWarning] = useState(false);
+    const [bannerHeight, setBannerHeight] = useState(0);
 
-        // If not Chrome, show the warning
-        if (!isChrome) {
-            dispatch(
-                openAlert({
-                    type: "warning",
-                    content: "For the best experience, please switch to using Google Chrome.",
-                    ttl: 5000,
-                })
-            );
-        }
+    useEffect(() => {
+        // Check if the user is using Chrome — Chrome is the only browser this engine is tested against.
+        const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+        setShowBrowserWarning(!isChrome);
     }, []);
+
+    // Measured (not assumed) since the banner's text can wrap to 2-3 lines depending on viewport width.
+    const handleBannerHeightChange = useCallback((height: number) => setBannerHeight(height), []);
+
+    const viewportTop = showBrowserWarning
+        ? CUSTOM_STYLE.SIZE.ACTION_BAR_HEIGHT + bannerHeight
+        : CUSTOM_STYLE.SIZE.ACTION_BAR_HEIGHT;
 
     useEffect(() => {
         (gameLoop.plugins[LEVEL_PLUGIN_ID] as LevelHandler).loadLevel();
@@ -54,6 +53,12 @@ const GameBody = ({ gameLoop }: { gameLoop: GameLoop }) => {
 
     return (
         <>
+            {showBrowserWarning && (
+                <UnsupportedBrowserBanner
+                    onDismiss={() => setShowBrowserWarning(false)}
+                    onHeightChange={handleBannerHeightChange}
+                />
+            )}
             <TutorialTour />
             <LevelAnnouncement />
             <StatusBar />
@@ -62,7 +67,7 @@ const GameBody = ({ gameLoop }: { gameLoop: GameLoop }) => {
             {modalState.isOpenModalWindow && <ModalWindowFactory windowType={modalState.modalWindowType!} />}
             <Viewport
                 backgroundColor={CUSTOM_STYLE.COLOR.MAIN_BLUE}
-                top={CUSTOM_STYLE.SIZE.ACTION_BAR_HEIGHT}
+                top={viewportTop}
                 bottom={0}
                 left={0}
                 right={0}

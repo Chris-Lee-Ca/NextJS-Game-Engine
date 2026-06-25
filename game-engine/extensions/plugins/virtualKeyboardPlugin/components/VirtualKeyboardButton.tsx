@@ -49,17 +49,23 @@ export const VirtualKeyboardButton = ({ keyCode, aliasKeyCodes, handler, childre
         };
     }, [keyCode, aliasKeyCodes]);
 
-    // Global pointerup handles all release scenarios: normal release on the button,
-    // pointer released after sliding off, and touch-end anywhere on screen.
+    // Global pointerup/pointercancel handles all release scenarios: normal release on the button,
+    // pointer released after sliding off, touch-end anywhere on screen, and Safari's gesture
+    // recognizer cancelling the pointer (fires pointercancel instead of pointerup) when it decides
+    // an ambiguous touch is a scroll/pan rather than a tap — without this, the key could get stuck held.
     useEffect(() => {
-        const onGlobalPointerUp = () => {
+        const onGlobalPointerEnd = () => {
             if (isHeldRef.current) {
                 isHeldRef.current = false;
                 handler.dispatchKeyUp(keyCode);
             }
         };
-        window.addEventListener("pointerup", onGlobalPointerUp);
-        return () => window.removeEventListener("pointerup", onGlobalPointerUp);
+        window.addEventListener("pointerup", onGlobalPointerEnd);
+        window.addEventListener("pointercancel", onGlobalPointerEnd);
+        return () => {
+            window.removeEventListener("pointerup", onGlobalPointerEnd);
+            window.removeEventListener("pointercancel", onGlobalPointerEnd);
+        };
     }, [keyCode, handler]);
 
     const handlePointerDown = (e: React.PointerEvent) => {

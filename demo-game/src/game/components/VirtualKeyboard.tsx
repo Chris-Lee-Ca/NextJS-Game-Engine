@@ -39,6 +39,16 @@ const ActionKeyContainer = styled(Grid)({
     alignItems: "center",
 });
 
+// touchAction/userSelect/touchCallout prevent Safari's gesture recognizer from treating a quick
+// tap as an ambiguous scroll/long-press, which can swallow the tap or fire pointercancel instead
+// of pointerup (Chrome doesn't need this to behave correctly).
+const safariTouchFix = {
+    touchAction: "none" as const,
+    WebkitUserSelect: "none" as const,
+    userSelect: "none" as const,
+    WebkitTouchCallout: "none" as const,
+};
+
 const directionButtonStyle = {
     maxWidth: "30px",
     maxHeight: "30px",
@@ -54,6 +64,7 @@ const directionButtonStyle = {
     backgroundColor: CUSTOM_STYLE.COLOR.MAIN_WHITE,
     cursor: "pointer",
     padding: 0,
+    ...safariTouchFix,
 };
 
 const actionButtonStyle = {
@@ -71,6 +82,7 @@ const actionButtonStyle = {
     fontWeight: "bolder" as const,
     cursor: "pointer",
     padding: 0,
+    ...safariTouchFix,
 };
 
 interface VirtualKeyboardProps {
