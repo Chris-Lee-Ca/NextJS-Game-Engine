@@ -5,6 +5,10 @@ Demo-game changes are not included.
 
 ## [Unreleased]
 
+## [1.8.0] - 2026-06-25
+### Changed
+- levelPlugin - support transition
+
 ## [1.7.1] - 2026-06-25
 ### Changed
 - lint
