@@ -5,6 +5,13 @@ Demo-game changes are not included.
 
 ## [Unreleased]
 
+## [1.7.1] - 2026-06-25
+### Changed
+- lint
+- memo most object, to improve perfromance
+- better safari support
+- changelog rewrite
+
 ## [1.7.0] - 2026-06-17
 
 ### Added
