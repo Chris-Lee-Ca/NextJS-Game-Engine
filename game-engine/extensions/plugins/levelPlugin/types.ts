@@ -1,3 +1,4 @@
+import { ComponentType } from "react";
 import { Offset, Placement, SpriteSheetInfo } from "../../../types/general";
 
 type Theme = {
@@ -19,4 +20,7 @@ type LevelInfo = {
 
 type AllLevelInfo = { [key: string]: LevelInfo };
 
-export type { Theme, LevelInfo, AllLevelInfo };
+// A renderable a game passes into LevelHandler to visualize level transitions.
+type LevelTransitionComponent = ComponentType<{ isTransitioning: boolean }>;
+
+export type { Theme, LevelInfo, AllLevelInfo, LevelTransitionComponent };

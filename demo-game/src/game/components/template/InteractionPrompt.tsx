@@ -65,7 +65,7 @@ const InteractionPrompt: React.FC<InteractionPromptProps> = (props) => {
         if (heldKeys.includes(promptKey)) {
             onClickFunction();
         }
-    }, [heldKeys]);
+    }, [heldKeys, onClickFunction, promptKey]);
 
     return (
         <InteractionPromptWrapper>

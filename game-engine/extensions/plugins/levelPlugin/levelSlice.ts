@@ -7,11 +7,13 @@ import { coreReducer } from "../../../redux/features/coreSlice";
 export interface LevelStateInterface {
     currentLevel: string;
     allLevelInfo: AllLevelInfo;
+    isTransitioning: boolean;
 }
 
 const initialState: LevelStateInterface = {
     currentLevel: "",
     allLevelInfo: {},
+    isTransitioning: false,
 };
 
 export const levelSlice = createSlice({
@@ -19,7 +21,15 @@ export const levelSlice = createSlice({
     initialState,
     reducers: {
         setCurrentLevel: (state, action: PayloadAction<string>) => {
+            // Guarded so the initial bootstrap dispatch (currentLevel: "" -> first level) doesn't
+            // flash a transition — only an actual change away from a real level counts.
+            if (state.currentLevel && state.currentLevel !== action.payload) {
+                state.isTransitioning = true;
+            }
             state.currentLevel = action.payload;
+        },
+        endLevelTransition: (state) => {
+            state.isTransitioning = false;
         },
         setAllLevelInfo: (state, action: PayloadAction<AllLevelInfo>) => {
             state.allLevelInfo = action.payload;
@@ -40,7 +50,7 @@ export const updateCurrentLevelInfo = (levelInfo: LevelInfo) => (dispatch: AppDi
     dispatch(setCurrentLevel(levelInfo.levelTitle));
 };
 
-export const { setCurrentLevel, setAllLevelInfo, setLevelInfoByKey } = levelSlice.actions;
+export const { setCurrentLevel, endLevelTransition, setAllLevelInfo, setLevelInfoByKey } = levelSlice.actions;
 export const levelReducer = levelSlice.reducer;
 
 const makeStore = () => {

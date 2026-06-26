@@ -6,7 +6,7 @@ import { useAppSelector } from "@/game/redux/hooks";
 import { useCSSVariable } from "game-engine/hooks/useCSSVariable";
 import GameLoop from "game-engine/core/GameLoop";
 import { CUSTOM_STYLE } from "../lib/conts";
-import { LEVEL_PLUGIN_ID, LevelHandler } from "game-engine/extensions/plugins/levelPlugin";
+import { LEVEL_PLUGIN_ID, LevelHandler, LevelTransitionOverlay } from "game-engine/extensions/plugins/levelPlugin";
 import StatusBar from "./StatusBar";
 import Viewport from "./Viewport";
 import DialogWindowFactory from "../components/dialog/DialogWindowFactory";
@@ -26,6 +26,7 @@ const GameBody = ({ gameLoop }: { gameLoop: GameLoop }) => {
     const scaleFactor = useCSSVariable("--scale-factor"); //TODO make website responsive
 
     const virtualKeyboardHandler = gameLoop.plugins[VIRTUAL_KEYBOARD_PLUGIN_ID] as VirtualKeyboardHandler;
+    const levelHandler = gameLoop.plugins[LEVEL_PLUGIN_ID] as LevelHandler;
 
     const [showBrowserWarning, setShowBrowserWarning] = useState(false);
     const [bannerHeight, setBannerHeight] = useState(0);
@@ -49,7 +50,7 @@ const GameBody = ({ gameLoop }: { gameLoop: GameLoop }) => {
         return () => {
             gameLoop.stop();
         };
-    }, [levelState.currentLevel, scaleFactor]);
+    }, [levelState.currentLevel, scaleFactor, gameLoop]);
 
     return (
         <>
@@ -61,6 +62,7 @@ const GameBody = ({ gameLoop }: { gameLoop: GameLoop }) => {
             )}
             <TutorialTour />
             <LevelAnnouncement />
+            <LevelTransitionOverlay transition={levelHandler.transition} />
             <StatusBar />
             {alertState.isOpenAlertWindow && <StyledAlert />}
             {dialogState.isOpenDialogWindow && <DialogWindowFactory windowType={dialogState.dialogWindowType!} />}

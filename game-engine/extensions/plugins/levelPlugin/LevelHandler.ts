@@ -1,5 +1,5 @@
-import { AppDispatch, AppStore, setAllLevelInfo, setCurrentLevel } from "./levelSlice";
-import { AllLevelInfo, LevelInfo } from "./types";
+import { AppDispatch, AppStore, endLevelTransition, setAllLevelInfo, setCurrentLevel } from "./levelSlice";
+import { AllLevelInfo, LevelInfo, LevelTransitionComponent } from "./types";
 import { CreateObjectParams, GameObjectFactory } from "../../../components/GameObjectFactory";
 import GameObject from "../../../components/GameObject";
 import ObjectPool from "../../../core/ObjectPool";
@@ -15,23 +15,38 @@ export interface LevelHandlerConfig {
     gameObjectFactory: GameObjectFactory;
     currentLevel: string;
     allLevelInfo: AllLevelInfo;
+    onLevelChanged?: (newLevelInfo: LevelInfo, previousLevelInfo: LevelInfo | undefined) => void;
+    /** Pass a transition (e.g. `FadeTransition()`) to visualize level loads, or omit for none. */
+    transition?: LevelTransitionComponent;
 }
 
 export class LevelHandler implements PluginHandler {
     public pluginId: string;
+    public readonly transition?: LevelTransitionComponent;
     private store: AppStore;
     private dispatch: AppDispatch;
     private objectPool: Map<string, GameObject>;
     private gameObjectFactory: GameObjectFactory<unknown>;
 
     private previousLevelInfo: LevelInfo | undefined;
+    private onLevelChanged?: (newLevelInfo: LevelInfo, previousLevelInfo: LevelInfo | undefined) => void;
 
-    public constructor({ store, dispatch, gameObjectFactory, currentLevel, allLevelInfo }: LevelHandlerConfig) {
+    public constructor({
+        store,
+        dispatch,
+        gameObjectFactory,
+        currentLevel,
+        allLevelInfo,
+        onLevelChanged,
+        transition,
+    }: LevelHandlerConfig) {
         this.pluginId = LEVEL_PLUGIN_ID;
         this.store = store;
         this.dispatch = dispatch;
         this.gameObjectFactory = gameObjectFactory;
         this.objectPool = ObjectPool;
+        this.onLevelChanged = onLevelChanged;
+        this.transition = transition;
         this.dispatch(setCurrentLevel(currentLevel));
         this.dispatch(setAllLevelInfo(allLevelInfo));
     }
@@ -60,7 +75,13 @@ export class LevelHandler implements PluginHandler {
             this.createGameObject(placement);
         });
 
+        // Capture the outgoing level before overwriting it, then tell two independent listeners
+        // that loading just finished: the transition system (so any overlay can fade back out)
+        // and the optional onLevelChanged callback (a generic hook for anything else that cares).
+        const previousLevelInfo = this.previousLevelInfo;
         this.previousLevelInfo = currentLevelInfo;
+        this.dispatch(endLevelTransition());
+        this.onLevelChanged?.(currentLevelInfo, previousLevelInfo);
     }
 
     public deinit(): void {}

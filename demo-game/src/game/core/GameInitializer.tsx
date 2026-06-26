@@ -6,7 +6,7 @@ import GameLoop from "game-engine/core/GameLoop";
 import { GAME_SETTING } from "../lib/conts";
 import { KeyboardEventHandler } from "game-engine/extensions/plugins/keyboardEventPlugin";
 import { VirtualKeyboardHandler } from "game-engine/extensions/plugins/virtualKeyboardPlugin";
-import { LEVEL_PLUGIN_ID, LevelHandler } from "game-engine/extensions/plugins/levelPlugin";
+import { FadeTransition, LEVEL_PLUGIN_ID, LevelHandler } from "game-engine/extensions/plugins/levelPlugin";
 import {
     DEFAULT_DIRECTION_KEY_MAPPING,
     DirectionControlHandler,
@@ -53,6 +53,7 @@ const GameInitializer = () => {
                     currentLevel: levelState.currentLevel ? levelState.currentLevel : "intro-level-1",
                     allLevelInfo:
                         Object.keys(levelState.allLevelInfo).length !== 0 ? levelState.allLevelInfo : allDemoLevelInfo,
+                    transition: FadeTransition(),
                 }),
                 new AudioHandler({ store: appStore }),
             ],
@@ -65,7 +66,7 @@ const GameInitializer = () => {
                 new ActionControlHandler({ store: appStore, dispatch, actionKeyMapping: ACTION_KEY_MAPPING }),
             ],
         });
-    }, [appStore, dispatch]);
+    }, [appStore, dispatch, levelState.allLevelInfo, levelState.currentLevel]);
 
     return <GameBody gameLoop={gameLoop} />;
 };
