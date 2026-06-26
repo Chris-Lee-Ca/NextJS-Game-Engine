@@ -64,6 +64,7 @@ const PaintingComponent: React.FC<PaintingComponentProps> = (props) => {
                 <ImageWrapper>
                     <Image
                         src={project?.image.asset.url}
+                        alt={project?.title ?? "Painting"}
                         style={{
                             objectFit: "contain",
                             width: `${GridHelper.getGridSizeInPixel()}px`,

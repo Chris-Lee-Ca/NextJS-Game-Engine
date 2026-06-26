@@ -42,7 +42,7 @@ export const PlacementSelector = () => {
         return () => {
             dispatch(updateSelectedItem(null));
         };
-    }, [currentTab]);
+    }, [currentTab, dispatch]);
 
     return (
         <>

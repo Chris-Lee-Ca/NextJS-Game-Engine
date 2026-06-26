@@ -17,7 +17,7 @@ const ResumeBackpackComponent: React.FC<ResumeBackpackComponentProps> = (props) 
 
     return (
         <div onClick={handleOnClickReadIt} style={{ ...style }}>
-            <Image src={paper.src} />
+            <Image src={paper.src} alt="Resume" />
         </div>
     );
 };

@@ -13,15 +13,16 @@ const Container = styled(Box)({
 
 interface GridSizeImageProps {
     src: string;
+    alt?: string;
     style?: CSSProperties;
 }
 
 const GridSizeImage = (props: GridSizeImageProps) => {
-    const { src, style } = props;
+    const { src, alt = "", style } = props;
 
     return (
         <Container style={{ ...style }}>
-            <Image src={src} />
+            <Image src={src} alt={alt} />
         </Container>
     );
 };

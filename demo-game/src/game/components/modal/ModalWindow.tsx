@@ -96,7 +96,7 @@ const ModalWindow = (props: ModalWindowPropsInterface) => {
         return () => {
             dispatch(setIsDisabledMainCharacterControl(false));
         };
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         const container = containerRef.current;
@@ -118,6 +118,7 @@ const ModalWindow = (props: ModalWindowPropsInterface) => {
                             <ImgWrapper>
                                 <Image
                                     src={imageSrc}
+                                    alt=""
                                     style={{
                                         height: "15vh",
                                         maxWidth: "90%",

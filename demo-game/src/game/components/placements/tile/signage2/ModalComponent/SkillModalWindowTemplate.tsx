@@ -47,6 +47,7 @@ export const SkillModalWindowTemplate: React.FC<SkillModalWindowTemplateProps> =
                         <SkillSet key={idnex}>
                             <Image
                                 src={skill.image}
+                                alt={skill.name}
                                 style={{
                                     width: "30px",
                                     height: "30px",

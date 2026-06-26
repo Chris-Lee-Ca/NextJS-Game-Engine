@@ -135,7 +135,7 @@ const LevelEditor = (_props: Record<string, never>) => {
                 ttl: 10000,
             })
         );
-    }, []);
+    }, [dispatch]);
 
     return (
         <LevelEditorWrapper>

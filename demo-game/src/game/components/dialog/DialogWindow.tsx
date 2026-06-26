@@ -86,7 +86,7 @@ const DialogWindow = (props: DialogWindowPropsInterface) => {
         return () => {
             dispatch(setIsDisabledMainCharacterControl(false));
         };
-    }, []);
+    }, [dispatch]);
 
     return (
         <>
@@ -95,7 +95,7 @@ const DialogWindow = (props: DialogWindowPropsInterface) => {
                     <Container container>
                         <LeftContainer item>
                             <ImgWrapper>
-                                <Image src={imageSrc} />
+                                <Image src={imageSrc} alt="" />
                             </ImgWrapper>
                         </LeftContainer>
                         <RightContainer item>
