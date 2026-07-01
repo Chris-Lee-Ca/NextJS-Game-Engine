@@ -16,6 +16,7 @@ class GameLoop {
     static instance: GameLoop;
     store: AppStore;
     lastFrameTime: number;
+    nextFrameTime: number;
     targetFPS: number;
     plugins: { [key: string]: PluginHandler };
     modules: { [key: string]: ModuleHandler };
@@ -23,6 +24,7 @@ class GameLoop {
 
     private constructor({ targetFPS, reduxStore, plugins, modules }: GameLoopConfig) {
         this.lastFrameTime = 0;
+        this.nextFrameTime = 0;
         this.targetFPS = targetFPS;
         this.store = reduxStore;
         this.plugins = plugins.reduce(
@@ -73,16 +75,16 @@ class GameLoop {
     }
 
     public loop(currentTime: number) {
-        requestAnimationFrame(this.loop.bind(this)); // Continue the loop
+        requestAnimationFrame(this.loop.bind(this));
+
+        // Allow 1ms early to absorb rAF timestamp jitter at the frame boundary.
+        const FRAME_SLACK_MS = 1;
+        if (currentTime + FRAME_SLACK_MS < this.nextFrameTime) return;
 
         const deltaTime = currentTime - this.lastFrameTime;
-        const frameDuration = 1000 / this.targetFPS;
-        if (deltaTime >= frameDuration) {
-            this.lastFrameTime = currentTime;
-
-            // Perform Game Logic Here
-            this.update(deltaTime);
-        }
+        this.lastFrameTime = currentTime;
+        this.nextFrameTime = currentTime + 1000 / this.targetFPS;
+        this.update(deltaTime);
     }
 
     private update(deltaTime: number) {
