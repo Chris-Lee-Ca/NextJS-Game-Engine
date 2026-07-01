@@ -13,6 +13,10 @@ Demo-game changes are not included.
 
 - `performCollisionLogic` is no longer abstract on `GameObject` — defaults to a no-op, consistent with `onTriggerEnter`/`onTriggerExit`.
 
+## [1.9.0] - 2026-06-30
+### Changed
+- add shared collision response layer
+
 ## [1.8.0] - 2026-06-25
 ### Changed
 - levelPlugin - support transition
