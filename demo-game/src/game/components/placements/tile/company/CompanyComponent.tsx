@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import MemoHelper from "game-engine/helper/MemoHelper";
 import GridSizeImage from "@/game/components/template/GridSizeImage";
 import CompanyImage from "@/game/assets/componentImage/company.png";
 import InteractionPrompt from "@/game/components/template/InteractionPrompt";
@@ -27,4 +28,4 @@ const CompanyComponent: React.FC<CompanyComponentProps> = (props) => {
     );
 };
 
-export default React.memo(CompanyComponent);
+export default MemoHelper.withValueEquality(CompanyComponent);

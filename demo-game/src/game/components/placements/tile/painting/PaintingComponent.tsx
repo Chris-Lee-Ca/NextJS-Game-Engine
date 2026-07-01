@@ -8,6 +8,7 @@ import { Box, Typography, styled } from "@mui/material";
 import { CUSTOM_STYLE } from "@/game/lib/conts";
 import GridHelper from "game-engine/helper/GridHelper";
 import Image from "game-engine/components/Image";
+import MemoHelper from "game-engine/helper/MemoHelper";
 import { reduxStore } from "@/game/redux/store";
 import { Project } from "@/game/types/gameStaticData";
 
@@ -78,4 +79,4 @@ const PaintingComponent: React.FC<PaintingComponentProps> = (props) => {
     );
 };
 
-export default React.memo(PaintingComponent);
+export default MemoHelper.withValueEquality(PaintingComponent);

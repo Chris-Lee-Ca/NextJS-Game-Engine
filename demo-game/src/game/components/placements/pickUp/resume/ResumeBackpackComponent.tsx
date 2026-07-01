@@ -1,6 +1,7 @@
 "use client";
 
 import React, { CSSProperties } from "react";
+import MemoHelper from "game-engine/helper/MemoHelper";
 import Image from "game-engine/components/Image";
 import paper from "@/game/assets/componentImage/paper.png";
 import { Bio } from "@/game/lib/gameContent";
@@ -22,4 +23,4 @@ const ResumeBackpackComponent: React.FC<ResumeBackpackComponentProps> = (props) 
     );
 };
 
-export default React.memo(ResumeBackpackComponent);
+export default MemoHelper.withValueEquality(ResumeBackpackComponent);

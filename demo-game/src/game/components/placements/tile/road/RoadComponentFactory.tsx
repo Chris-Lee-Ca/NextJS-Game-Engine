@@ -1,4 +1,5 @@
-import { FC, ReactNode, memo } from "react";
+import { FC, ReactNode } from "react";
+import MemoHelper from "game-engine/helper/MemoHelper";
 import { RoadType } from "@/game/types/placement";
 import { Facing } from "game-engine/extensions/modules/MainCharacterDirectionControlModule";
 import {
@@ -38,4 +39,4 @@ const RoadComponentFactory = (props: RoadComponentFactoryProps) => {
     return <RoadComponentWrapper facing={facing} roadInterface={renderComponent(roadInterface)} />;
 };
 
-export default memo(RoadComponentFactory);
+export default MemoHelper.withValueEquality(RoadComponentFactory);

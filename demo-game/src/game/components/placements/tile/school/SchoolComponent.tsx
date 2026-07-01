@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import MemoHelper from "game-engine/helper/MemoHelper";
 import GridSizeImage from "@/game/components/template/GridSizeImage";
 import SchoolImage from "@/game/assets/componentImage/school.png";
 import InteractionPrompt from "@/game/components/template/InteractionPrompt";
@@ -27,4 +28,4 @@ const SchoolComponent: React.FC<SchoolComponentProps> = (props) => {
     );
 };
 
-export default React.memo(SchoolComponent);
+export default MemoHelper.withValueEquality(SchoolComponent);

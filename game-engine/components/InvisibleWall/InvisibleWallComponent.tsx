@@ -1,9 +1,9 @@
 "use client";
 
-import { memo } from "react";
+import MemoHelper from "../../helper/MemoHelper";
 
 const InvisibleWallComponent = () => {
     return <div />;
 };
 
-export default memo(InvisibleWallComponent);
+export default MemoHelper.withValueEquality(InvisibleWallComponent);

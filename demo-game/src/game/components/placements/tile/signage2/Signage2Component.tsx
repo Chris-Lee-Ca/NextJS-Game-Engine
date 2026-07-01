@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import MemoHelper from "game-engine/helper/MemoHelper";
 import GridSizeImage from "@/game/components/template/GridSizeImage";
 import Signage2Image from "@/game/assets/componentImage/signage2.png";
 import InteractionPrompt from "@/game/components/template/InteractionPrompt";
@@ -51,4 +52,4 @@ const Signage2Component: React.FC<Signage2ComponentProps> = (props) => {
     );
 };
 
-export default React.memo(Signage2Component);
+export default MemoHelper.withValueEquality(Signage2Component);

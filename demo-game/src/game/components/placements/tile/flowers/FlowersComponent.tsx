@@ -4,6 +4,7 @@ import React from "react";
 import { MAIN_SPRITE_SHEET } from "@/game/lib/conts";
 import SpriteHelper from "game-engine/helper/SpriteHelper";
 import Sprite from "game-engine/components/Sprite/Sprite";
+import MemoHelper from "game-engine/helper/MemoHelper";
 
 const FlowersComponent: React.FC = () => {
     return (
@@ -18,4 +19,4 @@ const FlowersComponent: React.FC = () => {
     );
 };
 
-export default React.memo(FlowersComponent);
+export default MemoHelper.withValueEquality(FlowersComponent);

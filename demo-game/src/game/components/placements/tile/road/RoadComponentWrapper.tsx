@@ -2,7 +2,8 @@ import styled from "@emotion/styled";
 import { Box } from "@mui/material";
 import { Facing } from "game-engine/extensions/modules/MainCharacterDirectionControlModule";
 import GridHelper from "game-engine/helper/GridHelper";
-import { ReactNode, memo } from "react";
+import { ReactNode } from "react";
+import MemoHelper from "game-engine/helper/MemoHelper";
 
 const Container = styled(Box)({
     position: "absolute",
@@ -40,4 +41,4 @@ const RoadComponentWrapper = (props: RoadComponentWrapperProps) => {
     );
 };
 
-export default memo(RoadComponentWrapper);
+export default MemoHelper.withValueEquality(RoadComponentWrapper);

@@ -11,6 +11,7 @@ import AnimationHelper from "@/game/helper/AnimationHelper";
 import SpriteHelper from "game-engine/helper/SpriteHelper";
 import { Facing } from "game-engine/extensions/modules/MainCharacterDirectionControlModule";
 import Rectangle from "game-engine/components/Rectangle";
+import MemoHelper from "game-engine/helper/MemoHelper";
 import Bound from "@/game/components/Bound";
 import { useAppSelector } from "@/game/redux/hooks";
 import { DOUBLE_TAP_RUN_PLUGIN_ID } from "game-engine/extensions/plugins/doubleTapRunPlugin";
@@ -132,4 +133,4 @@ const MainCharacterComponent: React.FC<MainCharacterComponentProps> = ({
     );
 };
 
-export default React.memo(MainCharacterComponent);
+export default MemoHelper.withValueEquality(MainCharacterComponent);

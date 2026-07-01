@@ -1,7 +1,7 @@
 import { CUSTOM_STYLE } from "@/game/lib/conts";
 import styled from "@emotion/styled";
 import { Box } from "@mui/material";
-import { memo } from "react";
+import MemoHelper from "game-engine/helper/MemoHelper";
 
 const RowContainer = styled(Box)({
     display: "flex",
@@ -44,4 +44,4 @@ const TJunctionRoadComponent: React.FC = () => {
     );
 };
 
-export default memo(TJunctionRoadComponent);
+export default MemoHelper.withValueEquality(TJunctionRoadComponent);

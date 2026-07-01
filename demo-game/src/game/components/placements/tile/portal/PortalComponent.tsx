@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import MemoHelper from "game-engine/helper/MemoHelper";
 import GridSizeImage from "@/game/components/template/GridSizeImage";
 import { PortalType } from "@/game/types/placement";
 import { Box, Typography, styled } from "@mui/material";
@@ -64,4 +65,4 @@ const PortalComponent: React.FC<PortalComponentProps> = ({ portalType }) => {
     );
 };
 
-export default React.memo(PortalComponent);
+export default MemoHelper.withValueEquality(PortalComponent);

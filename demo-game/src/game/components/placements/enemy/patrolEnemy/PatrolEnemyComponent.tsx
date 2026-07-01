@@ -6,6 +6,7 @@ import { keyframes } from "@mui/system";
 import GridHelper from "game-engine/helper/GridHelper";
 import { Vector2 } from "game-engine/types/general";
 import Rectangle from "game-engine/components/Rectangle";
+import MemoHelper from "game-engine/helper/MemoHelper";
 import Bound from "@/game/components/Bound";
 import { useAppSelector } from "@/game/redux/hooks";
 import { PatrolDirection } from "@/game/types/placement";
@@ -86,4 +87,4 @@ const PatrolEnemyComponent: React.FC<PatrolEnemyComponentProps> = ({ position, b
     );
 };
 
-export default React.memo(PatrolEnemyComponent);
+export default MemoHelper.withValueEquality(PatrolEnemyComponent);

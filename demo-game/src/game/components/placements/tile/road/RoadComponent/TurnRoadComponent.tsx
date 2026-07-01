@@ -1,7 +1,7 @@
 import { CUSTOM_STYLE } from "@/game/lib/conts";
 import styled from "@emotion/styled";
 import { Box } from "@mui/material";
-import { memo } from "react";
+import MemoHelper from "game-engine/helper/MemoHelper";
 
 const Container = styled(Box)({
     position: "absolute",
@@ -64,4 +64,4 @@ const TurnRoadComponent: React.FC = () => {
     );
 };
 
-export default memo(TurnRoadComponent);
+export default MemoHelper.withValueEquality(TurnRoadComponent);
