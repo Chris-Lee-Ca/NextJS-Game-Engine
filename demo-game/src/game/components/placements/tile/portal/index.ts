@@ -10,6 +10,7 @@ import { setCurrentLevel } from "game-engine/extensions/plugins/levelPlugin";
 import { PortalObjectPlacement, PortalType } from "@/game/types/placement";
 import { openAlert } from "@/game/redux/features/alertSlice";
 import { getAudioHandler, preloadSfx } from "game-engine/extensions/plugins/audioPlugin";
+import CharacterObject from "../../character/CharacterObject";
 
 const SFX_LEVEL_TRANSITION = { type: "file" as const, id: "level-transition", bgmBehavior: "block" as const };
 
@@ -20,7 +21,7 @@ class Portal extends TileObject {
         super(params.placement);
         const gridSize = GridHelper.getGridSizeInPixel();
         this.store = params.reduxStore;
-        this.bound = new Rectangle(this.position.x + gridSize / 4, this.position.y, gridSize / 2, gridSize); // only cover the center part of the item
+        this.triggerBound = new Rectangle(this.position.x + gridSize / 4, this.position.y, gridSize / 2, gridSize); // only cover the center part of the item
         this.portalType = (params.placement as PortalObjectPlacement).portalType;
 
         preloadSfx("level-transition", "/audio/level-transition.mp3");
@@ -69,7 +70,8 @@ class Portal extends TileObject {
         this.store.dispatch(setCurrentLevel(newLevel));
     }
 
-    override performCollisionLogic(_object: GameObject): void {
+    override onTriggerEnter(other: GameObject): void {
+        if (!(other instanceof CharacterObject)) return;
         this.changeLevel();
     }
 }

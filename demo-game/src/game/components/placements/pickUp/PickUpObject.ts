@@ -7,9 +7,9 @@ import { ReactNode } from "react";
 import EmptyComponent from "./EmptyComponent";
 import { AppStore } from "@/game/redux/store";
 import { addItemToBackpack } from "@/game/redux/features/backpackSlice";
+import CharacterObject from "../character/CharacterObject";
 
 abstract class PickUpObject extends GameObject {
-    bound: Rectangle | undefined;
     isItemPickup: boolean;
     store: AppStore;
     itemName: PickUpTypeItem;
@@ -19,16 +19,17 @@ abstract class PickUpObject extends GameObject {
         const gridSize = GridHelper.getGridSizeInPixel();
         this.store = params.reduxStore;
         this.itemName = params.placement.itemName as PickUpTypeItem;
-        this.bound = new Rectangle(this.position.x + gridSize / 4, this.position.y, gridSize / 2, gridSize); // only cover the center part of the item
+        this.triggerBound = new Rectangle(this.position.x + gridSize / 4, this.position.y, gridSize / 2, gridSize); // only cover the center part of the item
         this.isItemPickup = false;
     }
 
     abstract renderPendingPickup(): ReactNode;
 
-    performCollisionLogic(_object: GameObject): void {
+    onTriggerEnter(other: GameObject): void {
+        if (!(other instanceof CharacterObject)) return;
         this.store.dispatch(addItemToBackpack(this.itemName));
         this.isItemPickup = true;
-        this.bound = undefined;
+        this.triggerBound = undefined;
     }
 
     render(): ReactNode {

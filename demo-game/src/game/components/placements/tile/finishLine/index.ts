@@ -7,6 +7,7 @@ import { openDialogWindow } from "@/game/redux/features/dialogSlice";
 import Rectangle from "game-engine/components/Rectangle";
 import GridHelper from "game-engine/helper/GridHelper";
 import { AppStore } from "@/game/redux/store";
+import CharacterObject from "../../character/CharacterObject";
 
 class FinishLine extends TileObject {
     store: AppStore;
@@ -14,7 +15,7 @@ class FinishLine extends TileObject {
         super(params.placement);
         const gridSize = GridHelper.getGridSizeInPixel();
         this.store = params.reduxStore;
-        this.bound = new Rectangle(this.position.x + gridSize / 4, this.position.y, gridSize / 2, gridSize); // only cover the center part of the item
+        this.triggerBound = new Rectangle(this.position.x + gridSize / 4, this.position.y, gridSize / 2, gridSize); // only cover the center part of the item
     }
 
     override update(_deltaTime: number) {}
@@ -27,8 +28,8 @@ class FinishLine extends TileObject {
         this.store.dispatch(openDialogWindow("finish-line"));
     }
 
-    override performCollisionLogic(_object: GameObject): void {
-        // Show the dialog when a collision happens
+    override onTriggerEnter(other: GameObject): void {
+        if (!(other instanceof CharacterObject)) return;
         this.openResumeDialog();
     }
 }

@@ -4,6 +4,7 @@ import React from "react";
 import PickUpObject from "../PickUpObject";
 import GameObject from "game-engine/components/GameObject";
 import { openDialogWindow } from "@/game/redux/features/dialogSlice";
+import CharacterObject from "../../character/CharacterObject";
 
 class Resume extends PickUpObject {
     constructor(params: CreateCustomObjectParams) {
@@ -20,10 +21,11 @@ class Resume extends PickUpObject {
         this.store.dispatch(openDialogWindow("resume"));
     }
 
-    override performCollisionLogic(object: GameObject): void {
-        // Show the dialog when a collision happens
+    override onTriggerEnter(other: GameObject): void {
+        if (!(other instanceof CharacterObject)) return;
+        // Show the dialog when the player enters this zone
         this.openResumeDialog();
-        super.performCollisionLogic(object);
+        super.onTriggerEnter(other);
     }
 }
 
