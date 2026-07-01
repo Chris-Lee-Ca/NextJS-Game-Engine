@@ -22,6 +22,7 @@ registerModalResolver("company-", (id) => createCompanyModalWindowComponent(id))
 import GameBody from "./GameBody";
 import { ACTION_KEY_MAPPING } from "../lib/control";
 import { AudioHandler } from "game-engine/extensions/plugins/audioPlugin";
+import { PerformanceMonitorHandler } from "game-engine/extensions/plugins/performanceMonitorPlugin";
 
 // Create & Init GameLoop
 const GameInitializer = () => {
@@ -56,6 +57,7 @@ const GameInitializer = () => {
                     transition: FadeTransition(),
                 }),
                 new AudioHandler({ store: appStore }),
+                new PerformanceMonitorHandler({ dispatch }),
             ],
             modules: [
                 new DirectionControlHandler({

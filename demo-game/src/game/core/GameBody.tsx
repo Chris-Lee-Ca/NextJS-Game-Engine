@@ -17,6 +17,7 @@ import { VIRTUAL_KEYBOARD_PLUGIN_ID, VirtualKeyboardHandler } from "game-engine/
 import LevelAnnouncement from "../components/LevelAnnouncement";
 import TutorialTour from "../components/TutorialTour";
 import UnsupportedBrowserBanner from "../components/UnsupportedBrowserBanner";
+import { PerformanceOverlay } from "game-engine/extensions/plugins/performanceMonitorPlugin";
 
 const GameBody = ({ gameLoop }: { gameLoop: GameLoop }) => {
     const levelState = useAppSelector((state) => state[LEVEL_PLUGIN_ID]);
@@ -62,6 +63,7 @@ const GameBody = ({ gameLoop }: { gameLoop: GameLoop }) => {
             )}
             <TutorialTour />
             <LevelAnnouncement />
+            <PerformanceOverlay style={{ top: "auto", bottom: "8px" }} />
             <LevelTransitionOverlay transition={levelHandler.transition} />
             <StatusBar />
             {alertState.isOpenAlertWindow && <StyledAlert />}
