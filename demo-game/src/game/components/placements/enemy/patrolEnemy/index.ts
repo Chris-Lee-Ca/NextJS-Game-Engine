@@ -6,8 +6,6 @@ import { PatrolDirection, PatrolEnemyObjectPlacement } from "@/game/types/placem
 import { AppStore } from "@/game/redux/store";
 import Rectangle from "game-engine/components/Rectangle";
 import GridHelper from "game-engine/helper/GridHelper";
-import GameObject from "game-engine/components/GameObject";
-import { LEVEL_PLUGIN_ID } from "game-engine/extensions/plugins/levelPlugin";
 
 const PATROL_SPEED = 4;
 
@@ -52,32 +50,8 @@ class PatrolEnemy extends EnemyObject {
             .clone()
             .setPosition(newPosition.x + gridSize * 0.1, newPosition.y + gridSize * 0.15);
 
-        const state = this.store.getState();
-        const currentLevel = state[LEVEL_PLUGIN_ID].currentLevel;
-        const levelInfo = state[LEVEL_PLUGIN_ID].allLevelInfo[currentLevel];
-        const levelPixelWidth = levelInfo ? levelInfo.tilesWidth * gridSize : Infinity;
-        const levelPixelHeight = levelInfo ? levelInfo.tilesHeight * gridSize : Infinity;
-
-        const hitEdge = horizontal
-            ? newPosition.x < 0 || newPosition.x + gridSize > levelPixelWidth
-            : newPosition.y < 0 || newPosition.y + gridSize > levelPixelHeight;
-
-        if (hitEdge) {
-            this.patrolDirection = reverseDirection[this.patrolDirection];
-            return;
-        }
-
-        const collisionList = this.checkCollision(newBound);
-        if (collisionList.length > 0) {
-            this.patrolDirection = reverseDirection[this.patrolDirection];
-            for (const object of collisionList) {
-                object.performCollisionLogic(this);
-            }
-            return;
-        }
-
-        this.position = newPosition;
-        this.bound = newBound;
+        const { blocked } = this.moveAndCollide(newPosition, newBound);
+        if (blocked) this.patrolDirection = reverseDirection[this.patrolDirection];
     }
 
     render() {
@@ -87,8 +61,6 @@ class PatrolEnemy extends EnemyObject {
             facing: this.patrolDirection,
         });
     }
-
-    performCollisionLogic(_object: GameObject): void {}
 }
 
 export default PatrolEnemy;

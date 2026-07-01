@@ -37,7 +37,25 @@ abstract class GameObject {
         return collisionList;
     }
 
-    abstract performCollisionLogic(object: GameObject): void;
+    performCollisionLogic(_object: GameObject): void {}
+
+    protected moveAndCollide(
+        newPosition: Vector2,
+        newBound: Rectangle,
+        onCommit?: () => void,
+    ): { blocked: boolean; collisions: GameObject[] } {
+        const collisions = this.checkCollision(newBound);
+        for (const object of collisions) {
+            object.performCollisionLogic(this);
+        }
+        const blocked = collisions.length > 0;
+        if (!blocked) {
+            this.position = newPosition;
+            this.bound = newBound;
+            onCommit?.(); // called after position/bound are set, for any extra derived state
+        }
+        return { blocked, collisions };
+    }
 
     toString(): string {
         return `GameObject: type -- ${typeof this}, id -- ${this.id}`;

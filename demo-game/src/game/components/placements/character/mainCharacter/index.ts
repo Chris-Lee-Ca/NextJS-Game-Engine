@@ -113,19 +113,15 @@ class MainCharacter extends CharacterObject {
             .clone()
             .setPosition(characterNewPosition.x + this.legArea.xOffset, characterNewPosition.y + this.legArea.yOffset);
 
-        const collisionList = this.checkCollision(characterNewBound);
-        if (collisionList.length !== 0) {
-            for (const object of collisionList) {
-                object.performCollisionLogic(this);
-                // Hitting an enemy while moving: knock back in the opposite direction of travel.
-                if (object.id.startsWith("Enemy-")) {
-                    this.startKnockback(0, 0); // movement direction is active, no fallback needed
-                }
-            }
-            this.footstep.reset();
-            return;
+        const { blocked, collisions } = this.moveAndCollide(
+            characterNewPosition, characterNewBound,
+            () => this.performMovment(),
+        );
+        for (const object of collisions) {
+            // Hitting an enemy while moving: knock back in the opposite direction of travel.
+            if (object.id.startsWith("Enemy-")) this.startKnockback(0, 0); // movement direction is active, no fallback needed
         }
-        this.performMovment(characterNewPosition, characterNewBound);
+        if (blocked) { this.footstep.reset(); return; }
         this.footstep.tick(deltaTime, isRunning);
     }
 
@@ -189,14 +185,11 @@ class MainCharacter extends CharacterObject {
             .setPosition(newPosition.x + this.legArea.xOffset, newPosition.y + this.legArea.yOffset);
 
         // Stop at any obstacle hit during the slide.
-        const collisionList = this.checkCollision(newBound);
-        if (collisionList.length > 0) {
+        const { blocked } = this.moveAndCollide(newPosition, newBound);
+        if (blocked) {
             this.knockbackState = null;
             return;
         }
-
-        this.position = newPosition;
-        this.bound = newBound;
 
         kb.remaining -= moveThisFrame;
         if (kb.remaining <= 0) {
@@ -222,10 +215,8 @@ class MainCharacter extends CharacterObject {
         }
     }
 
-    private performMovment(characterNewPosition: Vector2, characterNewBound: Rectangle) {
-        this.position = characterNewPosition;
-        this.bound = characterNewBound;
-        this.coord = Converter.vectorToCoord(this.bound.getCenter());
+    private performMovment() {
+        this.coord = Converter.vectorToCoord(this.bound!.getCenter());
     }
 }
 
